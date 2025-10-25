@@ -36,7 +36,7 @@ const creditMin = 5000;
 const creditMax = 60000;
 const creditAmount = ref(10000);
 const creditTypes = ['Потребительский', 'Ипотечный', 'Автокредит'];
-const creditType = ref(creditTypes[0]);
+const creditType = ref('');
 const isCreditTypeOpen = ref(false);
 const setCreditType = (t) => {
   creditType.value = t;
@@ -134,7 +134,7 @@ const rates = [
             </div>
           </div>
 
-          <div v-show="activeTab === 'Все'" class="grid gap-4 lg:grid-cols-12">
+          <div v-show="activeTab === 'Все'" class="grid gap-4 grid-cols-12">
             <div class="lg:col-span-8 grid gap-4 sm:grid-cols-2">
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
                 <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
@@ -191,6 +191,95 @@ const rates = [
                   class="block w-full h-full object-contain select-none pointer-events-none" alt="percent">
               </span>
             </div>
+
+            <div class="col-span-12 grid gap-4 grid-cols-12">
+              <div class="col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                  Депозитный вклад «Забота о родителях»
+                </h6>
+                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                <span class="max-h-[120px] h-full flex items-end justify-end">
+                  <img src="../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
+                </span>
+              </div>
+
+              <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                  Банковская карта «Гоюм»
+                </h6>
+                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                <span class="max-h-[120px] h-full flex items-end justify-end">
+                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                </span>
+              </div>
+
+              <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                  Банковская карта «Гоюм»
+                </h6>
+                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                <span class="max-h-[120px] h-full flex items-end justify-end">
+                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                </span>
+              </div>
+
+              <div
+                class="col-span-8 rounded-[20px] p-8 shadow-sm hover:shadow-md transition offer-circle overflow-hidden relative bg-[#1D2417]">
+                <h6 class="text-[28px] text-[#F7F8F6] leading-7 font-bold mb-[10px]">
+                  Депозитный вклад «Забота о родителях»
+                </h6>
+                <p class="text-[17px] text-[#F7F8F6]/60 leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                <span class="max-h-[120px] h-full flex items-end justify-end">
+                  <img src="../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
+                </span>
+              </div>
+
+              <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                  Депозитный вклад «Забота о родителях»
+                </h6>
+                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                <span class="max-h-[120px] h-full flex items-end justify-end">
+                  <img src="../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
+                </span>
+              </div>
+
+              <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                  Банковская карта «Гоюм»
+                </h6>
+                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                <span class="max-h-[120px] h-full flex items-end justify-end">
+                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                </span>
+              </div>
+
+              <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                  Банковская карта «Гоюм»
+                </h6>
+                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                <span class="max-h-[120px] h-full flex items-end justify-end">
+                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                </span>
+              </div>
+            </div>
+
+
+            <button type="button"
+              class="col-span-12 mt-[26px] flex items-center justify-center gap-[10px] cursor-pointer">
+              <p class="text-[#2C702C] text-[17px] font-Gilroy">
+                Показать все
+              </p>
+
+              <span>
+                <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M13.5675 1.06754L7.31754 7.31754C7.25949 7.37565 7.19056 7.42175 7.11469 7.4532C7.03881 7.48465 6.95748 7.50084 6.87535 7.50084C6.79321 7.50084 6.71188 7.48465 6.63601 7.4532C6.56014 7.42175 6.49121 7.37565 6.43316 7.31754L0.18316 1.06754C0.0658846 0.95026 0 0.7912 0 0.625347C0 0.459495 0.0658846 0.300435 0.18316 0.18316C0.300435 0.0658843 0.459495 0 0.625347 0C0.7912 0 0.95026 0.0658843 1.06753 0.18316L6.87535 5.99175L12.6832 0.18316C12.7412 0.125091 12.8102 0.0790281 12.886 0.0476015C12.9619 0.0161748 13.0432 0 13.1253 0C13.2075 0 13.2888 0.0161748 13.3647 0.0476015C13.4405 0.0790281 13.5095 0.125091 13.5675 0.18316C13.6256 0.241229 13.6717 0.310167 13.7031 0.386037C13.7345 0.461908 13.7507 0.543226 13.7507 0.625347C13.7507 0.707469 13.7345 0.788787 13.7031 0.864658C13.6717 0.940528 13.6256 1.00947 13.5675 1.06754Z"
+                    fill="#2C702C" />
+                </svg>
+              </span>
+            </button>
           </div>
 
           <div v-show="activeTab === 'Вклад'" class="grid gap-4 lg:grid-cols-12">
@@ -292,7 +381,7 @@ const rates = [
               <h4 class=" text-[28px] font-bold mb-[10px] text-[#191B19]">
                 Благотворительный фонд
               </h4>
-              <p class="text-[#6F736D] text-[17px] leading-6 mb-8">
+              <p class="text-[#6F736D] text-[17px] leading-6 mb-8 font-Gilroy">
                 Расчет предварительного платежа носит информационный характер и рассчитан при условии оформления
                 финансовой защиты кредита. Не является публичной офертой
               </p>
@@ -341,11 +430,10 @@ const rates = [
           <div v-show="calcActiveTab === 'Кредит'" class="grid lg:grid-cols-2 gap-6">
             <div class="bg-[#F7F8F6] rounded-[20px] p-6">
               <div class="mb-6">
-                <label class="block text-[#6F736D] text-[17px] mb-3">Тип кредита</label>
                 <div class="relative">
                   <button type="button" @click="isCreditTypeOpen = !isCreditTypeOpen"
-                    class="h-[56px] bg-white rounded-[12px] w-full flex items-center justify-between px-4 text-[#191B19]">
-                    <span>{{ creditType }}</span>
+                    class="h-[56px] bg-white rounded-[12px] w-full flex items-center justify-between px-4 text-[#6F736D]">
+                    <span>{{ creditType || 'Выберите тип кредита' }}</span>
                     <svg :class="isCreditTypeOpen ? 'rotate-180' : ''" class="transition-transform" width="18"
                       height="18" viewBox="0 0 24 24" fill="none">
                       <path d="M6 9l6 6 6-6" stroke="#6F736D" stroke-width="2" stroke-linecap="round"
@@ -364,7 +452,7 @@ const rates = [
               </div>
 
               <div class="mb-6">
-                <label class="block text-[#6F736D] text-[17px] mb-3">Сумма кредита</label>
+                <label class="block text-[#191B19] font-bold mb-3">Сумма кредита</label>
                 <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
                   <input type="text" :value="formatMoney(creditAmount)" @input="onCreditAmountInput"
                     class="w-full outline-none bg-transparent text-[#191B19] font-bold" />
@@ -776,6 +864,19 @@ const rates = [
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+}
+
+.offer-circle::after {
+  content: "";
+  position: absolute;
+  width: 321px;
+  height: 321px;
+  right: -130px;
+  bottom: -134px;
+  background: #2C702C;
+  filter: blur(137.15px);
+  border-radius: 9999px;
   pointer-events: none;
 }
 
