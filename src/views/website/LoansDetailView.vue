@@ -130,7 +130,7 @@ const creditSelectedTerm = ref('2 года');
                 </RouterLink>
 
                 <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
-                    <img src="../assets/images/loan-note.png" class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/loan-note.png" class="block w-full h-full object-contain" alt="card">
                 </span>
             </div>
         </div>
@@ -152,7 +152,7 @@ const creditSelectedTerm = ref('2 года');
                         </p>
 
                         <span class="block w-[230px] mx-auto relative -bottom-8">
-                            <img src="../assets/images/dimond-1.png" alt="diamond"
+                            <img src="../../assets/images/dimond-1.png" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
                         </span>
                     </div>
@@ -166,7 +166,7 @@ const creditSelectedTerm = ref('2 года');
                         </p>
 
                         <span class="block w-[230px] mx-auto relative -bottom-8">
-                            <img src="../assets/images/dimond-2.png" alt="diamond"
+                            <img src="../../assets/images/dimond-2.png" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
                         </span>
                     </div>
@@ -541,7 +541,7 @@ const creditSelectedTerm = ref('2 года');
                         </p>
 
                         <span class="block min-w-[232px] z-10 absolute -bottom-[113px] left-1/2 -translate-x-1/2">
-                            <img src="../assets/images/mobile-app.png" alt="app"
+                            <img src="../../assets/images/mobile-app.png" alt="app"
                                 class="block w-full h-auto object-contain" />
                         </span>
                     </div>
@@ -550,7 +550,7 @@ const creditSelectedTerm = ref('2 года');
                     <div class="flex-1 grid sm:grid-cols-2 gap-4">
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">
@@ -565,7 +565,7 @@ const creditSelectedTerm = ref('2 года');
 
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">
@@ -580,7 +580,7 @@ const creditSelectedTerm = ref('2 года');
 
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">
@@ -595,7 +595,7 @@ const creditSelectedTerm = ref('2 года');
 
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">

@@ -23,25 +23,25 @@ import { RouterLink } from 'vue-router';
                     </span>
 
                     <h6 class="text-[17px] font-Gilroy text-[#191B19]">
-                        Вклады
+                        Кредиты
                     </h6>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Deposits ================================================ -->
+    <!-- Loans =================================================== -->
     <section class="pt-[60px] pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Вклады</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">Кредиты</h2>
 
                 <div class="block space-y-4">
                     <div
                         class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8 relative overflow-hidden">
                         <div class="block">
                             <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
-                                Целевой вклад на детей
+                                Молодым семьям
                             </h4>
                             <div class="flex items-center gap-x-[10px]">
                                 <p
@@ -61,18 +61,19 @@ import { RouterLink } from 'vue-router';
                         </div>
 
                         <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../assets/images/deposit-6.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-ring.png"
                                 alt="card-image">
                         </span>
 
-                        <span class="loan-bg-circle loan-bg-yellow"></span>
+                        <!-- Background circle for young families -->
+                        <div class="loan-bg-circle loan-bg-yellow"></div>
                     </div>
 
                     <div
                         class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8 relative overflow-hidden">
                         <div class="block">
                             <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
-                                Забота о родителях
+                                Потребительский
                             </h4>
                             <div class="flex items-center gap-x-[10px]">
                                 <p
@@ -92,18 +93,19 @@ import { RouterLink } from 'vue-router';
                         </div>
 
                         <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../assets/images/deposit-10.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-cart.png"
                                 alt="card-image">
                         </span>
 
-                        <span class="loan-bg-circle loan-bg-green"></span>
+                        <!-- Background circle for consumer -->
+                        <div class="loan-bg-circle loan-bg-green"></div>
                     </div>
 
                     <div
                         class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8 relative overflow-hidden">
                         <div class="block">
                             <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
-                                Здоровье народа - Богатство страны
+                                Свадьба и день рождения
                             </h4>
                             <div class="flex items-center gap-x-[10px]">
                                 <p
@@ -123,18 +125,19 @@ import { RouterLink } from 'vue-router';
                         </div>
 
                         <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../assets/images/deposit-5.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-baloon.png"
                                 alt="card-image">
                         </span>
 
-                        <span class="loan-bg-circle loan-bg-blue"></span>
+                        <!-- Background circle for wedding -->
+                        <div class="loan-bg-circle loan-bg-blue"></div>
                     </div>
 
                     <div
                         class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8 relative overflow-hidden">
                         <div class="block">
                             <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
-                                Дети наши будущее
+                                На образование
                             </h4>
                             <div class="flex items-center gap-x-[10px]">
                                 <p
@@ -154,18 +157,19 @@ import { RouterLink } from 'vue-router';
                         </div>
 
                         <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../assets/images/deposit-7.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-note.png"
                                 alt="card-image">
                         </span>
 
-                        <span class="loan-bg-circle loan-bg-purple"></span>
+                        <!-- Background circle for education -->
+                        <div class="loan-bg-circle loan-bg-purple"></div>
                     </div>
 
                     <div
                         class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8 relative overflow-hidden">
                         <div class="block">
                             <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
-                                Выгодный
+                                Овердрафт
                             </h4>
                             <div class="flex items-center gap-x-[10px]">
                                 <p
@@ -185,18 +189,19 @@ import { RouterLink } from 'vue-router';
                         </div>
 
                         <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../assets/images/deposit-1-5.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-speed.png"
                                 alt="card-image">
                         </span>
 
-                        <span class="loan-bg-circle loan-bg-orange"></span>
+                        <!-- Background circle for overdraft -->
+                        <div class="loan-bg-circle loan-bg-orange"></div>
                     </div>
 
                     <div
                         class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8 relative overflow-hidden">
                         <div class="block">
                             <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
-                                Вклад до востребования
+                                Сельское хозяйство
                             </h4>
                             <div class="flex items-center gap-x-[10px]">
                                 <p
@@ -216,84 +221,23 @@ import { RouterLink } from 'vue-router';
                         </div>
 
                         <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../assets/images/deposit-0-5.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-oat.png"
                                 alt="card-image">
                         </span>
 
-                        <span class="loan-bg-circle loan-bg-yellow-2"></span>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
-                                Вклад по банковской карте «Алтын Асыр»
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../assets/images/deposit-1.png"
-                                alt="card-image">
-                        </span>
-
-                        <span class="loan-bg-circle loan-bg-blue"></span>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
-                                Вклад по банковской карте «Гоюм»
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../assets/images/deposit-6.png"
-                                alt="card-image">
-                        </span>
-
-                        <span class="loan-bg-circle loan-bg-yellow"></span>
+                        <!-- Background circle for agriculture -->
+                        <div class="loan-bg-circle loan-bg-yellow-2"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Deposits info =========================================== -->
+    <!-- Loans info ============================================== -->
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Как получить карту</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">Как получить кредит</h2>
 
                 <div class="grid grid-cols-12 gap-x-4">
                     <div class="col-span-3 bg-[#F7F8F6] rounded-[20px] p-8">
@@ -325,7 +269,7 @@ import { RouterLink } from 'vue-router';
                             Получите карту, выбирайте категории месяца и получайте кешбэк за покупки
                         </p>
                         <span class="block w-[220px] absolute top-0 right-[51px]">
-                            <img class="block w-full h-full object-contain" src="../assets/images/lense.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/lense.png"
                                 alt="card-image">
                         </span>
                     </div>
@@ -365,7 +309,7 @@ import { RouterLink } from 'vue-router';
                         </p>
 
                         <span class="block min-w-[232px] z-10 absolute -bottom-[113px] left-1/2 -translate-x-1/2">
-                            <img src="../assets/images/mobile-app.png" alt="app"
+                            <img src="../../assets/images/mobile-app.png" alt="app"
                                 class="block w-full h-auto object-contain" />
                         </span>
                     </div>
@@ -374,53 +318,61 @@ import { RouterLink } from 'vue-router';
                     <div class="flex-1 grid sm:grid-cols-2 gap-4">
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <h6 class="text-[#191B19] text-[17px] font-bold leading-6">Газпромбанк расширил
+                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                    Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
-                                    сегмента МСБ</h6>
+                                    сегмента МСБ
+                                </RouterLink>
                             </div>
                         </article>
 
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <h6 class="text-[#191B19] text-[17px] font-bold leading-6">Газпромбанк расширил
+                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                    Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
-                                    сегмента МСБ</h6>
+                                    сегмента МСБ
+                                </RouterLink>
                             </div>
                         </article>
 
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <h6 class="text-[#191B19] text-[17px] font-bold leading-6">Газпромбанк расширил
+                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                    Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
-                                    сегмента МСБ</h6>
+                                    сегмента МСБ
+                                </RouterLink>
                             </div>
                         </article>
 
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <h6 class="text-[#191B19] text-[17px] font-bold leading-6">Газпромбанк расширил
+                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                    Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
-                                    сегмента МСБ</h6>
+                                    сегмента МСБ
+                                </RouterLink>
                             </div>
                         </article>
                     </div>
@@ -450,7 +402,6 @@ import { RouterLink } from 'vue-router';
 /* Loan background circles */
 .loan-bg-circle {
     position: absolute;
-    display: block;
     width: 300px;
     height: 300px;
     border-radius: 50%;

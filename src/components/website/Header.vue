@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, useRoute } from 'vue-router';
-import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue';
+import { ref, onMounted, onUnmounted, nextTick, computed, watch } from 'vue';
 
 import logo from "@/assets/images/logo.png";
 
@@ -61,6 +61,14 @@ onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', updateHeights);
 });
+
+// Close any open tab whenever the route changes
+watch(
+    () => route.fullPath,
+    () => {
+        activeTab.value = null;
+    }
+);
 </script>
 
 <template>
@@ -229,7 +237,8 @@ onUnmounted(() => {
                         </div>
 
                         <div class="block w-[calc(25%-24px)]">
-                            <RouterLink to="/services" class="block text-[17px] font-bold mb-[22px]">Сервисы и услуги</RouterLink>
+                            <RouterLink to="/services" class="block text-[17px] font-bold mb-[22px]">Сервисы и услуги
+                            </RouterLink>
                             <!-- <ul class="flex flex-col gap-y-[22px]">
                                 <li>
                                     <RouterLink to="/"

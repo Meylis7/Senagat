@@ -54,7 +54,7 @@ import { RouterLink } from 'vue-router';
                         </div>
 
                         <span class="block w-[280px]">
-                            <img class="block w-full h-full object-contain" src="../assets/images/card-1.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/card-1.png"
                                 alt="card-image">
                         </span>
                     </div>
@@ -76,7 +76,7 @@ import { RouterLink } from 'vue-router';
                         </div>
 
                         <span class="block w-[280px]">
-                            <img class="block w-full h-full object-contain" src="../assets/images/card-1.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/card-1.png"
                                 alt="card-image">
                         </span>
                     </div>
@@ -98,7 +98,7 @@ import { RouterLink } from 'vue-router';
                         </div>
 
                         <span class="block w-[280px]">
-                            <img class="block w-full h-full object-contain" src="../assets/images/card-1.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/card-1.png"
                                 alt="card-image">
                         </span>
                     </div>
@@ -143,7 +143,7 @@ import { RouterLink } from 'vue-router';
                             Получите карту, выбирайте категории месяца и получайте кешбэк за покупки
                         </p>
                         <span class="block w-[220px] absolute top-0 right-[51px]">
-                            <img class="block w-full h-full object-contain" src="../assets/images/lense.png"
+                            <img class="block w-full h-full object-contain" src="../../assets/images/lense.png"
                                 alt="card-image">
                         </span>
                     </div>
@@ -183,7 +183,7 @@ import { RouterLink } from 'vue-router';
                         </p>
 
                         <span class="block min-w-[232px] z-10 absolute -bottom-[113px] left-1/2 -translate-x-1/2">
-                            <img src="../assets/images/mobile-app.png" alt="app"
+                            <img src="../../assets/images/mobile-app.png" alt="app"
                                 class="block w-full h-auto object-contain" />
                         </span>
                     </div>
@@ -192,7 +192,7 @@ import { RouterLink } from 'vue-router';
                     <div class="flex-1 grid sm:grid-cols-2 gap-4">
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">
@@ -207,7 +207,7 @@ import { RouterLink } from 'vue-router';
 
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">
@@ -222,7 +222,7 @@ import { RouterLink } from 'vue-router';
 
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">
@@ -237,7 +237,7 @@ import { RouterLink } from 'vue-router';
 
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">

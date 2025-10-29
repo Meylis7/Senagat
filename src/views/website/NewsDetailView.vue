@@ -52,7 +52,7 @@
                         </h1>
 
                         <span class="block w-full h-full max-h-[300px] rounded-2xl overflow-hidden mb-5">
-                            <img src="../assets/images/news.png" class="w-full h-full block object-contain"
+                            <img src="../../assets/images/news.png" class="w-full h-full block object-contain"
                                 alt="news-image">
                         </span>
 
@@ -85,7 +85,7 @@
 
                         <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
+                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
                             </span>
                             <div class="p-4">

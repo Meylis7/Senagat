@@ -1,9 +1,6 @@
 <script setup>
-import { ref, computed } from 'vue';
-import { RouterLink } from 'vue-router';
+import { ref } from 'vue';
 
-
-// Accordion ===========================================================================
 const activeAccordion = ref('card-conditions'); // First accordion open by default
 const accordionItems = ref([
     { id: 'card-conditions', title: 'Условия по карте' },
@@ -18,48 +15,6 @@ function toggleAccordion(id) {
         activeAccordion.value = id; // Open clicked accordion
     }
 }
-
-// Calculator Section ========================================================================
-
-const depositMin = 5000;
-const depositMax = 60000;
-const depositAmount = ref(10000);
-const creditMin = 5000;
-const creditMax = 60000;
-const creditAmount = ref(10000);
-const creditTypes = ['Потребительский', 'Ипотечный', 'Автокредит'];
-const creditType = ref(creditTypes[0]);
-const isCreditTypeOpen = ref(false);
-const setCreditType = (t) => {
-    creditType.value = t;
-    isCreditTypeOpen.value = false;
-};
-
-// Utility Functions =========================================================================
-const formatMoney = (n) => n.toLocaleString('ru-RU');
-const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
-const roundToStep = (v, step) => Math.round(v / step) * step;
-
-// Input Handlers ============================================================================
-const onDepositAmountInput = (e) => {
-    const raw = String(e.target.value).replace(/\D/g, '');
-    const num = clamp(roundToStep(Number(raw || 0), 500), depositMin, depositMax);
-    depositAmount.value = num;
-    // reflect formatted value back to the input element
-    e.target.value = formatMoney(num);
-};
-
-const onCreditAmountInput = (e) => {
-    const raw = String(e.target.value).replace(/\D/g, '');
-    const num = clamp(roundToStep(Number(raw || 0), 500), creditMin, creditMax);
-    creditAmount.value = num;
-    e.target.value = formatMoney(num);
-};
-
-// Term Options ==============================================================================
-const termOptions = ['6 мес', '1 год', '1.5 года', '2 года', '3 года'];
-const selectedTerm = ref('2 года');
-const creditSelectedTerm = ref('2 года');
 </script>
 
 <template>
@@ -83,7 +38,7 @@ const creditSelectedTerm = ref('2 года');
                     </span>
 
                     <RouterLink to="/" class="text-[17px] font-Gilroy text-[#6F736D]">
-                        Вклады
+                        Карты
                     </RouterLink>
 
                     <span class="block w-[18px]">
@@ -96,13 +51,13 @@ const creditSelectedTerm = ref('2 года');
                     </span>
 
                     <h6 class="text-[17px] font-Gilroy text-[#F7F8F6]">
-                        Целевой вклад на детей
+                        Карта «Altyn Asyr»
                     </h6>
                 </div>
 
 
                 <h1 class="m-auto max-w-[660px] text-[#F7F8F6] mb-[10px] text-center text-5xl font-bold">
-                    Целевой вклад на детей
+                    Карта «Altyn Asyr»
                 </h1>
 
                 <p class="text-[17px] font-Gilroy text-[#F7F8F6]/60 text-center">
@@ -114,8 +69,9 @@ const creditSelectedTerm = ref('2 года');
                     Подать заявку
                 </RouterLink>
 
-                <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
-                    <img src="../assets/images/deposit-6.png" class="block w-full h-full object-contain" alt="card">
+                <span class="block mt-[140px] max-w-[400px] mx-auto relative z-10">
+                    <img src="../../assets/images/altyn-asyr-card.png" class="block w-full h-full object-contain"
+                        alt="card">
                 </span>
             </div>
         </div>
@@ -137,7 +93,7 @@ const creditSelectedTerm = ref('2 года');
                         </p>
 
                         <span class="block w-[230px] mx-auto relative -bottom-8">
-                            <img src="../assets/images/dimond-1.png" alt="diamond"
+                            <img src="../../assets/images/dimond-1.png" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
                         </span>
                     </div>
@@ -151,7 +107,7 @@ const creditSelectedTerm = ref('2 года');
                         </p>
 
                         <span class="block w-[230px] mx-auto relative -bottom-8">
-                            <img src="../assets/images/dimond-2.png" alt="diamond"
+                            <img src="../../assets/images/dimond-2.png" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
                         </span>
                     </div>
@@ -160,85 +116,17 @@ const creditSelectedTerm = ref('2 года');
         </div>
     </section>
 
-    <!-- Calc ===================================================================================== -->
+    <!-- Tariffs ============================================== -->
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-[38px] font-bold leading-9">Заявка на открытие вклада</h2>
-                </div>
-
-                <div class="grid lg:grid-cols-2 gap-6">
-                    <div class="bg-[#F7F8F6] rounded-[20px] p-6">
-                        <div class="mb-6">
-                            <label class="block text-[#6F736D] text-[17px] mb-3">Сумма кредита</label>
-                            <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
-                                <input type="text" :value="formatMoney(creditAmount)" @input="onCreditAmountInput"
-                                    class="w-full outline-none bg-transparent text-[#191B19] font-bold" />
-                            </div>
-                            <div class="mt-3">
-                                <input type="range" :min="creditMin" :max="creditMax" step="500" v-model="creditAmount"
-                                    class="w-full accent-[#2C702C]" />
-                                <div class="flex justify-between text-[#6F736D] mt-2">
-                                    <span>{{ formatMoney(creditMin) }}</span>
-                                    <span>{{ formatMoney(creditMax) }}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-[#191B19] font-bold mb-3">Срок</label>
-                            <div class="flex flex-wrap gap-3">
-                                <button v-for="term in termOptions" :key="term" type="button"
-                                    @click="creditSelectedTerm = term"
-                                    :class="creditSelectedTerm === term ? 'bg-[#191B19] text-white' : 'bg-white text-[#6F736D]'"
-                                    class="h-[48px] px-5 rounded-[12px]">{{ term }}</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-[#F7F8F6] rounded-[20px] p-6">
-                        <div class="flex items-center justify-between mb-6">
-                            <div>
-                                <p class="text-[#6F736D] mb-2">Ежемесячный платёж</p>
-                                <h3 class="text-[42px] font-bold">1000 манат</h3>
-                            </div>
-                            <div>
-                                <span
-                                    class="inline-flex items-center justify-center h-[44px] w-[44px] rounded-[12px] bg-[#191B19] text-white">1%</span>
-                                <p class="text-[#6F736D] mt-2 text-center">Ставка</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-[12px] p-4 mb-6">
-                            <p class="text-[#191B19] font-bold mb-2">Вам понадобится:</p>
-                            <ul class="text-[#6F736D] space-y-2">
-                                <li>Паспорт</li>
-                                <li>Справка о доходах</li>
-                            </ul>
-                        </div>
-
-                        <RouterLink to="/"
-                            class="block mt-5 text-center text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[20px] py-3">
-                            Заполнить анкету
-                        </RouterLink>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Useful information ============================================== -->
-    <section class="py-[50px]">
-        <div class="auto_container">
-            <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Полезная информация</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">Тарифы и документы</h2>
 
                 <div class="block p-8 rounded-[20px] mb-4 bg-[#F7F8F6]">
                     <div class="flex items-center justify-between cursor-pointer"
                         @click="toggleAccordion('card-conditions')">
                         <h4 class="text-[28px] font-bold">
-                            Способы пополнения
+                            Условия по карте
                         </h4>
 
                         <button type="button" class="transition-transform duration-300 block w-[32px]">
@@ -355,7 +243,7 @@ const creditSelectedTerm = ref('2 года');
                 <div class="block p-8 rounded-[20px] bg-[#F7F8F6]">
                     <div class="flex items-center justify-between cursor-pointer" @click="toggleAccordion('cashback')">
                         <h4 class="text-[28px] font-bold">
-                            Способы пополнения
+                            Все о Кэшбэке
                         </h4>
 
                         <button type="button" class="transition-transform duration-300 block w-[32px]">
@@ -413,105 +301,138 @@ const creditSelectedTerm = ref('2 года');
         </div>
     </section>
 
-    <!-- News ===================================================================================== -->
-    <section class="pt-[50px] pb-[120px]">
+    <!-- Docs  ================================================ -->
+    <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-[38px] font-bold">Новости, которыми хочется делиться</h2>
-                    <RouterLink to="/" class="text-[#2C702C] hover:opacity-80 inline-flex items-center gap-2">
-                        Показать все
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6.35196 3.77314C6.29969 3.72088 6.25824 3.65884 6.22995 3.59055C6.20167 3.52227 6.18711 3.44908 6.18711 3.37517C6.18711 3.30127 6.20167 3.22808 6.22995 3.1598C6.25824 3.09151 6.29969 3.02947 6.35196 2.97721C6.40422 2.92494 6.46626 2.88349 6.53455 2.8552C6.60283 2.82692 6.67602 2.81236 6.74992 2.81236C6.82383 2.81236 6.89702 2.82692 6.9653 2.8552C7.03359 2.88349 7.09563 2.92494 7.14789 2.97721L12.7729 8.60221C12.8252 8.65445 12.8667 8.71649 12.895 8.78477C12.9233 8.85306 12.9379 8.92625 12.9379 9.00018C12.9379 9.0741 12.9233 9.14729 12.895 9.21558C12.8667 9.28387 12.8252 9.3459 12.7729 9.39814L7.14789 15.0231C7.04234 15.1287 6.89919 15.188 6.74992 15.188C6.60066 15.188 6.4575 15.1287 6.35195 15.0231C6.24641 14.9176 6.18711 14.7744 6.18711 14.6252C6.18711 14.4759 6.24641 14.3328 6.35195 14.2272L11.5797 9.00018L6.35196 3.77314Z"
-                                fill="#6F736D" />
-                        </svg>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">Документы</h2>
 
-                    </RouterLink>
-                </div>
-
-                <div class="flex gap-4">
-                    <!-- Promo card left -->
-                    <div
-                        class="w-full max-w-[390px] flex-shrink-0 rounded-[20px] overflow-hidden bg-[#0E0F0E] p-8 text-white relative min-h-[500px] news-promo-glow">
-                        <h6 class="text-[28px] leading-9 text[#F7F8F6] font-bold mb-[10px]">
-                            Скачай приложение
-                        </h6>
-                        <p class="text-[#F7F8F6] text-[17px] leading-7 opacity-60 font-Gilroy">
-                            Курс действует на текущее время. <br> Точный курс будет определён на момент совершения
-                            операции
-                        </p>
-
-                        <span class="block min-w-[232px] z-10 absolute -bottom-[113px] left-1/2 -translate-x-1/2">
-                            <img src="../assets/images/mobile-app.png" alt="app"
-                                class="block w-full h-auto object-contain" />
+                <div class="block">
+                    <a href="#" class="flex items-center gap-x-[10px] mb-5">
+                        <span class="block w-8">
+                            <svg class="w-full h-full object-contain block" width="32" height="32" viewBox="0 0 32 32"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M28 19C28 19.2652 27.8946 19.5196 27.7071 19.7071C27.5196 19.8946 27.2652 20 27 20H24V22H26C26.2652 22 26.5196 22.1054 26.7071 22.2929C26.8946 22.4804 27 22.7348 27 23C27 23.2652 26.8946 23.5196 26.7071 23.7071C26.5196 23.8946 26.2652 24 26 24H24V26C24 26.2652 23.8946 26.5196 23.7071 26.7071C23.5196 26.8946 23.2652 27 23 27C22.7348 27 22.4804 26.8946 22.2929 26.7071C22.1054 26.5196 22 26.2652 22 26V19C22 18.7348 22.1054 18.4804 22.2929 18.2929C22.4804 18.1054 22.7348 18 23 18H27C27.2652 18 27.5196 18.1054 27.7071 18.2929C27.8946 18.4804 28 18.7348 28 19ZM11.5 21.5C11.5 22.4283 11.1313 23.3185 10.4749 23.9749C9.8185 24.6313 8.92826 25 8 25H7V26C7 26.2652 6.89464 26.5196 6.70711 26.7071C6.51957 26.8946 6.26522 27 6 27C5.73478 27 5.48043 26.8946 5.29289 26.7071C5.10536 26.5196 5 26.2652 5 26V19C5 18.7348 5.10536 18.4804 5.29289 18.2929C5.48043 18.1054 5.73478 18 6 18H8C8.92826 18 9.8185 18.3687 10.4749 19.0251C11.1313 19.6815 11.5 20.5717 11.5 21.5ZM9.5 21.5C9.5 21.1022 9.34196 20.7206 9.06066 20.4393C8.77936 20.158 8.39782 20 8 20H7V23H8C8.39782 23 8.77936 22.842 9.06066 22.5607C9.34196 22.2794 9.5 21.8978 9.5 21.5ZM20.5 22.5C20.5 23.6935 20.0259 24.8381 19.182 25.682C18.3381 26.5259 17.1935 27 16 27H14C13.7348 27 13.4804 26.8946 13.2929 26.7071C13.1054 26.5196 13 26.2652 13 26V19C13 18.7348 13.1054 18.4804 13.2929 18.2929C13.4804 18.1054 13.7348 18 14 18H16C17.1935 18 18.3381 18.4741 19.182 19.318C20.0259 20.1619 20.5 21.3065 20.5 22.5ZM18.5 22.5C18.5 21.837 18.2366 21.2011 17.7678 20.7322C17.2989 20.2634 16.663 20 16 20H15V25H16C16.663 25 17.2989 24.7366 17.7678 24.2678C18.2366 23.7989 18.5 23.163 18.5 22.5ZM5 14V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H19C19.1314 2.9999 19.2615 3.02568 19.3829 3.07586C19.5042 3.12605 19.6146 3.19967 19.7075 3.2925L26.7075 10.2925C26.8003 10.3854 26.8739 10.4958 26.9241 10.6172C26.9743 10.7385 27.0001 10.8686 27 11V14C27 14.2652 26.8946 14.5196 26.7071 14.7071C26.5196 14.8946 26.2652 15 26 15C25.7348 15 25.4804 14.8946 25.2929 14.7071C25.1054 14.5196 25 14.2652 25 14V12H19C18.7348 12 18.4804 11.8946 18.2929 11.7071C18.1054 11.5196 18 11.2652 18 11V5H7V14C7 14.2652 6.89464 14.5196 6.70711 14.7071C6.51957 14.8946 6.26522 15 6 15C5.73478 15 5.48043 14.8946 5.29289 14.7071C5.10536 14.5196 5 14.2652 5 14ZM20 10H23.5863L20 6.41375V10Z"
+                                    fill="#CC1717" />
+                            </svg>
                         </span>
+
+                        <h6 class="text-[17px] font-bold underline">
+                            Форма
+                        </h6>
+                    </a>
+
+                    <a href="#" class="flex items-center gap-x-[10px]">
+                        <span class="block w-8">
+                            <svg class="w-full h-full object-contain block" width="32" height="32" viewBox="0 0 32 32"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M28 19C28 19.2652 27.8946 19.5196 27.7071 19.7071C27.5196 19.8946 27.2652 20 27 20H24V22H26C26.2652 22 26.5196 22.1054 26.7071 22.2929C26.8946 22.4804 27 22.7348 27 23C27 23.2652 26.8946 23.5196 26.7071 23.7071C26.5196 23.8946 26.2652 24 26 24H24V26C24 26.2652 23.8946 26.5196 23.7071 26.7071C23.5196 26.8946 23.2652 27 23 27C22.7348 27 22.4804 26.8946 22.2929 26.7071C22.1054 26.5196 22 26.2652 22 26V19C22 18.7348 22.1054 18.4804 22.2929 18.2929C22.4804 18.1054 22.7348 18 23 18H27C27.2652 18 27.5196 18.1054 27.7071 18.2929C27.8946 18.4804 28 18.7348 28 19ZM11.5 21.5C11.5 22.4283 11.1313 23.3185 10.4749 23.9749C9.8185 24.6313 8.92826 25 8 25H7V26C7 26.2652 6.89464 26.5196 6.70711 26.7071C6.51957 26.8946 6.26522 27 6 27C5.73478 27 5.48043 26.8946 5.29289 26.7071C5.10536 26.5196 5 26.2652 5 26V19C5 18.7348 5.10536 18.4804 5.29289 18.2929C5.48043 18.1054 5.73478 18 6 18H8C8.92826 18 9.8185 18.3687 10.4749 19.0251C11.1313 19.6815 11.5 20.5717 11.5 21.5ZM9.5 21.5C9.5 21.1022 9.34196 20.7206 9.06066 20.4393C8.77936 20.158 8.39782 20 8 20H7V23H8C8.39782 23 8.77936 22.842 9.06066 22.5607C9.34196 22.2794 9.5 21.8978 9.5 21.5ZM20.5 22.5C20.5 23.6935 20.0259 24.8381 19.182 25.682C18.3381 26.5259 17.1935 27 16 27H14C13.7348 27 13.4804 26.8946 13.2929 26.7071C13.1054 26.5196 13 26.2652 13 26V19C13 18.7348 13.1054 18.4804 13.2929 18.2929C13.4804 18.1054 13.7348 18 14 18H16C17.1935 18 18.3381 18.4741 19.182 19.318C20.0259 20.1619 20.5 21.3065 20.5 22.5ZM18.5 22.5C18.5 21.837 18.2366 21.2011 17.7678 20.7322C17.2989 20.2634 16.663 20 16 20H15V25H16C16.663 25 17.2989 24.7366 17.7678 24.2678C18.2366 23.7989 18.5 23.163 18.5 22.5ZM5 14V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H19C19.1314 2.9999 19.2615 3.02568 19.3829 3.07586C19.5042 3.12605 19.6146 3.19967 19.7075 3.2925L26.7075 10.2925C26.8003 10.3854 26.8739 10.4958 26.9241 10.6172C26.9743 10.7385 27.0001 10.8686 27 11V14C27 14.2652 26.8946 14.5196 26.7071 14.7071C26.5196 14.8946 26.2652 15 26 15C25.7348 15 25.4804 14.8946 25.2929 14.7071C25.1054 14.5196 25 14.2652 25 14V12H19C18.7348 12 18.4804 11.8946 18.2929 11.7071C18.1054 11.5196 18 11.2652 18 11V5H7V14C7 14.2652 6.89464 14.5196 6.70711 14.7071C6.51957 14.8946 6.26522 15 6 15C5.73478 15 5.48043 14.8946 5.29289 14.7071C5.10536 14.5196 5 14.2652 5 14ZM20 10H23.5863L20 6.41375V10Z"
+                                    fill="#CC1717" />
+                            </svg>
+                        </span>
+
+                        <h6 class="text-[17px] font-bold underline">
+                            Форма
+                        </h6>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Cards ======================================= -->
+    <section class="pt-[50px] pb-[60px]">
+        <div class="auto_container">
+            <div class="wrap">
+                <h2 class="text-[38px] font-bold mb-10 leading-9">Другие карты</h2>
+
+                <div class="grid grid-cols-12 gap-x-4">
+                    <div class="col-span-4 bg-[#F7F8F6] rounded-[20px] p-1">
+                        <div
+                            class="bg-[#EEF2ED] rounded-2xl pt-[15px] relative flex items-end justify-center overflow-hidden">
+                            <span class="block h-[150px] relative -bottom-[25px]">
+                                <img class="block w-full h-full object-contain" src="../../assets/images/card.png"
+                                    alt="card">
+                            </span>
+                            <span class="block absolute right-7 bottom-5 w-[100px]">
+                                <img class="block w-full h-full object-contain mix-blend-hard-light"
+                                    src="../../assets/images/oval.png" alt="oval-icon">
+                            </span>
+                        </div>
+
+                        <div class="block p-4">
+                            <h4 class="text-[17px] font-bold text-[#191B19] mb-5 leading-7">
+                                Карта «Altyn Asyr»
+                            </h4>
+                            <p class="text-sm font-Gilroy text-[#2C702C] p-3 mb-5 rounded-2xl bg-[#EEF2ED] w-fit">
+                                6,00% Годовая процентная ставка
+                            </p>
+
+                            <RouterLink to="/"
+                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
+                                Интернет банк
+                            </RouterLink>
+                        </div>
                     </div>
 
-                    <!-- News cards right -->
-                    <div class="flex-1 grid sm:grid-cols-2 gap-4">
-                        <article class="bg-white rounded-[20px] overflow-hidden">
-                            <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
-                                    alt="news" />
+                    <div class="col-span-4 bg-[#F7F8F6] rounded-[20px] p-1">
+                        <div
+                            class="bg-[#EEF2ED] rounded-2xl pt-[15px] relative flex items-end justify-center overflow-hidden">
+                            <span class="block h-[150px] relative -bottom-[25px]">
+                                <img class="block w-full h-full object-contain" src="../../assets/images/card-2.png"
+                                    alt="card">
                             </span>
-                            <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
-                                    Газпромбанк расширил
-                                    возможности РКО для
-                                    предпринимателей
-                                    сегмента МСБ
-                                </RouterLink>
-                            </div>
-                        </article>
+                            <span class="block absolute right-7 bottom-5 w-[100px]">
+                                <img class="block w-full h-full object-contain mix-blend-hard-light"
+                                    src="../../assets/images/oval.png" alt="oval-icon">
+                            </span>
+                        </div>
 
-                        <article class="bg-white rounded-[20px] overflow-hidden">
-                            <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
-                                    alt="news" />
-                            </span>
-                            <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
-                                    Газпромбанк расширил
-                                    возможности РКО для
-                                    предпринимателей
-                                    сегмента МСБ
-                                </RouterLink>
-                            </div>
-                        </article>
+                        <div class="block p-4">
+                            <h4 class="text-[17px] font-bold text-[#191B19] mb-5 leading-7">
+                                Карта «Altyn Asyr»
+                            </h4>
+                            <p class="text-sm font-Gilroy text-[#2C702C] p-3 mb-5 rounded-2xl bg-[#EEF2ED] w-fit">
+                                6,00% Годовая процентная ставка
+                            </p>
 
-                        <article class="bg-white rounded-[20px] overflow-hidden">
-                            <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
-                                    alt="news" />
-                            </span>
-                            <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
-                                    Газпромбанк расширил
-                                    возможности РКО для
-                                    предпринимателей
-                                    сегмента МСБ
-                                </RouterLink>
-                            </div>
-                        </article>
+                            <RouterLink to="/"
+                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
+                                Интернет банк
+                            </RouterLink>
+                        </div>
+                    </div>
 
-                        <article class="bg-white rounded-[20px] overflow-hidden">
-                            <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../assets/images/news.png" class="block w-full h-full object-cover"
-                                    alt="news" />
+                    <div class="col-span-4 bg-[#F7F8F6] rounded-[20px] p-1">
+                        <div
+                            class="bg-[#EEF2ED] rounded-2xl pt-[15px] relative flex items-end justify-center overflow-hidden">
+                            <span class="block h-[150px] relative -bottom-[25px]">
+                                <img class="block w-full h-full object-contain" src="../../assets/images/card.png"
+                                    alt="card">
                             </span>
-                            <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
-                                    Газпромбанк расширил
-                                    возможности РКО для
-                                    предпринимателей
-                                    сегмента МСБ
-                                </RouterLink>
-                            </div>
-                        </article>
+                            <span class="block absolute right-7 bottom-5 w-[100px]">
+                                <img class="block w-full h-full object-contain mix-blend-hard-light"
+                                    src="../../assets/images/oval.png" alt="oval-icon">
+                            </span>
+                        </div>
+
+                        <div class="block p-4">
+                            <h4 class="text-[17px] font-bold text-[#191B19] mb-5 leading-7">
+                                Карта «Altyn Asyr»
+                            </h4>
+                            <p class="text-sm font-Gilroy text-[#2C702C] p-3 mb-5 rounded-2xl bg-[#EEF2ED] w-fit">
+                                6,00% Годовая процентная ставка
+                            </p>
+
+                            <RouterLink to="/"
+                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
+                                Интернет банк
+                            </RouterLink>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -529,7 +450,7 @@ const creditSelectedTerm = ref('2 года');
     left: 50%;
     transform: translateX(-50%);
     bottom: -362px;
-    background: #EDC928;
+    background: #2C702C;
     filter: blur(137.15px);
     border-radius: 50%;
     z-index: 1;

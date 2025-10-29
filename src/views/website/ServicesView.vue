@@ -92,7 +92,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
+                                <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
                                     alt="card">
                             </span>
                         </div>
@@ -103,7 +103,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
+                                <img src="../../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
                             </span>
                         </div>
 
@@ -113,7 +113,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../assets/images/10p.png" class="block max-h-full object-contain"
+                                <img src="../../assets/images/10p.png" class="block max-h-full object-contain"
                                     alt="percent">
                             </span>
                         </div>
@@ -124,7 +124,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
+                                <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
                                     alt="card">
                             </span>
                         </div>
@@ -140,7 +140,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                         </p>
 
                         <span class="absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px]">
-                            <img src="../assets/images/1.5p.png"
+                            <img src="../../assets/images/1.5p.png"
                                 class="block w-full h-full object-contain select-none pointer-events-none"
                                 alt="percent">
                         </span>
@@ -155,7 +155,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../assets/images/10p.png" class="block max-h-full object-contain"
+                                <img src="../../assets/images/10p.png" class="block max-h-full object-contain"
                                     alt="percent">
                             </span>
                         </div>
@@ -166,7 +166,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../assets/images/10p.png" class="block max-h-full object-contain"
+                                <img src="../../assets/images/10p.png" class="block max-h-full object-contain"
                                     alt="percent">
                             </span>
                         </div>
@@ -177,7 +177,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../assets/images/10p.png" class="block max-h-full object-contain"
+                                <img src="../../assets/images/10p.png" class="block max-h-full object-contain"
                                     alt="percent">
                             </span>
                         </div>
@@ -193,7 +193,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                         </p>
 
                         <span class="absolute right-1/2 translate-x-1/2 bottom-20 max-w-[240]">
-                            <img src="../assets/images/1.5p.png"
+                            <img src="../../assets/images/1.5p.png"
                                 class="block w-full h-full object-contain select-none pointer-events-none"
                                 alt="percent">
                         </span>
@@ -208,7 +208,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
+                                <img src="../../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
                             </span>
                         </div>
                     </div>
@@ -222,7 +222,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
+                                <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
                                     alt="card">
                             </span>
                         </div>
@@ -233,7 +233,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
+                                <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
                                     alt="card">
                             </span>
                         </div>
@@ -263,7 +263,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                     </div>
 
                     <span class="max-h-[220px] flex items-end justify-end">
-                        <img src="../assets/images/GradientGlass.png" class="block max-h-full object-contain"
+                        <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain"
                             alt="card">
                     </span>
 
@@ -290,5 +290,19 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
     z-index: 1;
     right: -140px;
     bottom: -150px;
+}
+
+.hot-glow::after {
+  content: "";
+  position: absolute;
+  width: 321px;
+  height: 321px;
+  right: -120px;
+  bottom: -97px;
+  background: #ED6328;
+  filter: blur(137.15px);
+  border-radius: 9999px;
+  /* makes it a circle */
+  pointer-events: none;
 }
 </style>

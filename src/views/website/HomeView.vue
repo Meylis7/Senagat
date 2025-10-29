@@ -1,5 +1,5 @@
 <script setup>
-import Hero from '@/components/Hero.vue';
+import Hero from '@/components/website/Hero.vue';
 import { ref, computed } from 'vue';
 import { RouterLink } from 'vue-router';
 
@@ -142,7 +142,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
                 </span>
               </div>
 
@@ -152,7 +152,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
+                  <img src="../../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
                 </span>
               </div>
 
@@ -162,7 +162,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
+                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
                 </span>
               </div>
 
@@ -172,7 +172,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
                 </span>
               </div>
             </div>
@@ -187,7 +187,7 @@ const rates = [
               </p>
 
               <span class="absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px]">
-                <img src="../assets/images/1.5p.png"
+                <img src="../../assets/images/1.5p.png"
                   class="block w-full h-full object-contain select-none pointer-events-none" alt="percent">
               </span>
             </div>
@@ -199,7 +199,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
+                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
                 </span>
               </div>
 
@@ -209,7 +209,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
                 </span>
               </div>
 
@@ -219,7 +219,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
                 </span>
               </div>
 
@@ -230,7 +230,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#F7F8F6]/60 leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
+                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
                 </span>
               </div>
 
@@ -240,7 +240,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
+                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
                 </span>
               </div>
 
@@ -250,7 +250,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
                 </span>
               </div>
 
@@ -260,7 +260,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
                 </span>
               </div>
             </div>
@@ -290,7 +290,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
+                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
                 </span>
               </div>
 
@@ -300,7 +300,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
+                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
                 </span>
               </div>
 
@@ -310,7 +310,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
+                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
                 </span>
               </div>
             </div>
@@ -325,7 +325,7 @@ const rates = [
               </p>
 
               <span class="absolute right-1/2 translate-x-1/2 bottom-20 max-w-[240]">
-                <img src="../assets/images/1.5p.png"
+                <img src="../../assets/images/1.5p.png"
                   class="block w-full h-full object-contain select-none pointer-events-none" alt="percent">
               </span>
             </div>
@@ -339,7 +339,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
+                  <img src="../../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
                 </span>
               </div>
             </div>
@@ -353,7 +353,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
                 </span>
               </div>
 
@@ -363,7 +363,7 @@ const rates = [
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
+                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
                 </span>
               </div>
             </div>
@@ -391,7 +391,7 @@ const rates = [
             </div>
 
             <span class="max-h-[220px] flex items-end justify-end">
-              <img src="../assets/images/foundation.png" class="block max-h-full object-contain" alt="card">
+              <img src="../../assets/images/foundation.png" class="block max-h-full object-contain" alt="card">
             </span>
           </div>
         </div>
@@ -633,7 +633,7 @@ const rates = [
               <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">Отделения</h6>
               <p class="text-[17px] text-[#6F736D] leading-6 mb-6 font-Gilroy">На карте города</p>
               <span class="block w-[300px] absolute left-1/2 -translate-x-1/2 -bottom-[55px]">
-                <img src="../assets/images/currency.png" class="block w-full h-full object-contain" alt="currency">
+                <img src="../../assets/images/currency.png" class="block w-full h-full object-contain" alt="currency">
               </span>
             </div>
 
@@ -683,7 +683,8 @@ const rates = [
                       </svg>
                     </span>
                     <span v-else class="text-[#ED3B3B] w-4 block">
-                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M13.5677 1.06719L7.31768 7.31719C7.25963 7.3753 7.1907 7.4214 7.11483 7.45285C7.03896 7.4843 6.95763 7.50049 6.87549 7.50049C6.79336 7.50049 6.71203 7.4843 6.63615 7.45285C6.56028 7.4214 6.49135 7.3753 6.4333 7.31719L0.183305 1.06719C0.0957976 0.979778 0.0361929 0.86837 0.0120364 0.747067C-0.0121201 0.625764 0.000257809 0.500021 0.0476031 0.385756C0.0949484 0.271492 0.175132 0.173844 0.278003 0.105175C0.380875 0.0365058 0.501807 -9.71422e-05 0.625492 1.93625e-07H13.1255C13.2492 -9.71422e-05 13.3701 0.0365058 13.473 0.105175C13.5759 0.173844 13.656 0.271492 13.7034 0.385756C13.7507 0.500021 13.7631 0.625764 13.7389 0.747067C13.7148 0.86837 13.6552 0.979778 13.5677 1.06719Z"
                           fill="#CC1717" />
@@ -701,7 +702,8 @@ const rates = [
                       </svg>
                     </span>
                     <span v-else class="text-[#ED3B3B] w-4 block">
-                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M13.5677 1.06719L7.31768 7.31719C7.25963 7.3753 7.1907 7.4214 7.11483 7.45285C7.03896 7.4843 6.95763 7.50049 6.87549 7.50049C6.79336 7.50049 6.71203 7.4843 6.63615 7.45285C6.56028 7.4214 6.49135 7.3753 6.4333 7.31719L0.183305 1.06719C0.0957976 0.979778 0.0361929 0.86837 0.0120364 0.747067C-0.0121201 0.625764 0.000257809 0.500021 0.0476031 0.385756C0.0949484 0.271492 0.175132 0.173844 0.278003 0.105175C0.380875 0.0365058 0.501807 -9.71422e-05 0.625492 1.93625e-07H13.1255C13.2492 -9.71422e-05 13.3701 0.0365058 13.473 0.105175C13.5759 0.173844 13.656 0.271492 13.7034 0.385756C13.7507 0.500021 13.7631 0.625764 13.7389 0.747067C13.7148 0.86837 13.6552 0.979778 13.5677 1.06719Z"
                           fill="#CC1717" />
@@ -740,7 +742,7 @@ const rates = [
               </h4>
 
               <span class="max-h-[220px] flex items-end justify-end">
-                <img src="../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
+                <img src="../../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
               </span>
             </div>
 
@@ -750,7 +752,7 @@ const rates = [
               </h4>
 
               <span class="max-h-[220px] flex items-end justify-end">
-                <img src="../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
+                <img src="../../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
               </span>
             </div>
           </div>
@@ -781,7 +783,7 @@ const rates = [
             </div>
 
             <span class="max-h-[220px] block">
-              <img src="../assets/images/GradientGlass.png" class="block max-h-full object-contain" alt="card">
+              <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain" alt="card">
             </span>
           </div>
         </div>
@@ -816,14 +818,14 @@ const rates = [
               </p>
 
               <span class="block min-w-[232px] z-10 absolute -bottom-[113px] left-1/2 -translate-x-1/2">
-                <img src="../assets/images/mobile-app.png" alt="app" class="block w-full h-auto object-contain" />
+                <img src="../../assets/images/mobile-app.png" alt="app" class="block w-full h-auto object-contain" />
               </span>
             </div>
 
             <div class="col-span-8 grid sm:grid-cols-2 gap-4">
               <article class="bg-white rounded-[20px] overflow-hidden">
                 <span class="block h-[200px] overflow-hidden rounded-2xl">
-                  <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                  <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
                   <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
@@ -836,7 +838,7 @@ const rates = [
 
               <article class="bg-white rounded-[20px] overflow-hidden">
                 <span class="block h-[200px] overflow-hidden rounded-2xl">
-                  <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                  <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
                   <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
@@ -849,7 +851,7 @@ const rates = [
 
               <article class="bg-white rounded-[20px] overflow-hidden">
                 <span class="block h-[200px] overflow-hidden rounded-2xl">
-                  <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                  <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
                   <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
@@ -862,7 +864,7 @@ const rates = [
 
               <article class="bg-white rounded-[20px] overflow-hidden">
                 <span class="block h-[200px] overflow-hidden rounded-2xl">
-                  <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                  <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
                   <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">

@@ -39,7 +39,7 @@
         </p>
 
         <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
-          <img src="../assets/images/senagat-big.png" class="block w-full h-full object-contain" alt="card">
+          <img src="../../assets/images/senagat-big.png" class="block w-full h-full object-contain" alt="card">
         </span>
       </div>
     </div>
@@ -62,7 +62,7 @@
             </h4>
 
             <span class="max-h-[220px] flex items-end justify-end">
-              <img src="../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
+              <img src="../../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
             </span>
           </div>
 
@@ -72,7 +72,7 @@
             </h4>
 
             <span class="max-h-[220px] flex items-end justify-end">
-              <img src="../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
+              <img src="../../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
             </span>
           </div>
 
@@ -82,7 +82,7 @@
             </h4>
 
             <span class="max-h-[220px] flex items-end justify-end">
-              <img src="../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
+              <img src="../../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
             </span>
           </div>
         </div>
@@ -111,7 +111,7 @@
           </div>
 
           <div class="w-[290px] bg-[#F7F8F6] rounded-[20px] flex items-center justify-center">
-            <img src="../assets/images/senagat-big.png" class="w-[200px] block object-contain" alt="emblem">
+            <img src="../../assets/images/senagat-big.png" class="w-[200px] block object-contain" alt="emblem">
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@
 
           </div>
           <span class="block w-[220px] absolute top-1/2 -translate-y-1/2 right-[20%] z-10">
-            <img class="block w-full h-full object-contain" src="../assets/images/mobile-app.png" alt="app-image">
+            <img class="block w-full h-full object-contain" src="../../assets/images/mobile-app.png" alt="app-image">
           </span>
         </div>
 

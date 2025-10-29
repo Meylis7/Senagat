@@ -46,7 +46,7 @@ import { RouterLink } from 'vue-router';
     </section>
 
     <div class="block mt-[125px] mb-[90px] mx-auto w-[390px]">
-        <img src="../assets/images/megaphone.png" class="w-full block object-contain" alt="news-megaphone">
+        <img src="../../assets/images/megaphone.png" class="w-full block object-contain" alt="news-megaphone">
     </div>
 
     <!-- News ===================================================================================== -->
@@ -82,7 +82,7 @@ import { RouterLink } from 'vue-router';
                 <div class="grid grid-cols-12 gap-4">
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                         </span>
                         <div class="p-4">
                             <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
@@ -96,7 +96,7 @@ import { RouterLink } from 'vue-router';
 
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                         </span>
                         <div class="p-4">
                             <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
@@ -110,7 +110,7 @@ import { RouterLink } from 'vue-router';
 
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                         </span>
                         <div class="p-4">
                             <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
@@ -124,7 +124,7 @@ import { RouterLink } from 'vue-router';
 
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                         </span>
                         <div class="p-4">
                             <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
@@ -138,7 +138,7 @@ import { RouterLink } from 'vue-router';
 
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                         </span>
                         <div class="p-4">
                             <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
@@ -152,7 +152,7 @@ import { RouterLink } from 'vue-router';
 
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                         </span>
                         <div class="p-4">
                             <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
