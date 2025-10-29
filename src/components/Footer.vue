@@ -124,7 +124,7 @@ import logo from '@/assets/images/logo.png';
                             О банке
                         </h4>
 
-                        <ul class="space-y-4">
+                        <ul class="space-y-4  mb-5 pb-5  border-solid border-0 border-b border-[#EEF2ED]">
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
@@ -147,6 +147,52 @@ import logo from '@/assets/images/logo.png';
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     Отделения
+                                </RouterLink>
+                            </li>
+                        </ul>
+
+                        <ul class="space-y-4 mb-5 pb-5  border-solid border-0 border-b border-[#EEF2ED]">
+                            <li>
+                                <RouterLink to="/"
+                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    Курсы валют
+                                </RouterLink>
+                            </li>
+                            <li>
+                                <RouterLink to="/"
+                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    Отделения
+                                </RouterLink>
+                            </li>
+                            <li>
+                                <RouterLink to="/"
+                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    Поиск банкоматов
+                                </RouterLink>
+                            </li>
+                            <li>
+                                <RouterLink to="/"
+                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    Отделения
+                                </RouterLink>
+                            </li>
+                        </ul>
+
+                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-[#191B19]">
+                            Языки
+                        </h4>
+
+                        <ul class="space-y-4">
+                            <li>
+                                <RouterLink to="/"
+                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    English
+                                </RouterLink>
+                            </li>
+                            <li>
+                                <RouterLink to="/"
+                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    Türkmençe
                                 </RouterLink>
                             </li>
                         </ul>

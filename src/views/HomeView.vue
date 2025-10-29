@@ -591,16 +591,16 @@ const rates = [
 
               <div class="mb-4">
                 <input type="text" placeholder="Фамилия, имя и отчество"
-                  class=" text-[17px] w-full rounded-[10px] bg-white text-[#6F736D] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
+                  class=" text-[17px] w-full rounded-[10px] bg-white placeholder:text-[#6F736D] text-[#1D2417] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
                 <span class="block text-[#F7F8F6]/60 mt-[10px] font-Gilroy">Уточните точно как в паспорте</span>
               </div>
 
               <div class="mb-4">
                 <div class="flex items-center">
                   <input type="text" value="+993" readonly
-                    class=" text-[17px] w-[85px] rounded-[10px] bg-white text-[#6F736D] mr-[6px] p-5 outline-none select-none font-Gilroy" />
+                    class=" text-[17px] w-[85px] rounded-[10px] bg-white placeholder:text-[#6F736D] text-[#1D2417] mr-[6px] p-5 outline-none select-none font-Gilroy" />
                   <input type="tel" placeholder="Номер телефона"
-                    class=" text-[17px] flex-1 rounded-[10px] bg-white text-[#6F736D] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
+                    class=" text-[17px] flex-1 rounded-[10px] bg-white placeholder:text-[#6F736D] text-[#1D2417] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
                 </div>
                 <span class="block text-[#F7F8F6]/60 text-[15px] mt-[10px] font-Gilroy">На него поступит смс
                   оповещение</span>
@@ -608,12 +608,12 @@ const rates = [
 
               <div class="mb-8">
                 <input type="text" placeholder="Дата рождения"
-                  class=" text-[17px] w-full rounded-[10px] bg-white text-[#6F736D] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
+                  class=" text-[17px] w-full rounded-[10px] bg-white placeholder:text-[#6F736D] text-[#1D2417] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
               </div>
 
               <button type="submit"
                 class="block mx-auto w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
-                Интернет банк
+                Продолжить
               </button>
             </form>
           </div>
@@ -625,7 +625,7 @@ const rates = [
     <section class="py-[50px]">
       <div class="auto_container">
         <div class="wrap">
-          <h2 class="text-[38px] font-bold mb-6 leading-9">Спланируйте обмен валюты</h2>
+          <h2 class="text-[38px] font-bold mb-10 leading-9">Спланируйте обмен валюты</h2>
 
           <div class="flex gap-4">
             <!-- Left card: branches -->
@@ -674,17 +674,43 @@ const rates = [
                   <div class="col-span-4 leading-7 text-[28px] font-bold">{{ r.code }}</div>
                   <div class="col-span-4 leading-7 flex items-center gap-2 text-[28px] font-bold">
                     {{ r.buy.toFixed(2) }}
-                    <span v-if="r.trend === 'up'" class="text-[#2C702C]">▲</span>
-                    <span v-else class="text-[#ED3B3B]">▼</span>
+                    <span v-if="r.trend === 'up'" class="text-[#2C702C] w-4 block">
+                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M13.7028 7.11455C13.6556 7.22877 13.5755 7.32639 13.4727 7.39509C13.3699 7.46379 13.2491 7.50047 13.1255 7.50049H0.625492C0.501807 7.50059 0.380875 7.46399 0.278003 7.39532C0.175132 7.32665 0.0949484 7.229 0.0476031 7.11474C0.000257809 7.00047 -0.0121201 6.87473 0.0120364 6.75343C0.0361929 6.63212 0.0957976 6.52071 0.183305 6.4333L6.4333 0.183304C6.49135 0.125194 6.56028 0.0790947 6.63615 0.047642C6.71203 0.0161893 6.79336 0 6.87549 0C6.95763 0 7.03896 0.0161893 7.11483 0.047642C7.1907 0.0790947 7.25963 0.125194 7.31768 0.183304L13.5677 6.4333C13.6551 6.52076 13.7145 6.63216 13.7386 6.75343C13.7627 6.87469 13.7502 7.00036 13.7028 7.11455Z"
+                          fill="#2C702C" />
+                      </svg>
+                    </span>
+                    <span v-else class="text-[#ED3B3B] w-4 block">
+                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M13.5677 1.06719L7.31768 7.31719C7.25963 7.3753 7.1907 7.4214 7.11483 7.45285C7.03896 7.4843 6.95763 7.50049 6.87549 7.50049C6.79336 7.50049 6.71203 7.4843 6.63615 7.45285C6.56028 7.4214 6.49135 7.3753 6.4333 7.31719L0.183305 1.06719C0.0957976 0.979778 0.0361929 0.86837 0.0120364 0.747067C-0.0121201 0.625764 0.000257809 0.500021 0.0476031 0.385756C0.0949484 0.271492 0.175132 0.173844 0.278003 0.105175C0.380875 0.0365058 0.501807 -9.71422e-05 0.625492 1.93625e-07H13.1255C13.2492 -9.71422e-05 13.3701 0.0365058 13.473 0.105175C13.5759 0.173844 13.656 0.271492 13.7034 0.385756C13.7507 0.500021 13.7631 0.625764 13.7389 0.747067C13.7148 0.86837 13.6552 0.979778 13.5677 1.06719Z"
+                          fill="#CC1717" />
+                      </svg>
+                    </span>
                   </div>
                   <div class="col-span-4 leading-7 flex items-center gap-2 text-[28px] font-bold">
                     {{ r.sell.toFixed(2) }}
-                    <span v-if="r.trend === 'up'" class="text-[#2C702C]">▲</span>
-                    <span v-else class="text-[#ED3B3B]">▼</span>
+                    <span v-if="r.trend === 'up'" class="text-[#2C702C] w-4 block">
+                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M13.7028 7.11455C13.6556 7.22877 13.5755 7.32639 13.4727 7.39509C13.3699 7.46379 13.2491 7.50047 13.1255 7.50049H0.625492C0.501807 7.50059 0.380875 7.46399 0.278003 7.39532C0.175132 7.32665 0.0949484 7.229 0.0476031 7.11474C0.000257809 7.00047 -0.0121201 6.87473 0.0120364 6.75343C0.0361929 6.63212 0.0957976 6.52071 0.183305 6.4333L6.4333 0.183304C6.49135 0.125194 6.56028 0.0790947 6.63615 0.047642C6.71203 0.0161893 6.79336 0 6.87549 0C6.95763 0 7.03896 0.0161893 7.11483 0.047642C7.1907 0.0790947 7.25963 0.125194 7.31768 0.183304L13.5677 6.4333C13.6551 6.52076 13.7145 6.63216 13.7386 6.75343C13.7627 6.87469 13.7502 7.00036 13.7028 7.11455Z"
+                          fill="#2C702C" />
+                      </svg>
+                    </span>
+                    <span v-else class="text-[#ED3B3B] w-4 block">
+                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M13.5677 1.06719L7.31768 7.31719C7.25963 7.3753 7.1907 7.4214 7.11483 7.45285C7.03896 7.4843 6.95763 7.50049 6.87549 7.50049C6.79336 7.50049 6.71203 7.4843 6.63615 7.45285C6.56028 7.4214 6.49135 7.3753 6.4333 7.31719L0.183305 1.06719C0.0957976 0.979778 0.0361929 0.86837 0.0120364 0.747067C-0.0121201 0.625764 0.000257809 0.500021 0.0476031 0.385756C0.0949484 0.271492 0.175132 0.173844 0.278003 0.105175C0.380875 0.0365058 0.501807 -9.71422e-05 0.625492 1.93625e-07H13.1255C13.2492 -9.71422e-05 13.3701 0.0365058 13.473 0.105175C13.5759 0.173844 13.656 0.271492 13.7034 0.385756C13.7507 0.500021 13.7631 0.625764 13.7389 0.747067C13.7148 0.86837 13.6552 0.979778 13.5677 1.06719Z"
+                          fill="#CC1717" />
+                      </svg>
+                    </span>
                   </div>
                 </template>
 
-                <div class="col-span-8 text-[#6F736D] text-[17px] max-w-[450px]">
+                <div class="col-span-8 text-[#6F736D] text-[17px] max-w-[450px] font-Gilroy">
                   Курс действует на текущее время. Точный курс будет определён на момент совершения операции
                 </div>
               </div>
@@ -768,7 +794,7 @@ const rates = [
         <div class="wrap">
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-[38px] font-bold">Новости, которыми хочется делиться</h2>
-            <RouterLink to="/" class="text-[#2C702C] hover:opacity-80 inline-flex items-center gap-2">
+            <RouterLink to="/news" class="text-[#2C702C] hover:opacity-80 inline-flex items-center gap-2">
               Показать все
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -779,10 +805,9 @@ const rates = [
             </RouterLink>
           </div>
 
-          <div class="flex gap-4">
-            <!-- Promo card left -->
+          <div class="grid grid-cols-12 gap-4">
             <div
-              class="w-full max-w-[390px] flex-shrink-0 rounded-[20px] overflow-hidden bg-[#0E0F0E] p-8 text-white relative min-h-[500px] news-promo-glow">
+              class="col-span-4 rounded-[20px] overflow-hidden bg-[#1D2417] p-8 text-white relative min-h-[500px] news-promo-glow">
               <h6 class="text-[28px] leading-9 text[#F7F8F6] font-bold mb-[10px]">
                 Скачай приложение
               </h6>
@@ -795,14 +820,13 @@ const rates = [
               </span>
             </div>
 
-            <!-- News cards right -->
-            <div class="flex-1 grid sm:grid-cols-2 gap-4">
+            <div class="col-span-8 grid sm:grid-cols-2 gap-4">
               <article class="bg-white rounded-[20px] overflow-hidden">
                 <span class="block h-[200px] overflow-hidden rounded-2xl">
                   <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
-                  <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                  <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
                     Газпромбанк расширил возможности РКО для
                     предпринимателей
                     сегмента МСБ
@@ -815,7 +839,7 @@ const rates = [
                   <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
-                  <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                  <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
                     Газпромбанк расширил возможности РКО для
                     предпринимателей
                     сегмента МСБ
@@ -828,7 +852,7 @@ const rates = [
                   <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
-                  <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                  <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
                     Газпромбанк расширил возможности РКО для
                     предпринимателей
                     сегмента МСБ
@@ -841,7 +865,7 @@ const rates = [
                   <img src="../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
-                  <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                  <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
                     Газпромбанк расширил возможности РКО для
                     предпринимателей
                     сегмента МСБ

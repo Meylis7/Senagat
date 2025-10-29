@@ -5,7 +5,7 @@
 
 <template>
   <!-- Hero  ================================================= -->
-  <section class="hero pt-[145px] pb-[60px] bg-[#191B19] relative overflow-hidden">
+  <section class="hero pt-[130px] pb-[60px] bg-[#191B19] relative overflow-hidden">
     <div class="auto_container">
       <div class="hero_wrap">
 
@@ -37,11 +37,6 @@
         <p class="text-[17px] font-Gilroy text-[#F7F8F6]/60 text-center">
           Обратитесь в удобный для вас офис
         </p>
-
-        <RouterLink to="/"
-          class="block mt-5 w-fit text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[20px] py-3 px-[35px] mx-auto">
-          Подать заявку
-        </RouterLink>
 
         <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
           <img src="../assets/images/senagat-big.png" class="block w-full h-full object-contain" alt="card">

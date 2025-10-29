@@ -66,8 +66,8 @@ onUnmounted(() => {
 <template>
     <!-- <div :style="{ height: isSticky ? spacerHeight + 'px' : 'auto' }"></div> -->
     <header ref="headerRef" :class="[
-        'top-3 left- w-full z-50 transition-all duration-700 ease-out',
-        isSticky ? 'fixed -translate-y-6' : 'absolute translate-y-0'
+        'top-0 left- w-full z-50 transition-all duration-700 ease-out',
+        isSticky ? 'fixed -translate-y-3' : 'absolute translate-y-0'
     ]">
         <div class="auto_container">
             <div :class="[
@@ -95,16 +95,25 @@ onUnmounted(() => {
                         ]" @click="setTab('two')">
                             Бизнес и ИП</h4>
 
-                        <RouterLink to="/" :class="[
+                        <RouterLink to="/about" :class="[
                             'font-Gilroy text-[17px] font-normal',
                             isDetailPage && !isSticky ? 'text-[#F7F8F6]' : 'text-[#191B19]'
                         ]">О банке
                         </RouterLink>
 
-                        <RouterLink to="/"
-                            class="block ml-auto text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
-                            Интернет банк
-                        </RouterLink>
+                        <div class="flex items-center ml-auto gap-x-2">
+                            <RouterLink to="/" :class="[
+                                'block text-sm font-bold border-solid border-[1px] rounded-[10px] px-5 py-[14px]',
+                                isDetailPage && !isSticky ? 'text-[#F7F8F6] border-[#F7F8F6]' : 'text-[#1D2417] border-[#1D2417]'
+                            ]">
+                                Онлайн приёмная
+                            </RouterLink>
+
+                            <RouterLink to="/"
+                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
+                                Интернет банк
+                            </RouterLink>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -113,15 +122,15 @@ onUnmounted(() => {
                     class="tab-content absolute w-[calc(100%-60px)] bg-[#F7F8F6] py-8 px-[118px] rounded-[20px]">
                     <section v-if="activeTab === 'one'" key="one" class="flex justify-between">
                         <div class="block w-[calc(25%-24px)]">
-                            <h4 class="text-[17px] font-bold mb-[22px]">Кредиты</h4>
+                            <RouterLink to="/loans" class="block text-[17px] font-bold mb-[22px]">Кредиты</RouterLink>
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li>
-                                    <RouterLink to="/"
+                                    <RouterLink to="/loans-detail"
                                         class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
                                         Молодым семьям</RouterLink>
                                 </li>
                                 <li>
-                                    <RouterLink to="/"
+                                    <RouterLink to="/loans-detail"
                                         class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
                                         Потребительский</RouterLink>
                                 </li>
@@ -150,20 +159,20 @@ onUnmounted(() => {
                         </div>
 
                         <div class="block w-[calc(25%-24px)]">
-                            <h4 class="text-[17px] font-bold mb-[22px]">Карты</h4>
+                            <RouterLink to="/cards" class="block text-[17px] font-bold mb-[22px]">Карты</RouterLink>
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li>
-                                    <RouterLink to="/"
+                                    <RouterLink to="/cards-detail"
                                         class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
                                         Алтын асыр карта</RouterLink>
                                 </li>
                                 <li>
-                                    <RouterLink to="/"
+                                    <RouterLink to="/cards-detail"
                                         class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
                                         Гоюм карта</RouterLink>
                                 </li>
                                 <li>
-                                    <RouterLink to="/"
+                                    <RouterLink to="/cards-detail"
                                         class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
                                         Машгала карта</RouterLink>
                                 </li>
@@ -171,25 +180,25 @@ onUnmounted(() => {
                         </div>
 
                         <div class="block w-[calc(25%-24px)]">
-                            <h4 class="text-[17px] font-bold mb-[22px]">Вклады</h4>
+                            <RouterLink to="/deposits" class="block text-[17px] font-bold mb-[22px]">Вклады</RouterLink>
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li>
-                                    <RouterLink to="/"
+                                    <RouterLink to="/deposits-detail"
                                         class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
                                         Целевой вклад на детей</RouterLink>
                                 </li>
                                 <li>
-                                    <RouterLink to="/"
+                                    <RouterLink to="/deposits-detail"
                                         class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
                                         забота о родителях</RouterLink>
                                 </li>
                                 <li>
-                                    <RouterLink to="/"
+                                    <RouterLink to="/deposits-detail"
                                         class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
                                         Здоровье народа - Богатство страны</RouterLink>
                                 </li>
                                 <li>
-                                    <RouterLink to="/"
+                                    <RouterLink to="/deposits-detail"
                                         class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
                                         Дети наши будущее</RouterLink>
                                 </li>
@@ -220,7 +229,7 @@ onUnmounted(() => {
                         </div>
 
                         <div class="block w-[calc(25%-24px)]">
-                            <h4 class="text-[17px] font-bold mb-[22px]">Сервисы и услуги</h4>
+                            <RouterLink to="/services" class="block text-[17px] font-bold mb-[22px]">Сервисы и услуги</RouterLink>
                             <!-- <ul class="flex flex-col gap-y-[22px]">
                                 <li>
                                     <RouterLink to="/"
