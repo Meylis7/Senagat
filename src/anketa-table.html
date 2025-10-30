@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="tk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arza-Anketa (Table Version)</title>
+    <style>
+      body {
+        font-family: 'Times New Roman', serif;
+        margin: 0;
+        padding: 20px;
+        color: #000;
+        background: #fff;
+        font-size: 11pt;
+      }
+      .page {
+        width: 1000px;
+        margin: 0 auto;
+        padding: 20px 30px;
+        box-sizing: border-box;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      /* Match original inline spacing */
+      table td {
+        padding: 5px 0;
+        line-height: 1.5;
+      }
+      .no-border {
+        border: none;
+      }
+      .b {
+        font-weight: bold;
+      }
+      .center {
+        text-align: center;
+      }
+      .right {
+        text-align: right;
+      }
+      .title {
+        font-size: 12pt;
+      }
+      .subtitle {
+        font-size: 10pt;
+      }
+      .label {
+        font-size: 14pt;
+        /* white-space: nowrap; */
+      }
+      .value {
+        font-size: 12pt;
+        font-weight: bold;
+      }
+      .section-h {
+        font-weight: bold;
+        font-size: 14pt;
+        padding: 3px 6px;
+        border: 1px solid #000;
+        white-space: nowrap;
+      }
+      .spacer-8 {
+        height: 8px;
+      }
+      .spacer-12 {
+        height: 12px;
+      }
+      .spacer-16 {
+        height: 16px;
+      }
+      .spacer-20 {
+        height: 20px;
+      }
+      .line {
+        border-bottom: 1px solid #000;
+        height: 20px;
+      }
+      .small {
+        font-size: 7pt;
+      }
+      .italic {
+        font-style: italic;
+        font-size: 10pt;
+      }
+      .box {
+        border: 1px solid #000;
+        height: 20px;
+      }
+      /* Keep visual parity for highlight backgrounds when needed */
+      .muted {
+        color: #6f736d;
+      }
+    </style>
+    <!-- Note: This file recreates anketa layout using TABLE tags for better PDF fidelity. -->
+    <!-- Logo is omitted to avoid large inline data; add <img> cell if needed. -->
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <table class="no-border">
+        <tr>
+          <td style="width: 90px; vertical-align: top">
+            <img
+              src="assets/images/logo.png"
+              alt="logo"
+              style="width: 80px; height: 80px; object-fit: contain"
+            />
+          </td>
+          <td class="center">
+            <div class="b" style="font-size: 12pt; white-space: nowrap">
+              TÜRKMENISTANYŇ «SENAGAT» PAÝDARLAR TÄJIRÇILIK BANKY
+            </div>
+            <div class="subtitle" style="margin-top: 3px">
+              Bank kartyny almak üçin
+              <span style="text-decoration: underline">Onlaýn</span> Arza-Anketa
+            </div>
+          </td>
+          <td style="width: 140px" class="center">
+            <div class="title"><span class="b">Goýum</span><br />Bank karty</div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="spacer-12"></div>
+
+      <!-- Card info -->
+      <table>
+        <tr>
+          <td class="label" style="width: 220px; padding: 5px 0">Kartyň görnüşi:</td>
+          <td class="value" style="padding: 5px 0">Goýum karty</td>
+        </tr>
+        <tr>
+          <td class="label" style="padding: 5px 0">Kartyň işleşiniň tertibi:</td>
+          <td class="value" style="padding: 5px 0">Debit karty</td>
+        </tr>
+        <tr>
+          <td class="label" style="padding: 5px 0">Kart hasabynyň pul birligi:</td>
+          <td class="value" style="padding: 5px 0">TMT</td>
+        </tr>
+      </table>
+
+      <div class="spacer-16"></div>
+
+      <!-- Section 1 header -->
+      <table class="no-border">
+        <tr>
+          <td class="section-h">
+            1. Şahsy maglumatlar
+            <span style="font-weight: normal">(Müşderi tarapyndan doldurylýar)</span>
+          </td>
+        </tr>
+      </table>
+
+      <div class="spacer-8"></div>
+
+      <!-- Personal info (two columns) -->
+      <table>
+        <tr>
+          <td style="vertical-align: top; padding-right: 10px">
+            <table>
+              <tr>
+                <td colspan="2" class="label" style="width: fit-content; padding: 5px 0">
+                  Familiýasy: <span class="value" style="padding: 5px 0 5px 10px">ARHIPOWA</span>
+                </td>
+                <td class="label" style="width: fit-content; padding: 5px 0">
+                  Ady: <span class="value" style="padding: 5px 0 5px 10px">WALENTINA</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="3" class="label" style="width: fit-content; padding: 5px 0">
+                  Atasynyň ady: <span class="value" style="padding: 5px 0 5px 10px">GLEBOWNA</span>
+                </td>
+                <td class="label" style="width: fit-content; padding: 5px 0; text-align: right">
+                  Doglan senesi:
+                  <span class="value" style="padding: 5px 0 5px 10px">02/01/1994</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2" class="label" style="width: fit-content; padding: 5px 0">
+                  Raýatlygy: <span class="value" style="padding: 5px 0 5px 10px">TÜRKMENISTAN</span>
+                </td>
+                <td class="label" style="width: fit-content; padding: 5px 0">
+                  Jynsy: <span class="value" style="padding: 5px 0 5px 10px">ERKEK</span>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="1" class="label" style="width: fit-content; padding: 5px 0">
+                  Pasport seriýasy: <span class="value" style="padding: 5px 0 5px 10px">I-AŽ</span>
+                </td>
+                <td
+                  colspan="2"
+                  class="label"
+                  style="
+                    width: fit-content;
+                    padding: 5px 0;
+                    text-align: center;
+                    white-space: nowrap;
+                  "
+                >
+                  belgisi:
+                  <span class="value" style="padding: 5px 0 5px 10px">703879</span>
+                </td>
+                <td
+                  colspan="3"
+                  class="label"
+                  style="width: fit-content; padding: 5px 0; text-align: right"
+                >
+                  berlen senesi:
+                  <span class="value" style="padding: 5px 0 5px 10px">31/07/2024</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td class="label" style="width: 25%; padding: 5px 0; white-space: nowrap">
+            Kim tarapyndan berlen
+            <span class="value" style="padding: 5px 0 5px 10px">Büzmeýin etrap PB</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label" style="padding: 5px 0; white-space: nowrap">
+            Ýazgyda duran salgysy:
+            <span class="value" style="padding: 5px 0 5px 10px">
+              Aşgabat ş. Büzmeýin etrap H. Ökdirow 24/17</span
+            >
+          </td>
+        </tr>
+        <tr>
+          <td class="label" style="padding: 5px 0">
+            Hakyky ýaşaýan ýeri:
+            <span class="value" style="padding: 5px 0 5px 10px">
+              Aşgabat ş. Büzmeýin etrap H. Ökdirow 24/17</span
+            >
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%; table-layout: fixed">
+        <colgroup>
+          <col style="width: 33.33%" />
+          <col style="width: 33.33%" />
+          <col style="width: 33.34%" />
+        </colgroup>
+        <tr>
+          <td class="label" style="padding: 5px 0">
+            Öý telefon: <span class="value" style="padding: 5px 0 5px 10px">99365617416</span>
+          </td>
+          <td class="label" style="padding: 5px 0; white-space: nowrap">
+            Öýjükli telefon:
+            <span class="value" style="padding: 5px 0 5px 10px">99365617416</span>
+          </td>
+          <td class="label" style="padding: 5px 0">
+            <table
+              class="no-border"
+              style="border-collapse: collapse; width: 100%; table-layout: fixed"
+            >
+              <tr>
+                <td style="text-align: center; font-size: 9pt; padding: 0; vertical-align: top">
+                  <div
+                    style="
+                      margin-bottom: 1px;
+                      font-weight: normal;
+                      font-size: 10pt;
+                      padding: 0 2px;
+                      border-bottom: 1px solid #000;
+                    "
+                  >
+                    Walentina
+                  </div>
+                  <div style="font-style: normal; font-size: 7pt; text-align: center">
+                    Sorag-jogap gullugyna aýdylýan gizlin söz
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td class="label" style="padding: 5px 0; white-space: nowrap">
+            Iş ýeri, wezipesi:
+            <span class="value" style="padding: 5px 0 0 10px"
+              >"PARH" HOJALYK JEMGYÝETI / MADDY HASAPÇY</span
+            >
+          </td>
+        </tr>
+        <tr>
+          <td class="label" style="padding: 5px 0">Internet-hyzmatyny birikdirmek:</td>
+          <td class="label" colspan="2" style="padding: 5px 0; white-space: nowrap">
+            Internet hyzmatyny ibermeli telefon belgisi:
+            <span style="padding: 5px 0 5px 10px">99365617416</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label" style="padding: 5px 0">
+            Kart hasaby boýunça hasabatyň ugradylmaly elektron salgysy (E-mail):
+          </td>
+          <td class="value" colspan="3" style="padding: 5px 0"></td>
+        </tr>
+      </table>
+
+      <div class="spacer-12"></div>
+
+      <table>
+        <tr>
+          <td class="label" style="width: 60%; padding: 5px 0">
+            Nagt pul serişdelerini almalydaky çäklendirme:
+          </td>
+          <td class="value center" style="width: 80px; padding: 5px 0; text-align: right">
+            800 TMT (günüň dowamynda)
+          </td>
+        </tr>
+        <tr>
+          <td class="label" style="padding: 5px 0">
+            Nagt däl hasaplaşyklary etmeklige çäklendirme:
+          </td>
+          <td class="value center" style="padding: 5px 0; text-align: right">
+            1000 TMT (günüň dowamynda)
+          </td>
+        </tr>
+      </table>
+
+      <div class="spacer-12"></div>
+
+      <table class="no-border">
+        <tr>
+          <td class="label" style="padding: 5px 0">
+            Şu Arza - Anketanyň arka tarapyndaky Ylalaşygyň şertleri bilen doly razylaşýaryn we
+            gyşarnyksyz berjaý etmäge söz berýärin.
+          </td>
+        </tr>
+      </table>
+
+      <div class="spacer-12"></div>
+
+      <table>
+        <tr>
+          <td class="label" style="padding: 5px 0; width: 150px">Müşderiniň goly:</td>
+          <td
+            class="line"
+            style="width: 450px; text-decoration: underline; display: block; padding: 5px 10px"
+          ></td>
+
+          <td style="padding: 5px 0; text-align: right; place-items: end">
+            <table class="no-border" style="width: auto">
+              <tr>
+                <td class="label" style="padding: 5px 0; width: 50px">Sene:</td>
+                <td class="line" style="width: 35px"></td>
+                <td class="center">/</td>
+                <td class="line" style="width: 35px"></td>
+                <td class="center">/</td>
+                <td class="line" style="width: 65px"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <div class="spacer-16"></div>
+
+      <!-- Section 2 header -->
+      <table class="no-border">
+        <tr>
+          <td class="section-h">
+            2. Gulluk maglumatlar
+            <span style="font-weight: normal">(Bank işgäriniň tarapyndan doldurylýar)</span>
+          </td>
+        </tr>
+      </table>
+
+      <div class="spacer-8"></div>
+
+      <table>
+        <tr>
+          <td class="label" style="padding: 5px 0">Arzany kabul eden Bank işgäriniň goly:</td>
+          <td class="line" style="width: 150px; padding: 5px 10px"></td>
+          <td class="label" style="padding: 5px 0">
+            M. Ý. <span class="small">Bar bolan ýagdaýynda</span>
+          </td>
+        </tr>
+      </table>
+
+      <div class="spacer-12"></div>
+
+      <table class="no-border">
+        <tr>
+          <td style="padding: 5px 0">
+            Şu Arza - Anketanyň arka tarapyndaky Ylalaşygyň şertlerni tassyklap, karty goýbermäge
+            rugsat berýärin.
+          </td>
+        </tr>
+      </table>
+
+      <div class="spacer-12"></div>
+
+      <table>
+        <tr>
+          <td class="label" style="padding: 5px 0; width: 200px">Müdir başlygynyň goly:</td>
+          <td
+            class="line"
+            style="width: 150px; text-decoration: underline; display: block; padding: 5px 10px"
+          ></td>
+          <td class="box" style="width: 130px; padding: 0; margin-right: 30px"></td>
+          <td style="text-align: right; place-items: end">
+            <table class="no-border" style="width: auto">
+              <tr>
+                <td class="label" style="padding: 5px 0; width: 50px">Sene:</td>
+                <td class="line" style="width: 35px"></td>
+                <td class="center">/</td>
+                <td class="line" style="width: 35px"></td>
+                <td class="center">/</td>
+                <td class="line" style="width: 65px"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <div class="spacer-20"></div>
+
+      <!-- Footer -->
+      <table class="no-border">
+        <tr>
+          <td class="center" style="font-size: 10pt; padding-top: 10px">
+            Sorag-jogap gullugy: tel. (+99312) 444345, 445959.<br />
+            www.senagatbank.com.tm
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
