@@ -54,27 +54,27 @@ import { RouterLink } from 'vue-router';
         <div class="auto_container">
             <div class="wrap">
                 <div class="flex items-center mb-10">
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-[#F7F8F6]">
+                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Кредит
                     </h6>
 
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-[#F7F8F6]">
+                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Карта
                     </h6>
 
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-[#F7F8F6]">
+                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Вклады
                     </h6>
 
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-[#F7F8F6]">
+                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
                         График работы
                     </h6>
 
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-[#F7F8F6]">
+                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Важно
                     </h6>
 
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-[#F7F8F6]">
+                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Мобильная версия
                     </h6>
                 </div>
@@ -82,10 +82,11 @@ import { RouterLink } from 'vue-router';
                 <div class="grid grid-cols-12 gap-4">
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
+                                alt="news" />
                         </span>
                         <div class="p-4">
-                            <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
+                            <RouterLink to="/" class="block text-mainBlack text-[17px] font-bold leading-6">
                                 Газпромбанк расширил
                                 возможности РКО для
                                 предпринимателей
@@ -96,10 +97,11 @@ import { RouterLink } from 'vue-router';
 
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
+                                alt="news" />
                         </span>
                         <div class="p-4">
-                            <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
+                            <RouterLink to="/" class="block text-mainBlack text-[17px] font-bold leading-6">
                                 Газпромбанк расширил
                                 возможности РКО для
                                 предпринимателей
@@ -110,10 +112,11 @@ import { RouterLink } from 'vue-router';
 
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
+                                alt="news" />
                         </span>
                         <div class="p-4">
-                            <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
+                            <RouterLink to="/" class="block text-mainBlack text-[17px] font-bold leading-6">
                                 Газпромбанк расширил
                                 возможности РКО для
                                 предпринимателей
@@ -124,10 +127,11 @@ import { RouterLink } from 'vue-router';
 
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
+                                alt="news" />
                         </span>
                         <div class="p-4">
-                            <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
+                            <RouterLink to="/" class="block text-mainBlack text-[17px] font-bold leading-6">
                                 Газпромбанк расширил
                                 возможности РКО для
                                 предпринимателей
@@ -138,10 +142,11 @@ import { RouterLink } from 'vue-router';
 
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
+                                alt="news" />
                         </span>
                         <div class="p-4">
-                            <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
+                            <RouterLink to="/" class="block text-mainBlack text-[17px] font-bold leading-6">
                                 Газпромбанк расширил
                                 возможности РКО для
                                 предпринимателей
@@ -152,10 +157,11 @@ import { RouterLink } from 'vue-router';
 
                     <article class="col-span-4 bg-white rounded-[20px] overflow-hidden">
                         <span class="block h-[200px] overflow-hidden rounded-2xl">
-                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
+                            <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
+                                alt="news" />
                         </span>
                         <div class="p-4">
-                            <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
+                            <RouterLink to="/" class="block text-mainBlack text-[17px] font-bold leading-6">
                                 Газпромбанк расширил
                                 возможности РКО для
                                 предпринимателей

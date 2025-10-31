@@ -31,7 +31,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                         </svg>
                     </span>
 
-                    <h6 class="text-[17px] font-Gilroy text-[#191B19]">
+                    <h6 class="text-[17px] font-Gilroy text-mainBlack">
                         Сервисы и услуги
                     </h6>
                 </div>
@@ -48,7 +48,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                         Предложения
                     </h2>
 
-                    <div class="relative bg-[#F7F8F6] p-1 rounded-[20px] grid grid-cols-4 items-center">
+                    <div class="relative bg-mainWhite p-1 rounded-[20px] grid grid-cols-4 items-center">
                         <span
                             class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-transform duration-300 ease-out will-change-transform"
                             :style="{ width: 'calc((100% - 8px) / 4)', transform: `translateX(calc(${activeIndex} * 100%))`, left: '4px' }"
@@ -56,7 +56,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
 
                         <button type="button"
                             class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
-                            :class="activeTab === 'Все' ? 'text-[#F7F8F6]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            :class="activeTab === 'Все' ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('Все')">
                             Все
                         </button>
@@ -87,28 +87,29 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                 <div v-show="activeTab === 'Все'" class="grid gap-4 lg:grid-cols-12">
                     <div class="lg:col-span-8 grid gap-4 sm:grid-cols-2">
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 Банковская карта «Алтын Асыр»
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
-                                    alt="card">
+                                <img src="../../assets/images/altyn-asyr-card.png"
+                                    class="block max-h-full object-contain" alt="card">
                             </span>
                         </div>
 
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 Потребительские кредиты
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
+                                <img src="../../assets/images/cart.png" class="block max-h-full object-contain"
+                                    alt="cart">
                             </span>
                         </div>
 
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 Депозитный вклад «Забота о родителях»
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -119,23 +120,23 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                         </div>
 
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 Банковская карта «Гоюм»
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
-                                    alt="card">
+                                <img src="../../assets/images/altyn-asyr-card.png"
+                                    class="block max-h-full object-contain" alt="card">
                             </span>
                         </div>
                     </div>
 
                     <div
-                        class="lg:col-span-4 rounded-[20px] text-[#F7F8F6] relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
+                        class="lg:col-span-4 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
                         <h6 class="text-[34px] leading-9 font-bold mb-[10px]">
                             Депозитный вклад «Выгодный»
                         </h6>
-                        <p class="text-[#F7F8F6] max-w-[420px] opacity-60">
+                        <p class="text-mainWhite max-w-[420px] opacity-60">
                             Без пополнения и снятия с возможностью расторжения в любой момент
                         </p>
 
@@ -150,7 +151,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                 <div v-show="activeTab === 'Вклад'" class="grid gap-4 lg:grid-cols-12">
                     <div class="lg:col-span-8 grid gap-4 sm:grid-cols-2">
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 Депозитный вклад «Забота о родителях»
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -161,7 +162,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                         </div>
 
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 Депозитный вклад «Забота о родителях»
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -172,7 +173,7 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                         </div>
 
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 Депозитный вклад «Забота о родителях»
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -184,11 +185,11 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                     </div>
 
                     <div
-                        class="lg:col-span-4 rounded-[20px] text-[#F7F8F6] relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
+                        class="lg:col-span-4 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
                         <h6 class="text-[34px] leading-9 font-bold mb-[10px]">
                             Депозитный вклад «Выгодный»
                         </h6>
-                        <p class="text-[#F7F8F6] max-w-[420px] opacity-60">
+                        <p class="text-mainWhite max-w-[420px] opacity-60">
                             Без пополнения и снятия с возможностью расторжения в любой момент
                         </p>
 
@@ -203,12 +204,13 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                 <div v-show="activeTab === 'Кредиты'" class="grid gap-4 lg:grid-cols-12">
                     <div class="lg:col-span-7 grid gap-4 sm:grid-cols-2">
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 Потребительские кредиты
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
+                                <img src="../../assets/images/cart.png" class="block max-h-full object-contain"
+                                    alt="cart">
                             </span>
                         </div>
                     </div>
@@ -217,24 +219,24 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                 <div v-show="activeTab === 'Карты'" class="grid gap-4 lg:grid-cols-12">
                     <div class="lg:col-span-7 grid gap-4 sm:grid-cols-2">
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 Банковская карта «Алтын Асыр»
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
-                                    alt="card">
+                                <img src="../../assets/images/altyn-asyr-card.png"
+                                    class="block max-h-full object-contain" alt="card">
                             </span>
                         </div>
 
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 Банковская карта «Гоюм»
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain"
-                                    alt="card">
+                                <img src="../../assets/images/altyn-asyr-card.png"
+                                    class="block max-h-full object-contain" alt="card">
                             </span>
                         </div>
                     </div>
@@ -247,9 +249,9 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
     <section class="pt-[60px] pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center justify-between relative bg-[#F7F8F6] rounded-[20px] p-8 overflow-hidden">
+                <div class="flex items-center justify-between relative bg-mainWhite rounded-[20px] p-8 overflow-hidden">
                     <div class="block max-w-[460px]">
-                        <h4 class=" text-[28px] font-bold mb-[10px] text-[#191B19]">
+                        <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack">
                             Перечень документов для открытия счета
                         </h4>
                         <p class="text-[#6F736D] text-[17px] leading-6 mb-8">
@@ -293,16 +295,16 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
 }
 
 .hot-glow::after {
-  content: "";
-  position: absolute;
-  width: 321px;
-  height: 321px;
-  right: -120px;
-  bottom: -97px;
-  background: #ED6328;
-  filter: blur(137.15px);
-  border-radius: 9999px;
-  /* makes it a circle */
-  pointer-events: none;
+    content: "";
+    position: absolute;
+    width: 321px;
+    height: 321px;
+    right: -120px;
+    bottom: -97px;
+    background: #ED6328;
+    filter: blur(137.15px);
+    border-radius: 9999px;
+    /* makes it a circle */
+    pointer-events: none;
 }
 </style>

@@ -10,7 +10,7 @@ import card from "@/assets/images/card-1.png";
     <section class="hero pt-[155px] pb-[80px] bg-[#1D2417] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
-                <h1 class="m-auto max-w-[660px] text-center text-5xl font-bold text-[#F7F8F6]">
+                <h1 class="m-auto max-w-[660px] text-center text-5xl font-bold text-mainWhite">
                     Виртуальная карта за 0₽ с мгновенным кэшбэком
                 </h1>
 

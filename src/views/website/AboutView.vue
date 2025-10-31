@@ -5,7 +5,7 @@
 
 <template>
   <!-- Hero  ================================================= -->
-  <section class="hero pt-[130px] pb-[60px] bg-[#191B19] relative overflow-hidden">
+  <section class="hero pt-[130px] pb-[60px] bg-mainBlack relative overflow-hidden">
     <div class="auto_container">
       <div class="hero_wrap">
 
@@ -24,17 +24,17 @@
           </span>
 
 
-          <h6 class="text-[17px] font-Gilroy text-[#F7F8F6]">
+          <h6 class="text-[17px] font-Gilroy text-mainWhite">
             О Банке
           </h6>
         </div>
 
 
-        <h1 class="m-auto max-w-[660px] text-[#F7F8F6] mb-[10px] text-center text-5xl font-bold">
+        <h1 class="m-auto max-w-[660px] text-mainWhite mb-[10px] text-center text-5xl font-bold">
           Сенагат делает жизнь лучше
         </h1>
 
-        <p class="text-[17px] font-Gilroy text-[#F7F8F6]/60 text-center">
+        <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
           Обратитесь в удобный для вас офис
         </p>
 
@@ -56,8 +56,8 @@
         </h2>
 
         <div class="grid grid-cols-12 gap-x-4">
-          <div class="block col-span-4 bg-[#F7F8F6] rounded-[20px] p-8">
-            <h4 class=" text-[28px] font-bold text-[#191B19] mb-8">
+          <div class="block col-span-4 bg-mainWhite rounded-[20px] p-8">
+            <h4 class=" text-[28px] font-bold text-mainBlack mb-8">
               Банк года Туркменистана
             </h4>
 
@@ -66,8 +66,8 @@
             </span>
           </div>
 
-          <div class="block col-span-4 bg-[#F7F8F6] rounded-[20px] p-8">
-            <h4 class=" text-[28px] font-bold text-[#191B19] mb-8">
+          <div class="block col-span-4 bg-mainWhite rounded-[20px] p-8">
+            <h4 class=" text-[28px] font-bold text-mainBlack mb-8">
               Банк года Туркменистана
             </h4>
 
@@ -76,8 +76,8 @@
             </span>
           </div>
 
-          <div class="block col-span-4 bg-[#F7F8F6] rounded-[20px] p-8">
-            <h4 class=" text-[28px] font-bold text-[#191B19] mb-8">
+          <div class="block col-span-4 bg-mainWhite rounded-[20px] p-8">
+            <h4 class=" text-[28px] font-bold text-mainBlack mb-8">
               Банк года Туркменистана
             </h4>
 
@@ -95,7 +95,7 @@
     <div class="auto_container">
       <div class="wrap">
         <div class="flex gap-x-4">
-          <div class="w-[calc(100%-306px)] bg-[#F7F8F6] rounded-[20px] overflow-hidden">
+          <div class="w-[calc(100%-306px)] bg-mainWhite rounded-[20px] overflow-hidden">
             <div class="flex items-center justify-center bg-[#2C702C] py-5">
               <h4 class="text-[38px] font-bold text-[#EEF2ED]">
                 1989-2025
@@ -110,7 +110,7 @@
             </p>
           </div>
 
-          <div class="w-[290px] bg-[#F7F8F6] rounded-[20px] flex items-center justify-center">
+          <div class="w-[290px] bg-mainWhite rounded-[20px] flex items-center justify-center">
             <img src="../../assets/images/senagat-big.png" class="w-[200px] block object-contain" alt="emblem">
           </div>
         </div>
@@ -124,11 +124,11 @@
       <div class="wrap">
 
         <div class="block relative">
-          <div class=" bg-[#191B19] rounded-[20px] p-8 relative overflow-hidden ellipse">
-            <h4 class="text-[28px] text-[#F7F8F6] font-bold mb-[10px] leading-8 z-10">
+          <div class=" bg-mainBlack rounded-[20px] p-8 relative overflow-hidden ellipse">
+            <h4 class="text-[28px] text-mainWhite font-bold mb-[10px] leading-8 z-10">
               Скачай приложение
             </h4>
-            <p class="text-[#F7F8F6]/60 font-Gilroy text-[17px] leading-6 z-10 max-w-[330px]">
+            <p class="text-mainWhite/60 font-Gilroy text-[17px] leading-6 z-10 max-w-[330px]">
               Курс действует на текущее время. Точный курс будет определён на момент совершения операции
             </p>
 

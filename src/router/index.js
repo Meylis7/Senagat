@@ -64,10 +64,54 @@ const router = createRouter({
       path: '/dashboard',
       component: DashboardLayout,
       children: [
-        // Keep empty for now or point to a simple placeholder
-        { path: '', name: 'dashboard-home', component: () => import('@/components/draft.vue') },
+        {
+          path: '',
+          name: 'dashboard.home',
+          component: () => import('@/views/dashboard/HomeView.vue'),
+        },
+        {
+          path: 'payments',
+          name: 'dashboard.payments',
+          component: () => import('@/views/dashboard/PaymentsView.vue'),
+        },
+        {
+          path: 'payment',
+          name: 'dashboard.payment',
+          component: () => import('@/views/dashboard/PaymentView.vue'),
+        },
+        {
+          path: 'services',
+          name: 'dashboard.services',
+          component: () => import('@/views/dashboard/ServicesView.vue'),
+        },
+        {
+          path: 'maps',
+          name: 'dashboard.maps',
+          component: () => import('@/views/dashboard/MapsView.vue'),
+        },
+        {
+          path: 'notifications',
+          name: 'dashboard.notifications',
+          component: () => import('@/views/dashboard/NotificationsView.vue'),
+        },
+        {
+          path: 'settings',
+          name: 'dashboard.settings',
+          component: () => import('@/views/dashboard/SettingsView.vue'),
+        },
+        {
+          path: 'profile',
+          name: 'dashboard.profile',
+          component: () => import('@/views/dashboard/ProfileView.vue'),
+        },
       ],
     },
+
+    // {
+    //   path: "/:catchAll(.*)",
+    //   name: "not-found",
+    //   component: NotFoundView,
+    // },
   ],
 })
 

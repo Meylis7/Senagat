@@ -22,7 +22,7 @@ import { RouterLink } from 'vue-router';
                         </svg>
                     </span>
 
-                    <h6 class="text-[17px] font-Gilroy text-[#191B19]">
+                    <h6 class="text-[17px] font-Gilroy text-mainBlack">
                         Карты
                     </h6>
                 </div>
@@ -37,9 +37,9 @@ import { RouterLink } from 'vue-router';
                 <h2 class="text-[38px] font-bold mb-10 leading-9">Карты</h2>
 
                 <div class="block space-y-4">
-                    <div class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8">
+                    <div class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8">
                         <div class="block">
-                            <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
+                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
                                 Карта «Altyn Asyr»
                             </h4>
                             <p
@@ -59,9 +59,9 @@ import { RouterLink } from 'vue-router';
                         </span>
                     </div>
 
-                    <div class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8">
+                    <div class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8">
                         <div class="block">
-                            <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
+                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
                                 Карта «Altyn Asyr»
                             </h4>
                             <p
@@ -81,9 +81,9 @@ import { RouterLink } from 'vue-router';
                         </span>
                     </div>
 
-                    <div class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8">
+                    <div class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8">
                         <div class="block">
-                            <h4 class="text-[28px] font-bold text-[#191B19] mb-5 leading-7">
+                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
                                 Карта «Altyn Asyr»
                             </h4>
                             <p
@@ -114,7 +114,7 @@ import { RouterLink } from 'vue-router';
                 <h2 class="text-[38px] font-bold mb-10 leading-9">Как получить карту</h2>
 
                 <div class="grid grid-cols-12 gap-x-4">
-                    <div class="col-span-3 bg-[#F7F8F6] rounded-[20px] p-8">
+                    <div class="col-span-3 bg-mainWhite rounded-[20px] p-8">
                         <h6 class="text-[80px] font-bold leading-none mb-8">1</h6>
                         <h4 class="text-[28px] font-bold mb-[10px] leading-8">
                             Выберите отделение
@@ -124,7 +124,7 @@ import { RouterLink } from 'vue-router';
                         </p>
                     </div>
 
-                    <div class="col-span-3 bg-[#F7F8F6] rounded-[20px] p-8">
+                    <div class="col-span-3 bg-mainWhite rounded-[20px] p-8">
                         <h6 class="text-[80px] font-bold leading-none mb-8">2</h6>
                         <h4 class="text-[28px] font-bold mb-[10px] leading-8">
                             Подайте заявку
@@ -134,12 +134,12 @@ import { RouterLink } from 'vue-router';
                         </p>
                     </div>
 
-                    <div class="col-span-6 bg-[#191B19] rounded-[20px] p-8 relative overflow-hidden ellipse">
-                        <h6 class="text-[80px]  text-[#F7F8F6] font-bold leading-none mb-8">3</h6>
-                        <h4 class="text-[28px] text-[#F7F8F6] font-bold mb-[10px] leading-8 z-10">
+                    <div class="col-span-6 bg-mainBlack rounded-[20px] p-8 relative overflow-hidden ellipse">
+                        <h6 class="text-[80px]  text-mainWhite font-bold leading-none mb-8">3</h6>
+                        <h4 class="text-[28px] text-mainWhite font-bold mb-[10px] leading-8 z-10">
                             Пользуйтесь картой
                         </h4>
-                        <p class="text-[#F7F8F6]/60 font-Gilroy text-[17px] leading-6 z-10">
+                        <p class="text-mainWhite/60 font-Gilroy text-[17px] leading-6 z-10">
                             Получите карту, выбирайте категории месяца и получайте кешбэк за покупки
                         </p>
                         <span class="block w-[220px] absolute top-0 right-[51px]">
@@ -174,10 +174,10 @@ import { RouterLink } from 'vue-router';
                     <!-- Promo card left -->
                     <div
                         class="w-full max-w-[390px] flex-shrink-0 rounded-[20px] overflow-hidden bg-[#0E0F0E] p-8 text-white relative min-h-[500px] news-promo-glow">
-                        <h6 class="text-[28px] leading-9 text[#F7F8F6] font-bold mb-[10px]">
+                        <h6 class="text-[28px] leading-9 text-mainWhite font-bold mb-[10px]">
                             Скачай приложение
                         </h6>
-                        <p class="text-[#F7F8F6] text-[17px] leading-7 opacity-60 font-Gilroy">
+                        <p class="text-mainWhite text-[17px] leading-7 opacity-60 font-Gilroy">
                             Курс действует на текущее время. <br> Точный курс будет определён на момент совершения
                             операции
                         </p>
@@ -196,7 +196,7 @@ import { RouterLink } from 'vue-router';
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                <RouterLink to="/" class="text-mainBlack text-[17px] font-bold leading-6">
                                     Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
@@ -211,7 +211,7 @@ import { RouterLink } from 'vue-router';
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                <RouterLink to="/" class="text-mainBlack text-[17px] font-bold leading-6">
                                     Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
@@ -226,7 +226,7 @@ import { RouterLink } from 'vue-router';
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                <RouterLink to="/" class="text-mainBlack text-[17px] font-bold leading-6">
                                     Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
@@ -241,7 +241,7 @@ import { RouterLink } from 'vue-router';
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                <RouterLink to="/" class="text-mainBlack text-[17px] font-bold leading-6">
                                     Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей

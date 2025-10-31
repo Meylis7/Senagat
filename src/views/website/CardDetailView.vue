@@ -19,7 +19,7 @@ function toggleAccordion(id) {
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[145px] pb-[60px] bg-[#191B19] relative overflow-hidden">
+    <section class="hero pt-[145px] pb-[60px] bg-mainBlack relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
 
@@ -50,17 +50,17 @@ function toggleAccordion(id) {
                         </svg>
                     </span>
 
-                    <h6 class="text-[17px] font-Gilroy text-[#F7F8F6]">
+                    <h6 class="text-[17px] font-Gilroy text-mainWhite">
                         Карта «Altyn Asyr»
                     </h6>
                 </div>
 
 
-                <h1 class="m-auto max-w-[660px] text-[#F7F8F6] mb-[10px] text-center text-5xl font-bold">
+                <h1 class="m-auto max-w-[660px] text-mainWhite mb-[10px] text-center text-5xl font-bold">
                     Карта «Altyn Asyr»
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-[#F7F8F6]/60 text-center">
+                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
                     Обратитесь в удобный для вас офис
                 </p>
 
@@ -84,7 +84,7 @@ function toggleAccordion(id) {
         <div class="auto_container">
             <div class="wrap">
                 <div class="grid grid-cols-12 gap-x-4">
-                    <div class="col-span-6 block bg-[#F7F8F6] rounded-[20px] p-8">
+                    <div class="col-span-6 block bg-mainWhite rounded-[20px] p-8">
                         <h3 class="text-[38px] font-bold mb-[10px] leading-9">
                             6% годовых
                         </h3>
@@ -98,7 +98,7 @@ function toggleAccordion(id) {
                         </span>
                     </div>
 
-                    <div class="col-span-6 block bg-[#F7F8F6] rounded-[20px] p-8">
+                    <div class="col-span-6 block bg-mainWhite rounded-[20px] p-8">
                         <h3 class="text-[38px] font-bold mb-[10px] leading-9">
                             6% годовых
                         </h3>
@@ -122,7 +122,7 @@ function toggleAccordion(id) {
             <div class="wrap">
                 <h2 class="text-[38px] font-bold mb-10 leading-9">Тарифы и документы</h2>
 
-                <div class="block p-8 rounded-[20px] mb-4 bg-[#F7F8F6]">
+                <div class="block p-8 rounded-[20px] mb-4 bg-mainWhite">
                     <div class="flex items-center justify-between cursor-pointer"
                         @click="toggleAccordion('card-conditions')">
                         <h4 class="text-[28px] font-bold">
@@ -181,7 +181,7 @@ function toggleAccordion(id) {
                     </Transition>
                 </div>
 
-                <div class="block p-8 rounded-[20px] mb-4 bg-[#F7F8F6]">
+                <div class="block p-8 rounded-[20px] mb-4 bg-mainWhite">
                     <div class="flex items-center justify-between cursor-pointer"
                         @click="toggleAccordion('payment-methods')">
                         <h4 class="text-[28px] font-bold">
@@ -240,7 +240,7 @@ function toggleAccordion(id) {
                     </Transition>
                 </div>
 
-                <div class="block p-8 rounded-[20px] bg-[#F7F8F6]">
+                <div class="block p-8 rounded-[20px] bg-mainWhite">
                     <div class="flex items-center justify-between cursor-pointer" @click="toggleAccordion('cashback')">
                         <h4 class="text-[28px] font-bold">
                             Все о Кэшбэке
@@ -349,7 +349,7 @@ function toggleAccordion(id) {
                 <h2 class="text-[38px] font-bold mb-10 leading-9">Другие карты</h2>
 
                 <div class="grid grid-cols-12 gap-x-4">
-                    <div class="col-span-4 bg-[#F7F8F6] rounded-[20px] p-1">
+                    <div class="col-span-4 bg-mainWhite rounded-[20px] p-1">
                         <div
                             class="bg-[#EEF2ED] rounded-2xl pt-[15px] relative flex items-end justify-center overflow-hidden">
                             <span class="block h-[150px] relative -bottom-[25px]">
@@ -363,7 +363,7 @@ function toggleAccordion(id) {
                         </div>
 
                         <div class="block p-4">
-                            <h4 class="text-[17px] font-bold text-[#191B19] mb-5 leading-7">
+                            <h4 class="text-[17px] font-bold text-mainBlack mb-5 leading-7">
                                 Карта «Altyn Asyr»
                             </h4>
                             <p class="text-sm font-Gilroy text-[#2C702C] p-3 mb-5 rounded-2xl bg-[#EEF2ED] w-fit">
@@ -377,7 +377,7 @@ function toggleAccordion(id) {
                         </div>
                     </div>
 
-                    <div class="col-span-4 bg-[#F7F8F6] rounded-[20px] p-1">
+                    <div class="col-span-4 bg-mainWhite rounded-[20px] p-1">
                         <div
                             class="bg-[#EEF2ED] rounded-2xl pt-[15px] relative flex items-end justify-center overflow-hidden">
                             <span class="block h-[150px] relative -bottom-[25px]">
@@ -391,7 +391,7 @@ function toggleAccordion(id) {
                         </div>
 
                         <div class="block p-4">
-                            <h4 class="text-[17px] font-bold text-[#191B19] mb-5 leading-7">
+                            <h4 class="text-[17px] font-bold text-mainBlack mb-5 leading-7">
                                 Карта «Altyn Asyr»
                             </h4>
                             <p class="text-sm font-Gilroy text-[#2C702C] p-3 mb-5 rounded-2xl bg-[#EEF2ED] w-fit">
@@ -405,7 +405,7 @@ function toggleAccordion(id) {
                         </div>
                     </div>
 
-                    <div class="col-span-4 bg-[#F7F8F6] rounded-[20px] p-1">
+                    <div class="col-span-4 bg-mainWhite rounded-[20px] p-1">
                         <div
                             class="bg-[#EEF2ED] rounded-2xl pt-[15px] relative flex items-end justify-center overflow-hidden">
                             <span class="block h-[150px] relative -bottom-[25px]">
@@ -419,7 +419,7 @@ function toggleAccordion(id) {
                         </div>
 
                         <div class="block p-4">
-                            <h4 class="text-[17px] font-bold text-[#191B19] mb-5 leading-7">
+                            <h4 class="text-[17px] font-bold text-mainBlack mb-5 leading-7">
                                 Карта «Altyn Asyr»
                             </h4>
                             <p class="text-sm font-Gilroy text-[#2C702C] p-3 mb-5 rounded-2xl bg-[#EEF2ED] w-fit">

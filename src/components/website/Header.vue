@@ -80,8 +80,8 @@ watch(
         <div class="auto_container">
             <div :class="[
                 'header_inner flex items-center rounded-[20px] py-5 px-8 transition-all duration-500 ease-out',
-                !isDetailPage ? 'bg-[#F7F8F6]' : '',
-                isSticky ? 'mt-3 rounded-[14px] py-3 shadow-lg bg-[#F7F8F6]' : ''
+                !isDetailPage ? 'bg-mainWhite' : '',
+                isSticky ? 'mt-3 rounded-[14px] py-3 shadow-lg bg-mainWhite' : ''
             ]">
                 <RouterLink to="/" class="block w-[46px] min-w-[46px] shrink-0 mr-10">
                     <img :src="logo" class="block w-full h-auto object-contain" alt="logo">
@@ -91,28 +91,28 @@ watch(
                     <div class="flex items-center gap-[34px]">
                         <h4 :class="[
                             'nav-tab cursor-pointer select-none font-Gilroy text-[17px] font-normal',
-                            isDetailPage && !isSticky ? 'text-[#F7F8F6]' : 'text-[#191B19]',
+                            isDetailPage && !isSticky ? 'text-mainWhite' : 'text-mainBlack',
                             activeTab === 'one' ? 'after:contents' : ' !after:hidden'
                         ]" @click="setTab('one')">
                             Частным лицам</h4>
 
                         <h4 :class="[
                             'nav-tab cursor-pointer select-none font-Gilroy text-[17px] font-normal',
-                            isDetailPage && !isSticky ? 'text-[#F7F8F6]' : 'text-[#191B19]',
+                            isDetailPage && !isSticky ? 'text-mainWhite' : 'text-mainBlack',
                             activeTab === 'two' ? 'after:contents' : ' !after:hidden'
                         ]" @click="setTab('two')">
                             Бизнес и ИП</h4>
 
                         <RouterLink to="/about" :class="[
                             'font-Gilroy text-[17px] font-normal',
-                            isDetailPage && !isSticky ? 'text-[#F7F8F6]' : 'text-[#191B19]'
+                            isDetailPage && !isSticky ? 'text-mainWhite' : 'text-mainBlack'
                         ]">О банке
                         </RouterLink>
 
                         <div class="flex items-center ml-auto gap-x-2">
                             <RouterLink to="/" :class="[
                                 'block text-sm font-bold border-solid border-[1px] rounded-[10px] px-5 py-[14px]',
-                                isDetailPage && !isSticky ? 'text-[#F7F8F6] border-[#F7F8F6]' : 'text-[#1D2417] border-[#1D2417]'
+                                isDetailPage && !isSticky ? 'text-mainWhite border-[#F7F8F6]' : 'text-[#1D2417] border-[#1D2417]'
                             ]">
                                 Онлайн приёмная
                             </RouterLink>
@@ -127,7 +127,7 @@ watch(
             </div>
             <div ref="contentRef">
                 <Transition v-if="activeTab" name="fade-slide" mode="out-in"
-                    class="tab-content absolute w-[calc(100%-60px)] bg-[#F7F8F6] py-8 px-[118px] rounded-[20px]">
+                    class="tab-content absolute w-[calc(100%-60px)] bg-mainWhite py-8 px-[118px] rounded-[20px]">
                     <section v-if="activeTab === 'one'" key="one" class="flex justify-between">
                         <div class="block w-[calc(25%-24px)]">
                             <RouterLink to="/loans" class="block text-[17px] font-bold mb-[22px]">Кредиты</RouterLink>

@@ -98,7 +98,7 @@ const rates = [
               Предложения
             </h2>
 
-            <div class="relative bg-[#F7F8F6] p-1 rounded-[20px] grid grid-cols-4 items-center">
+            <div class="relative bg-mainWhite p-1 rounded-[20px] grid grid-cols-4 items-center">
               <span
                 class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-transform duration-300 ease-out will-change-transform"
                 :style="{ width: 'calc((100% - 8px) / 4)', transform: `translateX(calc(${activeIndex} * 100%))`, left: '4px' }"
@@ -106,7 +106,7 @@ const rates = [
 
               <button type="button"
                 class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
-                :class="activeTab === 'Все' ? 'text-[#F7F8F6]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                :class="activeTab === 'Все' ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
                 @click="setActiveTab('Все')">
                 Все
               </button>
@@ -137,7 +137,7 @@ const rates = [
           <div v-show="activeTab === 'Все'" class="grid gap-4 grid-cols-12">
             <div class="lg:col-span-8 grid gap-4 sm:grid-cols-2">
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Банковская карта «Алтын Асыр»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -147,7 +147,7 @@ const rates = [
               </div>
 
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Потребительские кредиты
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -157,7 +157,7 @@ const rates = [
               </div>
 
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Депозитный вклад «Забота о родителях»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -167,7 +167,7 @@ const rates = [
               </div>
 
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Банковская карта «Гоюм»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -178,11 +178,11 @@ const rates = [
             </div>
 
             <div
-              class="lg:col-span-4 rounded-[20px] text-[#F7F8F6] relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
+              class="lg:col-span-4 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
               <h6 class="text-[34px] leading-9 font-bold mb-[10px]">
                 Депозитный вклад «Выгодный»
               </h6>
-              <p class="text-[#F7F8F6] max-w-[420px] opacity-60">
+              <p class="text-mainWhite max-w-[420px] opacity-60">
                 Без пополнения и снятия с возможностью расторжения в любой момент
               </p>
 
@@ -194,7 +194,7 @@ const rates = [
 
             <div class="col-span-12 grid gap-4 grid-cols-12">
               <div class="col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Депозитный вклад «Забота о родителях»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -204,7 +204,7 @@ const rates = [
               </div>
 
               <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Банковская карта «Гоюм»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -214,7 +214,7 @@ const rates = [
               </div>
 
               <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Банковская карта «Гоюм»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -225,17 +225,17 @@ const rates = [
 
               <div
                 class="col-span-8 rounded-[20px] p-8 shadow-sm hover:shadow-md transition offer-circle overflow-hidden relative bg-[#1D2417]">
-                <h6 class="text-[28px] text-[#F7F8F6] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainWhite leading-7 font-bold mb-[10px]">
                   Депозитный вклад «Забота о родителях»
                 </h6>
-                <p class="text-[17px] text-[#F7F8F6]/60 leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                <p class="text-[17px] text-mainWhite/60 leading-5 mb-1 font-Gilroy">Без пополнения</p>
                 <span class="max-h-[120px] h-full flex items-end justify-end">
                   <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
                 </span>
               </div>
 
               <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Депозитный вклад «Забота о родителях»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -245,7 +245,7 @@ const rates = [
               </div>
 
               <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Банковская карта «Гоюм»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -255,7 +255,7 @@ const rates = [
               </div>
 
               <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Банковская карта «Гоюм»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -285,7 +285,7 @@ const rates = [
           <div v-show="activeTab === 'Вклад'" class="grid gap-4 lg:grid-cols-12">
             <div class="lg:col-span-8 grid gap-4 sm:grid-cols-2">
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Депозитный вклад «Забота о родителях»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -295,7 +295,7 @@ const rates = [
               </div>
 
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Депозитный вклад «Забота о родителях»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -305,7 +305,7 @@ const rates = [
               </div>
 
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Депозитный вклад «Забота о родителях»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -316,11 +316,11 @@ const rates = [
             </div>
 
             <div
-              class="lg:col-span-4 rounded-[20px] text-[#F7F8F6] relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
+              class="lg:col-span-4 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
               <h6 class="text-[34px] leading-9 font-bold mb-[10px]">
                 Депозитный вклад «Выгодный»
               </h6>
-              <p class="text-[#F7F8F6] max-w-[420px] opacity-60">
+              <p class="text-mainWhite max-w-[420px] opacity-60">
                 Без пополнения и снятия с возможностью расторжения в любой момент
               </p>
 
@@ -334,7 +334,7 @@ const rates = [
           <div v-show="activeTab === 'Кредиты'" class="grid gap-4 lg:grid-cols-12">
             <div class="lg:col-span-7 grid gap-4 sm:grid-cols-2">
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Потребительские кредиты
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -348,7 +348,7 @@ const rates = [
           <div v-show="activeTab === 'Карты'" class="grid gap-4 lg:grid-cols-12">
             <div class="lg:col-span-7 grid gap-4 sm:grid-cols-2">
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Банковская карта «Алтын Асыр»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -358,7 +358,7 @@ const rates = [
               </div>
 
               <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                   Банковская карта «Гоюм»
                 </h6>
                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
@@ -376,9 +376,9 @@ const rates = [
     <section class="pt-[60px] pb-[50px]">
       <div class="auto_container">
         <div class="wrap">
-          <div class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8">
+          <div class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8">
             <div class="block max-w-[460px]">
-              <h4 class=" text-[28px] font-bold mb-[10px] text-[#191B19]">
+              <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack">
                 Благотворительный фонд
               </h4>
               <p class="text-[#6F736D] text-[17px] leading-6 mb-8 font-Gilroy">
@@ -405,7 +405,7 @@ const rates = [
           <div class="flex items-center justify-between mb-8">
             <h2 class="text-[38px] font-bold leading-9">Рассчитать выгоду</h2>
 
-            <div class="relative bg-[#F7F8F6] p-1 rounded-[20px] grid grid-cols-2 items-center min-w-[240px]">
+            <div class="relative bg-mainWhite p-1 rounded-[20px] grid grid-cols-2 items-center min-w-[240px]">
               <span
                 class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-transform duration-300 ease-out will-change-transform"
                 :style="{ width: 'calc((100% - 8px) / 2)', transform: `translateX(calc(${calcActiveIndex} * 100%))`, left: '4px' }"
@@ -428,7 +428,7 @@ const rates = [
           </div>
 
           <div v-show="calcActiveTab === 'Кредит'" class="grid lg:grid-cols-2 gap-6">
-            <div class="bg-[#F7F8F6] rounded-[20px] p-6">
+            <div class="bg-mainWhite rounded-[20px] p-6">
               <div class="mb-6">
                 <div class="relative">
                   <button type="button" @click="isCreditTypeOpen = !isCreditTypeOpen"
@@ -444,7 +444,7 @@ const rates = [
                     class="absolute z-10 mt-2 w-full bg-white rounded-[12px] shadow p-2 space-y-1">
                     <li v-for="t in creditTypes" :key="t">
                       <button type="button" @click="setCreditType(t)"
-                        :class="t === creditType ? 'bg-[#2C702C] text-white' : 'hover:bg-[#F7F8F6] text-[#191B19]'"
+                        :class="t === creditType ? 'bg-[#2C702C] text-white' : 'hover:bg-mainWhite text-mainBlack'"
                         class="w-full text-left px-3 py-2 rounded-[8px]">{{ t }}</button>
                     </li>
                   </ul>
@@ -452,10 +452,10 @@ const rates = [
               </div>
 
               <div class="mb-6">
-                <label class="block text-[#191B19] font-bold mb-3">Сумма кредита</label>
+                <label class="block text-mainBlack font-bold mb-3">Сумма кредита</label>
                 <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
                   <input type="text" :value="formatMoney(creditAmount)" @input="onCreditAmountInput"
-                    class="w-full outline-none bg-transparent text-[#191B19] font-bold" />
+                    class="w-full outline-none bg-transparent text-mainBlack font-bold" />
                 </div>
                 <div class="mt-3">
                   <input type="range" :min="creditMin" :max="creditMax" step="500" v-model="creditAmount"
@@ -468,16 +468,16 @@ const rates = [
               </div>
 
               <div>
-                <label class="block text-[#191B19] font-bold mb-3">Срок</label>
+                <label class="block text-mainBlack font-bold mb-3">Срок</label>
                 <div class="flex flex-wrap gap-3">
                   <button v-for="term in termOptions" :key="term" type="button" @click="creditSelectedTerm = term"
-                    :class="creditSelectedTerm === term ? 'bg-[#191B19] text-white' : 'bg-white text-[#6F736D]'"
+                    :class="creditSelectedTerm === term ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
                     class="h-[48px] px-5 rounded-[12px]">{{ term }}</button>
                 </div>
               </div>
             </div>
 
-            <div class="bg-[#F7F8F6] rounded-[20px] p-6">
+            <div class="bg-mainWhite rounded-[20px] p-6">
               <div class="flex items-center justify-between mb-6">
                 <div>
                   <p class="text-[#6F736D] mb-2">Ежемесячный платёж</p>
@@ -485,13 +485,13 @@ const rates = [
                 </div>
                 <div>
                   <span
-                    class="inline-flex items-center justify-center h-[44px] w-[44px] rounded-[12px] bg-[#191B19] text-white">1%</span>
+                    class="inline-flex items-center justify-center h-[44px] w-[44px] rounded-[12px] bg-mainBlack text-white">1%</span>
                   <p class="text-[#6F736D] mt-2 text-center">Ставка</p>
                 </div>
               </div>
 
               <div class="bg-white rounded-[12px] p-4 mb-6">
-                <p class="text-[#191B19] font-bold mb-2">Вам понадобится:</p>
+                <p class="text-mainBlack font-bold mb-2">Вам понадобится:</p>
                 <ul class="text-[#6F736D] space-y-2">
                   <li>Паспорт</li>
                   <li>Справка о доходах</li>
@@ -504,13 +504,13 @@ const rates = [
           </div>
 
           <div v-show="calcActiveTab === 'Вклад'" class="grid lg:grid-cols-2 gap-6">
-            <div class="bg-[#F7F8F6] rounded-[20px] p-6">
+            <div class="bg-mainWhite rounded-[20px] p-6">
               <!-- Type of deposit: custom select -->
               <div class="mb-6">
                 <label class="block text-[#6F736D] text-[17px] mb-3">Тип вклада</label>
                 <div class="relative">
                   <button type="button" @click="isDepositTypeOpen = !isDepositTypeOpen"
-                    class="h-[56px] bg-white rounded-[12px] w-full flex items-center justify-between px-4 text-[#191B19]">
+                    class="h-[56px] bg-white rounded-[12px] w-full flex items-center justify-between px-4 text-mainBlack">
                     <span>{{ depositType }}</span>
                     <svg :class="isDepositTypeOpen ? 'rotate-180' : ''" class="transition-transform" width="18"
                       height="18" viewBox="0 0 24 24" fill="none">
@@ -522,7 +522,7 @@ const rates = [
                     class="absolute z-10 mt-2 w-full bg-white rounded-[12px] shadow p-2 space-y-1">
                     <li v-for="t in depositTypes" :key="t">
                       <button type="button" @click="setDepositType(t)"
-                        :class="t === depositType ? 'bg-[#2C702C] text-white' : 'hover:bg-[#F7F8F6] text-[#191B19]'"
+                        :class="t === depositType ? 'bg-[#2C702C] text-white' : 'hover:bg-mainWhite text-mainBlack'"
                         class="w-full text-left px-3 py-2 rounded-[8px]">{{ t }}</button>
                     </li>
                   </ul>
@@ -534,7 +534,7 @@ const rates = [
                 <label class="block text-[#6F736D] text-[17px] mb-3">Сумма вклада</label>
                 <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
                   <input type="text" :value="formatMoney(depositAmount)" @input="onDepositAmountInput"
-                    class="w-full outline-none bg-transparent text-[#191B19] font-bold" />
+                    class="w-full outline-none bg-transparent text-mainBlack font-bold" />
                 </div>
                 <div class="mt-3">
                   <input type="range" :min="depositMin" :max="depositMax" step="500" v-model="depositAmount"
@@ -548,10 +548,10 @@ const rates = [
 
               <!-- Term: radio-like buttons -->
               <div>
-                <label class="block text-[#191B19] font-bold mb-3">Срок</label>
+                <label class="block text-mainBlack font-bold mb-3">Срок</label>
                 <div class="flex flex-wrap gap-3">
                   <button v-for="term in termOptions" :key="term" type="button" @click="selectedTerm = term"
-                    :class="selectedTerm === term ? 'bg-[#191B19] text-white' : 'bg-white text-[#6F736D]'"
+                    :class="selectedTerm === term ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
                     class="h-[48px] px-5 rounded-[12px]">
                     {{ term }}
                   </button>
@@ -559,7 +559,7 @@ const rates = [
               </div>
             </div>
 
-            <div class="bg-[#F7F8F6] rounded-[20px] p-6">
+            <div class="bg-mainWhite rounded-[20px] p-6">
               <div class="flex items-center justify-between mb-6">
                 <div>
                   <p class="text-[#6F736D] mb-2">Ожидаемый доход</p>
@@ -567,13 +567,13 @@ const rates = [
                 </div>
                 <div>
                   <span
-                    class="inline-flex items-center justify-center h-[44px] px-3 rounded-[12px] bg-[#191B19] text-white">Годовая
+                    class="inline-flex items-center justify-center h-[44px] px-3 rounded-[12px] bg-mainBlack text-white">Годовая
                     ставка</span>
                 </div>
               </div>
 
               <div class="bg-white rounded-[12px] p-4 mb-6">
-                <p class="text-[#191B19] font-bold mb-2">Итоги</p>
+                <p class="text-mainBlack font-bold mb-2">Итоги</p>
                 <ul class="text-[#6F736D] space-y-2">
                   <li>Тип: {{ depositType }}</li>
                   <li>Сумма: {{ formatMoney(depositAmount) }} манат</li>
@@ -585,14 +585,14 @@ const rates = [
             </div>
           </div>
 
-          <div class="relative overflow-hidden rounded-[32px] bg-[#191B19] mt-4 py-8 px-6 text-white form-glow">
+          <div class="relative overflow-hidden rounded-[32px] bg-mainBlack mt-4 py-8 px-6 text-white form-glow">
             <form class="max-w-[390px] mx-auto block">
               <h1 class="text-center text-[38px] leading-tight font-bold mb-10">Заполните данные</h1>
 
               <div class="mb-4">
                 <input type="text" placeholder="Фамилия, имя и отчество"
                   class=" text-[17px] w-full rounded-[10px] bg-white placeholder:text-[#6F736D] text-[#1D2417] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
-                <span class="block text-[#F7F8F6]/60 mt-[10px] font-Gilroy">Уточните точно как в паспорте</span>
+                <span class="block text-mainWhite/60 mt-[10px] font-Gilroy">Уточните точно как в паспорте</span>
               </div>
 
               <div class="mb-4">
@@ -602,7 +602,7 @@ const rates = [
                   <input type="tel" placeholder="Номер телефона"
                     class=" text-[17px] flex-1 rounded-[10px] bg-white placeholder:text-[#6F736D] text-[#1D2417] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
                 </div>
-                <span class="block text-[#F7F8F6]/60 text-[15px] mt-[10px] font-Gilroy">На него поступит смс
+                <span class="block text-mainWhite/60 text-[15px] mt-[10px] font-Gilroy">На него поступит смс
                   оповещение</span>
               </div>
 
@@ -629,8 +629,8 @@ const rates = [
 
           <div class="flex gap-4">
             <!-- Left card: branches -->
-            <div class="w-full max-w-[390px] min-h-[467px] relative rounded-[20px] overflow-hidden bg-[#F7F8F6] p-8">
-              <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">Отделения</h6>
+            <div class="w-full max-w-[390px] min-h-[467px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8">
+              <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">Отделения</h6>
               <p class="text-[17px] text-[#6F736D] leading-6 mb-6 font-Gilroy">На карте города</p>
               <span class="block w-[300px] absolute left-1/2 -translate-x-1/2 -bottom-[55px]">
                 <img src="../../assets/images/currency.png" class="block w-full h-full object-contain" alt="currency">
@@ -638,9 +638,9 @@ const rates = [
             </div>
 
             <!-- Right card: exchange rates -->
-            <div class="w-full max-w-[calc(100%-406px)] rounded-[20px] bg-[#F7F8F6] p-8">
+            <div class="w-full max-w-[calc(100%-406px)] rounded-[20px] bg-mainWhite p-8">
               <div class="flex items-center justify-between mb-8">
-                <h6 class="text-[28px] text-[#191B19] leading-7 font-bold">Обменные курсы</h6>
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold">Обменные курсы</h6>
 
                 <div class="relative bg-white p-1 rounded-[20px] grid grid-cols-2 items-center min-w-[260px]">
                   <span
@@ -650,14 +650,14 @@ const rates = [
 
                   <button type="button"
                     class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl text-[17px] py-2.5 px-4 text-center transition-colors"
-                    :class="currencyActiveTab === 'Текущий курс' ? 'text-[#F7F8F6]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                    :class="currencyActiveTab === 'Текущий курс' ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
                     @click="setCurrencyTab('Текущий курс')">
                     Текущий курс
                   </button>
 
                   <button type="button"
                     class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl text-[17px] py-2.5 px-4 text-center transition-colors"
-                    :class="currencyActiveTab === 'Обмен' ? 'text-[#F7F8F6]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                    :class="currencyActiveTab === 'Обмен' ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
                     @click="setCurrencyTab('Обмен')">
                     Обмен
                   </button>
@@ -665,7 +665,7 @@ const rates = [
               </div>
 
               <!-- Rates table -->
-              <div v-show="currencyActiveTab === 'Текущий курс'" class="grid grid-cols-12 gap-y-10 text-[#191B19]">
+              <div v-show="currencyActiveTab === 'Текущий курс'" class="grid grid-cols-12 gap-y-10 text-mainBlack">
                 <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">Валюта</div>
                 <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">Покупка</div>
                 <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">Продажа</div>
@@ -736,8 +736,8 @@ const rates = [
           </h2>
 
           <div class="flex gap-x-4">
-            <div class="block bg-[#F7F8F6] rounded-[20px] p-8 w-[calc(50%-8px)]">
-              <h4 class=" text-[28px] font-bold text-[#191B19] mb-8">
+            <div class="block bg-mainWhite rounded-[20px] p-8 w-[calc(50%-8px)]">
+              <h4 class=" text-[28px] font-bold text-mainBlack mb-8">
                 Банк года Туркменистана
               </h4>
 
@@ -746,8 +746,8 @@ const rates = [
               </span>
             </div>
 
-            <div class="block bg-[#F7F8F6] rounded-[20px] p-8 w-[calc(50%-8px)]">
-              <h4 class=" text-[28px] font-bold text-[#191B19] mb-8">
+            <div class="block bg-mainWhite rounded-[20px] p-8 w-[calc(50%-8px)]">
+              <h4 class=" text-[28px] font-bold text-mainBlack mb-8">
                 Награжден премией
               </h4>
 
@@ -765,9 +765,9 @@ const rates = [
       <div class="auto_container">
         <div class="wrap">
           <div
-            class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8 relative overflow-hidden purple-glow">
+            class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden purple-glow">
             <div class="block max-w-[600px]">
-              <h6 class="text-[28px] text-[#191B19] leading-7 font-bold mb-[10px]">
+              <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                 Перечень документов для открытия счета
               </h6>
               <p class="text-[17px] text-[#6F736D] leading-5 font-Gilroy max-w-[500px]">
@@ -810,10 +810,10 @@ const rates = [
           <div class="grid grid-cols-12 gap-4">
             <div
               class="col-span-4 rounded-[20px] overflow-hidden bg-[#1D2417] p-8 text-white relative min-h-[500px] news-promo-glow">
-              <h6 class="text-[28px] leading-9 text[#F7F8F6] font-bold mb-[10px]">
+              <h6 class="text-[28px] leading-9 text-mainWhite font-bold mb-[10px]">
                 Скачай приложение
               </h6>
-              <p class="text-[#F7F8F6] text-[17px] leading-7 opacity-60 font-Gilroy">
+              <p class="text-mainWhite text-[17px] leading-7 opacity-60 font-Gilroy">
                 Курс действует на текущее время. <br> Точный курс будет определён на момент совершения операции
               </p>
 
@@ -828,7 +828,7 @@ const rates = [
                   <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
-                  <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
+                  <RouterLink to="/news-detail" class="text-mainBlack text-[17px] font-bold leading-6">
                     Газпромбанк расширил возможности РКО для
                     предпринимателей
                     сегмента МСБ
@@ -841,7 +841,7 @@ const rates = [
                   <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
-                  <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
+                  <RouterLink to="/news-detail" class="text-mainBlack text-[17px] font-bold leading-6">
                     Газпромбанк расширил возможности РКО для
                     предпринимателей
                     сегмента МСБ
@@ -854,7 +854,7 @@ const rates = [
                   <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
-                  <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
+                  <RouterLink to="/news-detail" class="text-mainBlack text-[17px] font-bold leading-6">
                     Газпромбанк расширил возможности РКО для
                     предпринимателей
                     сегмента МСБ
@@ -867,7 +867,7 @@ const rates = [
                   <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
                 </span>
                 <div class="p-4">
-                  <RouterLink to="/news-detail" class="text-[#191B19] text-[17px] font-bold leading-6">
+                  <RouterLink to="/news-detail" class="text-mainBlack text-[17px] font-bold leading-6">
                     Газпромбанк расширил возможности РКО для
                     предпринимателей
                     сегмента МСБ

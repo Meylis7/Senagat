@@ -79,7 +79,7 @@ const creditSelectedTerm = ref('2 года');
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[145px] pb-[60px] bg-[#191B19] relative overflow-hidden">
+    <section class="hero pt-[145px] pb-[60px] bg-mainBlack relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
 
@@ -110,17 +110,17 @@ const creditSelectedTerm = ref('2 года');
                         </svg>
                     </span>
 
-                    <h6 class="text-[17px] font-Gilroy text-[#F7F8F6]">
+                    <h6 class="text-[17px] font-Gilroy text-mainWhite">
                         На образование
                     </h6>
                 </div>
 
 
-                <h1 class="m-auto max-w-[660px] text-[#F7F8F6] mb-[10px] text-center text-5xl font-bold">
+                <h1 class="m-auto max-w-[660px] text-mainWhite mb-[10px] text-center text-5xl font-bold">
                     Успешное образование
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-[#F7F8F6]/60 text-center">
+                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
                     Обратитесь в удобный для вас офис
                 </p>
 
@@ -143,7 +143,7 @@ const creditSelectedTerm = ref('2 года');
         <div class="auto_container">
             <div class="wrap">
                 <div class="grid grid-cols-12 gap-x-4">
-                    <div class="col-span-6 block bg-[#F7F8F6] rounded-[20px] p-8">
+                    <div class="col-span-6 block bg-mainWhite rounded-[20px] p-8">
                         <h3 class="text-[38px] font-bold mb-[10px] leading-9">
                             6% годовых
                         </h3>
@@ -157,7 +157,7 @@ const creditSelectedTerm = ref('2 года');
                         </span>
                     </div>
 
-                    <div class="col-span-6 block bg-[#F7F8F6] rounded-[20px] p-8">
+                    <div class="col-span-6 block bg-mainWhite rounded-[20px] p-8">
                         <h3 class="text-[38px] font-bold mb-[10px] leading-9">
                             6% годовых
                         </h3>
@@ -182,7 +182,7 @@ const creditSelectedTerm = ref('2 года');
                 <div class="flex items-center justify-between mb-8">
                     <h2 class="text-[38px] font-bold leading-9">Заявка на открытие вклада</h2>
 
-                    <div class="relative bg-[#F7F8F6] p-1 rounded-[20px] grid grid-cols-2 items-center min-w-[240px]">
+                    <div class="relative bg-mainWhite p-1 rounded-[20px] grid grid-cols-2 items-center min-w-[240px]">
                         <span
                             class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-transform duration-300 ease-out will-change-transform"
                             :style="{ width: 'calc((100% - 8px) / 2)', transform: `translateX(calc(${calcActiveIndex} * 100%))`, left: '4px' }"
@@ -205,12 +205,12 @@ const creditSelectedTerm = ref('2 года');
                 </div>
 
                 <div v-show="calcActiveTab === 'Кредит'" class="grid lg:grid-cols-2 gap-6">
-                    <div class="bg-[#F7F8F6] rounded-[20px] p-6">
+                    <div class="bg-mainWhite rounded-[20px] p-6">
                         <div class="mb-6">
                             <label class="block text-[#6F736D] text-[17px] mb-3">Сумма кредита</label>
                             <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
                                 <input type="text" :value="formatMoney(creditAmount)" @input="onCreditAmountInput"
-                                    class="w-full outline-none bg-transparent text-[#191B19] font-bold" />
+                                    class="w-full outline-none bg-transparent text-mainBlack font-bold" />
                             </div>
                             <div class="mt-3">
                                 <input type="range" :min="creditMin" :max="creditMax" step="500" v-model="creditAmount"
@@ -223,17 +223,17 @@ const creditSelectedTerm = ref('2 года');
                         </div>
 
                         <div>
-                            <label class="block text-[#191B19] font-bold mb-3">Срок</label>
+                            <label class="block text-mainBlack font-bold mb-3">Срок</label>
                             <div class="flex flex-wrap gap-3">
                                 <button v-for="term in termOptions" :key="term" type="button"
                                     @click="creditSelectedTerm = term"
-                                    :class="creditSelectedTerm === term ? 'bg-[#191B19] text-white' : 'bg-white text-[#6F736D]'"
+                                    :class="creditSelectedTerm === term ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
                                     class="h-[48px] px-5 rounded-[12px]">{{ term }}</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-[#F7F8F6] rounded-[20px] p-6">
+                    <div class="bg-mainWhite rounded-[20px] p-6">
                         <div class="flex items-center justify-between mb-6">
                             <div>
                                 <p class="text-[#6F736D] mb-2">Ежемесячный платёж</p>
@@ -241,13 +241,13 @@ const creditSelectedTerm = ref('2 года');
                             </div>
                             <div>
                                 <span
-                                    class="inline-flex items-center justify-center h-[44px] w-[44px] rounded-[12px] bg-[#191B19] text-white">1%</span>
+                                    class="inline-flex items-center justify-center h-[44px] w-[44px] rounded-[12px] bg-mainBlack text-white">1%</span>
                                 <p class="text-[#6F736D] mt-2 text-center">Ставка</p>
                             </div>
                         </div>
 
                         <div class="bg-white rounded-[12px] p-4 mb-6">
-                            <p class="text-[#191B19] font-bold mb-2">Вам понадобится:</p>
+                            <p class="text-mainBlack font-bold mb-2">Вам понадобится:</p>
                             <ul class="text-[#6F736D] space-y-2">
                                 <li>Паспорт</li>
                                 <li>Справка о доходах</li>
@@ -262,13 +262,13 @@ const creditSelectedTerm = ref('2 года');
                 </div>
 
                 <div v-show="calcActiveTab === 'Вклад'" class="grid lg:grid-cols-2 gap-6">
-                    <div class="bg-[#F7F8F6] rounded-[20px] p-6">
+                    <div class="bg-mainWhite rounded-[20px] p-6">
                         <!-- Amount: input + slider -->
                         <div class="mb-6">
                             <label class="block text-[#6F736D] text-[17px] mb-3">Сумма вклада</label>
                             <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
                                 <input type="text" :value="formatMoney(depositAmount)" @input="onDepositAmountInput"
-                                    class="w-full outline-none bg-transparent text-[#191B19] font-bold" />
+                                    class="w-full outline-none bg-transparent text-mainBlack font-bold" />
                             </div>
                             <div class="mt-3">
                                 <input type="range" :min="depositMin" :max="depositMax" step="500"
@@ -282,11 +282,11 @@ const creditSelectedTerm = ref('2 года');
 
                         <!-- Term: radio-like buttons -->
                         <div>
-                            <label class="block text-[#191B19] font-bold mb-3">Срок</label>
+                            <label class="block text-mainBlack font-bold mb-3">Срок</label>
                             <div class="flex flex-wrap gap-3">
                                 <button v-for="term in termOptions" :key="term" type="button"
                                     @click="selectedTerm = term"
-                                    :class="selectedTerm === term ? 'bg-[#191B19] text-white' : 'bg-white text-[#6F736D]'"
+                                    :class="selectedTerm === term ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
                                     class="h-[48px] px-5 rounded-[12px]">
                                     {{ term }}
                                 </button>
@@ -294,7 +294,7 @@ const creditSelectedTerm = ref('2 года');
                         </div>
                     </div>
 
-                    <div class="bg-[#F7F8F6] rounded-[20px] p-6">
+                    <div class="bg-mainWhite rounded-[20px] p-6">
                         <div class="flex items-center justify-between mb-6">
                             <div>
                                 <p class="text-[#6F736D] mb-2">Ожидаемый доход</p>
@@ -302,13 +302,13 @@ const creditSelectedTerm = ref('2 года');
                             </div>
                             <div>
                                 <span
-                                    class="inline-flex items-center justify-center h-[44px] px-3 rounded-[12px] bg-[#191B19] text-white">Годовая
+                                    class="inline-flex items-center justify-center h-[44px] px-3 rounded-[12px] bg-mainBlack text-white">Годовая
                                     ставка</span>
                             </div>
                         </div>
 
                         <div class="bg-white rounded-[12px] p-4 mb-6">
-                            <p class="text-[#191B19] font-bold mb-2">Итоги</p>
+                            <p class="text-mainBlack font-bold mb-2">Итоги</p>
                             <ul class="text-[#6F736D] space-y-2">
                                 <li>Тип: {{ depositType }}</li>
                                 <li>Сумма: {{ formatMoney(depositAmount) }} манат</li>
@@ -332,7 +332,7 @@ const creditSelectedTerm = ref('2 года');
             <div class="wrap">
                 <h2 class="text-[38px] font-bold mb-10 leading-9">Полезная информация</h2>
 
-                <div class="block p-8 rounded-[20px] mb-4 bg-[#F7F8F6]">
+                <div class="block p-8 rounded-[20px] mb-4 bg-mainWhite">
                     <div class="flex items-center justify-between cursor-pointer"
                         @click="toggleAccordion('card-conditions')">
                         <h4 class="text-[28px] font-bold">
@@ -391,7 +391,7 @@ const creditSelectedTerm = ref('2 года');
                     </Transition>
                 </div>
 
-                <div class="block p-8 rounded-[20px] mb-4 bg-[#F7F8F6]">
+                <div class="block p-8 rounded-[20px] mb-4 bg-mainWhite">
                     <div class="flex items-center justify-between cursor-pointer"
                         @click="toggleAccordion('payment-methods')">
                         <h4 class="text-[28px] font-bold">
@@ -450,7 +450,7 @@ const creditSelectedTerm = ref('2 года');
                     </Transition>
                 </div>
 
-                <div class="block p-8 rounded-[20px] bg-[#F7F8F6]">
+                <div class="block p-8 rounded-[20px] bg-mainWhite">
                     <div class="flex items-center justify-between cursor-pointer" @click="toggleAccordion('cashback')">
                         <h4 class="text-[28px] font-bold">
                             Способы пополнения
@@ -532,10 +532,10 @@ const creditSelectedTerm = ref('2 года');
                     <!-- Promo card left -->
                     <div
                         class="w-full max-w-[390px] flex-shrink-0 rounded-[20px] overflow-hidden bg-[#0E0F0E] p-8 text-white relative min-h-[500px] news-promo-glow">
-                        <h6 class="text-[28px] leading-9 text[#F7F8F6] font-bold mb-[10px]">
+                        <h6 class="text-[28px] leading-9 text-mainWhite font-bold mb-[10px]">
                             Скачай приложение
                         </h6>
-                        <p class="text-[#F7F8F6] text-[17px] leading-7 opacity-60 font-Gilroy">
+                        <p class="text-mainWhite text-[17px] leading-7 opacity-60 font-Gilroy">
                             Курс действует на текущее время. <br> Точный курс будет определён на момент совершения
                             операции
                         </p>
@@ -554,7 +554,7 @@ const creditSelectedTerm = ref('2 года');
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                <RouterLink to="/" class="text-mainBlack text-[17px] font-bold leading-6">
                                     Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
@@ -569,7 +569,7 @@ const creditSelectedTerm = ref('2 года');
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                <RouterLink to="/" class="text-mainBlack text-[17px] font-bold leading-6">
                                     Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
@@ -584,7 +584,7 @@ const creditSelectedTerm = ref('2 года');
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                <RouterLink to="/" class="text-mainBlack text-[17px] font-bold leading-6">
                                     Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
@@ -599,7 +599,7 @@ const creditSelectedTerm = ref('2 года');
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <RouterLink to="/" class="text-[#191B19] text-[17px] font-bold leading-6">
+                                <RouterLink to="/" class="text-mainBlack text-[17px] font-bold leading-6">
                                     Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей

@@ -4,12 +4,12 @@ import logo from '@/assets/images/logo.png';
 </script>
 
 <template>
-    <footer class="bg-[#F7F8F6] mt-auto">
+    <footer class="bg-mainWhite mt-auto">
         <div class="auto_container">
             <div class="wrap py-[60px]">
                 <div class="grid grid-cols-12 gap-x-16 gap-y-8 lg:gap-x-0">
                     <div class="col-span-12 sm:col-span-6 lg:col-span-3">
-                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-[#191B19]">
+                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
                             Кредиты
                         </h4>
 
@@ -54,7 +54,7 @@ import logo from '@/assets/images/logo.png';
                     </div>
 
                     <div class="col-span-12 sm:col-span-6 lg:col-span-3">
-                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-[#191B19]">
+                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
                             Карты
                         </h4>
 
@@ -81,7 +81,7 @@ import logo from '@/assets/images/logo.png';
                     </div>
 
                     <div class="col-span-12 sm:col-span-6 lg:col-span-3">
-                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-[#191B19]">
+                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
                             Вклады
                         </h4>
 
@@ -120,7 +120,7 @@ import logo from '@/assets/images/logo.png';
                     </div>
 
                     <div class="col-span-12 sm:col-span-6 lg:col-span-3">
-                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-[#191B19]">
+                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
                             О банке
                         </h4>
 
@@ -178,7 +178,7 @@ import logo from '@/assets/images/logo.png';
                             </li>
                         </ul>
 
-                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-[#191B19]">
+                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
                             Языки
                         </h4>
 
@@ -200,7 +200,7 @@ import logo from '@/assets/images/logo.png';
                 </div>
             </div>
         </div>
-        <div class="bg-[#191B19] text-[#F7F8F6]">
+        <div class="bg-mainBlack text-mainWhite">
             <div class="auto_container">
                 <div class="bottom-inner flex items-center gap-8 py-[60px]">
                     <span class="block w-full max-w-[70px]">
@@ -208,10 +208,11 @@ import logo from '@/assets/images/logo.png';
                     </span>
 
                     <div class="contact flex flex-col">
-                        <a href="tel:+993 12 34 11 28" class="font-bold tracking-[0.2px] text-[#F7F8F6]  text-[28px] leading-7">
+                        <a href="tel:+993 12 34 11 28"
+                            class="font-bold tracking-[0.2px] text-mainWhite  text-[28px] leading-7">
                             +993 12 34 11 28
                         </a>
-                        <p class="text-[17px] font-Gilroy text-[#F7F8F6] leading-5 mt-1">Главный офис</p>
+                        <p class="text-[17px] font-Gilroy text-mainWhite leading-5 mt-1">Главный офис</p>
                     </div>
                 </div>
             </div>

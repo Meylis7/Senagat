@@ -3,6 +3,10 @@ export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        mainWhite: '#F7F8F6',
+        mainBlack: '#191B19',
+      },
       fontFamily: {
         Gilroy: ['Gilroy', 'sans-serif'],
         Kinetika: ['Kinetika', 'sans-serif'],

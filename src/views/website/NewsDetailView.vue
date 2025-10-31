@@ -33,7 +33,7 @@
                         </svg>
                     </span>
 
-                    <h6 class="text-[17px] font-Gilroy text-[#191B19]">
+                    <h6 class="text-[17px] font-Gilroy text-mainBlack">
                         Заседание Кабинета Министров Туркменистана
                     </h6>
                 </div>
@@ -89,7 +89,7 @@
                                     alt="news" />
                             </span>
                             <div class="p-4">
-                                <RouterLink to="/" class="block text-[#191B19] text-[17px] font-bold leading-6">
+                                <RouterLink to="/" class="block text-mainBlack text-[17px] font-bold leading-6">
                                     Газпромбанк расширил
                                     возможности РКО для
                                     предпринимателей
