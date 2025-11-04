@@ -7,7 +7,7 @@ import card from "@/assets/images/card-1.png";
 </script>
 
 <template>
-    <section class="hero pt-[155px] pb-[80px] bg-[#1D2417] relative overflow-hidden">
+    <section class="hero pt-[155px] pb-[80px] bg-[#152A13] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
                 <h1 class="m-auto max-w-[660px] text-center text-5xl font-bold text-mainWhite">

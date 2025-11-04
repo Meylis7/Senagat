@@ -1,15 +1,52 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, onMounted, nextTick, watch } from 'vue';
 import { RouterLink } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+
+const { t, locale } = useI18n();
+
+const getTabs = () => [
+    t('services.tabs.all'),
+    t('services.tabs.moneyTransfers'),
+    t('services.tabs.electronicPayments'),
+    t('services.tabs.guarantees')
+];
 
 // Tabs ==============================================================
-const activeTab = ref('Все');
-const setActiveTab = (tab) => {
-    activeTab.value = tab; // Change active tab
+const activeTab = ref(getTabs()[0]);
+const activeIndex = ref(0);
+const activeTabWidth = ref(0);
+const activeTabOffset = ref(0);
+
+const tabRefs = ref([]);
+
+const updateActiveTabStyles = () => {
+    const activeTabEl = tabRefs.value[activeIndex.value];
+    if (activeTabEl) {
+        activeTabWidth.value = activeTabEl.offsetWidth;
+        activeTabOffset.value = activeTabEl.offsetLeft;
+    }
 };
 
-const tabOrder = ['Все', 'Вклад', 'Кредиты', 'Карты'];
-const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
+onMounted(() => {
+    nextTick(() => {
+        updateActiveTabStyles();
+    });
+});
+
+watch(locale, () => {
+    const newTabs = getTabs();
+    activeTab.value = newTabs[activeIndex.value];
+    nextTick(() => {
+        updateActiveTabStyles();
+    });
+});
+
+const setActiveTab = (tab, index) => {
+    activeTab.value = tab;
+    activeIndex.value = index;
+    updateActiveTabStyles();
+};
 </script>
 
 <template>
@@ -48,38 +85,42 @@ const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
                         Предложения
                     </h2>
 
-                    <div class="relative bg-mainWhite p-1 rounded-[20px] grid grid-cols-4 items-center">
+                    <div class="relative bg-mainWhite p-1 rounded-[20px] flex items-center">
                         <span
-                            class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-transform duration-300 ease-out will-change-transform"
-                            :style="{ width: 'calc((100% - 8px) / 4)', transform: `translateX(calc(${activeIndex} * 100%))`, left: '4px' }"
+                            class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-all duration-300 ease-out"
+                            :style="{ width: `${activeTabWidth}px`, transform: `translateX(${activeTabOffset}px)` }"
                             aria-hidden="true"></span>
 
                         <button type="button"
-                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
-                            :class="activeTab === 'Все' ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab('Все')">
-                            Все
+                            :ref="el => tabRefs[0] = el"
+                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-8 text-center transition-colors"
+                            :class="activeTab === t('services.tabs.all') ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab(t('services.tabs.all'), 0)">
+                            {{ t('services.tabs.all') }}
                         </button>
 
                         <button type="button"
-                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
-                            :class="activeTab === 'Вклад' ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab('Вклад')">
-                            Денежные переводы
+                            :ref="el => tabRefs[1] = el"
+                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-8 text-center transition-colors"
+                            :class="activeTab === t('services.tabs.moneyTransfers') ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab(t('services.tabs.moneyTransfers'), 1)">
+                            {{ t('services.tabs.moneyTransfers') }}
                         </button>
 
                         <button type="button"
-                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
-                            :class="activeTab === 'Кредиты' ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab('Кредиты')">
-                            Электронные платежи
+                            :ref="el => tabRefs[2] = el"
+                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-8 text-center transition-colors"
+                            :class="activeTab === t('services.tabs.electronicPayments') ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab(t('services.tabs.electronicPayments'), 2)">
+                            {{ t('services.tabs.electronicPayments') }}
                         </button>
 
                         <button type="button"
-                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
-                            :class="activeTab === 'Карты' ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab('Карты')">
-                            Гарантии
+                            :ref="el => tabRefs[3] = el"
+                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-8 text-center transition-colors"
+                            :class="activeTab === t('services.tabs.guarantees') ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab(t('services.tabs.guarantees'), 3)">
+                            {{ t('services.tabs.guarantees') }}
                         </button>
                     </div>
                 </div>

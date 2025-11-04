@@ -85,9 +85,9 @@ const router = createRouter({
           component: () => import('@/views/dashboard/ServicesView.vue'),
         },
         {
-          path: 'maps',
-          name: 'dashboard.maps',
-          component: () => import('@/views/dashboard/MapsView.vue'),
+          path: 'cards',
+          name: 'dashboard.cards',
+          component: () => import('@/views/dashboard/CardsView.vue'),
         },
         {
           path: 'notifications',
@@ -103,6 +103,16 @@ const router = createRouter({
           path: 'profile',
           name: 'dashboard.profile',
           component: () => import('@/views/dashboard/ProfileView.vue'),
+        },
+        {
+          path: 'loan-application',
+          name: 'dashboard.loan-application',
+          component: () => import('@/views/dashboard/LoanApplicationView.vue'),
+        },
+        {
+          path: 'all-cards',
+          name: 'dashboard.allCards',
+          component: () => import('@/views/dashboard/AllCardsView.vue'),
         },
       ],
     },

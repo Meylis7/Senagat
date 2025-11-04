@@ -1,4 +1,6 @@
 <script setup>
+    import Date from '@/components/dashboard/Date.vue';
+
 </script>
 
 <template>
@@ -6,13 +8,11 @@
         <div class="auto_container">
             <div class="wrap">
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-[38px] font-bold leading-9">
+                    <h2 class="text-[28px] font-bold leading-9">
                         Главная
                     </h2>
 
-                    <p>
-                        Среда, 16 Апреля 2025
-                    </p>
+                    <Date />
                 </div>
 
                 <div class="grid grid-cols-12 gap-x-4">

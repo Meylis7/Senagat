@@ -1,6 +1,15 @@
 <script setup>
-import { RouterLink } from 'vue-router';
-import logo from '@/assets/images/logo.png';
+    import { RouterLink } from 'vue-router';
+    import { useI18n } from 'vue-i18n';
+    import logo from '@/assets/images/logo.png';
+
+    const { t, locale } = useI18n();
+
+    // Function to change language
+    const changeLanguage = (lang) => {
+        locale.value = lang;
+        localStorage.setItem("locale", lang);
+    };
 </script>
 
 <template>
@@ -10,44 +19,44 @@ import logo from '@/assets/images/logo.png';
                 <div class="grid grid-cols-12 gap-x-16 gap-y-8 lg:gap-x-0">
                     <div class="col-span-12 sm:col-span-6 lg:col-span-3">
                         <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
-                            Кредиты
+                            {{ t('nav.loans.title') }}
                         </h4>
 
                         <ul class="space-y-4">
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Молодым семьям
+                                    {{ t('nav.loans.youngFamilies') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Потребительский
+                                    {{ t('nav.loans.consumer') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Свадьба и день рождения
+                                    {{ t('nav.loans.weddingsAndBirthdays') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    На образование
+                                    {{ t('nav.loans.education') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Овердрафт
+                                    {{ t('nav.loans.overdraft') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Сельское хозяйство
+                                    {{ t('nav.loans.agricultural') }}
                                 </RouterLink>
                             </li>
                         </ul>
@@ -55,26 +64,26 @@ import logo from '@/assets/images/logo.png';
 
                     <div class="col-span-12 sm:col-span-6 lg:col-span-3">
                         <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
-                            Карты
+                            {{ t('nav.cards.title') }}
                         </h4>
 
                         <ul class="space-y-4">
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Машгала карта
+                                    {{ t('nav.cards.mashgalaCard') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Гоюм карта
+                                    {{ t('nav.cards.goyumCard') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Алтын Асыр карта
+                                    {{ t('nav.cards.altynAsyrCard') }}
                                 </RouterLink>
                             </li>
                         </ul>
@@ -82,38 +91,38 @@ import logo from '@/assets/images/logo.png';
 
                     <div class="col-span-12 sm:col-span-6 lg:col-span-3">
                         <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
-                            Вклады
+                            {{ t('nav.deposits.title') }}
                         </h4>
 
                         <ul class="space-y-4">
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Выгодный
+                                    {{ t('nav.deposits.profitable') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Вклад до востребования
+                                    {{ t('nav.deposits.demandDeposit') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Целевой вклад на детей
+                                    {{ t('nav.deposits.childrenTargetDeposit') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Забота о родителях
+                                    {{ t('nav.deposits.parentCare') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Здоровье народа–Богатство страны
+                                    {{ t('nav.deposits.healthOfNation') }}
                                 </RouterLink>
                             </li>
                         </ul>
@@ -121,32 +130,32 @@ import logo from '@/assets/images/logo.png';
 
                     <div class="col-span-12 sm:col-span-6 lg:col-span-3">
                         <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
-                            О банке
+                            {{ t('header.aboutBank') }}
                         </h4>
 
                         <ul class="space-y-4  mb-5 pb-5  border-solid border-0 border-b border-[#EEF2ED]">
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Контакты
+                                    {{ t('footer.links.contacts') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Реквизиты
+                                    {{ t('footer.links.requisites') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Новости
+                                    {{ t('footer.links.news') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Отделения
+                                    {{ t('footer.links.branches') }}
                                 </RouterLink>
                             </li>
                         </ul>
@@ -155,45 +164,51 @@ import logo from '@/assets/images/logo.png';
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Курсы валют
+                                    {{ t('footer.links.exchangeRates') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Отделения
+                                    {{ t('footer.links.branches') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Поиск банкоматов
+                                    {{ t('footer.links.atmSearch') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    Отделения
+                                    {{ t('footer.links.branches') }}
                                 </RouterLink>
                             </li>
                         </ul>
 
                         <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
-                            Языки
+                            {{ t('footer.languagesTitle') }}
                         </h4>
 
                         <ul class="space-y-4">
-                            <li>
-                                <RouterLink to="/"
+                            <li v-if="locale !== 'en'">
+                                <button @click="changeLanguage('en')"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     English
-                                </RouterLink>
+                                </button>
                             </li>
-                            <li>
-                                <RouterLink to="/"
+                            <li v-if="locale !== 'ru'">
+                                <button @click="changeLanguage('ru')"
+                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    Русский
+                                </button>
+                            </li>
+                            <li v-if="locale !== 'tk'">
+                                <button @click="changeLanguage('tk')"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     Türkmençe
-                                </RouterLink>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -219,7 +234,5 @@ import logo from '@/assets/images/logo.png';
         </div>
     </footer>
 </template>
-
-
 
 <style scoped></style>

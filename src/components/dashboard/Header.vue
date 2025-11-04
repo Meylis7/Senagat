@@ -1,7 +1,14 @@
 <script setup>
-import { RouterLink } from 'vue-router';
+    import { RouterLink, useRoute } from 'vue-router';
 
-import logo from "@/assets/images/logo.png";
+    import logo from "@/assets/images/logo.png";
+
+    // Active link check
+    const isActiveLink = (routePath) => {
+        const route = useRoute();
+        return route.path === routePath;
+    }
+
 
 </script>
 
@@ -10,33 +17,37 @@ import logo from "@/assets/images/logo.png";
         <div class="auto_container">
             <div class="wrap bg-mainWhite rounded-[20px] py-5 px-8">
                 <div class="flex items-center justify-between">
-                    <RouterLink to="/dashboard">
-                        <img :src="logo" alt="logo">
+                    <RouterLink to="/dashboard" class=" w-[46px] block">
+                        <img :src="logo" class="w-full h-full object-contain" alt="logo">
                     </RouterLink>
 
                     <nav>
                         <ul class="flex items-center gap-x-8">
                             <li>
                                 <RouterLink :to="{ name: 'dashboard.home' }"
-                                    class="text-[#1D2417] text-[17px] font-Gilroy active">
+                                    class="text-[#1D2417] text-[17px] font-Gilroy"
+                                    :class="[isActiveLink('/dashboard') ? 'active' : '']">
                                     Дашборд
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink :to="{ name: 'dashboard.payments' }"
-                                    class="text-[#1D2417] text-[17px] font-Gilroy">
+                                    class="text-[#1D2417] text-[17px] font-Gilroy"
+                                    :class="[isActiveLink('/dashboard/payments') ? 'active' : '']">
                                     Платежи
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink :to="{ name: 'dashboard.services' }"
-                                    class="text-[#1D2417] text-[17px] font-Gilroy">
+                                    class="text-[#1D2417] text-[17px] font-Gilroy"
+                                    :class="[isActiveLink('/dashboard/services') ? 'active' : '']">
                                     Сервисы
                                 </RouterLink>
                             </li>
                             <li>
-                                <RouterLink :to="{ name: 'dashboard.maps' }"
-                                    class="text-[#1D2417] text-[17px] font-Gilroy">
+                                <RouterLink :to="{ name: 'dashboard.cards' }"
+                                    class="text-[#1D2417] text-[17px] font-Gilroy"
+                                    :class="[isActiveLink('/dashboard/cards') ? 'active' : '']">
                                     Карты
                                 </RouterLink>
                             </li>
@@ -99,17 +110,17 @@ import logo from "@/assets/images/logo.png";
 </template>
 
 <style scoped>
-.active {
-    position: relative;
+    .active {
+        position: relative;
 
-    &:after {
-        content: '';
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background: #6F736D;
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #6F736D;
+        }
     }
-}
 </style>

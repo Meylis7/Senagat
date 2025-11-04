@@ -1,5 +1,8 @@
 <script setup>
     import { RouterLink } from 'vue-router';
+
+    import logo from "@/assets/images/logo.png";
+
 </script>
 
 <template>
@@ -227,6 +230,26 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal ------------------- -->
+    <section class="hidden fixed top-0 left-0 z-20 flex items-center justify-center bg-[#1D2417]/50 w-full h-full">
+        <div class="m-auto flex flex-col items-center w-[594px] p-8 rounded-[20px] bg-mainWhite">
+            <div class="mx-auto w-[134px] mb-4">
+                <img class="block w-full h-full object-contain" :src="logo" alt="logo">
+            </div>
+
+            <div class="loader">
+                <div class="load2"></div>
+            </div>
+
+            <h4 class="text-[17px] font-bold mt-[10px]">Проверка со стороны банка</h4>
+
+            <RouterLink to="/dashboard"
+                class="text-[15px] font-Gilroy py-3 px-10 text-[#EEF2ED] bg-[#2C702C] rounded-[10px] text-center mt-4">
+                На главную
+            </RouterLink>
+        </div>
+    </section>
 </template>
 
 
@@ -242,6 +265,29 @@
 
     .payment-check:checked~label {
         opacity: 100%;
+    }
+
+    // Loader
+
+
+    .load2 {
+        border: 4px solid #2C702C;
+        left: 45%;
+        border-radius: 49%;
+        border-bottom: 4px solid #E6EAE3;
+        width: 24px;
+        height: 24px;
+        animation: spin 1.5s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 
 </style>

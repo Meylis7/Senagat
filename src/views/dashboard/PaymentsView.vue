@@ -1,4 +1,6 @@
 <script setup>
+    import Date from '@/components/dashboard/Date.vue';
+
 </script>
 
 <template>
@@ -10,9 +12,7 @@
                         Платежи
                     </h2>
 
-                    <p>
-                        Среда, 16 Апреля 2025
-                    </p>
+                    <Date />
                 </div>
 
                 <div class="grid grid-cols-12 gap-4">
