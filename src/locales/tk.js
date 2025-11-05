@@ -1,7 +1,7 @@
 export default {
   header: {
-    privateClients: 'Hususy müşderiler',
-    businessAndIP: 'Işewürlik we HT',
+    privateClients: 'Fiziki taraplar',
+    businessAndIP: 'Ýuridiki taraplar',
     aboutBank: 'Bank barada',
     onlineReception: 'Onlaýn kanulhana',
     internetBank: 'Internet bank',
@@ -17,7 +17,7 @@ export default {
   },
   charity: {
     title: 'Haýyr-sahawat gaznasy',
-    text: 'Deslapky töleg hasaplamasy diňe maglumat üçindir we karzyň maliýe goragyny resmileşdirmek şerti bilen hasaplanýar. Bu köpçülik hödürnamasy däldir',
+    text: 'Deslapky tölеgiň hasaby maglumat maksatly bolup, kredidiň maliýe goragy resmileşdirilen ýagdaýynda hasaplanýar. Bu köpçülige hödürlenýän teklip däl',
   },
   calc: {
     calculateBenefit: 'Bähbidi hasapla',
@@ -30,7 +30,7 @@ export default {
     passport: 'Pasport',
     incomeStatement: 'Girdeji kepilnamasy',
     calculatorDisclaimer:
-      'Hasaplaýjynyň hasaby deslapkydyr. Şahsy şertleri arza resmileşdirilenden soň bilersiňiz.',
+      'Kalkulýatoryň hasaplamasy deslapkydyr. Şahsy şertleri arza tabşyranyňyzdan soň biläýersiňiz',
   },
   tabs: {
     all: 'Ähli',
@@ -44,14 +44,14 @@ export default {
   nav: {
     loans: {
       title: 'Karzlar',
-      youngFamilies: 'Ýaş maşgalalar',
+      youngFamilies: 'Ýaş maşgalalara',
       consumer: 'Sarp ediş',
-      weddingsAndBirthdays: 'Toýlar we doglan günler',
-      education: 'Bilim',
+      weddingsAndBirthdays: 'Durmuş we ýaş toý',
+      education: 'Bilim maksatly',
       overdraft: 'Owerdraft',
-      agricultural: 'Oba hojalygy',
+      agricultural: 'Oba hojalyk',
       stateEnterprises: 'Döwlet kärhanalary',
-      publicFacilitiesFinancing: 'Jemgyýetçilik desgalaryny maliýeleşdirmek',
+      publicFacilitiesFinancing: 'Hyzmat desgalaryny maliýeleşdirmek',
       forProductionPurposes: 'Önümçilik maksatlary üçin',
     },
     cards: {
@@ -62,22 +62,22 @@ export default {
     },
     deposits: {
       title: 'Goýumlar',
-      childrenTargetDeposit: 'Çagalar üçin maksatly goýum',
-      parentCare: 'Ene-ata alada',
-      healthOfNation: 'Halkyň saglyk - Ýurduň baýlyk',
+      childrenTargetDeposit: 'Çagalara niýetlenilen',
+      parentCare: 'Ene - atalar hakynda alada',
+      healthOfNation: 'Halkyñ saglygy - Watan baýlygy',
       childrenOurFuture: 'Çagalar biziň geljegimiz',
-      profitable: 'Peýdaly',
+      profitable: 'Bähbitli',
       demandDeposit: 'Talap edilýänçä goýum',
-      altynAsyrCardDeposit: '«Altyn Asyr» bank karty boýunça goýum',
-      goyumCardDeposit: '«Goýum» bank karty boýunça goýum',
+      altynAsyrCardDeposit: '«Altyn Asyr» bank karty',
+      goyumCardDeposit: '«Goýum» bank karty',
     },
     services: {
       title: 'Hyzmatlar',
-      moneyTransfers: 'Pul geçirimler',
-      safetyDepositBoxes: 'Seýf öýjüklerini kireýine almak',
-      currencyExchange: 'Walýuta çalşygy',
-      utilityPayments: 'Jemagat hyzmatlary üçin töleg',
-      communicationPayments: 'Aragatnaşyk hyzmatlary üçin töleg',
+      // moneyTransfers: 'Pul geçirimleri',
+      // safetyDepositBoxes: 'Seýf öýjüklerini kireýine almak',
+      // currencyExchange: 'Walýuta çalşygy',
+      // utilityPayments: 'Jemagat hyzmatlary üçin töleg',
+      // communicationPayments: 'Aragatnaşyk hyzmatlary üçin töleg',
     },
     tabs: {
       all: 'Hemmesi',
@@ -93,6 +93,19 @@ export default {
       electronicPayments: 'Elektron tölegler',
       guarantees: 'Kepillikler',
     },
+  },
+  exchange: {
+    title: 'Walýuta çalşygyny meýilleşdiriň',
+    branches: 'Bölümler',
+    onCityMap: 'Şäher kartasynda',
+    exchangeRates: 'Walýuta kurslary',
+    currentRate: 'Häzirki kurs',
+    exchange: 'Çalyşmak',
+    currency: 'Walýuta',
+    buy: 'Satyn almak',
+    sell: 'Satmak',
+    rateDisclaimer:
+      'Kurs häzirki wagta degişlidir. Takyk kurs amalyň ýerine ýetirilýän pursatynda kesgitlener',
   },
   footer: {
     languages: {

@@ -73,11 +73,11 @@ export default {
     },
     services: {
       title: 'Services',
-      moneyTransfers: 'Money Transfers',
-      safetyDepositBoxes: 'Safety Deposit Boxes',
-      currencyExchange: 'Currency Exchange',
-      utilityPayments: 'Utility Payments',
-      communicationPayments: 'Communication Payments',
+      // moneyTransfers: 'Money Transfers',
+      // safetyDepositBoxes: 'Safety Deposit Boxes',
+      // currencyExchange: 'Currency Exchange',
+      // utilityPayments: 'Utility Payments',
+      // communicationPayments: 'Communication Payments',
     },
     tabs: {
       all: 'All',
@@ -85,6 +85,19 @@ export default {
       electronicPayments: 'Electronic Payments',
       guarantees: 'Guarantees',
     },
+  },
+  exchange: {
+    title: 'Plan Currency Exchange',
+    branches: 'Branches',
+    onCityMap: 'On the City Map',
+    exchangeRates: 'Exchange Rates',
+    currentRate: 'Current Rate',
+    exchange: 'Exchange',
+    currency: 'Currency',
+    buy: 'Buy',
+    sell: 'Sell',
+    rateDisclaimer:
+      'The rate is valid for the current time. The exact rate will be determined at the moment of the transaction.',
   },
   footer: {
     languages: {

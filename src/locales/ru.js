@@ -73,12 +73,25 @@ export default {
     },
     services: {
       title: 'Сервисы и услуги',
-      moneyTransfers: 'Денежные переводы',
-      safetyDepositBoxes: 'Аренда сейфовых ячеек',
-      currencyExchange: 'Обмен валюты',
-      utilityPayments: 'Оплата коммунальных услуг',
-      communicationPayments: 'Оплата услуг связи',
+      // moneyTransfers: 'Денежные переводы',
+      // safetyDepositBoxes: 'Аренда сейфовых ячеек',
+      // currencyExchange: 'Обмен валюты',
+      // utilityPayments: 'Оплата коммунальных услуг',
+      // communicationPayments: 'Оплата услуг связи',
     },
+  },
+  exchange: {
+    title: 'Спланируйте обмен валюты',
+    branches: 'Отделения',
+    onCityMap: 'На карте города',
+    exchangeRates: 'Обменные курсы',
+    currentRate: 'Текущий курс',
+    exchange: 'Обмен',
+    currency: 'Валюта',
+    buy: 'Покупка',
+    sell: 'Продажа',
+    rateDisclaimer:
+      'Курс действует на текущее время. Точный курс будет определён на момент совершения операции',
   },
   footer: {
     languages: {

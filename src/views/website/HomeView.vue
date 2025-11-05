@@ -625,13 +625,13 @@
     <section class="py-[50px]">
       <div class="auto_container">
         <div class="wrap">
-          <h2 class="text-[38px] font-bold mb-10 leading-9">Спланируйте обмен валюты</h2>
+          <h2 class="text-[38px] font-bold mb-10 leading-9">{{ t('exchange.title') }}</h2>
 
           <div class="flex gap-4">
             <!-- Left card: branches -->
             <div class="w-full max-w-[390px] min-h-[467px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8">
-              <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">Отделения</h6>
-              <p class="text-[17px] text-[#6F736D] leading-6 mb-6 font-Gilroy">На карте города</p>
+              <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">{{ t('exchange.branches') }}</h6>
+              <p class="text-[17px] text-[#6F736D] leading-6 mb-6 font-Gilroy">{{ t('exchange.onCityMap') }}</p>
               <span class="block w-[300px] absolute left-1/2 -translate-x-1/2 -bottom-[55px]">
                 <img src="../../assets/images/currency.png" class="block w-full h-full object-contain" alt="currency">
               </span>
@@ -640,7 +640,7 @@
             <!-- Right card: exchange rates -->
             <div class="w-full max-w-[calc(100%-406px)] rounded-[20px] bg-mainWhite p-8">
               <div class="flex items-center justify-between mb-8">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold">Обменные курсы</h6>
+                <h6 class="text-[28px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates') }}</h6>
 
                 <div class="relative bg-white p-1 rounded-[20px] grid grid-cols-2 items-center min-w-[260px]">
                   <span
@@ -652,23 +652,24 @@
                     class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl text-[17px] py-2.5 px-4 text-center transition-colors"
                     :class="currencyActiveTab === 'Текущий курс' ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
                     @click="setCurrencyTab('Текущий курс')">
-                    Текущий курс
+                    {{ t('exchange.currentRate') }}
                   </button>
 
                   <button type="button"
                     class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl text-[17px] py-2.5 px-4 text-center transition-colors"
                     :class="currencyActiveTab === 'Обмен' ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
                     @click="setCurrencyTab('Обмен')">
-                    Обмен
+                    {{ t('exchange.exchange') }}
                   </button>
                 </div>
               </div>
 
               <!-- Rates table -->
               <div v-show="currencyActiveTab === 'Текущий курс'" class="grid grid-cols-12 gap-y-10 text-mainBlack">
-                <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">Валюта</div>
-                <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">Покупка</div>
-                <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">Продажа</div>
+                <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">{{ t('exchange.currency') }}
+                </div>
+                <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">{{ t('exchange.buy') }}</div>
+                <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">{{ t('exchange.sell') }}</div>
 
                 <template v-for="r in rates" :key="r.code">
                   <div class="col-span-4 leading-7 text-[28px] font-bold">{{ r.code }}</div>
@@ -713,7 +714,7 @@
                 </template>
 
                 <div class="col-span-8 text-[#6F736D] text-[17px] max-w-[450px] font-Gilroy">
-                  Курс действует на текущее время. Точный курс будет определён на момент совершения операции
+                  {{ t('exchange.rateDisclaimer') }}
                 </div>
               </div>
 
