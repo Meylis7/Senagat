@@ -3,7 +3,7 @@ export default {
     privateClients: 'Hususy müşderiler',
     businessAndIP: 'Işewürlik we HT',
     aboutBank: 'Bank barada',
-    onlineReception: 'Onlaýn kabul ediş',
+    onlineReception: 'Onlaýn kanulhana',
     internetBank: 'Internet bank',
   },
   hero: {
@@ -11,6 +11,35 @@ export default {
   },
   btn: {
     learnMore: 'Giňişleýin öwrenmek',
+  },
+  offer: {
+    title: 'Teklipler',
+  },
+  charity: {
+    title: 'Haýyr-sahawat gaznasy',
+    text: 'Deslapky töleg hasaplamasy diňe maglumat üçindir we karzyň maliýe goragyny resmileşdirmek şerti bilen hasaplanýar. Bu köpçülik hödürnamasy däldir',
+  },
+  calc: {
+    calculateBenefit: 'Bähbidi hasapla',
+    creditType: 'Karzyň görnüşini saýlaň',
+    loanAmount: 'Karzyň möçberi',
+    term: 'Möhlet',
+    rate: 'Göterim',
+    monthlyPayment: 'Aýlyk töleg',
+    requiredDocs: 'Size gerek bolar:',
+    passport: 'Pasport',
+    incomeStatement: 'Girdeji kepilnamasy',
+    calculatorDisclaimer:
+      'Hasaplaýjynyň hasaby deslapkydyr. Şahsy şertleri arza resmileşdirilenden soň bilersiňiz.',
+  },
+  tabs: {
+    all: 'Ähli',
+    deposit: 'Goýum',
+    credits: 'Karzlar',
+    cards: 'Kartlar',
+    moneyTransfers: 'Pul geçirimleri',
+    ePayments: 'Elektron tölegler',
+    guarantees: 'Kepillikler',
   },
   nav: {
     loans: {
@@ -58,14 +87,14 @@ export default {
     },
   },
   services: {
-        tabs: {
-            all: 'Hemmesi',
-            moneyTransfers: 'Pul geçirimleri',
-            electronicPayments: 'Elektron tölegler',
-            guarantees: 'Kepillikler'
-        }
+    tabs: {
+      all: 'Hemmesi',
+      moneyTransfers: 'Pul geçirimleri',
+      electronicPayments: 'Elektron tölegler',
+      guarantees: 'Kepillikler',
     },
-    footer: {
+  },
+  footer: {
     languages: {
       english: 'English',
       russian: 'Русский',

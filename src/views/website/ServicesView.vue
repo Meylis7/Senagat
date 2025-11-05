@@ -1,6 +1,9 @@
 <script setup>
-    import { ref, computed, onMounted, nextTick } from 'vue';
+    import { ref, computed, onMounted, nextTick, watch } from 'vue';
     import { RouterLink } from 'vue-router';
+    import { useI18n } from 'vue-i18n';
+    const { t, locale } = useI18n();
+
 
     // Tabs ==============================================================
     const activeTab = ref('Все');
@@ -31,6 +34,11 @@
     onMounted(() => {
         updateSlider();
         window.addEventListener('resize', updateSlider);
+    });
+
+    // Watch for activeTab changes to update slider
+    watch(activeTab, () => {
+        updateSlider();
     });
 </script>
 
@@ -70,7 +78,7 @@
                         Предложения
                     </h2>
 
-                    <div class="relative bg-mainWhite py-1 px-1  rounded-[20px] flex items-center gap-5">
+                    <div class="relative bg-mainWhite p-1  rounded-[20px] flex items-center gap-5">
                         <span
                             class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-all duration-300 ease-out will-change-transform"
                             :style="sliderStyle" aria-hidden="true"></span>
@@ -79,28 +87,28 @@
                             class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
                             :class="activeTab === 'Все' ? 'text-mainWhite py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('Все')">
-                            Все
+                            {{ t('tabs.all') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[1] = el"
                             class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
                             :class="activeTab === 'Вклад' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('Вклад')">
-                            Денежные переводы
+                            {{ t('tabs.moneyTransfers') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[2] = el"
                             class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
                             :class="activeTab === 'Кредиты' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('Кредиты')">
-                            Электронные платежи
+                            {{ t('tabs.ePayments') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[3] = el"
                             class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
                             :class="activeTab === 'Карты' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('Карты')">
-                            Гарантии
+                            {{ t('tabs.guarantees') }}
                         </button>
                     </div>
                 </div>

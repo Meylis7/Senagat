@@ -23,7 +23,8 @@
                             </h6>
 
                             <div class="grid grid-cols-2 gap-4">
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg class="w-full h-full object-contain" width="40" height="40"
                                             viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +39,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +55,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +71,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +87,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg class="w-full h-full object-contain" width="40" height="40"
                                             viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,7 +103,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -113,7 +119,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -128,7 +135,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -143,7 +151,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg class="w-full h-full object-contain" width="40" height="40"
                                             viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -158,7 +167,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -173,7 +183,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -188,7 +199,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -203,7 +215,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg class="w-full h-full object-contain" width="40" height="40"
                                             viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -218,7 +231,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -233,7 +247,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -248,7 +263,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-x-[10px] p-3">
+                                <RouterLink :to="{ name: 'dashboard.payment' }"
+                                    class="flex items-center gap-x-[10px] p-3">
                                     <span class="block w-10 h-10">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">

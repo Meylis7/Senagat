@@ -12,6 +12,35 @@ export default {
   btn: {
     learnMore: 'Learn more',
   },
+  offer: {
+    title: 'Offers',
+  },
+  charity: {
+    title: 'Charitable Foundation',
+    text: 'The preliminary payment calculation is for informational purposes only and is calculated on the condition of processing financial credit protection. It does not constitute a public offer.',
+  },
+  calc: {
+    calculateBenefit: 'Calculate Benefit',
+    creditType: 'Select Loan Type',
+    loanAmount: 'Loan Amount',
+    term: 'Term',
+    rate: 'Rate',
+    monthlyPayment: 'Monthly Payment',
+    requiredDocs: 'You will need:',
+    passport: 'Passport',
+    incomeStatement: 'Income Statement',
+    calculatorDisclaimer:
+      "The calculator's calculation is preliminary. You will be able to find out personal conditions after submitting your application.",
+  },
+  tabs: {
+    all: 'All',
+    deposit: 'Deposit',
+    credits: 'Credits',
+    cards: 'Cards',
+    moneyTransfers: 'Money Transfers',
+    ePayments: 'Electronic Payments',
+    guarantees: 'Guarantees',
+  },
   nav: {
     loans: {
       title: 'Loans',

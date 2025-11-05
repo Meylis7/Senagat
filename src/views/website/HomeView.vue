@@ -1,87 +1,89 @@
 <script setup>
-import Hero from '@/components/website/Hero.vue';
-import { ref, computed } from 'vue';
-import { RouterLink } from 'vue-router';
+  import Hero from '@/components/website/Hero.vue';
+  import { ref, computed } from 'vue';
+  import { RouterLink } from 'vue-router';
+  import { useI18n } from 'vue-i18n';
+  const { t, locale } = useI18n();
 
-// Offers Section ============================================================================
-const activeTab = ref('Все');
-const setActiveTab = (tab) => {
-  activeTab.value = tab; // Change active tab
-};
+  // Offers Section ============================================================================
+  const activeTab = ref('Все');
+  const setActiveTab = (tab) => {
+    activeTab.value = tab; // Change active tab
+  };
 
-const tabOrder = ['Все', 'Вклад', 'Кредиты', 'Карты'];
-const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
+  const tabOrder = ['Все', 'Вклад', 'Кредиты', 'Карты'];
+  const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
 
-// Calculator Section ========================================================================
-const calcActiveTab = ref('Кредит');
-const setCalcTab = (tab) => {
-  calcActiveTab.value = tab;
-};
-const calcTabOrder = ['Кредит', 'Вклад'];
-const calcActiveIndex = computed(() => calcTabOrder.indexOf(calcActiveTab.value));
+  // Calculator Section ========================================================================
+  const calcActiveTab = ref('Кредит');
+  const setCalcTab = (tab) => {
+    calcActiveTab.value = tab;
+  };
+  const calcTabOrder = ['Кредит', 'Вклад'];
+  const calcActiveIndex = computed(() => calcTabOrder.indexOf(calcActiveTab.value));
 
-// Deposit Form State ========================================================================
-const depositTypes = ['Накопительный', 'Срочный', 'До востребования'];
-const depositType = ref(depositTypes[0]);
-const isDepositTypeOpen = ref(false);
-const setDepositType = (t) => {
-  depositType.value = t;
-  isDepositTypeOpen.value = false;
-};
+  // Deposit Form State ========================================================================
+  const depositTypes = ['Накопительный', 'Срочный', 'До востребования'];
+  const depositType = ref(depositTypes[0]);
+  const isDepositTypeOpen = ref(false);
+  const setDepositType = (t) => {
+    depositType.value = t;
+    isDepositTypeOpen.value = false;
+  };
 
-const depositMin = 5000;
-const depositMax = 60000;
-const depositAmount = ref(10000);
-const creditMin = 5000;
-const creditMax = 60000;
-const creditAmount = ref(10000);
-const creditTypes = ['Потребительский', 'Ипотечный', 'Автокредит'];
-const creditType = ref('');
-const isCreditTypeOpen = ref(false);
-const setCreditType = (t) => {
-  creditType.value = t;
-  isCreditTypeOpen.value = false;
-};
+  const depositMin = 5000;
+  const depositMax = 60000;
+  const depositAmount = ref(10000);
+  const creditMin = 5000;
+  const creditMax = 60000;
+  const creditAmount = ref(10000);
+  const creditTypes = ['Потребительский', 'Ипотечный', 'Автокредит'];
+  const creditType = ref('');
+  const isCreditTypeOpen = ref(false);
+  const setCreditType = (t) => {
+    creditType.value = t;
+    isCreditTypeOpen.value = false;
+  };
 
-// Utility Functions =========================================================================
-const formatMoney = (n) => n.toLocaleString('ru-RU');
-const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
-const roundToStep = (v, step) => Math.round(v / step) * step;
+  // Utility Functions =========================================================================
+  const formatMoney = (n) => n.toLocaleString('ru-RU');
+  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+  const roundToStep = (v, step) => Math.round(v / step) * step;
 
-// Input Handlers ============================================================================
-const onDepositAmountInput = (e) => {
-  const raw = String(e.target.value).replace(/\D/g, '');
-  const num = clamp(roundToStep(Number(raw || 0), 500), depositMin, depositMax);
-  depositAmount.value = num;
-  // reflect formatted value back to the input element
-  e.target.value = formatMoney(num);
-};
+  // Input Handlers ============================================================================
+  const onDepositAmountInput = (e) => {
+    const raw = String(e.target.value).replace(/\D/g, '');
+    const num = clamp(roundToStep(Number(raw || 0), 500), depositMin, depositMax);
+    depositAmount.value = num;
+    // reflect formatted value back to the input element
+    e.target.value = formatMoney(num);
+  };
 
-const onCreditAmountInput = (e) => {
-  const raw = String(e.target.value).replace(/\D/g, '');
-  const num = clamp(roundToStep(Number(raw || 0), 500), creditMin, creditMax);
-  creditAmount.value = num;
-  e.target.value = formatMoney(num);
-};
+  const onCreditAmountInput = (e) => {
+    const raw = String(e.target.value).replace(/\D/g, '');
+    const num = clamp(roundToStep(Number(raw || 0), 500), creditMin, creditMax);
+    creditAmount.value = num;
+    e.target.value = formatMoney(num);
+  };
 
-// Term Options ==============================================================================
-const termOptions = ['6 мес', '1 год', '1.5 года', '2 года', '3 года'];
-const selectedTerm = ref('2 года');
-const creditSelectedTerm = ref('2 года');
+  // Term Options ==============================================================================
+  const termOptions = ['6 мес', '1 год', '1.5 года', '2 года', '3 года'];
+  const selectedTerm = ref('2 года');
+  const creditSelectedTerm = ref('2 года');
 
-// Currency Section ==========================================================================
-const currencyTabs = ['Текущий курс', 'Обмен'];
-const currencyActiveTab = ref('Текущий курс');
-const currencyActiveIndex = computed(() => currencyTabs.indexOf(currencyActiveTab.value));
-const setCurrencyTab = (t) => {
-  currencyActiveTab.value = t;
-};
+  // Currency Section ==========================================================================
+  const currencyTabs = ['Текущий курс', 'Обмен'];
+  const currencyActiveTab = ref('Текущий курс');
+  const currencyActiveIndex = computed(() => currencyTabs.indexOf(currencyActiveTab.value));
+  const setCurrencyTab = (t) => {
+    currencyActiveTab.value = t;
+  };
 
-const rates = [
-  { code: 'USD', buy: 19.30, sell: 19.30, trend: 'up' },
-  { code: 'RUB', buy: 20.65, sell: 20.65, trend: 'down' },
-  { code: 'EUR', buy: 21.00, sell: 21.00, trend: 'up' },
-];
+  const rates = [
+    { code: 'USD', buy: 19.30, sell: 19.30, trend: 'up' },
+    { code: 'RUB', buy: 20.65, sell: 20.65, trend: 'down' },
+    { code: 'EUR', buy: 21.00, sell: 21.00, trend: 'up' },
+  ];
 
 </script>
 
@@ -95,7 +97,7 @@ const rates = [
         <div class="wrap">
           <div class="flex items-center justify-between mb-10">
             <h2 class="text-[38px] font-bold leading-9">
-              Предложения
+              {{ t('offer.title') }}
             </h2>
 
             <div class="relative bg-mainWhite p-1 rounded-[20px] grid grid-cols-4 items-center">
@@ -108,28 +110,28 @@ const rates = [
                 class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
                 :class="activeTab === 'Все' ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
                 @click="setActiveTab('Все')">
-                Все
+                {{ t('tabs.all') }}
               </button>
 
               <button type="button"
                 class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
                 :class="activeTab === 'Вклад' ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                 @click="setActiveTab('Вклад')">
-                Вклад
+                {{ t('tabs.deposit') }}
               </button>
 
               <button type="button"
                 class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
                 :class="activeTab === 'Кредиты' ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                 @click="setActiveTab('Кредиты')">
-                Кредиты
+                {{ t('tabs.credits') }}
               </button>
 
               <button type="button"
                 class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
                 :class="activeTab === 'Карты' ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                 @click="setActiveTab('Карты')">
-                Карты
+                {{ t('tabs.cards') }}
               </button>
             </div>
           </div>
@@ -379,14 +381,13 @@ const rates = [
           <div class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8">
             <div class="block max-w-[460px]">
               <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack">
-                Благотворительный фонд
+                {{ t('charity.title') }}
               </h4>
               <p class="text-[#6F736D] text-[17px] leading-6 mb-8 font-Gilroy">
-                Расчет предварительного платежа носит информационный характер и рассчитан при условии оформления
-                финансовой защиты кредита. Не является публичной офертой
+                {{ t('charity.text') }}
               </p>
               <RouterLink to="/" class="w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
-                Узнать больше
+                {{ t('btn.learnMore') }}
               </RouterLink>
             </div>
 
@@ -403,7 +404,7 @@ const rates = [
       <div class="auto_container">
         <div class="wrap">
           <div class="flex items-center justify-between mb-8">
-            <h2 class="text-[38px] font-bold leading-9">Рассчитать выгоду</h2>
+            <h2 class="text-[38px] font-bold leading-9"> {{ t('calc.calculateBenefit') }}</h2>
 
             <div class="relative bg-mainWhite p-1 rounded-[20px] grid grid-cols-2 items-center min-w-[240px]">
               <span
@@ -415,14 +416,14 @@ const rates = [
                 class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
                 :class="calcActiveTab === 'Кредит' ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                 @click="setCalcTab('Кредит')">
-                Кредит
+                {{ t('tabs.credits') }}
               </button>
 
               <button type="button"
                 class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
                 :class="calcActiveTab === 'Вклад' ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                 @click="setCalcTab('Вклад')">
-                Вклад
+                {{ t('tabs.deposit') }}
               </button>
             </div>
           </div>
@@ -433,7 +434,7 @@ const rates = [
                 <div class="relative">
                   <button type="button" @click="isCreditTypeOpen = !isCreditTypeOpen"
                     class="h-[56px] bg-white rounded-[12px] w-full flex items-center justify-between px-4 text-[#6F736D]">
-                    <span>{{ creditType || 'Выберите тип кредита' }}</span>
+                    <span>{{ creditType || t('calc.creditType') }}</span>
                     <svg :class="isCreditTypeOpen ? 'rotate-180' : ''" class="transition-transform" width="18"
                       height="18" viewBox="0 0 24 24" fill="none">
                       <path d="M6 9l6 6 6-6" stroke="#6F736D" stroke-width="2" stroke-linecap="round"
@@ -452,7 +453,7 @@ const rates = [
               </div>
 
               <div class="mb-6">
-                <label class="block text-mainBlack font-bold mb-3">Сумма кредита</label>
+                <label class="block text-mainBlack font-bold mb-3">{{ t('calc.loanAmount') }}</label>
                 <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
                   <input type="text" :value="formatMoney(creditAmount)" @input="onCreditAmountInput"
                     class="w-full outline-none bg-transparent text-mainBlack font-bold" />
@@ -468,7 +469,7 @@ const rates = [
               </div>
 
               <div>
-                <label class="block text-mainBlack font-bold mb-3">Срок</label>
+                <label class="block text-mainBlack font-bold mb-3">{{ t('calc.term') }}</label>
                 <div class="flex flex-wrap gap-3">
                   <button v-for="term in termOptions" :key="term" type="button" @click="creditSelectedTerm = term"
                     :class="creditSelectedTerm === term ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
@@ -480,26 +481,25 @@ const rates = [
             <div class="bg-mainWhite rounded-[20px] p-6">
               <div class="flex items-center justify-between mb-6">
                 <div>
-                  <p class="text-[#6F736D] mb-2">Ежемесячный платёж</p>
+                  <p class="text-[#6F736D] mb-2">{{ t('calc.monthlyPayment') }}</p>
                   <h3 class="text-[42px] font-bold">1000 манат</h3>
                 </div>
                 <div>
                   <span
                     class="inline-flex items-center justify-center h-[44px] w-[44px] rounded-[12px] bg-mainBlack text-white">1%</span>
-                  <p class="text-[#6F736D] mt-2 text-center">Ставка</p>
+                  <p class="text-[#6F736D] mt-2 text-center">{{ t('calc.rate') }}</p>
                 </div>
               </div>
 
               <div class="bg-white rounded-[12px] p-4 mb-6">
-                <p class="text-mainBlack font-bold mb-2">Вам понадобится:</p>
+                <p class="text-mainBlack font-bold mb-2">{{ t('calc.requiredDocs') }}:</p>
                 <ul class="text-[#6F736D] space-y-2">
-                  <li>Паспорт</li>
-                  <li>Справка о доходах</li>
+                  <li>{{ t('calc.passport') }}</li>
+                  <li>{{ t('calc.incomeStatement') }}</li>
                 </ul>
               </div>
 
-              <p class="text-[#6F736D]">Расчёт калькулятора предварительный. Персональные условия вы сможете узнать
-                после оформления заявки</p>
+              <p class="text-[#6F736D]">{{ t('calc.calculatorDisclaimer') }}</p>
             </div>
           </div>
 
@@ -885,81 +885,81 @@ const rates = [
 </template>
 
 <style scoped>
-.bg-deposit::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
-  pointer-events: none;
-}
+  .bg-deposit::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+  }
 
-.offer-circle::after {
-  content: "";
-  position: absolute;
-  width: 321px;
-  height: 321px;
-  right: -130px;
-  bottom: -134px;
-  background: #2C702C;
-  filter: blur(137.15px);
-  border-radius: 9999px;
-  pointer-events: none;
-}
+  .offer-circle::after {
+    content: "";
+    position: absolute;
+    width: 321px;
+    height: 321px;
+    right: -130px;
+    bottom: -134px;
+    background: #2C702C;
+    filter: blur(137.15px);
+    border-radius: 9999px;
+    pointer-events: none;
+  }
 
-.hot-glow::after {
-  content: "";
-  position: absolute;
-  width: 321px;
-  height: 321px;
-  right: -120px;
-  bottom: -97px;
-  background: #ED6328;
-  filter: blur(137.15px);
-  border-radius: 9999px;
-  /* makes it a circle */
-  pointer-events: none;
-}
+  .hot-glow::after {
+    content: "";
+    position: absolute;
+    width: 321px;
+    height: 321px;
+    right: -120px;
+    bottom: -97px;
+    background: #ED6328;
+    filter: blur(137.15px);
+    border-radius: 9999px;
+    /* makes it a circle */
+    pointer-events: none;
+  }
 
-/* Form section blurred green ellipse */
-.form-glow::after {
-  content: "";
-  position: absolute;
-  width: 226px;
-  height: 226px;
-  left: calc(50% - 226px/2 - 543px);
-  bottom: -71px;
-  background: #2C702C;
-  /* Green/main */
-  filter: blur(137.15px);
-  border-radius: 9999px;
-  pointer-events: none;
-}
+  /* Form section blurred green ellipse */
+  .form-glow::after {
+    content: "";
+    position: absolute;
+    width: 226px;
+    height: 226px;
+    left: calc(50% - 226px/2 - 543px);
+    bottom: -71px;
+    background: #2C702C;
+    /* Green/main */
+    filter: blur(137.15px);
+    border-radius: 9999px;
+    pointer-events: none;
+  }
 
-/* Docs section purple ellipse */
-.purple-glow::after {
-  content: "";
-  position: absolute;
-  width: 298px;
-  height: 298px;
-  left: calc(50% - 298px/2 + 591px);
-  bottom: -147px;
-  background: #BB28ED;
-  filter: blur(137.15px);
-  border-radius: 9999px;
-  pointer-events: none;
-}
+  /* Docs section purple ellipse */
+  .purple-glow::after {
+    content: "";
+    position: absolute;
+    width: 298px;
+    height: 298px;
+    left: calc(50% - 298px/2 + 591px);
+    bottom: -147px;
+    background: #BB28ED;
+    filter: blur(137.15px);
+    border-radius: 9999px;
+    pointer-events: none;
+  }
 
-/* News promo green ellipse */
-.news-promo-glow::after {
-  content: "";
-  position: absolute;
-  width: 321px;
-  height: 321px;
-  left: 190px;
-  top: 312px;
-  background: #2C702C;
-  filter: blur(137.15px);
-  border-radius: 9999px;
-  pointer-events: none;
-}
+  /* News promo green ellipse */
+  .news-promo-glow::after {
+    content: "";
+    position: absolute;
+    width: 321px;
+    height: 321px;
+    left: 190px;
+    top: 312px;
+    background: #2C702C;
+    filter: blur(137.15px);
+    border-radius: 9999px;
+    pointer-events: none;
+  }
 </style>
