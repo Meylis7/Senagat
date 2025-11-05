@@ -4,7 +4,13 @@ export default {
     businessAndIP: 'Işewürlik we HT',
     aboutBank: 'Bank barada',
     onlineReception: 'Onlaýn kabul ediş',
-    internetBank: 'Internet bank'
+    internetBank: 'Internet bank',
+  },
+  hero: {
+    title: 'Wirtual kart 0 manada, dessine keşbek bilen',
+  },
+  btn: {
+    learnMore: 'Giňişleýin öwrenmek',
   },
   nav: {
     loans: {
@@ -17,13 +23,13 @@ export default {
       agricultural: 'Oba hojalygy',
       stateEnterprises: 'Döwlet kärhanalary',
       publicFacilitiesFinancing: 'Jemgyýetçilik desgalaryny maliýeleşdirmek',
-      forProductionPurposes: 'Önümçilik maksatlary üçin'
+      forProductionPurposes: 'Önümçilik maksatlary üçin',
     },
     cards: {
       title: 'Kartlar',
       altynAsyrCard: 'Altyn asyr kart',
       goyumCard: 'Goýum kart',
-      mashgalaCard: 'Maşgala kart'
+      mashgalaCard: 'Maşgala kart',
     },
     deposits: {
       title: 'Goýumlar',
@@ -34,7 +40,7 @@ export default {
       profitable: 'Peýdaly',
       demandDeposit: 'Talap edilýänçä goýum',
       altynAsyrCardDeposit: '«Altyn Asyr» bank karty boýunça goýum',
-      goyumCardDeposit: '«Goýum» bank karty boýunça goýum'
+      goyumCardDeposit: '«Goýum» bank karty boýunça goýum',
     },
     services: {
       title: 'Hyzmatlar',
@@ -42,20 +48,28 @@ export default {
       safetyDepositBoxes: 'Seýf öýjüklerini kireýine almak',
       currencyExchange: 'Walýuta çalşygy',
       utilityPayments: 'Jemagat hyzmatlary üçin töleg',
-      communicationPayments: 'Aragatnaşyk hyzmatlary üçin töleg'
+      communicationPayments: 'Aragatnaşyk hyzmatlary üçin töleg',
     },
     tabs: {
       all: 'Hemmesi',
       moneyTransfers: 'Pul geçirimleri',
       electronicPayments: 'Elektron tölegler',
-      guarantees: 'Kepillikler'
-    }
+      guarantees: 'Kepillikler',
+    },
   },
-  footer: {
+  services: {
+        tabs: {
+            all: 'Hemmesi',
+            moneyTransfers: 'Pul geçirimleri',
+            electronicPayments: 'Elektron tölegler',
+            guarantees: 'Kepillikler'
+        }
+    },
+    footer: {
     languages: {
       english: 'English',
       russian: 'Русский',
-      turkmen: 'Türkmençe'
+      turkmen: 'Türkmençe',
     },
     languagesTitle: 'Diller',
     links: {
@@ -64,8 +78,8 @@ export default {
       news: 'Täzelikler',
       branches: 'Şahamçalar',
       exchangeRates: 'Walýuta kurslary',
-      atmSearch: 'Bankomat gözlegi'
-    }
+      atmSearch: 'Bankomat gözlegi',
+    },
   },
   dashboard: {
     hello: 'Salam',
@@ -74,6 +88,6 @@ export default {
     logout: 'Çykyş',
     dashboard: 'Dolandyryş paneli',
     settings: 'Sazlamalar',
-    profile: 'Profil'
-  }
+    profile: 'Profil',
+  },
 }

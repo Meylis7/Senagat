@@ -1,10 +1,10 @@
 <script setup>
     import { RouterLink, useRoute } from 'vue-router';
     import { useI18n } from 'vue-i18n';
-
+    const { t, locale } = useI18n();
     import { ref, onMounted, onUnmounted, nextTick, computed, watch } from 'vue';
 
-    const { t, locale } = useI18n();
+
 
     import logo from "@/assets/images/logo.png";
 
@@ -120,7 +120,7 @@
                         </RouterLink>
 
                         <div class="flex items-center ml-auto gap-x-2">
-                            <RouterLink to="/" :class="[
+                            <RouterLink to="/dashboard" :class="[
                                 'block text-sm font-bold border-solid border-[1px] rounded-[10px] px-5 py-[14px]',
                                 isDetailPage && !isSticky ? 'text-mainWhite border-[#F7F8F6]' : 'text-[#1D2417] border-[#1D2417]'
                             ]">

@@ -44,12 +44,6 @@ export default {
       utilityPayments: 'Оплата коммунальных услуг',
       communicationPayments: 'Оплата услуг связи',
     },
-    tabs: {
-      all: 'Все',
-      moneyTransfers: 'Денежные переводы',
-      electronicPayments: 'Электронные платежи',
-      guarantees: 'Гарантии'
-    },
   },
   footer: {
     languages: {

@@ -1,52 +1,37 @@
 <script setup>
-import { ref, onMounted, nextTick, watch } from 'vue';
-import { RouterLink } from 'vue-router';
-import { useI18n } from 'vue-i18n';
+    import { ref, computed, onMounted, nextTick } from 'vue';
+    import { RouterLink } from 'vue-router';
 
-const { t, locale } = useI18n();
+    // Tabs ==============================================================
+    const activeTab = ref('Все');
+    const tabRefs = ref([]);
+    const sliderStyle = ref({});
 
-const getTabs = () => [
-    t('services.tabs.all'),
-    t('services.tabs.moneyTransfers'),
-    t('services.tabs.electronicPayments'),
-    t('services.tabs.guarantees')
-];
+    const setActiveTab = (tab) => {
+        activeTab.value = tab;
+        updateSlider();
+    };
 
-// Tabs ==============================================================
-const activeTab = ref(getTabs()[0]);
-const activeIndex = ref(0);
-const activeTabWidth = ref(0);
-const activeTabOffset = ref(0);
+    const tabOrder = ['Все', 'Вклад', 'Кредиты', 'Карты'];
+    const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
 
-const tabRefs = ref([]);
+    const updateSlider = () => {
+        nextTick(() => {
+            const index = activeIndex.value;
+            if (tabRefs.value[index]) {
+                const button = tabRefs.value[index];
+                sliderStyle.value = {
+                    width: `${button.offsetWidth}px`,
+                    transform: `translateX(${button.offsetLeft - 4}px)`
+                };
+            }
+        });
+    };
 
-const updateActiveTabStyles = () => {
-    const activeTabEl = tabRefs.value[activeIndex.value];
-    if (activeTabEl) {
-        activeTabWidth.value = activeTabEl.offsetWidth;
-        activeTabOffset.value = activeTabEl.offsetLeft;
-    }
-};
-
-onMounted(() => {
-    nextTick(() => {
-        updateActiveTabStyles();
+    onMounted(() => {
+        updateSlider();
+        window.addEventListener('resize', updateSlider);
     });
-});
-
-watch(locale, () => {
-    const newTabs = getTabs();
-    activeTab.value = newTabs[activeIndex.value];
-    nextTick(() => {
-        updateActiveTabStyles();
-    });
-});
-
-const setActiveTab = (tab, index) => {
-    activeTab.value = tab;
-    activeIndex.value = index;
-    updateActiveTabStyles();
-};
 </script>
 
 <template>
@@ -85,42 +70,37 @@ const setActiveTab = (tab, index) => {
                         Предложения
                     </h2>
 
-                    <div class="relative bg-mainWhite p-1 rounded-[20px] flex items-center">
+                    <div class="relative bg-mainWhite py-1 px-1  rounded-[20px] flex items-center gap-5">
                         <span
-                            class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-all duration-300 ease-out"
-                            :style="{ width: `${activeTabWidth}px`, transform: `translateX(${activeTabOffset}px)` }"
-                            aria-hidden="true"></span>
+                            class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-all duration-300 ease-out will-change-transform"
+                            :style="sliderStyle" aria-hidden="true"></span>
 
-                        <button type="button"
-                            :ref="el => tabRefs[0] = el"
-                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-8 text-center transition-colors"
-                            :class="activeTab === t('services.tabs.all') ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab(t('services.tabs.all'), 0)">
-                            {{ t('services.tabs.all') }}
+                        <button type="button" :ref="el => tabRefs[0] = el"
+                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
+                            :class="activeTab === 'Все' ? 'text-mainWhite py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab('Все')">
+                            Все
                         </button>
 
-                        <button type="button"
-                            :ref="el => tabRefs[1] = el"
-                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-8 text-center transition-colors"
-                            :class="activeTab === t('services.tabs.moneyTransfers') ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab(t('services.tabs.moneyTransfers'), 1)">
-                            {{ t('services.tabs.moneyTransfers') }}
+                        <button type="button" :ref="el => tabRefs[1] = el"
+                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
+                            :class="activeTab === 'Вклад' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab('Вклад')">
+                            Денежные переводы
                         </button>
 
-                        <button type="button"
-                            :ref="el => tabRefs[2] = el"
-                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-8 text-center transition-colors"
-                            :class="activeTab === t('services.tabs.electronicPayments') ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab(t('services.tabs.electronicPayments'), 2)">
-                            {{ t('services.tabs.electronicPayments') }}
+                        <button type="button" :ref="el => tabRefs[2] = el"
+                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
+                            :class="activeTab === 'Кредиты' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab('Кредиты')">
+                            Электронные платежи
                         </button>
 
-                        <button type="button"
-                            :ref="el => tabRefs[3] = el"
-                            class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-8 text-center transition-colors"
-                            :class="activeTab === t('services.tabs.guarantees') ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab(t('services.tabs.guarantees'), 3)">
-                            {{ t('services.tabs.guarantees') }}
+                        <button type="button" :ref="el => tabRefs[3] = el"
+                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
+                            :class="activeTab === 'Карты' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab('Карты')">
+                            Гарантии
                         </button>
                     </div>
                 </div>
@@ -322,30 +302,30 @@ const setActiveTab = (tab, index) => {
 
 
 <style lang="scss" scoped>
-.bg-circle {
-    position: absolute;
-    display: block;
-    width: 300px;
-    height: 300px;
-    background: #BB28ED;
-    border-radius: 50%;
-    filter: blur(137.15px);
-    z-index: 1;
-    right: -140px;
-    bottom: -150px;
-}
+    .bg-circle {
+        position: absolute;
+        display: block;
+        width: 300px;
+        height: 300px;
+        background: #BB28ED;
+        border-radius: 50%;
+        filter: blur(137.15px);
+        z-index: 1;
+        right: -140px;
+        bottom: -150px;
+    }
 
-.hot-glow::after {
-    content: "";
-    position: absolute;
-    width: 321px;
-    height: 321px;
-    right: -120px;
-    bottom: -97px;
-    background: #ED6328;
-    filter: blur(137.15px);
-    border-radius: 9999px;
-    /* makes it a circle */
-    pointer-events: none;
-}
+    .hot-glow::after {
+        content: "";
+        position: absolute;
+        width: 321px;
+        height: 321px;
+        right: -120px;
+        bottom: -97px;
+        background: #ED6328;
+        filter: blur(137.15px);
+        border-radius: 9999px;
+        /* makes it a circle */
+        pointer-events: none;
+    }
 </style>

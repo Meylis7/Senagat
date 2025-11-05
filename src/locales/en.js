@@ -6,6 +6,12 @@ export default {
     onlineReception: 'Online Reception',
     internetBank: 'Internet Banking',
   },
+  hero: {
+    title: 'Virtual Card for free with Instant Cashback',
+  },
+  btn: {
+    learnMore: 'Learn more',
+  },
   nav: {
     loans: {
       title: 'Loans',
@@ -42,14 +48,14 @@ export default {
       safetyDepositBoxes: 'Safety Deposit Boxes',
       currencyExchange: 'Currency Exchange',
       utilityPayments: 'Utility Payments',
-      communicationPayments: 'Communication Payments'
+      communicationPayments: 'Communication Payments',
     },
     tabs: {
       all: 'All',
       moneyTransfers: 'Money Transfers',
       electronicPayments: 'Electronic Payments',
-      guarantees: 'Guarantees'
-    }
+      guarantees: 'Guarantees',
+    },
   },
   footer: {
     languages: {
