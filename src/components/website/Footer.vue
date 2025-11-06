@@ -1,7 +1,7 @@
 <script setup>
     import { RouterLink } from 'vue-router';
     import { useI18n } from 'vue-i18n';
-    import logo from '@/assets/images/logo.png';
+    import mainLogo from '@/assets/images/main_logo.png';
 
     const { t, locale } = useI18n();
 
@@ -218,8 +218,8 @@
         <div class="bg-mainBlack text-mainWhite">
             <div class="auto_container">
                 <div class="bottom-inner flex items-center gap-8 py-[60px]">
-                    <span class="block w-full max-w-[70px]">
-                        <img :src="logo" alt="" class="w-full h-full object-contain" />
+                    <span class="block w-full max-w-[178px]">
+                        <img :src="mainLogo" alt="" class="w-full h-full object-contain" />
                     </span>
 
                     <div class="contact flex flex-col">

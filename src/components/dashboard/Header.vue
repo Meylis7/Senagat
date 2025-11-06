@@ -1,5 +1,7 @@
 <script setup>
     import { RouterLink, useRoute } from 'vue-router';
+    import { useI18n } from 'vue-i18n';
+    const { t, locale } = useI18n();
 
     import logo from "@/assets/images/logo.png";
 
@@ -27,28 +29,28 @@
                                 <RouterLink :to="{ name: 'dashboard.home' }"
                                     class="text-[#1D2417] text-[17px] font-Gilroy"
                                     :class="[isActiveLink('/dashboard') ? 'active' : '']">
-                                    Дашборд
+                                    {{ t('dashboard.header.dashboard') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink :to="{ name: 'dashboard.payments' }"
                                     class="text-[#1D2417] text-[17px] font-Gilroy"
                                     :class="[isActiveLink('/dashboard/payments') ? 'active' : '']">
-                                    Платежи
+                                    {{ t('dashboard.header.payments') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink :to="{ name: 'dashboard.services' }"
                                     class="text-[#1D2417] text-[17px] font-Gilroy"
                                     :class="[isActiveLink('/dashboard/services') ? 'active' : '']">
-                                    Сервисы
+                                    {{ t('dashboard.header.services') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink :to="{ name: 'dashboard.cards' }"
                                     class="text-[#1D2417] text-[17px] font-Gilroy"
                                     :class="[isActiveLink('/dashboard/cards') ? 'active' : '']">
-                                    Карты
+                                    {{ t('dashboard.header.cards') }}
                                 </RouterLink>
                             </li>
                         </ul>
@@ -66,7 +68,7 @@
 
                         <input type="text"
                             class="bg-[#EEF2ED] rounded-[20px] text-mainBlack placeholder:text-[#6F736D] py-3 pl-[50px] px-5 w-[417px] text-[17px] font-Gilroy"
-                            placeholder="Найди услуги можно тут">
+                            :placeholder="t('dashboard.header.searchPlaceholder')">
                     </form>
 
                     <div class="flex items-center gap-x-[10px]">

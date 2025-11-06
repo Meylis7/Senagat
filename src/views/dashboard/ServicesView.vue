@@ -1,5 +1,9 @@
 <script setup>
-    import Date from '@/components/dashboard/Date.vue'
+    import { useI18n } from 'vue-i18n';
+    const { t, locale } = useI18n();
+
+
+    import CurrentDate from '@/components/dashboard/Date.vue'
     import { RouterLink } from 'vue-router';
 
 
@@ -11,10 +15,10 @@
         <div class="auto_container">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-[28px] font-bold leading-9">
-                    Сервисы
+                    {{ t('dashboard.PageTitles.services') }}
                 </h2>
 
-                <Date />
+                <CurrentDate />
             </div>
 
             <div class="grid grid-cols-12 gap-4">

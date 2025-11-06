@@ -792,7 +792,7 @@
     </section>
 
     <!-- News ===================================================================================== -->
-    <section class="pt-[50px] pb-[120px]">
+    <section class="py-[50px]">
       <div class="auto_container">
         <div class="wrap">
           <div class="flex items-center justify-between mb-6">
@@ -809,70 +809,106 @@
           </div>
 
           <div class="grid grid-cols-12 gap-4">
-            <div
-              class="col-span-4 rounded-[20px] overflow-hidden bg-[#1D2417] p-8 text-white relative min-h-[500px] news-promo-glow">
+            <div class="col-span-4 rounded-[20px] overflow-hidden bg-[#1D2417] p-8 text-white relative news-promo-glow">
               <h6 class="text-[28px] leading-9 text-mainWhite font-bold mb-[10px]">
-                Скачай приложение
+                Читайте нас в соц.сетях
               </h6>
               <p class="text-mainWhite text-[17px] leading-7 opacity-60 font-Gilroy">
-                Курс действует на текущее время. <br> Точный курс будет определён на момент совершения операции
+                Подпишитесь и получайте новости первыми
               </p>
 
-              <span class="block min-w-[232px] z-10 absolute -bottom-[113px] left-1/2 -translate-x-1/2">
-                <img src="../../assets/images/mobile-app.png" alt="app" class="block w-full h-auto object-contain" />
+              <span class="block ml-auto mt-[70px] w-[200px] z-10 relative">
+                <img src="../../assets/images/megaphone.png" alt="news-icon"
+                  class="block w-full h-auto object-contain" />
               </span>
             </div>
 
             <div class="col-span-8 grid sm:grid-cols-2 gap-4">
-              <article class="bg-white rounded-[20px] overflow-hidden">
-                <span class="block h-[200px] overflow-hidden rounded-2xl">
-                  <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
-                </span>
-                <div class="p-4">
-                  <RouterLink to="/news-detail" class="text-mainBlack text-[17px] font-bold leading-6">
-                    Газпромбанк расширил возможности РКО для
-                    предпринимателей
-                    сегмента МСБ
-                  </RouterLink>
+              <article class="bg-white rounded-[20px] overflow-hidden p-8">
+                <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
+                  30 октября 2025
+                </p>
+                <RouterLink to="/news-detail"
+                  class="block mt-[10px] mb-8 text-[##1D2417] text-[17px] font-bold leading-5">
+                  Газпромбанк расширил возможности РКО для
+                  предпринимателей
+                  сегмента МСБ
+                </RouterLink>
+                <div class="flex items-center gap-x-[10px]">
+                  <p
+                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
+                    Кредит
+                  </p>
+                  <p
+                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
+                    Вклады
+                  </p>
                 </div>
               </article>
 
-              <article class="bg-white rounded-[20px] overflow-hidden">
-                <span class="block h-[200px] overflow-hidden rounded-2xl">
-                  <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
-                </span>
-                <div class="p-4">
-                  <RouterLink to="/news-detail" class="text-mainBlack text-[17px] font-bold leading-6">
-                    Газпромбанк расширил возможности РКО для
-                    предпринимателей
-                    сегмента МСБ
-                  </RouterLink>
+              <article class="bg-white rounded-[20px] overflow-hidden p-8">
+                <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
+                  30 октября 2025
+                </p>
+                <RouterLink to="/news-detail"
+                  class="block mt-[10px] mb-8 text-[##1D2417] text-[17px] font-bold leading-5">
+                  Газпромбанк расширил возможности РКО для
+                  предпринимателей
+                  сегмента МСБ
+                </RouterLink>
+                <div class="flex items-center gap-x-[10px]">
+                  <p
+                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
+                    Кредит
+                  </p>
+                  <p
+                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
+                    Вклады
+                  </p>
                 </div>
               </article>
 
-              <article class="bg-white rounded-[20px] overflow-hidden">
-                <span class="block h-[200px] overflow-hidden rounded-2xl">
-                  <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
-                </span>
-                <div class="p-4">
-                  <RouterLink to="/news-detail" class="text-mainBlack text-[17px] font-bold leading-6">
-                    Газпромбанк расширил возможности РКО для
-                    предпринимателей
-                    сегмента МСБ
-                  </RouterLink>
+              <article class="bg-white rounded-[20px] overflow-hidden p-8">
+                <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
+                  30 октября 2025
+                </p>
+                <RouterLink to="/news-detail"
+                  class="block mt-[10px] mb-8 text-[##1D2417] text-[17px] font-bold leading-5">
+                  Газпромбанк расширил возможности РКО для
+                  предпринимателей
+                  сегмента МСБ
+                </RouterLink>
+                <div class="flex items-center gap-[10px]">
+                  <p
+                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
+                    Кредит
+                  </p>
+                  <p
+                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
+                    Вклады
+                  </p>
                 </div>
               </article>
 
-              <article class="bg-white rounded-[20px] overflow-hidden">
-                <span class="block h-[200px] overflow-hidden rounded-2xl">
-                  <img src="../../assets/images/news.png" class="block w-full h-full object-cover" alt="news" />
-                </span>
-                <div class="p-4">
-                  <RouterLink to="/news-detail" class="text-mainBlack text-[17px] font-bold leading-6">
-                    Газпромбанк расширил возможности РКО для
-                    предпринимателей
-                    сегмента МСБ
-                  </RouterLink>
+              <article class="bg-white rounded-[20px] overflow-hidden p-8">
+                <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
+                  30 октября 2025
+                </p>
+                <RouterLink to="/news-detail"
+                  class="block mt-[10px] mb-8 text-[##1D2417] text-[17px] font-bold leading-5">
+                  Газпромбанк расширил возможности РКО для
+                  предпринимателей
+                  сегмента МСБ
+                </RouterLink>
+                <div class="flex items-center gap-[10px]">
+                  <p
+                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
+                    Кредит
+                  </p>
+                  <p
+                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
+                    Вклады
+                  </p>
                 </div>
               </article>
             </div>
@@ -881,6 +917,66 @@
         </div>
       </div>
     </section>
+
+    <!-- Clients ================================================================================== -->
+    <section class="pt-[50px] pb-[60px]">
+      <div class="auto_container">
+        <div class="wrap">
+          <h2 class="text-[38px] font-bold mb-10">
+            Успешные клиенты-предприниматели нашего банка
+          </h2>
+
+          <div class="grid grid-cols-5">
+            <div class="grid place-items-center border-solid border-[#6F736D1A]/10 border-0 border-r-[1px]">
+              <img class="h-[100px] block object-contain" src="../../assets/images/client-1.png" alt="client-image">
+            </div>
+            <div class="grid place-items-center border-solid border-[#6F736D1A]/10 border-0 border-r-[1px]">
+              <img class="h-[100px] block object-contain" src="../../assets/images/client-2.png" alt="client-image">
+            </div>
+            <div class="grid place-items-center border-solid border-[#6F736D1A]/10 border-0 border-r-[1px]">
+              <img class="h-[100px] block object-contain" src="../../assets/images/client-3.png" alt="client-image">
+            </div>
+            <div class="grid place-items-center border-solid border-[#6F736D1A]/10 border-0 border-r-[1px]">
+              <img class="h-[100px] block object-contain" src="../../assets/images/client-4.png" alt="client-image">
+            </div>
+
+            <div class="grid place-items-center border-solid border-[#6F736D1A]/10 border-0 border-r-[1px]">
+              <img class="h-[100px] block object-contain" src="../../assets/images/client-5.png" alt="client-image">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- App ====================================================================================== -->
+    <section class="pt-[60px] pb-[120px]">
+      <div class="auto_container">
+        <div class="wrap">
+          <div class="block relative overflow-hidden">
+            <div class=" bg-mainBlack rounded-[20px] p-8 relative overflow-hidden ellipse">
+              <h4 class="text-[28px] max-w-[300px] text-mainWhite font-bold mb-[10px] leading-8 z-10">
+                Скачай приложение
+              </h4>
+              <p class="text-mainWhite/60 font-Gilroy text-[17px] leading-6 z-10 max-w-[330px]">
+                Переводы, открытие счетов и вкладов, инвестиции и многое другое — в вашем смартфоне
+              </p>
+              <RouterLink to="/"
+                class="block w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] mt-8 px-5 py-[14px]">
+                Скачать приложение
+              </RouterLink>
+
+              <div class="app-circle"></div>
+
+            </div>
+            <span class="block w-[258px] absolute top-8 right-8 z-10">
+              <img class="block w-full h-full object-contain" src="../../assets/images/mobile-app.png" alt="app-image">
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
 
   </main>
 </template>
@@ -956,11 +1052,24 @@
     position: absolute;
     width: 321px;
     height: 321px;
-    left: 190px;
-    top: 312px;
+    right: -120px;
+    bottom: -97px;
     background: #2C702C;
     filter: blur(137.15px);
     border-radius: 9999px;
     pointer-events: none;
+  }
+
+  .app-circle {
+    position: absolute;
+    width: 321px;
+    height: 321px;
+    background: #2C702C;
+    border-radius: 50%;
+    filter: blur(274.3px);
+    z-index: 1;
+    right: -16px;
+    bottom: -216px;
+    transform: translateY(-50%);
   }
 </style>

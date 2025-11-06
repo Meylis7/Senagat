@@ -1,4 +1,7 @@
 <script setup>
+    import { useI18n } from 'vue-i18n';
+    const { t, locale } = useI18n();
+
     import Date from '@/components/dashboard/Date.vue';
 
 </script>
@@ -9,7 +12,7 @@
             <div class="wrap">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-[38px] font-bold leading-9">
-                        Платежи
+                        {{ t('dashboard.PageTitles.payments') }}
                     </h2>
 
                     <Date />
@@ -19,7 +22,7 @@
                     <div class=" col-span-9">
                         <div class="cards relative block bg-[#1D2417] rounded-[20px] p-[22px] mb-4">
                             <h6 class="text-[17px] font-bold mb-4 text-[#EEF2ED]">
-                                Выберите что бы оплатить
+                                {{ t('dashboard.blockTitiles.selectToPay') }}
                             </h6>
 
                             <div class="flex gap-[10px]">
@@ -120,15 +123,15 @@
                                 <div class="grid grid-cols-2 gap-4 bg-[#F7F8F6] rounded-[20px] p-[22px]">
                                     <div class="flex flex-col">
                                         <h6 class="text-[17px] font-bold text-[#191B19] leading-6">
-                                            Выберите что бы оплатить
+                                            {{ t('dashboard.blockTitiles.applyCardOnline') }}
                                         </h6>
                                         <p class="text-[15px] font-Gilroy text-[#6F736D] mt-[10px] leading-6">
-                                            Оформите карту за пару секунд
+                                            {{ t('dashboard.applyCardFast') }}
                                         </p>
 
                                         <RouterLink :to="{ name: 'dashboard.allCards' }"
                                             class="mt-auto bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-full">
-                                            Все карты
+                                            {{ t('dashboard.btn.allCards') }}
                                         </RouterLink>
                                     </div>
 
@@ -141,7 +144,7 @@
                             <div class="col-span-5">
                                 <div class="bg-[#F7F8F6] rounded-[20px] p-[22px] flex flex-col gap-4">
                                     <h6 class="text-[17px] font-bold text-[#191B19] leading-5">
-                                        Выберите что бы оплатить
+                                        {{ t('dashboard.blockTitiles.whatsNew') }}
                                     </h6>
 
                                     <RouterLink to="/"
@@ -171,7 +174,7 @@
                     <div class=" col-span-3">
                         <div class="block p-[22px] rounded-[20px] bg-mainWhite">
                             <h6 class="text-[17px] font-bold mb-4">
-                                История платежей
+                                {{ t('dashboard.blockTitiles.paymentHistory') }}
                             </h6>
 
                             <div

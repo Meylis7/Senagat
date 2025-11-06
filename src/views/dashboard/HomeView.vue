@@ -1,6 +1,19 @@
 <script setup>
-    import Date from '@/components/dashboard/Date.vue';
+    import CurrentDate from '@/components/dashboard/Date.vue';
+    import { useI18n } from 'vue-i18n';
+    import { computed } from 'vue';
+    const { t } = useI18n();
 
+
+    // Get current month index (0-11)
+    const currentDate = new Date();
+    const monthIndex = currentDate.getMonth();
+
+    // Get expenses title with translated month
+    const expensesTitle = computed(() => {
+        const monthName = t(`date.months.${monthIndex}`);
+        return t('expensesFor', { month: monthName });
+    });
 </script>
 
 <template>
@@ -9,17 +22,17 @@
             <div class="wrap">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-[28px] font-bold leading-9">
-                        Главная
+                        {{ t('dashboard.PageTitles.home') }}
                     </h2>
 
-                    <Date />
+                    <CurrentDate />
                 </div>
 
                 <div class="grid grid-cols-12 gap-x-4">
                     <div class="col-span-3">
                         <div class="block bg-[#1D2417] rounded-[20px] p-[22px] overflow-hidden relative bg-circle">
                             <h6 class="text-[15px] text-[#EEF2ED]/60 font-Gilroy mb-4 relative z-10 leading-5">
-                                Общий баланс
+                                {{ t('dashboard.totalBalance') }}
                             </h6>
 
                             <div class="flex items-center gap-x-[10px] relative z-10">
@@ -38,12 +51,12 @@
 
                             <RouterLink to="/dashboard"
                                 class="mt-4 mb-10 rounded-[20px] text-mainWhite w-full block bg-[#2C702C] text-center text-[15px] leading-5 py-[10px] relative z-10">
-                                Опталить услуги
+                                {{ t('dashboard.btn.payServices') }}
                             </RouterLink>
 
                             <div class="flex items-center justify-between mb-4 relative z-10">
                                 <h6 class="text-[15px] text-[#EEF2ED]/60 font-Gilroy leading-6">
-                                    Расходы за Октябрь
+                                    {{ expensesTitle }}
                                 </h6>
 
                                 <p class="text-[15px] text-[#EEF2ED] font-bold leading-6">
@@ -53,7 +66,7 @@
                             <div class="block bg-[#DDF0DD] rounded-[20px] h-[18px] mb-10 relative z-10"></div>
 
                             <h6 class="text-[15px] text-[#EEF2ED]/60 font-Gilroy mb-4 relative z-10 leading-5">
-                                Карты
+                                {{ t('dashboard.cards') }}
                             </h6>
 
                             <div
@@ -96,7 +109,7 @@
                             </div>
 
                             <h6 class="text-[15px] text-[#EEF2ED]/60 font-Gilroy mb-4 relative z-10 leading-5">
-                                Курс вылют
+                                {{ t('dashboard.currencyExchangeRate') }}
                             </h6>
                             <div class="flex flex-col gap-y-1 relative z-10">
                                 <div class="flex items-center justify-between bg-[#191B19]/50 rounded-[10px] p-[12px]">
@@ -152,7 +165,7 @@
                     <div class="col-span-9">
                         <div class="block p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                             <h6 class="text-[17px] font-bold mb-4">
-                                Выберите что бы оплатить
+                                {{ t('dashboard.blockTitiles.selectToPay') }}
                             </h6>
 
                             <div class="grid grid-cols-12 gap-4">
@@ -282,7 +295,7 @@
                             <div class="col-span-4">
                                 <div class="block p-[22px] rounded-[20px] bg-mainWhite h-[515px] overflow-y-auto">
                                     <h6 class="text-[17px] font-bold mb-4">
-                                        История платежей
+                                        {{ t('dashboard.blockTitiles.paymentHistory') }}
                                     </h6>
 
                                     <div
@@ -385,7 +398,7 @@
                                 <div class="block p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                                     <div class="flex items-center justify-between">
                                         <h6 class="text-[17px] font-bold mb-4">
-                                            Траты за год
+                                            {{ t('dashboard.blockTitiles.yearlySpending') }}
                                         </h6>
 
 
@@ -394,11 +407,11 @@
 
                                 <div class="block p-[22px] rounded-[20px] bg-[#1D2417]">
                                     <h6 class="text-[17px] text-mainWhite font-bold mb-3">
-                                        Отделения
+                                        {{ t('exchange.branches') }}
                                     </h6>
 
                                     <p class="text-xs text-[#F7F8F6]/60 mb-3">
-                                        На карте города
+                                        {{ t('exchange.onCityMap') }}
                                     </p>
 
                                     <div class="block relative w-full rounded-[10px]">

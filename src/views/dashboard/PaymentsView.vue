@@ -1,5 +1,8 @@
 <script setup>
-    import Date from '@/components/dashboard/Date.vue';
+    import { useI18n } from 'vue-i18n';
+    const { t, locale } = useI18n();
+
+    import CurrentDate from '@/components/dashboard/Date.vue';
 
 </script>
 
@@ -9,17 +12,17 @@
             <div class="wrap">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-[38px] font-bold leading-9">
-                        Платежи
+                        {{ t('dashboard.PageTitles.payments') }}
                     </h2>
 
-                    <Date />
+                    <CurrentDate />
                 </div>
 
                 <div class="grid grid-cols-12 gap-4">
                     <div class=" col-span-5">
                         <div class="block p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                             <h6 class="text-[17px] font-bold mb-4">
-                                Выберите что бы оплатить
+                                {{ t('dashboard.blockTitiles.selectToPay') }}
                             </h6>
 
                             <div class="grid grid-cols-2 gap-4">
@@ -285,7 +288,7 @@
                         <div class="block p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                             <div class="flex items-center justify-between">
                                 <h6 class="text-[17px] font-bold mb-4">
-                                    Траты за год
+                                    {{ t('dashboard.blockTitiles.yearlySpending') }}
                                 </h6>
 
 
@@ -294,7 +297,7 @@
 
                         <div class="block p-[22px] rounded-[20px] bg-mainWhite h-[515px] overflow-y-auto">
                             <h6 class="text-[17px] font-bold mb-4">
-                                История платежей
+                                {{ t('dashboard.blockTitiles.paymentHistory') }}
                             </h6>
 
                             <div
