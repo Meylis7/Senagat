@@ -11,9 +11,22 @@ export default {
   },
   btn: {
     learnMore: 'Learn more',
+    showAll: 'Show all',
+    downloadAppButton: 'Download the app',
   },
   offer: {
     title: 'Offers',
+  },
+  facts: {
+    title: 'Facts that speak for themselves',
+  },
+  clients: {
+    title: 'Successful entrepreneur clients of our bank',
+  },
+  docs: {
+    title: 'List of documents for opening an account',
+    subTitle:
+      'Any relationship between the Client and the Bank begins with opening an account. The opening of current accounts is regulated by the current legislation of Turkmenistan.',
   },
   charity: {
     title: 'Charitable Foundation',
@@ -39,6 +52,9 @@ export default {
     cards: 'Cards',
     moneyTransfers: 'Money Transfers',
     ePayments: 'Electronic Payments',
+    guarantees: 'Guarantees',
+    moneyTransfers: 'Money Transfers',
+    electronicPayments: 'Electronic Payments',
     guarantees: 'Guarantees',
   },
   nav: {
@@ -79,12 +95,27 @@ export default {
       // utilityPayments: 'Utility Payments',
       // communicationPayments: 'Communication Payments',
     },
-    tabs: {
-      all: 'All',
-      moneyTransfers: 'Money Transfers',
-      electronicPayments: 'Electronic Payments',
-      guarantees: 'Guarantees',
-    },
+  },
+  news: {
+    title: 'News worth sharing',
+    news: 'News',
+    noNews: 'No news available yet',
+    readUsSocial: 'Follow us on social networks',
+    subscribeFirstNews: 'Subscribe and get the news first',
+  },
+  app: {
+    title: 'Download the app',
+    subTitle:
+      'Transfers, opening accounts and deposits, investments, and much more — all in your smartphone.',
+  },
+  breadcrumb: {
+    home: 'Home',
+    cards: 'Cards',
+    news: 'Blog',
+    loans: 'Loans',
+    deposits: 'Deposits',
+    services: 'Services',
+    about: 'About',
   },
   exchange: {
     title: 'Plan Currency Exchange',

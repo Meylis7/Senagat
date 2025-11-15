@@ -1,0 +1,102 @@
+import axios from 'axios'
+
+// Use /api proxy in development (configured in vite.config.js)
+// In production, this should be set via environment variable
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api'
+
+// Create axios instance with default config
+const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
+})
+
+// Add request interceptor to set locale header
+apiClient.interceptors.request.use(
+  (config) => {
+    const locale = localStorage.getItem('locale') || 'en'
+    config.headers['Accept-Language'] = locale
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  },
+)
+
+// Add response interceptor for error handling
+apiClient.interceptors.response.use(
+  (response) => {
+    // Return response data directly
+    return response.data
+  },
+  (error) => {
+    // Handle axios errors
+    if (error.response) {
+      // Server responded with error status
+      const errorMessage = error.response.data?.message || error.response.statusText
+      console.error(
+        `API Error: ${error.config?.method?.toUpperCase()} ${error.config?.url}`,
+        errorMessage,
+      )
+      throw new Error(errorMessage)
+    } else if (error.request) {
+      // Request was made but no response received
+      console.error('Network Error: No response from server', error.message)
+      throw new Error('Network error. Please check your connection.')
+    } else {
+      // Something else happened
+      console.error('Request Error:', error.message)
+      throw new Error(error.message || 'An error occurred. Please try again.')
+    }
+  },
+)
+
+const apiService = {
+  // General HTTP methods for flexible API usage
+  get(endpoint, config = {}) {
+    return apiClient.get(endpoint, {
+      params: config.params,
+      headers: config.headers,
+    })
+  },
+
+  post(endpoint, data, config = {}) {
+    return apiClient.post(endpoint, data, {
+      headers: config.headers,
+    })
+  },
+
+  // News methods
+  fetchNews(params = {}) {
+    return apiClient.get('/v1/news', { params })
+  },
+
+  fetchNewsDetail(newsId) {
+    return apiClient.get(`/v1/news/${newsId}`)
+  },
+
+  // Exchange rates
+  fetchExchangeRates(params = {}) {
+    return apiClient.get('/v1/exchange-rate', { params })
+  },
+
+  fetchFacts(params = {}) {
+    return apiClient.get('/v1/facts', { params })
+  },
+
+  fetchAwards(params = {}) {
+    return apiClient.get('/v1/awards', { params })
+  },
+
+  fetchAwardDetail(id) {
+    return apiClient.get(`/v1/awards/${id}`)
+  },
+
+  fetchClients(params = {}) {
+    return apiClient.get('/v1/clients', { params })
+  },
+}
+
+export default apiService

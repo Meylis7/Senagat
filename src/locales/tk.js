@@ -11,9 +11,22 @@ export default {
   },
   btn: {
     learnMore: 'Giňişleýin öwrenmek',
+    showAll: 'Ählisini görkez',
+    downloadAppButton: 'Programmany ýükläp al',
   },
   offer: {
     title: 'Teklipler',
+  },
+  facts: {
+    title: 'Öz-özünden aýdyň faktlar',
+  },
+  clients: {
+    title: 'Biziň bankymyzyň üstünlikli telekeçi müşderileri',
+  },
+  docs: {
+    title: 'Hasap açmak üçin resminamalaryň sanawy',
+    subTitle:
+      'Müşderi bilen Bankyň arasyndaky islendik gatnaşyk hasap açmakdan başlanýar. Hasaplaşyk hasaplaryny açmak Türkmenistanyň hereket edýän kanunçylygy bilen düzgünleşdirilýär.',
   },
   charity: {
     title: 'Haýyr-sahawat gaznasy',
@@ -79,12 +92,6 @@ export default {
       // utilityPayments: 'Jemagat hyzmatlary üçin töleg',
       // communicationPayments: 'Aragatnaşyk hyzmatlary üçin töleg',
     },
-    tabs: {
-      all: 'Hemmesi',
-      moneyTransfers: 'Pul geçirimleri',
-      electronicPayments: 'Elektron tölegler',
-      guarantees: 'Kepillikler',
-    },
   },
   services: {
     tabs: {
@@ -93,6 +100,27 @@ export default {
       electronicPayments: 'Elektron tölegler',
       guarantees: 'Kepillikler',
     },
+  },
+  news: {
+    title: 'Täzelikler',
+    news: 'Täzelik',
+    noNews: 'Häzirki wagtda täzelikler ýok',
+    readUsSocial: 'Bizi sosial ulgamlarda okaň',
+    subscribeFirstNews: 'Ýazylyň we täzelikleri ilkinji bolup alyň',
+  },
+  app: {
+    title: 'Programmany ýükläp alyň',
+    subTitle:
+      'Pul geçirimleri, hasaplar we goýumlar açmak, maýa goýumlary we başga-da köp zatlar — siziň smartfonyňyzda.',
+  },
+  breadcrumb: {
+    home: 'Baş sahypa',
+    cards: 'Kartlar',
+    news: 'Täzelikler',
+    loans: 'Karzlar',
+    deposits: 'Goýumlar',
+    services: 'Hyzmatlar',
+    about: 'Bank barada',
   },
   exchange: {
     title: 'Walýuta çalşygyny meýilleşdiriň',

@@ -1,8 +1,9 @@
 <script setup>
   import Hero from '@/components/website/Hero.vue';
-  import { ref, computed } from 'vue';
+  import { ref, computed, onMounted } from 'vue';
   import { RouterLink } from 'vue-router';
   import { useI18n } from 'vue-i18n';
+  import apiService from '@/services/apiService';
   const { t, locale } = useI18n();
 
   // Offers Section ============================================================================
@@ -79,11 +80,142 @@
     currencyActiveTab.value = t;
   };
 
-  const rates = [
-    { code: 'USD', buy: 19.30, sell: 19.30, trend: 'up' },
-    { code: 'RUB', buy: 20.65, sell: 20.65, trend: 'down' },
-    { code: 'EUR', buy: 21.00, sell: 21.00, trend: 'up' },
-  ];
+  const exchangeRates = ref([])
+  const exchangeLoading = ref(false)
+  const exchangeError = ref(null)
+
+  const rates = computed(() => {
+    return (exchangeRates.value || []).map((item) => {
+      const buy = Number(item.purchase)
+      const sell = Number(item.sale)
+      return {
+        code: item.currency,
+        buy,
+        sell,
+        trend: sell >= buy ? 'up' : 'down',
+      }
+    })
+  })
+
+  const fetchExchangeRates = async () => {
+    exchangeLoading.value = true
+    exchangeError.value = null
+    try {
+      const response = await apiService.fetchExchangeRates()
+      if (response?.success && Array.isArray(response?.data)) {
+        exchangeRates.value = response.data
+      } else if (Array.isArray(response)) {
+        exchangeRates.value = response
+      } else if (Array.isArray(response?.data)) {
+        exchangeRates.value = response.data
+      } else {
+        exchangeRates.value = []
+      }
+    } catch (error) {
+      exchangeError.value = error.message || 'Failed to load exchange rates'
+      exchangeRates.value = []
+    } finally {
+      exchangeLoading.value = false
+    }
+  }
+  // Awards Section ============================================================================
+  const awards = ref([])
+  const awardsLoading = ref(false)
+  const awardsError = ref(null)
+
+  const fetchAwards = async () => {
+    awardsLoading.value = true
+    awardsError.value = null
+    try {
+      const response = await apiService.fetchAwards()
+      if (response?.success && Array.isArray(response?.data)) {
+        awards.value = response.data
+      } else if (Array.isArray(response)) {
+        awards.value = response
+      } else if (Array.isArray(response?.data)) {
+        awards.value = response.data
+      } else {
+        awards.value = []
+      }
+    } catch (error) {
+      awardsError.value = error.message || 'Failed to load awards'
+      awards.value = []
+    } finally {
+      awardsLoading.value = false
+    }
+  }
+
+  // News Section ============================================================================
+  const news = ref([]);
+  const newsLoading = ref(false);
+  const newsError = ref(null);
+
+  // Fetch news from API
+  const fetchNews = async () => {
+    newsLoading.value = true;
+    newsError.value = null;
+    try {
+      // Fetch latest 4 news items for homepage
+      const response = await apiService.fetchNews({ limit: 4 });
+
+      // Handle API response structure: { success: true, code: "news_listed", data: [...] }
+      if (response?.success && response?.data && Array.isArray(response.data)) {
+        news.value = response.data;
+      } else if (Array.isArray(response)) {
+        // Fallback: if response is directly an array
+        news.value = response;
+      } else if (response?.data && Array.isArray(response.data)) {
+        // Fallback: if response has data property
+        news.value = response.data;
+      } else {
+        news.value = [];
+      }
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      newsError.value = error.message || 'Failed to load news';
+      news.value = [];
+    } finally {
+      newsLoading.value = false;
+    }
+  };
+
+  // Fetch news on component mount
+  onMounted(() => {
+    fetchNews();
+    fetchExchangeRates();
+    fetchAwards();
+  });
+
+  // Clients Section ========================================================================
+  const clients = ref([])
+  const clientsLoading = ref(false)
+  const clientsError = ref(null)
+
+  const fetchClients = async () => {
+    clientsLoading.value = true
+    clientsError.value = null
+    try {
+      const response = await apiService.fetchClients()
+      if (response?.success && Array.isArray(response?.data)) {
+        clients.value = response.data
+      } else if (Array.isArray(response)) {
+        clients.value = response
+      } else if (Array.isArray(response?.data)) {
+        clients.value = response.data
+      } else {
+        clients.value = []
+      }
+    } catch (error) {
+      clientsError.value = error.message || 'Failed to load clients'
+      clients.value = []
+    } finally {
+      clientsLoading.value = false
+    }
+  }
+
+  onMounted(() => {
+    fetchClients()
+  })
 
 </script>
 
@@ -181,7 +313,7 @@
 
             <div
               class="lg:col-span-4 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
-              <h6 class="text-[34px] leading-9 font-bold mb-[10px]">
+              <h6 class="text-[28px] leading-9 font-bold mb-[10px]">
                 Депозитный вклад «Выгодный»
               </h6>
               <p class="text-mainWhite max-w-[420px] opacity-60">
@@ -319,7 +451,7 @@
 
             <div
               class="lg:col-span-4 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
-              <h6 class="text-[34px] leading-9 font-bold mb-[10px]">
+              <h6 class="text-[28px] leading-9 font-bold mb-[10px]">
                 Депозитный вклад «Выгодный»
               </h6>
               <p class="text-mainWhite max-w-[420px] opacity-60">
@@ -713,7 +845,7 @@
                   </div>
                 </template>
 
-                <div class="col-span-8 text-[#6F736D] text-[17px] max-w-[450px] font-Gilroy">
+                <div class="col-span-8 text-[#6F736D] mt-auto text-[17px] max-w-[450px] font-Gilroy">
                   {{ t('exchange.rateDisclaimer') }}
                 </div>
               </div>
@@ -733,27 +865,22 @@
       <div class="auto_container">
         <div class="wrap">
           <h2 class="text-[38px] font-bold mb-10 leading-9">
-            Факты, которые говорят сами за себя
+            {{ t('facts.title') }}
           </h2>
 
-          <div class="flex gap-x-4">
-            <div class="block bg-mainWhite rounded-[20px] p-8 w-[calc(50%-8px)]">
-              <h4 class=" text-[28px] font-bold text-mainBlack mb-8">
-                Банк года Туркменистана
-              </h4>
-
-              <span class="max-h-[220px] flex items-end justify-end">
-                <img src="../../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
-              </span>
-            </div>
-
-            <div class="block bg-mainWhite rounded-[20px] p-8 w-[calc(50%-8px)]">
-              <h4 class=" text-[28px] font-bold text-mainBlack mb-8">
-                Награжден премией
-              </h4>
-
-              <span class="max-h-[220px] flex items-end justify-end">
-                <img src="../../assets/images/fact.png" class="block max-h-full object-contain" alt="card">
+          <div class="grid grid-cols-2 gap-4">
+            <div v-for="item in awards.slice(0, 2)" :key="item.id" class="block bg-mainWhite rounded-[20px] p-8">
+              <RouterLink :to="{ name: 'awards-detail', query: { id: item.id } }" class="block">
+                <h4 class=" text-[28px] font-bold text-mainBlack mb-2">
+                  {{ item.title || '' }}
+                </h4>
+              </RouterLink>
+              <p class="text-[17px] text-[#6F736D] mb-6">
+                {{ item.sub_title || '' }}
+              </p>
+              <span class="h-[220px] flex justify-end relative">
+                <img :src="item.image_url || '../../assets/images/fact.png'" class="block h-full object-contain"
+                  alt="card">
               </span>
             </div>
           </div>
@@ -769,17 +896,15 @@
             class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden purple-glow">
             <div class="block max-w-[600px]">
               <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                Перечень документов для открытия счета
+                {{ t('docs.title') }}
               </h6>
               <p class="text-[17px] text-[#6F736D] leading-5 font-Gilroy max-w-[500px]">
-                Любые взаимоотношения Клиента с Банком начинаются с открытия счета. Открытие расчетных счетов
-                регулируется
-                действующим законодательством Туркменистана.
+                {{ t('docs.subTitle') }}
               </p>
 
               <RouterLink to="/"
                 class="block w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] mt-[85px] px-5 py-[14px]">
-                Узнать больше
+                {{ t('btn.learnMore') }}
               </RouterLink>
             </div>
 
@@ -796,9 +921,11 @@
       <div class="auto_container">
         <div class="wrap">
           <div class="flex items-center justify-between mb-6">
-            <h2 class="text-[38px] font-bold">Новости, которыми хочется делиться</h2>
+            <h2 class="text-[38px] font-bold">
+              {{ t('news.title') }}
+            </h2>
             <RouterLink to="/news" class="text-[#2C702C] hover:opacity-80 inline-flex items-center gap-2">
-              Показать все
+              {{ t('btn.showAll') }}
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M6.35196 3.77314C6.29969 3.72088 6.25824 3.65884 6.22995 3.59055C6.20167 3.52227 6.18711 3.44908 6.18711 3.37517C6.18711 3.30127 6.20167 3.22808 6.22995 3.1598C6.25824 3.09151 6.29969 3.02947 6.35196 2.97721C6.40422 2.92494 6.46626 2.88349 6.53455 2.8552C6.60283 2.82692 6.67602 2.81236 6.74992 2.81236C6.82383 2.81236 6.89702 2.82692 6.9653 2.8552C7.03359 2.88349 7.09563 2.92494 7.14789 2.97721L12.7729 8.60221C12.8252 8.65445 12.8667 8.71649 12.895 8.78477C12.9233 8.85306 12.9379 8.92625 12.9379 9.00018C12.9379 9.0741 12.9233 9.14729 12.895 9.21558C12.8667 9.28387 12.8252 9.3459 12.7729 9.39814L7.14789 15.0231C7.04234 15.1287 6.89919 15.188 6.74992 15.188C6.60066 15.188 6.4575 15.1287 6.35195 15.0231C6.24641 14.9176 6.18711 14.7744 6.18711 14.6252C6.18711 14.4759 6.24641 14.3328 6.35195 14.2272L11.5797 9.00018L6.35196 3.77314Z"
@@ -811,106 +938,67 @@
           <div class="grid grid-cols-12 gap-4">
             <div class="col-span-4 rounded-[20px] overflow-hidden bg-[#1D2417] p-8 text-white relative news-promo-glow">
               <h6 class="text-[28px] leading-9 text-mainWhite font-bold mb-[10px]">
-                Читайте нас в соц.сетях
+                {{ t('news.readUsSocial') }}
               </h6>
               <p class="text-mainWhite text-[17px] leading-7 opacity-60 font-Gilroy">
-                Подпишитесь и получайте новости первыми
+                {{ t('news.subscribeFirstNews') }}
               </p>
 
-              <span class="block ml-auto mt-[70px] w-[200px] z-10 relative">
+              <span class="block ml-auto mt-[20px] w-[200px] z-10 relative">
                 <img src="../../assets/images/megaphone.png" alt="news-icon"
                   class="block w-full h-auto object-contain" />
               </span>
             </div>
 
             <div class="col-span-8 grid sm:grid-cols-2 gap-4">
-              <article class="bg-white rounded-[20px] overflow-hidden p-8">
-                <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
-                  30 октября 2025
-                </p>
-                <RouterLink to="/news-detail"
-                  class="block mt-[10px] mb-8 text-[##1D2417] text-[17px] font-bold leading-5">
-                  Газпромбанк расширил возможности РКО для
-                  предпринимателей
-                  сегмента МСБ
-                </RouterLink>
-                <div class="flex items-center gap-x-[10px]">
-                  <p
-                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
-                    Кредит
-                  </p>
-                  <p
-                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
-                    Вклады
-                  </p>
-                </div>
-              </article>
+              <!-- Loading state -->
+              <template v-if="newsLoading">
+                <article v-for="n in 4" :key="n" class="bg-white rounded-[20px] overflow-hidden p-8 animate-pulse">
+                  <div class="h-4 bg-gray-200 rounded w-32 mb-4"></div>
+                  <div class="h-6 bg-gray-200 rounded w-full mb-8"></div>
+                  <div class="flex items-center gap-x-[10px]">
+                    <div class="h-6 bg-gray-200 rounded-full w-16"></div>
+                    <div class="h-6 bg-gray-200 rounded-full w-16"></div>
+                  </div>
+                </article>
+              </template>
 
-              <article class="bg-white rounded-[20px] overflow-hidden p-8">
-                <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
-                  30 октября 2025
-                </p>
-                <RouterLink to="/news-detail"
-                  class="block mt-[10px] mb-8 text-[##1D2417] text-[17px] font-bold leading-5">
-                  Газпромбанк расширил возможности РКО для
-                  предпринимателей
-                  сегмента МСБ
-                </RouterLink>
-                <div class="flex items-center gap-x-[10px]">
-                  <p
-                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
-                    Кредит
-                  </p>
-                  <p
-                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
-                    Вклады
-                  </p>
+              <!-- Error state -->
+              <template v-else-if="newsError && news.length === 0">
+                <div class="col-span-2 bg-white rounded-[20px] p-8 text-center">
+                  <p class="text-[#6F736D] text-[17px]">{{ newsError }}</p>
                 </div>
-              </article>
+              </template>
 
-              <article class="bg-white rounded-[20px] overflow-hidden p-8">
-                <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
-                  30 октября 2025
-                </p>
-                <RouterLink to="/news-detail"
-                  class="block mt-[10px] mb-8 text-[##1D2417] text-[17px] font-bold leading-5">
-                  Газпромбанк расширил возможности РКО для
-                  предпринимателей
-                  сегмента МСБ
-                </RouterLink>
-                <div class="flex items-center gap-[10px]">
-                  <p
-                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
-                    Кредит
+              <!-- News articles -->
+              <template v-else class="col-span-8 grid sm:grid-cols-2 gap-4">
+                <article v-for="item in news" :key="item.id" class="bg-white rounded-[20px] overflow-hidden p-8">
+                  <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
+                    {{ item.published_at }}
                   </p>
-                  <p
-                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
-                    Вклады
-                  </p>
-                </div>
-              </article>
+                  <RouterLink :to="`/news-detail?id=${item.id}`"
+                    class="block mt-[20px] text-[#1D2417] text-[17px] font-bold leading-5 hover:text-[#2C702C] transition-colors overflow-hidden [text-overflow:ellipsis] [-webkit-line-clamp:3] [display:-webkit-box] [-webkit-box-orient:vertical] min-h-[60px]">
+                    {{ item.title || t('news.news') }}
+                  </RouterLink>
 
-              <article class="bg-white rounded-[20px] overflow-hidden p-8">
-                <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
-                  30 октября 2025
-                </p>
-                <RouterLink to="/news-detail"
-                  class="block mt-[10px] mb-8 text-[##1D2417] text-[17px] font-bold leading-5">
-                  Газпромбанк расширил возможности РКО для
-                  предпринимателей
-                  сегмента МСБ
-                </RouterLink>
-                <div class="flex items-center gap-[10px]">
-                  <p
-                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
-                    Кредит
-                  </p>
-                  <p
-                    class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
-                    Вклады
-                  </p>
-                </div>
-              </article>
+
+                  <!-- <div v-if="item.tags && item.tags.length > 0" class="flex items-center gap-x-[10px] flex-wrap">
+                    <p v-for="(tag, index) in item.tags" :key="index"
+                      class="text-[14px] font-Gilroy text-[#2C702C] py-[6px] px-[10px] rounded-2xl bg-[#EEF2ED] w-fit leading-[18px]">
+                      {{ tag.name || tag || t('news.news') }}
+                    </p>
+                  </div> -->
+                </article>
+
+                <!-- Fallback if no news -->
+                <template v-if="news.length === 0">
+                  <div class="col-span-2 grid place-items-center bg-white rounded-[20px] p-8 text-center">
+                    <p class="text-[#6F736D] font-bold leading-5 text-[17px]">
+                      {{ t('news.noNews') }}
+                    </p>
+                  </div>
+                </template>
+              </template>
             </div>
           </div>
 
@@ -923,25 +1011,13 @@
       <div class="auto_container">
         <div class="wrap">
           <h2 class="text-[38px] font-bold mb-10">
-            Успешные клиенты-предприниматели нашего банка
+            {{ t('clients.title') }}
           </h2>
 
           <div class="grid grid-cols-5">
-            <div class="grid place-items-center border-solid border-[#6F736D1A]/10 border-0 border-r-[1px]">
-              <img class="h-[100px] block object-contain" src="../../assets/images/client-1.png" alt="client-image">
-            </div>
-            <div class="grid place-items-center border-solid border-[#6F736D1A]/10 border-0 border-r-[1px]">
-              <img class="h-[100px] block object-contain" src="../../assets/images/client-2.png" alt="client-image">
-            </div>
-            <div class="grid place-items-center border-solid border-[#6F736D1A]/10 border-0 border-r-[1px]">
-              <img class="h-[100px] block object-contain" src="../../assets/images/client-3.png" alt="client-image">
-            </div>
-            <div class="grid place-items-center border-solid border-[#6F736D1A]/10 border-0 border-r-[1px]">
-              <img class="h-[100px] block object-contain" src="../../assets/images/client-4.png" alt="client-image">
-            </div>
-
-            <div class="grid place-items-center border-solid border-[#6F736D1A]/10 border-0 border-r-[1px]">
-              <img class="h-[100px] block object-contain" src="../../assets/images/client-5.png" alt="client-image">
+            <div v-for="(client, idx) in clients" :key="client.id"
+              :class="['grid place-items-center border-solid border-[#6F736D1A]/10 border-0', idx < clients.length - 1 ? 'border-r-[1px]' : '']">
+              <img class="h-[100px] block object-contain" :src="client.image_url" alt="client-image">
             </div>
           </div>
         </div>
@@ -954,15 +1030,15 @@
         <div class="wrap">
           <div class="block relative overflow-hidden">
             <div class=" bg-mainBlack rounded-[20px] p-8 relative overflow-hidden ellipse">
-              <h4 class="text-[28px] max-w-[300px] text-mainWhite font-bold mb-[10px] leading-8 z-10">
-                Скачай приложение
+              <h4 class="text-[28px] max-w-[370px] text-mainWhite font-bold mb-[10px] leading-8 z-10">
+                {{ t('app.title') }}
               </h4>
               <p class="text-mainWhite/60 font-Gilroy text-[17px] leading-6 z-10 max-w-[330px]">
-                Переводы, открытие счетов и вкладов, инвестиции и многое другое — в вашем смартфоне
+                {{ t('app.subTitle') }}
               </p>
               <RouterLink to="/"
                 class="block w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] mt-8 px-5 py-[14px]">
-                Скачать приложение
+                {{ t('btn.downloadAppButton') }}
               </RouterLink>
 
               <div class="app-circle"></div>

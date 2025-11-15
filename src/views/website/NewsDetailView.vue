@@ -1,41 +1,101 @@
 <script setup>
+    import Breadcrumb from '@/components/website/Breadcrumb.vue'
+    import { ref, computed, onMounted, watch } from 'vue'
+    import { useI18n } from 'vue-i18n'
+    import { useRoute } from 'vue-router'
+    import apiService from '@/services/apiService'
+    import { Vue3Lottie } from 'vue3-lottie'
+    import LoadAnimationJSON from '@/assets/loadings/loading-4.json'
+
+    const { t } = useI18n()
+    const route = useRoute()
+    const newsId = computed(() => route.params?.id || route.query?.id)
+
+    const newsItem = ref(null)
+    const loading = ref(false)
+    const error = ref(null)
+    const news = ref([])
+    const newsLoading = ref(false)
+
+    const breadcrumbItems = computed(() => {
+        const currentTitle = newsItem.value?.title || t('news.news')
+        return [
+            { label: t('breadcrumb.home'), path: '/' },
+            { label: t('breadcrumb.news'), path: '/news' },
+            { label: currentTitle },
+        ]
+    })
+
+    const fetchNewsDetail = async () => {
+        loading.value = true
+        error.value = null
+        try {
+            const response = await apiService.fetchNewsDetail(newsId.value)
+            const data = response?.data || response
+            if (data && !Array.isArray(data)) {
+                newsItem.value = data
+            } else {
+                await fetchFromList()
+            }
+        } catch (err) {
+            await fetchFromList()
+        } finally {
+            loading.value = false
+        }
+    }
+
+    const fetchFromList = async () => {
+        try {
+            const list = await apiService.fetchNews({ limit: 50 })
+            const items = list?.data || list
+            if (Array.isArray(items)) {
+                const found = items.find((n) => String(n.id) === String(newsId.value))
+                if (found) {
+                    newsItem.value = found
+                    error.value = null
+                    return
+                }
+            }
+            error.value = 'News not found'
+        } catch (e) {
+            error.value = e.message || 'Failed to load news'
+        }
+    }
+
+    onMounted(() => {
+        if (newsId.value) fetchNewsDetail()
+        fetchLatestNews()
+    })
+
+    watch(newsId, (val, oldVal) => {
+        if (val && val !== oldVal) {
+            fetchNewsDetail()
+        }
+    })
+
+    const fetchLatestNews = async () => {
+        newsLoading.value = true
+        try {
+            const res = await apiService.fetchNews({ limit: 4 })
+            const items = res?.data || res
+            news.value = Array.isArray(items) ? items.slice(0, 4) : []
+        } catch (e) {
+            news.value = []
+        } finally {
+            newsLoading.value = false
+        }
+    }
 </script>
 
 <template>
+    <!-- {{ t('offer.title') }} -->
+
     <!-- Breadcrumb ======================================================== -->
     <section class="crumb pt-[145px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center gap-x-2">
-                    <RouterLink to="/" class="text-[17px] font-Gilroy text-[#6F736D]">
-                        Главная
-                    </RouterLink>
-
-                    <span class="block w-[18px]">
-                        <svg class="block w-full object-contain" width="7" height="14" viewBox="0 0 7 14" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6.77279 7.39792L1.14779 13.0229C1.09553 13.0752 1.03349 13.1166 0.965204 13.1449C0.89692 13.1732 0.823734 13.1878 0.749825 13.1878C0.675915 13.1878 0.602729 13.1732 0.534445 13.1449C0.466162 13.1166 0.404117 13.0752 0.351855 13.0229C0.299593 12.9707 0.258137 12.9086 0.229853 12.8403C0.201569 12.772 0.187012 12.6989 0.187012 12.6249C0.187012 12.551 0.201569 12.4779 0.229853 12.4096C0.258137 12.3413 0.299593 12.2792 0.351855 12.227L5.57959 6.99995L0.351855 1.77292C0.246308 1.66737 0.187012 1.52421 0.187012 1.37495C0.187012 1.22568 0.246308 1.08253 0.351855 0.976978C0.457403 0.87143 0.600557 0.812134 0.749825 0.812134C0.899092 0.812134 1.04225 0.87143 1.14779 0.976978L6.77279 6.60198C6.82509 6.65422 6.86658 6.71626 6.89489 6.78454C6.9232 6.85283 6.93777 6.92603 6.93777 6.99995C6.93777 7.07387 6.9232 7.14706 6.89489 7.21535C6.86658 7.28364 6.82509 7.34567 6.77279 7.39792Z"
-                                fill="#6F736D" />
-                        </svg>
-                    </span>
-
-                    <RouterLink to="/" class="text-[17px] font-Gilroy text-[#6F736D]">
-                        Блог
-                    </RouterLink>
-
-                    <span class="block w-[18px]">
-                        <svg class="block w-full object-contain" width="7" height="14" viewBox="0 0 7 14" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6.77279 7.39792L1.14779 13.0229C1.09553 13.0752 1.03349 13.1166 0.965204 13.1449C0.89692 13.1732 0.823734 13.1878 0.749825 13.1878C0.675915 13.1878 0.602729 13.1732 0.534445 13.1449C0.466162 13.1166 0.404117 13.0752 0.351855 13.0229C0.299593 12.9707 0.258137 12.9086 0.229853 12.8403C0.201569 12.772 0.187012 12.6989 0.187012 12.6249C0.187012 12.551 0.201569 12.4779 0.229853 12.4096C0.258137 12.3413 0.299593 12.2792 0.351855 12.227L5.57959 6.99995L0.351855 1.77292C0.246308 1.66737 0.187012 1.52421 0.187012 1.37495C0.187012 1.22568 0.246308 1.08253 0.351855 0.976978C0.457403 0.87143 0.600557 0.812134 0.749825 0.812134C0.899092 0.812134 1.04225 0.87143 1.14779 0.976978L6.77279 6.60198C6.82509 6.65422 6.86658 6.71626 6.89489 6.78454C6.9232 6.85283 6.93777 6.92603 6.93777 6.99995C6.93777 7.07387 6.9232 7.14706 6.89489 7.21535C6.86658 7.28364 6.82509 7.34567 6.77279 7.39792Z"
-                                fill="#6F736D" />
-                        </svg>
-                    </span>
-
-                    <h6 class="text-[17px] font-Gilroy text-mainBlack">
-                        Заседание Кабинета Министров Туркменистана
-                    </h6>
+                <div class="flex items-baseline gap-x-2">
+                    <Breadcrumb :items="breadcrumbItems" />
                 </div>
             </div>
         </div>
@@ -45,45 +105,35 @@
     <section class="pt-[60px] pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex justify-between">
-                    <div class="block w-[calc(100%-490px)]">
-                        <h1 class="text-[48px] font-bold mb-10 leading-snug">
-                            Заседание Кабинета Министров Туркменистана
-                        </h1>
+                <div class="flex justify-between gap-4">
+                    <div class="block w-7/12">
+                        <div v-if="loading" class="flex items-center justify-center py-10">
+                            <Vue3Lottie :animationData="LoadAnimationJSON" class="!w-full md:!w-[100px] !h-[100px]" />
+                        </div>
+                        <div v-else>
+                            <h1 class="text-[38px] font-bold mb-2 leading-snug">
+                                {{ newsItem?.title || '' }}
+                            </h1>
+                            <p v-if="newsItem?.published_at" class="text-[#6F736D] text-[15px] mb-8">
+                                {{ newsItem.published_at }}
+                            </p>
 
-                        <span class="block w-full h-full max-h-[300px] rounded-2xl overflow-hidden mb-5">
-                            <img src="../../assets/images/news.png" class="w-full h-full block object-contain"
-                                alt="news-image">
-                        </span>
+                            <!-- <span class="block w-full h-full max-h-[300px] rounded-2xl overflow-hidden mb-5">
+                            <img :src="newsItem?.image || newsItem?.thumbnail || '../../assets/images/news.png'" class="w-full h-full block object-contain"
+                                :alt="newsItem?.title || 'news-image'">
+                            </span> -->
 
-                        <p class="text-[17px] font-Gilroy leading-7">
-                            Сегодня Президент Сердар Бердымухамедов по цифровой системе провёл очередное заседание
-                            Кабинета Министров, на котором был рассмотрен ряд вопросов государственной жизни. Открывая
-                            заседание, глава Туркменистана отметил, что по сложившейся традиции в нашей стране
-                            на регулярной основе проводятся благородные акции, в том числе помилование граждан,
-                            осуждённых за совершённые преступления, но сожалеющих о содеянном и искренне в этом
-                            раскаивающихся. В данной связи слово было предоставлено секретарю Госсовета безопасности,
-                            председателю Комиссии по подготовке предложений по вопросам гражданства и помилования при
-                            Президенте Туркменистана Б.Гундогдыеву, доложившему о результатах проведённой Комиссией
-                            работы по помилованию осуждённых лиц в честь 34-й годовщины независимости Отчизны. Заслушав
-                            доклад, глава государства, следуя благородной традиции, подписал Указ о помиловании 225
-                            осуждённых граждан страны по случаю Дня независимости. Президент Сердар Бердымухамедов
-                            поручил секретарю Госсовета безопасности, министру обороны совместно с руководителями
-                            правоохранительных органов провести необходимую работу для освобождения осуждённых лиц
-                            из мест заключения и возвращения их в ближайшее время к семьям. Помилованным гражданам глава
-                            государства пожелал добросовестно работать, искренне служить Родине и жить, пользуясь
-                            плодами своего труда. Затем выступила Председатель Меджлиса Д.Гулманова, проинформировавшая
-                            о ведущейся работе по укреплению правовых основ реализуемых в стране масштабных
-                            преобразований и модернизации национального законодательства.
-                        </p>
+                            <p v-if="!error" class="text-[17px] font-Gilroy leading-7"
+                                v-html="newsItem?.description || ''"></p>
+                        </div>
                     </div>
 
-                    <div class="block w-[390px]">
-                        <h1 class="mb-10 text-[38px] font-bold">
+                    <div class="block w-4/12">
+                        <h1 class="mb-8 text-[28px] leading-7 font-bold">
                             Читать еще
                         </h1>
 
-                        <article class="bg-white rounded-[20px] overflow-hidden">
+                        <!-- <article class="bg-white rounded-[20px] overflow-hidden">
                             <span class="block h-[200px] overflow-hidden rounded-2xl">
                                 <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
                                     alt="news" />
@@ -96,7 +146,33 @@
                                     сегмента МСБ
                                 </RouterLink>
                             </div>
-                        </article>
+                        </article> -->
+
+                        <!-- Loading state -->
+                        <template v-if="newsLoading">
+                            <article v-for="n in (news.length || 3)" :key="n"
+                                class="bg-white rounded-[20px] overflow-hidden p-8 mb-4 animate-pulse">
+                                <div class="h-4 bg-gray-200 rounded w-32 mb-4"></div>
+                                <div class="h-6 bg-gray-200 rounded w-full mb-8"></div>
+                                <div class="flex items-center gap-x-[10px]">
+                                    <div class="h-6 bg-gray-200 rounded-full w-16"></div>
+                                    <div class="h-6 bg-gray-200 rounded-full w-16"></div>
+                                </div>
+                            </article>
+                        </template>
+
+                        <div v-else class="grid gap-4">
+                            <article v-for="item in news" :key="item.id"
+                                class="bg-white rounded-[20px] overflow-hidden p-8">
+                                <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
+                                    {{ item.published_at }}
+                                </p>
+                                <RouterLink :to="{ name: 'news-detail', query: { id: item.id } }"
+                                    class="block mt-[20px] text-[#1D2417] text-[17px] font-bold leading-5 hover:text-[#2C702C] transition-colors overflow-hidden [text-overflow:ellipsis] [-webkit-line-clamp:3] [display:-webkit-box] [-webkit-box-orient:vertical] min-h-[60px]">
+                                    {{ item.title || t('news.news') }}
+                                </RouterLink>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </div>
