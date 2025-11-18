@@ -9,11 +9,14 @@
             type: Array,
             required: true,
             default: () => []
-            // Expected format: [
-            //   { label: 'Главная', path: '/' },
-            //   { label: 'Блог', path: '/news' },
-            //   { label: 'Current Page Title' } // No path = current page (renders as h6)
-            // ]
+        },
+        linkClass: {
+            type: String,
+            default: 'text-[17px] font-Gilroy text-[#6F736D] whitespace-nowrap'
+        },
+        currentClass: {
+            type: String,
+            default: 'text-[17px] font-Gilroy text-mainBlack'
         }
     })
 </script>
@@ -22,12 +25,12 @@
 
     <template v-for="(item, index) in items" :key="index">
         <!-- Link for items with path -->
-        <RouterLink v-if="item.path" :to="item.path" class="text-[17px] font-Gilroy text-[#6F736D] whitespace-nowrap">
+        <RouterLink v-if="item.path" :to="item.path" :class="linkClass">
             {{ item.label }}
         </RouterLink>
 
         <!-- Text for current page (last item without path) -->
-        <h6 v-else class="text-[17px] font-Gilroy text-mainBlack">
+        <h6 v-else :class="currentClass">
             {{ item.label }}
         </h6>
 

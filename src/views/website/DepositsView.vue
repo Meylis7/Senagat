@@ -1,6 +1,49 @@
 <script setup>
-import { RouterLink } from 'vue-router';
+    import { RouterLink } from 'vue-router';
+    import { useI18n } from 'vue-i18n';
+    import { ref, computed, onMounted } from 'vue'
+    import Breadcrumb from '@/components/website/Breadcrumb.vue';
+    import apiService from '@/services/apiService'
+    import NewsSection from '@/components/website/NewsSection.vue';
 
+    const { t } = useI18n();
+
+    const breadcrumbItems = [
+        { label: t('breadcrumb.home'), path: '/' },
+        { label: t('tabs.deposit') },
+    ];
+
+    const deposits = ref([])
+    const depositsError = ref(null)
+    const depositsLoading = ref(false)
+
+    const fetchDeposits = async () => {
+        depositsLoading.value = true
+        depositsError.value = null
+        try {
+            const response = await apiService.fetchDeposits()
+            if (response?.success && Array.isArray(response?.data)) {
+                deposits.value = response.data
+            } else if (Array.isArray(response)) {
+                deposits.value = response
+            } else if (Array.isArray(response?.data)) {
+                deposits.value = response.data
+            } else {
+                deposits.value = []
+            }
+        } catch (e) {
+            depositsError.value = e.message || 'Failed to load deposits'
+            deposits.value = []
+        } finally {
+            depositsLoading.value = false
+        }
+    }
+
+    onMounted(() => {
+        fetchDeposits()
+    })
+
+    const firstDeposit = computed(() => (deposits.value && deposits.value.length ? deposits.value[0] : null))
 </script>
 
 <template>
@@ -9,22 +52,7 @@ import { RouterLink } from 'vue-router';
         <div class="auto_container">
             <div class="wrap">
                 <div class="flex items-center gap-x-2">
-                    <RouterLink to="/" class="text-[17px] font-Gilroy text-[#6F736D]">
-                        Главная
-                    </RouterLink>
-
-                    <span class="block w-[18px]">
-                        <svg class="block w-full object-contain" width="7" height="14" viewBox="0 0 7 14" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6.77279 7.39792L1.14779 13.0229C1.09553 13.0752 1.03349 13.1166 0.965204 13.1449C0.89692 13.1732 0.823734 13.1878 0.749825 13.1878C0.675915 13.1878 0.602729 13.1732 0.534445 13.1449C0.466162 13.1166 0.404117 13.0752 0.351855 13.0229C0.299593 12.9707 0.258137 12.9086 0.229853 12.8403C0.201569 12.772 0.187012 12.6989 0.187012 12.6249C0.187012 12.551 0.201569 12.4779 0.229853 12.4096C0.258137 12.3413 0.299593 12.2792 0.351855 12.227L5.57959 6.99995L0.351855 1.77292C0.246308 1.66737 0.187012 1.52421 0.187012 1.37495C0.187012 1.22568 0.246308 1.08253 0.351855 0.976978C0.457403 0.87143 0.600557 0.812134 0.749825 0.812134C0.899092 0.812134 1.04225 0.87143 1.14779 0.976978L6.77279 6.60198C6.82509 6.65422 6.86658 6.71626 6.89489 6.78454C6.9232 6.85283 6.93777 6.92603 6.93777 6.99995C6.93777 7.07387 6.9232 7.14706 6.89489 7.21535C6.86658 7.28364 6.82509 7.34567 6.77279 7.39792Z"
-                                fill="#6F736D" />
-                        </svg>
-                    </span>
-
-                    <h6 class="text-[17px] font-Gilroy text-mainBlack">
-                        Вклады
-                    </h6>
+                    <Breadcrumb :items="breadcrumbItems" />
                 </div>
             </div>
         </div>
@@ -37,253 +65,35 @@ import { RouterLink } from 'vue-router';
                 <h2 class="text-[38px] font-bold mb-10 leading-9">Вклады</h2>
 
                 <div class="block space-y-4">
-                    <div
+                    <div v-for="(dep, di) in deposits" :key="dep.id"
                         class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
                         <div class="block">
                             <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Целевой вклад на детей
+                                {{ dep?.title || '' }}
                             </h4>
                             <div class="flex items-center gap-x-[10px]">
-                                <p
+                                <p v-for="(adv, idx) in (dep?.advantages || []).slice(0, 2)" :key="idx"
                                     class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
+                                    {{ [adv?.name, adv?.description].filter(Boolean).join(' ') }}
                                 </p>
                             </div>
 
-                            <RouterLink to="/"
+                            <RouterLink :to="`/deposits-detail?id=${dep.id}`"
                                 class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
+                                {{ t('btn.learnMore') }}
                             </RouterLink>
                         </div>
 
                         <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/deposit-6.png"
-                                alt="card-image">
+                            <img class="block w-full h-full object-contain"
+                                :src="dep?.image_url || '../../assets/images/deposit-6.png'" alt="card-image">
                         </span>
 
-                        <span class="loan-bg-circle loan-bg-yellow"></span>
+                        <span class="loan-bg-circle" :class="dep?.background_class || 'loan-bg-yellow'"
+                            :style="dep?.background_color ? { background: dep.background_color } : null"></span>
                     </div>
 
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Забота о родителях
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
 
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/deposit-10.png"
-                                alt="card-image">
-                        </span>
-
-                        <span class="loan-bg-circle loan-bg-green"></span>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Здоровье народа - Богатство страны
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/deposit-5.png"
-                                alt="card-image">
-                        </span>
-
-                        <span class="loan-bg-circle loan-bg-blue"></span>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Дети наши будущее
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/deposit-7.png"
-                                alt="card-image">
-                        </span>
-
-                        <span class="loan-bg-circle loan-bg-purple"></span>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Выгодный
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/deposit-1-5.png"
-                                alt="card-image">
-                        </span>
-
-                        <span class="loan-bg-circle loan-bg-orange"></span>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Вклад до востребования
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/deposit-0-5.png"
-                                alt="card-image">
-                        </span>
-
-                        <span class="loan-bg-circle loan-bg-yellow-2"></span>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Вклад по банковской карте «Алтын Асыр»
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/deposit-1.png"
-                                alt="card-image">
-                        </span>
-
-                        <span class="loan-bg-circle loan-bg-blue"></span>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Вклад по банковской карте «Гоюм»
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/deposit-6.png"
-                                alt="card-image">
-                        </span>
-
-                        <span class="loan-bg-circle loan-bg-yellow"></span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -335,158 +145,66 @@ import { RouterLink } from 'vue-router';
     </section>
 
     <!-- News ==================================================== -->
-    <section class="pt-[50px] pb-[120px]">
-        <div class="auto_container">
-            <div class="wrap">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-[38px] font-bold">Новости, которыми хочется делиться</h2>
-                    <RouterLink to="/"
-                        class="text-[#2C702C] font-Gilroy hover:opacity-80 inline-flex items-center gap-2">
-                        Показать все
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6.35196 3.77314C6.29969 3.72088 6.25824 3.65884 6.22995 3.59055C6.20167 3.52227 6.18711 3.44908 6.18711 3.37517C6.18711 3.30127 6.20167 3.22808 6.22995 3.1598C6.25824 3.09151 6.29969 3.02947 6.35196 2.97721C6.40422 2.92494 6.46626 2.88349 6.53455 2.8552C6.60283 2.82692 6.67602 2.81236 6.74992 2.81236C6.82383 2.81236 6.89702 2.82692 6.9653 2.8552C7.03359 2.88349 7.09563 2.92494 7.14789 2.97721L12.7729 8.60221C12.8252 8.65445 12.8667 8.71649 12.895 8.78477C12.9233 8.85306 12.9379 8.92625 12.9379 9.00018C12.9379 9.0741 12.9233 9.14729 12.895 9.21558C12.8667 9.28387 12.8252 9.3459 12.7729 9.39814L7.14789 15.0231C7.04234 15.1287 6.89919 15.188 6.74992 15.188C6.60066 15.188 6.4575 15.1287 6.35195 15.0231C6.24641 14.9176 6.18711 14.7744 6.18711 14.6252C6.18711 14.4759 6.24641 14.3328 6.35195 14.2272L11.5797 9.00018L6.35196 3.77314Z"
-                                fill="#6F736D" />
-                        </svg>
+    <NewsSection class="pb-[120px]" />
 
-                    </RouterLink>
-                </div>
-
-                <div class="flex gap-4">
-                    <!-- Promo card left -->
-                    <div
-                        class="w-full max-w-[390px] flex-shrink-0 rounded-[20px] overflow-hidden bg-[#0E0F0E] p-8 text-white relative min-h-[500px] news-promo-glow">
-                        <h6 class="text-[28px] leading-9 text-mainWhite font-bold mb-[10px]">
-                            Скачай приложение
-                        </h6>
-                        <p class="text-mainWhite text-[17px] leading-7 opacity-60 font-Gilroy">
-                            Курс действует на текущее время. <br> Точный курс будет определён на момент совершения
-                            операции
-                        </p>
-
-                        <span class="block min-w-[232px] z-10 absolute -bottom-[113px] left-1/2 -translate-x-1/2">
-                            <img src="../../assets/images/mobile-app.png" alt="app"
-                                class="block w-full h-auto object-contain" />
-                        </span>
-                    </div>
-
-                    <!-- News cards right -->
-                    <div class="flex-1 grid sm:grid-cols-2 gap-4">
-                        <article class="bg-white rounded-[20px] overflow-hidden">
-                            <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
-                                    alt="news" />
-                            </span>
-                            <div class="p-4">
-                                <h6 class="text-mainBlack text-[17px] font-bold leading-6">Газпромбанк расширил
-                                    возможности РКО для
-                                    предпринимателей
-                                    сегмента МСБ</h6>
-                            </div>
-                        </article>
-
-                        <article class="bg-white rounded-[20px] overflow-hidden">
-                            <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
-                                    alt="news" />
-                            </span>
-                            <div class="p-4">
-                                <h6 class="text-mainBlack text-[17px] font-bold leading-6">Газпромбанк расширил
-                                    возможности РКО для
-                                    предпринимателей
-                                    сегмента МСБ</h6>
-                            </div>
-                        </article>
-
-                        <article class="bg-white rounded-[20px] overflow-hidden">
-                            <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
-                                    alt="news" />
-                            </span>
-                            <div class="p-4">
-                                <h6 class="text-mainBlack text-[17px] font-bold leading-6">Газпромбанк расширил
-                                    возможности РКО для
-                                    предпринимателей
-                                    сегмента МСБ</h6>
-                            </div>
-                        </article>
-
-                        <article class="bg-white rounded-[20px] overflow-hidden">
-                            <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
-                                    alt="news" />
-                            </span>
-                            <div class="p-4">
-                                <h6 class="text-mainBlack text-[17px] font-bold leading-6">Газпромбанк расширил
-                                    возможности РКО для
-                                    предпринимателей
-                                    сегмента МСБ</h6>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
 </template>
 
 
 
 <style lang="scss" scoped>
-.ellipse::after {
-    content: "";
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    right: -125px;
-    top: -125px;
-    background: #2C702C;
-    filter: blur(53.5px);
-    border-radius: 9999px;
-    z-index: 2;
-}
+    .ellipse::after {
+        content: "";
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        right: -125px;
+        top: -125px;
+        background: #2C702C;
+        filter: blur(53.5px);
+        border-radius: 9999px;
+        z-index: 2;
+    }
 
-/* Loan background circles */
-.loan-bg-circle {
-    position: absolute;
-    display: block;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    filter: blur(137.15px);
-    z-index: 1;
-    right: -150px;
-    top: -10px;
-}
+    /* Loan background circles */
+    .loan-bg-circle {
+        position: absolute;
+        display: block;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        filter: blur(137.15px);
+        z-index: 1;
+        right: -150px;
+        top: -10px;
+    }
 
-/* Yellow background for young families */
-.loan-bg-yellow {
-    background: #EDC928;
-}
+    /* Yellow background for young families */
+    .loan-bg-yellow {
+        background: #EDC928;
+    }
 
-/* Green background for consumer */
-.loan-bg-green {
-    background: #28ED2E;
-}
+    /* Green background for consumer */
+    .loan-bg-green {
+        background: #28ED2E;
+    }
 
-/* Blue background for wedding */
-.loan-bg-blue {
-    background: #28B8ED;
-}
+    /* Blue background for wedding */
+    .loan-bg-blue {
+        background: #28B8ED;
+    }
 
-/* Purple background for education */
-.loan-bg-purple {
-    background: #BB28ED;
-}
+    /* Purple background for education */
+    .loan-bg-purple {
+        background: #BB28ED;
+    }
 
-/* Orange background for overdraft */
-.loan-bg-orange {
-    background: #ED6328;
-}
+    /* Orange background for overdraft */
+    .loan-bg-orange {
+        background: #ED6328;
+    }
 
-/* Yellow background for agriculture (slightly different shade) */
-.loan-bg-yellow-2 {
-    background: #EDED28;
-}
+    /* Yellow background for agriculture (slightly different shade) */
+    .loan-bg-yellow-2 {
+        background: #EDED28;
+    }
 </style>

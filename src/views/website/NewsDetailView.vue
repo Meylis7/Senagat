@@ -112,7 +112,7 @@
                         </div>
                         <div v-else>
                             <h1 class="text-[38px] font-bold mb-2 leading-snug">
-                                {{ newsItem?.title || '' }}
+                                {{ newsItem?.title }}
                             </h1>
                             <p v-if="newsItem?.published_at" class="text-[#6F736D] text-[15px] mb-8">
                                 {{ newsItem.published_at }}
