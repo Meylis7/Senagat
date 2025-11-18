@@ -12,6 +12,7 @@ export default {
   btn: {
     learnMore: 'Giňişleýin öwrenmek',
     showAll: 'Ählisini görkez',
+    hide: 'Gizle',
     downloadAppButton: 'Programmany ýükläp al',
   },
   offer: {
@@ -91,6 +92,18 @@ export default {
       // currencyExchange: 'Walýuta çalşygy',
       // utilityPayments: 'Jemagat hyzmatlary üçin töleg',
       // communicationPayments: 'Aragatnaşyk hyzmatlary üçin töleg',
+    },
+    transfers: {
+      title: 'Pul geçirimleri',
+      Yanardag: 'Ýanardag',
+      WesternUnion: 'Western Union',
+    },
+    informations: {
+      title: 'Maglumat',
+      cashDesk: 'Hasaplaşyk kassasy',
+      terminalDocs: 'Terminaly gurnamak üçin resminamalar',
+      documentList: 'Resminamalaryň sanawy',
+      auditReports: 'Auditor hasabatlary',
     },
   },
   services: {

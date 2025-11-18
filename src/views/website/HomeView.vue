@@ -145,6 +145,33 @@
     }
   }
 
+  // Deposits Section ============================================================================
+  const deposits = ref([])
+  const depositsLoading = ref(false)
+  const depositsError = ref(null)
+
+  const fetchDeposits = async () => {
+    depositsLoading.value = true
+    depositsError.value = null
+    try {
+      const response = await apiService.fetchDeposits()
+      if (response?.success && Array.isArray(response?.data)) {
+        deposits.value = response.data
+      } else if (Array.isArray(response)) {
+        deposits.value = response
+      } else if (Array.isArray(response?.data)) {
+        deposits.value = response.data
+      } else {
+        deposits.value = []
+      }
+    } catch (error) {
+      depositsError.value = error.message || 'Failed to load deposits'
+      deposits.value = []
+    } finally {
+      depositsLoading.value = false
+    }
+  }
+
   // News Section ============================================================================
   const news = ref([]);
   const newsLoading = ref(false);
@@ -184,9 +211,63 @@
     fetchNews();
     fetchExchangeRates();
     fetchAwards();
+    fetchCredits();
+    fetchDeposits();
   });
 
   // Clients Section ========================================================================
+  const credits = ref([])
+  const creditsLoading = ref(false)
+  const creditsError = ref(null)
+
+  const fetchCredits = async () => {
+    creditsLoading.value = true
+    creditsError.value = null
+    try {
+      const response = await apiService.fetchCreditTypes()
+      if (response?.success && Array.isArray(response?.data)) {
+        credits.value = response.data
+      } else if (Array.isArray(response)) {
+        credits.value = response
+      } else if (Array.isArray(response?.data)) {
+        credits.value = response.data
+      } else {
+        credits.value = []
+      }
+    } catch (error) {
+      creditsError.value = error.message || 'Failed to load credits'
+      credits.value = []
+    } finally {
+      creditsLoading.value = false
+    }
+  }
+
+  const cards = ref([])
+  const cardsLoading = ref(false)
+  const cardsError = ref(null)
+
+  const fetchCards = async () => {
+    cardsLoading.value = true
+    cardsError.value = null
+    try {
+      const response = await apiService.fetchCardTypes()
+      if (response?.success && Array.isArray(response?.data)) {
+        cards.value = response.data
+      } else if (Array.isArray(response)) {
+        cards.value = response
+      } else if (Array.isArray(response?.data)) {
+        cards.value = response.data
+      } else {
+        cards.value = []
+      }
+    } catch (error) {
+      cardsError.value = error.message || 'Failed to load cards'
+      cards.value = []
+    } finally {
+      cardsLoading.value = false
+    }
+  }
+
   const clients = ref([])
   const clientsLoading = ref(false)
   const clientsError = ref(null)
@@ -215,7 +296,67 @@
 
   onMounted(() => {
     fetchClients()
+    fetchCards()
   })
+
+  const shuffle = (arr) => {
+    const a = arr.slice()
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      const t = a[i]
+      a[i] = a[j]
+      a[j] = t
+    }
+    return a
+  }
+
+  const allOffers = computed(() => {
+    const dep = shuffle((deposits.value || []).map((d) => ({
+      title: d.title,
+      subtitle: d.sub_title || '',
+      image_url: d.image_url,
+      type: 'deposit',
+      color: d.background_color
+    })))
+    const cre = shuffle((credits.value || []).map((c) => ({
+      title: c.name,
+      subtitle: c.interest + ' %' || '',
+      image_url: c.image_url || '../../assets/images/cart.png',
+      type: 'credit',
+    })))
+    const car = shuffle((cards.value || []).map((c) => ({
+      title: c.title,
+      subtitle: c.sub_title || '',
+      image_url: c.image_url || '../../assets/images/altyn-asyr-card.png',
+      type: 'card',
+    })))
+
+    const order = ['card', 'credit', 'deposit', 'credit', 'card', 'deposit', 'card', 'credit', 'deposit', 'credit', 'deposit', 'credit']
+    const sources = { card: car, credit: cre, deposit: dep }
+    const idx = { card: 0, credit: 0, deposit: 0 }
+    const total = dep.length + cre.length + car.length
+    const mixed = []
+    let p = 0
+    while (mixed.length < total) {
+      const kind = order[p % order.length]
+      if (idx[kind] < sources[kind].length) {
+        mixed.push(sources[kind][idx[kind]++])
+      } else {
+        for (const k of ['card', 'credit', 'deposit']) {
+          if (idx[k] < sources[k].length) {
+            mixed.push(sources[k][idx[k]++])
+            break
+          }
+        }
+      }
+      p++
+    }
+    return mixed
+  })
+
+  const isAllExpanded = ref(false)
+  const visibleAllOffers = computed(() => (isAllExpanded.value ? allOffers.value : allOffers.value.slice(0, 5)))
+  const toggleAllExpanded = () => { isAllExpanded.value = !isAllExpanded.value }
 
 </script>
 
@@ -269,145 +410,43 @@
           </div>
 
           <div v-show="activeTab === 'Все'" class="grid gap-4 grid-cols-12">
-            <div class="lg:col-span-8 grid gap-4 sm:grid-cols-2">
-              <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Банковская карта «Алтын Асыр»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
-                </span>
-              </div>
-
-              <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Потребительские кредиты
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
-                </span>
-              </div>
-
-              <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Депозитный вклад «Забота о родителях»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
-                </span>
-              </div>
-
-              <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Банковская карта «Гоюм»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
-                </span>
-              </div>
-            </div>
-
-            <div
-              class="lg:col-span-4 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
-              <h6 class="text-[28px] leading-9 font-bold mb-[10px]">
-                Депозитный вклад «Выгодный»
+            <div v-for="(item, i) in visibleAllOffers" :key="i"
+              :class="(i === 2 || i === 11)
+                ? 'lg:col-span-4 row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow '
+                : (i === 5)
+                  ? 'col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'
+                  : (i === 8)
+                    ? 'col-span-8 rounded-[20px] p-8 shadow-sm text-mainWhite hover:shadow-md transition flex flex-col flex-end  bg-[#191819] hot-glow relative overflow-hidden'
+                    : 'lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'"
+              :style="(i === 2 || i === 11 || i === 8) ? { '--promo-glow-bg': (item.color) } : null">
+              <h6 class="text-[24px] "
+                :class="(i === 2 || i === 11 || i === 8) ? 'leading-9 font-bold mb-[10px]' : 'text-mainBlack leading-7 font-bold mb-[10px]'">
+                {{ item.title }}
               </h6>
-              <p class="text-mainWhite max-w-[420px] opacity-60">
-                Без пополнения и снятия с возможностью расторжения в любой момент
+              <p
+                :class="(i === 2 || i === 11 || i === 8) ? 'text-mainWhite max-w-[420px] opacity-60 text-[17px]' : 'text-[17px] text-[#6F736D] leading-5 font-Gilroy mb-[10px]'">
+                {{ item.subtitle }}
               </p>
 
-              <span class="absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px]">
-                <img src="../../assets/images/1.5p.png"
-                  class="block w-full h-full object-contain select-none pointer-events-none" alt="percent">
+              <span v-if="(i === 2 || i === 11)"
+                class="absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px] z-[2]">
+                <img :src="item.image_url" class="block w-full h-full object-contain select-none pointer-events-none"
+                  alt="offer-image">
               </span>
-            </div>
-
-            <div class="col-span-12 grid gap-4 grid-cols-12">
-              <div class="col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Депозитный вклад «Забота о родителях»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
-                </span>
-              </div>
-
-              <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Банковская карта «Гоюм»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
-                </span>
-              </div>
-
-              <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Банковская карта «Гоюм»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
-                </span>
-              </div>
-
-              <div
-                class="col-span-8 rounded-[20px] p-8 shadow-sm hover:shadow-md transition offer-circle overflow-hidden relative bg-[#1D2417]">
-                <h6 class="text-[28px] text-mainWhite leading-7 font-bold mb-[10px]">
-                  Депозитный вклад «Забота о родителях»
-                </h6>
-                <p class="text-[17px] text-mainWhite/60 leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
-                </span>
-              </div>
-
-              <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Депозитный вклад «Забота о родителях»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
-                </span>
-              </div>
-
-              <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Банковская карта «Гоюм»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
-                </span>
-              </div>
-
-              <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Банковская карта «Гоюм»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
-                </span>
+              <div v-else class="max-h-[120px] h-full mt-auto flex items-end justify-end z-[2]">
+                <img :src="item.image_url" class="block max-h-full object-contain" alt="offer-image">
               </div>
             </div>
 
-
-            <button type="button"
+            <button type="button" @click="toggleAllExpanded"
               class="col-span-12 mt-[26px] flex items-center justify-center gap-[10px] cursor-pointer">
               <p class="text-[#2C702C] text-[17px] font-Gilroy">
-                Показать все
+                {{ isAllExpanded ? t('btn.hide') : t('btn.showAll') }}
               </p>
 
               <span>
-                <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg :class="isAllExpanded ? 'rotate-180' : ''" class="transition-transform" width="14" height="8"
+                  viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M13.5675 1.06754L7.31754 7.31754C7.25949 7.37565 7.19056 7.42175 7.11469 7.4532C7.03881 7.48465 6.95748 7.50084 6.87535 7.50084C6.79321 7.50084 6.71188 7.48465 6.63601 7.4532C6.56014 7.42175 6.49121 7.37565 6.43316 7.31754L0.18316 1.06754C0.0658846 0.95026 0 0.7912 0 0.625347C0 0.459495 0.0658846 0.300435 0.18316 0.18316C0.300435 0.0658843 0.459495 0 0.625347 0C0.7912 0 0.95026 0.0658843 1.06753 0.18316L6.87535 5.99175L12.6832 0.18316C12.7412 0.125091 12.8102 0.0790281 12.886 0.0476015C12.9619 0.0161748 13.0432 0 13.1253 0C13.2075 0 13.2888 0.0161748 13.3647 0.0476015C13.4405 0.0790281 13.5095 0.125091 13.5675 0.18316C13.6256 0.241229 13.6717 0.310167 13.7031 0.386037C13.7345 0.461908 13.7507 0.543226 13.7507 0.625347C13.7507 0.707469 13.7345 0.788787 13.7031 0.864658C13.6717 0.940528 13.6256 1.00947 13.5675 1.06754Z"
                     fill="#2C702C" />
@@ -417,88 +456,51 @@
           </div>
 
           <div v-show="activeTab === 'Вклад'" class="grid gap-4 lg:grid-cols-12">
-            <div class="lg:col-span-8 grid gap-4 sm:grid-cols-2">
-              <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Депозитный вклад «Забота о родителях»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
-                </span>
-              </div>
-
-              <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Депозитный вклад «Забота о родителях»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
-                </span>
-              </div>
-
-              <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Депозитный вклад «Забота о родителях»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/10p.png" class="block max-h-full object-contain" alt="percent">
-                </span>
-              </div>
-            </div>
-
-            <div
-              class="lg:col-span-4 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
-              <h6 class="text-[28px] leading-9 font-bold mb-[10px]">
-                Депозитный вклад «Выгодный»
+            <div v-for="(item, i) in deposits.slice(0, 4)" :key="item.id"
+              class="lg:col-span-4 rounded-[20px] p-8 shadow-sm hover:shadow-md transition"
+              :class="i === 2 ? 'row-span-2 text-mainWhite relative overflow-hidden lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow' : 'bg-white'"
+              :style="i === 2 ? { '--promo-glow-bg': (item.background_color) } : null">
+              <h6 class="text-[24px] min-h-[56px]"
+                :class="i === 2 ? 'leading-9 font-bold mb-[10px]' : 'text-mainBlack leading-7 font-bold mb-[10px]'">
+                {{ item.title }}
               </h6>
-              <p class="text-mainWhite max-w-[420px] opacity-60">
-                Без пополнения и снятия с возможностью расторжения в любой момент
-              </p>
+              <p class="text-[17px] text-[#6F736D] leading-5 mb-[10px] font-Gilroy">{{ item.sub_title }}</p>
 
-              <span class="absolute right-1/2 translate-x-1/2 bottom-20 max-w-[240]">
-                <img src="../../assets/images/1.5p.png"
-                  class="block w-full h-full object-contain select-none pointer-events-none" alt="percent">
+
+              <span v-if="i === 2" class="absolute right-1/2 translate-x-1/2 bottom-20 max-w-[240]">
+                <img :src="item.image_url" class="block w-full h-full object-contain select-none pointer-events-none"
+                  alt="percent">
+              </span>
+              <span v-else class="max-h-[120px] h-full flex items-end justify-end">
+                <img :src="item.image_url" class="block max-h-full object-contain" alt="percent">
               </span>
             </div>
           </div>
 
           <div v-show="activeTab === 'Кредиты'" class="grid gap-4 lg:grid-cols-12">
-            <div class="lg:col-span-7 grid gap-4 sm:grid-cols-2">
-              <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Потребительские кредиты
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/cart.png" class="block max-h-full object-contain" alt="cart">
-                </span>
+            <div v-for="item in credits" :key="item.id"
+              class="rounded-[20px] bg-white p-8 col-span-4 flex flex-col shadow-sm hover:shadow-md transition">
+              <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
+                {{ item.name }}
+              </h6>
+              <p class="text-[17px] text-[#6F736D] leading-5 mb-[10px] font-Gilroy">{{ item.interest + ' %' }}</p>
+              <div class="max-h-[120px] h-full mt-auto flex items-end justify-end">
+                <img :src="item.image_url || '../../assets/images/cart.png'" class="block max-h-full object-contain"
+                  alt="cart">
               </div>
             </div>
           </div>
 
           <div v-show="activeTab === 'Карты'" class="grid gap-4 lg:grid-cols-12">
-            <div class="lg:col-span-7 grid gap-4 sm:grid-cols-2">
-              <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Банковская карта «Алтын Асыр»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
-                </span>
-              </div>
-
-              <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                  Банковская карта «Гоюм»
-                </h6>
-                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                <span class="max-h-[120px] h-full flex items-end justify-end">
-                  <img src="../../assets/images/altyn-asyr-card.png" class="block max-h-full object-contain" alt="card">
-                </span>
+            <div v-for="item in cards" :key="item.id"
+              class="rounded-[20px] col-span-4 bg-white p-8 flex flex-col shadow-sm hover:shadow-md transition">
+              <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
+                {{ item.title }}
+              </h6>
+              <p class="text-[17px] text-[#6F736D] leading-5 mb-[10px] font-Gilroy">{{ item.sub_title }}</p>
+              <div class="max-h-[120px] h-full mt-auto flex items-end justify-end">
+                <img :src="item.image_url || '../../assets/images/altyn-asyr-card.png'"
+                  class="block max-h-full object-contain" alt="card">
               </div>
             </div>
           </div>
@@ -507,7 +509,7 @@
     </section>
 
     <!-- Foundation =============================================================================== -->
-    <section class="pt-[60px] pb-[50px]">
+    <!-- <section class="pt-[60px] pb-[50px]">
       <div class="auto_container">
         <div class="wrap">
           <div class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8">
@@ -529,10 +531,10 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- Calc ===================================================================================== -->
-    <section class="py-[50px]">
+    <!-- <section class="py-[50px]">
       <div class="auto_container">
         <div class="wrap">
           <div class="flex items-center justify-between mb-8">
@@ -637,7 +639,6 @@
 
           <div v-show="calcActiveTab === 'Вклад'" class="grid lg:grid-cols-2 gap-6">
             <div class="bg-mainWhite rounded-[20px] p-6">
-              <!-- Type of deposit: custom select -->
               <div class="mb-6">
                 <label class="block text-[#6F736D] text-[17px] mb-3">Тип вклада</label>
                 <div class="relative">
@@ -661,7 +662,6 @@
                 </div>
               </div>
 
-              <!-- Amount: input + slider -->
               <div class="mb-6">
                 <label class="block text-[#6F736D] text-[17px] mb-3">Сумма вклада</label>
                 <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
@@ -678,7 +678,6 @@
                 </div>
               </div>
 
-              <!-- Term: radio-like buttons -->
               <div>
                 <label class="block text-mainBlack font-bold mb-3">Срок</label>
                 <div class="flex flex-wrap gap-3">
@@ -716,42 +715,9 @@
               <p class="text-[#6F736D]">Расчёт калькулятора предварительный и носит справочный характер.</p>
             </div>
           </div>
-
-          <div class="relative overflow-hidden rounded-[32px] bg-mainBlack mt-4 py-8 px-6 text-white form-glow">
-            <form class="max-w-[390px] mx-auto block">
-              <h1 class="text-center text-[38px] leading-tight font-bold mb-10">Заполните данные</h1>
-
-              <div class="mb-4">
-                <input type="text" placeholder="Фамилия, имя и отчество"
-                  class=" text-[17px] w-full rounded-[10px] bg-white placeholder:text-[#6F736D] text-[#1D2417] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
-                <span class="block text-mainWhite/60 mt-[10px] font-Gilroy">Уточните точно как в паспорте</span>
-              </div>
-
-              <div class="mb-4">
-                <div class="flex items-center">
-                  <input type="text" value="+993" readonly
-                    class=" text-[17px] w-[85px] rounded-[10px] bg-white placeholder:text-[#6F736D] text-[#1D2417] mr-[6px] p-5 outline-none select-none font-Gilroy" />
-                  <input type="tel" placeholder="Номер телефона"
-                    class=" text-[17px] flex-1 rounded-[10px] bg-white placeholder:text-[#6F736D] text-[#1D2417] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
-                </div>
-                <span class="block text-mainWhite/60 text-[15px] mt-[10px] font-Gilroy">На него поступит смс
-                  оповещение</span>
-              </div>
-
-              <div class="mb-8">
-                <input type="text" placeholder="Дата рождения"
-                  class=" text-[17px] w-full rounded-[10px] bg-white placeholder:text-[#6F736D] text-[#1D2417] placeholder-[#6F736D] p-5 outline-none font-Gilroy" />
-              </div>
-
-              <button type="submit"
-                class="block mx-auto w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
-                Продолжить
-              </button>
-            </form>
-          </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- Currency ================================================================================= -->
     <section class="py-[50px]">
@@ -762,7 +728,7 @@
           <div class="flex gap-4">
             <!-- Left card: branches -->
             <div class="w-full max-w-[390px] min-h-[467px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8">
-              <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">{{ t('exchange.branches') }}</h6>
+              <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">{{ t('exchange.branches') }}</h6>
               <p class="text-[17px] text-[#6F736D] leading-6 mb-6 font-Gilroy">{{ t('exchange.onCityMap') }}</p>
               <span class="block w-[300px] absolute left-1/2 -translate-x-1/2 -bottom-[55px]">
                 <img src="../../assets/images/currency.png" class="block w-full h-full object-contain" alt="currency">
@@ -772,7 +738,7 @@
             <!-- Right card: exchange rates -->
             <div class="w-full max-w-[calc(100%-406px)] rounded-[20px] bg-mainWhite p-8">
               <div class="flex items-center justify-between mb-8">
-                <h6 class="text-[28px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates') }}</h6>
+                <h6 class="text-[24px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates') }}</h6>
 
                 <div class="relative bg-white p-1 rounded-[20px] grid grid-cols-2 items-center min-w-[260px]">
                   <span
@@ -895,7 +861,7 @@
           <div
             class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden purple-glow">
             <div class="block max-w-[600px]">
-              <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
+              <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
                 {{ t('docs.title') }}
               </h6>
               <p class="text-[17px] text-[#6F736D] leading-5 font-Gilroy max-w-[500px]">
@@ -937,7 +903,7 @@
 
           <div class="grid grid-cols-12 gap-4">
             <div class="col-span-4 rounded-[20px] overflow-hidden bg-[#1D2417] p-8 text-white relative news-promo-glow">
-              <h6 class="text-[28px] leading-9 text-mainWhite font-bold mb-[10px]">
+              <h6 class="text-[24px] leading-9 text-mainWhite font-bold mb-[10px]">
                 {{ t('news.readUsSocial') }}
               </h6>
               <p class="text-mainWhite text-[17px] leading-7 opacity-60 font-Gilroy">
@@ -1086,7 +1052,8 @@
     height: 321px;
     right: -120px;
     bottom: -97px;
-    background: #ED6328;
+    background: var(--promo-glow-bg, #ED6328);
+    /* background: #ED6328; */
     filter: blur(137.15px);
     border-radius: 9999px;
     /* makes it a circle */

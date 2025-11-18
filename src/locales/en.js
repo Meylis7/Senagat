@@ -12,6 +12,7 @@ export default {
   btn: {
     learnMore: 'Learn more',
     showAll: 'Show all',
+    hide: 'Hide',
     downloadAppButton: 'Download the app',
   },
   offer: {
@@ -94,6 +95,18 @@ export default {
       // currencyExchange: 'Currency Exchange',
       // utilityPayments: 'Utility Payments',
       // communicationPayments: 'Communication Payments',
+    },
+    transfers: {
+      title: 'Transfers',
+      Yanardag: 'Yanardag',
+      WesternUnion: 'Western Union',
+    },
+    informations: {
+      title: 'Information',
+      cashDesk: 'Cashier / Settlement Desk',
+      terminalDocs: 'Terminal Installation Documents',
+      documentList: 'List of Documents',
+      auditReports: 'Audit Reports',
     },
   },
   news: {

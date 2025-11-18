@@ -12,6 +12,7 @@ export default {
   btn: {
     learnMore: 'Узнать больше',
     showAll: 'Показать все',
+    hide: 'Скрыть',
     downloadAppButton: 'Скачать приложение',
   },
   offer: {
@@ -91,6 +92,18 @@ export default {
       // currencyExchange: 'Обмен валюты',
       // utilityPayments: 'Оплата коммунальных услуг',
       // communicationPayments: 'Оплата услуг связи',
+    },
+    transfers: {
+      title: 'Переводы',
+      Yanardag: 'Янардаг',
+      WesternUnion: 'Вестерн Юнион',
+    },
+    informations: {
+      title: 'Информация',
+      cashDesk: 'Расчетная касса',
+      terminalDocs: 'Документы по установке терминала',
+      documentList: 'Перечень документов',
+      auditReports: 'Аудиторские отчеты',
     },
   },
   news: {

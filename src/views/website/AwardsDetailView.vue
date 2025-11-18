@@ -74,7 +74,7 @@ watch(awardId, (val, oldVal) => {
             {{ award.sub_title }}
           </p>
 
-          <span v-if="award?.image_url" class="block w-full h-full h-[300px] rounded-2xl overflow-hidden mb-5">
+          <span v-if="award?.image_url" class="block w-full h-[300px] rounded-2xl overflow-hidden mb-5">
             <img :src="award.image_url" class="w-full h-full block object-contain" :alt="award?.title || 'award-image'">
           </span>
 

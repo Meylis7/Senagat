@@ -17,7 +17,7 @@
                 </h1>
 
                 <RouterLink to="/"
-                    class="block mt-5 w-fit text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[20px] py-3 px-[35px] mx-auto">
+                    class="block mt-5 w-fit text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[10px] py-3 px-[35px] mx-auto">
                     {{ t('btn.learnMore') }}
                 </RouterLink>
 
