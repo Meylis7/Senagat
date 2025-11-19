@@ -12,12 +12,12 @@
     <section class="hero pt-[155px] pb-[80px] bg-[#173A16] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
-                <h1 class="m-auto max-w-[660px] text-center text-5xl font-bold text-mainWhite">
+                <h1 class="text-center mx-auto  max-w-[900px] text-4xl font-bold text-mainWhite">
                     {{ t('hero.title') }}
                 </h1>
 
                 <RouterLink to="/"
-                    class="block mt-5 w-fit text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[10px] py-3 px-[35px] mx-auto">
+                    class="block mt-8 w-fit text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[10px] py-3 px-[35px] mx-auto">
                     {{ t('btn.learnMore') }}
                 </RouterLink>
 

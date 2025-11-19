@@ -7,7 +7,8 @@ export default {
     internetBank: 'Internet bank',
   },
   hero: {
-    title: 'Wirtual kart 0 manada, dessine keşbek bilen',
+    title:
+      'Bank kartlaryny onlaýn arkaly sargyt etmek hem-de sargyt edilen bank kartlaryny Çapar bilen eliňize eltip bermek hyzmaty',
   },
   btn: {
     learnMore: 'Giňişleýin öwrenmek',
@@ -32,6 +33,11 @@ export default {
   charity: {
     title: 'Haýyr-sahawat gaznasy',
     text: 'Deslapky tölеgiň hasaby maglumat maksatly bolup, kredidiň maliýe goragy resmileşdirilen ýagdaýynda hasaplanýar. Bu köpçülige hödürlenýän teklip däl',
+  },
+  credit: {
+    fixedRate: 'Göterim',
+    term: 'Möhlet',
+    amount: 'Möçber',
   },
   calc: {
     calculateBenefit: 'Bähbidi hasapla',

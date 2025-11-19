@@ -62,7 +62,9 @@
     <section class="pt-[60px] pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Вклады</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                    {{ t('tabs.deposit') }}
+                </h2>
 
                 <div class="block space-y-4">
                     <div v-for="(dep, di) in deposits" :key="dep.id"

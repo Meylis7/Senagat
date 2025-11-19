@@ -1,7 +1,13 @@
 <script setup>
     import { RouterLink } from 'vue-router';
+    import { ref, computed, onMounted } from 'vue';
+
     import { useI18n } from 'vue-i18n';
+    import apiService from '@/services/apiService';
+
     import Breadcrumb from '@/components/website/Breadcrumb.vue';
+
+
     const { t } = useI18n();
 
     const breadcrumbItems = [
@@ -9,6 +15,35 @@
         { label: t('tabs.credits') },
     ];
 
+    const credits = ref([])
+    const creditsLoading = ref(false)
+    const creditsError = ref(null)
+
+    const fetchCredits = async () => {
+        creditsLoading.value = true
+        creditsError.value = null
+        try {
+            const response = await apiService.fetchCreditTypes()
+            if (response?.success && Array.isArray(response?.data)) {
+                credits.value = response.data
+            } else if (Array.isArray(response)) {
+                credits.value = response
+            } else if (Array.isArray(response?.data)) {
+                credits.value = response.data
+            } else {
+                credits.value = []
+            }
+        } catch (error) {
+            creditsError.value = error.message || 'Failed to load credits'
+            credits.value = []
+        } finally {
+            creditsLoading.value = false
+        }
+    }
+
+    onMounted(() => {
+        fetchCredits();
+    });
 </script>
 
 <template>
@@ -27,200 +62,42 @@
     <section class="pt-[60px] pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Кредиты</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                    {{ t('tabs.credits') }}
+                </h2>
 
                 <div class="block space-y-4">
-                    <div
+                    <div v-for="(credit, ci) in credits" :key="credit.id"
                         class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
                         <div class="block">
                             <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Молодым семьям
+                                {{ credit?.title || '' }}
                             </h4>
                             <div class="flex items-center gap-x-[10px]">
-                                <p
+                                <p v-if="credit?.term_text"
                                     class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
+                                    {{ credit.term_text }}
                                 </p>
-                                <p
+                                <p v-if="credit?.amount_text" 
                                     class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
+                                    {{ credit.amount_text }}
                                 </p>
                             </div>
 
-                            <RouterLink to="/"
+                            <RouterLink :to="`/loans-detail?id=${credit.id}`"
                                 class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
+                                {{ t('btn.learnMore') }}
                             </RouterLink>
                         </div>
 
                         <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-ring.png"
-                                alt="card-image">
+                            <img class="block w-full h-full object-contain" :src="credit?.image_url" alt="card-image">
                         </span>
 
-                        <!-- Background circle for young families -->
-                        <div class="loan-bg-circle loan-bg-yellow"></div>
+                        <span class="loan-bg-circle" :class="credit?.background_class || 'loan-bg-yellow'"
+                            :style="credit?.background_color ? { background: credit.background_color } : null"></span>
                     </div>
 
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Потребительский
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-cart.png"
-                                alt="card-image">
-                        </span>
-
-                        <!-- Background circle for consumer -->
-                        <div class="loan-bg-circle loan-bg-green"></div>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Свадьба и день рождения
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-baloon.png"
-                                alt="card-image">
-                        </span>
-
-                        <!-- Background circle for wedding -->
-                        <div class="loan-bg-circle loan-bg-blue"></div>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                На образование
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-note.png"
-                                alt="card-image">
-                        </span>
-
-                        <!-- Background circle for education -->
-                        <div class="loan-bg-circle loan-bg-purple"></div>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Овердрафт
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-speed.png"
-                                alt="card-image">
-                        </span>
-
-                        <!-- Background circle for overdraft -->
-                        <div class="loan-bg-circle loan-bg-orange"></div>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden">
-                        <div class="block">
-                            <h4 class="text-[28px] font-bold text-mainBlack mb-5 leading-7">
-                                Сельское хозяйство
-                            </h4>
-                            <div class="flex items-center gap-x-[10px]">
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    1% фиксированная ставка
-                                </p>
-                                <p
-                                    class="text-[17px] font-Gilroy text-[#2C702C] p-3 mb-[60px] rounded-2xl bg-[#EEF2ED] w-fit leading-7">
-                                    на 3 года
-                                </p>
-                            </div>
-
-                            <RouterLink to="/"
-                                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-fit">
-                                Интернет банк
-                            </RouterLink>
-                        </div>
-
-                        <span class="block w-[225px] relative z-10">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/loan-oat.png"
-                                alt="card-image">
-                        </span>
-
-                        <!-- Background circle for agriculture -->
-                        <div class="loan-bg-circle loan-bg-yellow-2"></div>
-                    </div>
                 </div>
             </div>
         </div>

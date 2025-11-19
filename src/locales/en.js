@@ -7,7 +7,8 @@ export default {
     internetBank: 'Internet Banking',
   },
   hero: {
-    title: 'Virtual Card for free with Instant Cashback',
+    title:
+      'The service of ordering bank cards online and delivering the ordered bank cards right to your hands via Çapar.',
   },
   btn: {
     learnMore: 'Learn more',
@@ -32,6 +33,11 @@ export default {
   charity: {
     title: 'Charitable Foundation',
     text: 'The preliminary payment calculation is for informational purposes only and is calculated on the condition of processing financial credit protection. It does not constitute a public offer.',
+  },
+  credit: {
+    fixedRate: 'Fixed Rate',
+    term: 'Term',
+    amount: 'Amount',
   },
   calc: {
     calculateBenefit: 'Calculate Benefit',

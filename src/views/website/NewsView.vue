@@ -74,7 +74,7 @@
     <section class="pt-[50px] pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center mb-10 gap-1">
+                <!-- <div class="flex items-center mb-10 gap-1">
                     <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Кредит
                     </h6>
@@ -98,7 +98,7 @@
                     <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Мобильная версия
                     </h6>
-                </div>
+                </div> -->
 
 
                 <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">

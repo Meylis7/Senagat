@@ -286,7 +286,7 @@
       color: d.background_color
     })))
     const cre = shuffle((credits.value || []).map((c) => ({
-      title: c.name,
+      title: c.title,
       subtitle: c.interest + ' %' || '',
       image_url: c.image_url || '../../assets/images/cart.png',
       type: 'credit',
@@ -448,7 +448,7 @@
             <div v-for="item in credits" :key="item.id"
               class="rounded-[20px] bg-white p-8 col-span-4 flex flex-col shadow-sm hover:shadow-md transition">
               <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
-                {{ item.name }}
+                {{ item.title }}
               </h6>
               <p class="text-[17px] text-[#6F736D] leading-5 mb-[10px] font-Gilroy">{{ item.interest + ' %' }}</p>
               <div class="max-h-[120px] h-full mt-auto flex items-end justify-end">
