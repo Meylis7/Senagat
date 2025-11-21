@@ -16,7 +16,7 @@
                     {{ t('hero.title') }}
                 </h1>
 
-                <RouterLink to="/"
+                <RouterLink to="/cards"
                     class="block mt-8 w-fit text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[10px] py-3 px-[35px] mx-auto">
                     {{ t('btn.learnMore') }}
                 </RouterLink>

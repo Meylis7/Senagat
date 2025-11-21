@@ -10,7 +10,7 @@
     import NewsSection from '@/components/website/NewsSection.vue';
 
 
-    const { t } = useI18n()
+    const { t, tm } = useI18n()
     const route = useRoute()
 
     const depositId = computed(() => route.params?.id || route.query?.id)
@@ -22,8 +22,9 @@
         const currentTitle = deposit.value?.title || ''
         return [
             { label: t('breadcrumb.home'), path: '/' },
-            { label: t('breadcrumb.deposits'), path: '/deposits' },
-            { label: currentTitle },
+            { label: t('breadcrumb.services'), path: '/services' },
+            { label: t('nav.informations.title'), path: '/services' },
+            { label: t('nav.informations.bankGuarantees') },
         ]
     })
 
@@ -52,11 +53,10 @@
         fetchDepositDetail()
     })
 
-    const diamondImages = [diamond1, diamond2]
 
-    const advColSpan = computed(() => {
-        const n = (deposit.value?.advantages || []).length
-        return n === 2 ? 'col-span-6' : 'col-span-4'
+    const guaranteeAdvs = computed(() => {
+        const obj = tm('guaranteees.adv') || {}
+        return Object.values(obj)
     })
 
 </script>
@@ -75,17 +75,16 @@
 
 
                 <h1 class="m-auto max-w-[600px] text-mainWhite mb-[10px] text-center text-5xl font-bold">
-                    {{ deposit?.title }}
+                    {{ t('guaranteees.title') }}
                 </h1>
 
                 <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
-                    {{ deposit?.description }}
+                    {{ t('yanardag.subTitle') }}
                 </p>
 
 
                 <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
-                    <img :src="deposit?.image_url || '../../assets/images/deposit-6.png'"
-                        class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/Guarantees.png" class="block w-full h-full object-contain" alt="card">
                 </span>
             </div>
         </div>
@@ -98,47 +97,32 @@
     <section class="pt-[60px] pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="grid grid-cols-12 gap-x-4">
-                    <div v-for="(adv, idx) in (deposit?.advantages || [])" :key="idx"
-                        :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center']">
-                        <h3 class="text-[38px] font-bold mb-[10px] leading-9">
-                            {{ adv?.name || '' }}
-                        </h3>
-                        <p class="text-[17px] font-Gilroy text-[#6F736D] ">
-                            {{ adv?.description || '' }}
+                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                    {{ t('guaranteees.suptitle') }}
+                </h2>
+
+                <div v-for="(adv, idx) in guaranteeAdvs" :key="idx"
+                    class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden purple-glow mb-6">
+                    <div class="block max-w-[600px]">
+                        <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
+                            {{ adv.title || '' }}
+                        </h6>
+                        <p class="text-[17px] text-[#6F736D] leading-5 font-Gilroy max-w-[500px]">
+                            {{ adv.description || '' }}
                         </p>
-                        <span class="block w-[230px] mx-auto mt-auto relative ">
-                            <img :src="diamondImages[Math.floor(Math.random() * diamondImages.length)]" alt="diamond"
-                                class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
-                        </span>
                     </div>
+
+                    <span class="max-h-[220px] block">
+                        <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain"
+                            alt="card">
+                    </span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Useful information ============================================== -->
-    <section class="py-[50px]">
-        <div class="auto_container">
-            <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Полезная информация</h2>
-
-                <div class="block p-8 rounded-[20px] mb-4 bg-mainWhite">
-                    <div v-for="(adv, i) in (deposit?.details || [])" :key="i">
-                        <div class="py-[20px] border-solid border-0 border-b border-[#6F736D]">
-                            <p class=" text-[17px] font-Gilroy">
-                                {{ adv?.description }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
     <!-- News ===================================================================================== -->
-    <NewsSection class="pb-[120px]"/>
+    <NewsSection class="pb-[120px]" />
 
 
 </template>
@@ -146,6 +130,19 @@
 
 
 <style lang="scss" scoped>
+    .purple-glow::after {
+        content: "";
+        position: absolute;
+        width: 298px;
+        height: 298px;
+        left: calc(50% - 298px/2 + 591px);
+        bottom: -147px;
+        background: #BB28ED;
+        filter: blur(137.15px);
+        border-radius: 9999px;
+        pointer-events: none;
+    }
+
     .card-bg-circle {
         display: block;
         position: absolute;
@@ -154,32 +151,9 @@
         left: 50%;
         transform: translateX(-50%);
         bottom: -362px;
-        // background: #EDC928;
+        background: #2C702C;
         filter: blur(137.15px);
         border-radius: 50%;
         z-index: 1;
-    }
-
-    /* Accordion animations */
-    .accordion-enter-active,
-    .accordion-leave-active {
-        transition: all 0.3s ease;
-        overflow: hidden;
-    }
-
-    .accordion-enter-from {
-        opacity: 0;
-        max-height: 0;
-    }
-
-    .accordion-leave-to {
-        opacity: 0;
-        max-height: 0;
-    }
-
-    .accordion-enter-to,
-    .accordion-leave-from {
-        opacity: 1;
-        max-height: 500px;
     }
 </style>

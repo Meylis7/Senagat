@@ -24,15 +24,9 @@
         cardsError.value = null
         try {
             const response = await apiService.fetchCardTypes()
-            if (response?.success && Array.isArray(response?.data)) {
-                cards.value = response.data
-            } else if (Array.isArray(response)) {
-                cards.value = response
-            } else if (Array.isArray(response?.data)) {
-                cards.value = response.data
-            } else {
-                cards.value = []
-            }
+            const list = response?.data || response || []
+            const arr = Array.isArray(list) ? list : []
+            cards.value = arr.filter((it) => String(it.category) === 'individual')
         } catch (error) {
             cardsError.value = error.message || 'Failed to load cards'
             cards.value = []

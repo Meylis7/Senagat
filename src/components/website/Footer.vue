@@ -2,6 +2,10 @@
     import { RouterLink } from 'vue-router';
     import { useI18n } from 'vue-i18n';
     import mainLogo from '@/assets/images/main_logo.png';
+    import apiService from '@/services/apiService'
+
+    import { ref, watch, onMounted, onUnmounted, } from 'vue';
+
 
     const { t, locale } = useI18n();
 
@@ -10,53 +14,75 @@
         locale.value = lang;
         localStorage.setItem("locale", lang);
     };
+
+
+    const loans = ref([])
+    const loadCredits = async () => {
+        try {
+            const res = await apiService.fetchCreditTypes()
+            const list = res?.data || res
+            const arr = Array.isArray(list) ? list : []
+            loans.value = arr
+        } catch (e) {
+            loans.value = []
+            loansBusiness.value = []
+        }
+    }
+
+    watch(locale, () => { loadCredits() })
+
+    const cards = ref([])
+    const loadCards = async () => {
+        try {
+            const res = await apiService.fetchCardTypes()
+            const list = res?.data || res
+            const arr = Array.isArray(list) ? list : []
+            cards.value = arr.filter((it) => String(it.category) === 'individual')
+        } catch (e) {
+            cards.value = []
+            cardsBusiness.value = []
+        }
+    }
+
+    watch(locale, () => { loadCards() })
+
+    const deposits = ref([])
+    const loadDeposits = async () => {
+        try {
+            const res = await apiService.fetchDeposits()
+            const list = res?.data || res
+            const arr = Array.isArray(list) ? list : []
+            deposits.value = arr
+        } catch (e) {
+            deposits.value = []
+        }
+    }
+
+    watch(locale, () => { loadDeposits() })
+
+    onMounted(async () => {
+        await loadCredits()
+        await loadCards()
+        await loadDeposits()
+
+    });
 </script>
 
 <template>
     <footer class="bg-mainWhite mt-auto ">
         <div class="auto_container">
             <div class="wrap py-[60px]">
-                <div class="grid grid-cols-12 gap-x-16 gap-y-8 lg:gap-x-0">
+                <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-12 sm:col-span-6 lg:col-span-3">
                         <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
                             {{ t('nav.loans.title') }}
                         </h4>
 
                         <ul class="space-y-4">
-                            <li>
-                                <RouterLink to="/"
+                            <li v-for="item in loans" :key="item.id">
+                                <RouterLink :to="`/loans-detail?id=${item.id}`"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.loans.youngFamilies') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.loans.consumer') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.loans.weddingsAndBirthdays') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.loans.education') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.loans.overdraft') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.loans.agricultural') }}
+                                    {{ item.title || '' }}
                                 </RouterLink>
                             </li>
                         </ul>
@@ -87,22 +113,10 @@
                         </h4>
 
                         <ul class="space-y-4">
-                            <li>
-                                <RouterLink to="/"
+                            <li v-for="item in cards" :key="item.id">
+                                <RouterLink :to="`/cards-detail?id=${item.id}`"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.cards.mashgalaCard') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.cards.goyumCard') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.cards.altynAsyrCard') }}
+                                    {{ item.title || '' }}
                                 </RouterLink>
                             </li>
                         </ul>
@@ -145,34 +159,10 @@
                         </h4>
 
                         <ul class="space-y-4">
-                            <li>
-                                <RouterLink to="/"
+                            <li v-for="item in deposits" :key="item.id">
+                                <RouterLink :to="`/deposits-detail?id=${item.id}`"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.deposits.profitable') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.deposits.demandDeposit') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.deposits.childrenTargetDeposit') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.deposits.parentCare') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.deposits.healthOfNation') }}
+                                    {{ item.title || '' }}
                                 </RouterLink>
                             </li>
                         </ul>
@@ -190,43 +180,16 @@
                                     {{ t('footer.links.contacts') }}
                                 </RouterLink>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     {{ t('footer.links.requisites') }}
                                 </RouterLink>
-                            </li>
+                            </li> -->
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     {{ t('footer.links.news') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('footer.links.branches') }}
-                                </RouterLink>
-                            </li>
-                        </ul>
-
-                        <ul class="space-y-4 mb-5 pb-5  border-solid border-0 border-b border-[#EEF2ED]">
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('footer.links.exchangeRates') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('footer.links.branches') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('footer.links.atmSearch') }}
                                 </RouterLink>
                             </li>
                             <li>
@@ -265,7 +228,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="bg-[#1D2417] py-[60px] text-mainWhite">
             <div class="auto_container">
                 <div class="wrap">

@@ -61,6 +61,30 @@ const router = createRouter({
           name: 'deposits-detail',
           component: () => import('@/views/website/DepositDetailView.vue'),
         },
+
+        {
+          path: 'yanardag',
+          name: 'yanardag',
+          component: () => import('@/views/website/YanardagView.vue'),
+        },
+        {
+          // Расчетно-кассовые обслуживание
+          path: 'cash',
+          name: 'cash',
+          component: () => import('@/views/website/CashView.vue'),
+        },
+        {
+          // Банковские гарантии
+          path: 'guarantees',
+          name: 'guarantees',
+          component: () => import('@/views/website/BankGarantiesView.vue'),
+        },
+        {
+          // Перечень документов для открытия счета
+          path: 'documents',
+          name: 'documents',
+          component: () => import('@/views/website/DocumentsView.vue'),
+        },
       ],
     },
 

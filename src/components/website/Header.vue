@@ -104,7 +104,7 @@
             const list = res?.data || res
             const arr = Array.isArray(list) ? list : []
             cards.value = arr.filter((it) => String(it.category) === 'individual')
-            cardsBusiness.value = arr.filter((it) => String(it.category) === 'legal_entity')
+            cardsBusiness.value = arr.filter((it) => String(it.category) === 'entrepreneur')
         } catch (e) {
             cards.value = []
             cardsBusiness.value = []

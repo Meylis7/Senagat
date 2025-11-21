@@ -27,8 +27,64 @@ export default {
   },
   docs: {
     title: 'Hasap açmak üçin resminamalaryň sanawy',
+    supTitle: 'Müşderi bilen Bankyň arasyndaky islendik gatnaşyk hasap açmakdan başlanýar.',
     subTitle:
       'Müşderi bilen Bankyň arasyndaky islendik gatnaşyk hasap açmakdan başlanýar. Hasaplaşyk hasaplaryny açmak Türkmenistanyň hereket edýän kanunçylygy bilen düzgünleşdirilýär.',
+    description:
+      'Bank hasaby, Türkmenistanyň Raýat kodeksine laýyklykda müşderi bilen baglaşylan şertnama esasynda açylýar. Nagt däl tölegleriň görnüşleri, bankyň müşderileri, şeýle hem bankyň özi tarapyndan saýlanýar we şertnamada göz öňünde tutulýar. Bank hasaby açylanda, gaýtadan resmileşdirilende we ýapylanda "Senagat" PTB-y Türkmenistanyň kanunlaryna, şeýle hem Türkmenistanyň Merkezi bankynyň "Bank hasabynyň" düzgünnamasyna esaslanýar.',
+    adv: {
+      adv_1: {
+        title: 'Hasap açmak',
+        text:
+          'Müşderi bilen Bankyň arasyndaky islendik gatnaşyk - hasaby açmak bilen başlaýar. Hasaplaşyk hasaplaryň açylmagy Türkmenistanyň hereket edýän kanunçylygy bilen düzgünleşdirilýär. Hasap açmak we ýöretmek üçin, Müşderi Bank bilen hasaplaşyk kassa hyzmatlary üçin şertnama baglaşýar.' +
+          'Hasaplaryň birnäçe görnüşleri bar:',
+        list: [
+          'Hasaplaşyk hasaby (kömekçi hasaby)',
+          'Manatdaky gündelik hasap',
+          'Daşary ýurt walýutasyndaky gündelik hasap',
+          'Depozit (goýum) hasaby',
+          'Wagtlaýyn hasap',
+          'Manatdaky aragatnaşyk hasaby (kömekçi hasaby)',
+          'Daşary ýurt walýutasyndaky aragatnaşyk hasaby',
+        ],
+      },
+      adv_2: {
+        title: 'Hukuk guramasyny döretmezden telekeçä hasap açmak üçin zerur bolan resminamalar:',
+        list: [
+          'Hasap açmak üçin arza',
+          'Döwlet hasaba alnyşy hakynda şahadatnamanyň göçürme nusgasy',
+          'Ýerden peýdalanmaga hukuk berýän resmi namanyň nusgasy (ýerden peýdalanmak bilen bagly iş amala aşyrylanda)',
+          'Kartoçka',
+          'Salgyt hasabyna goýlandygy hakynda şahadatnamanyň göçürme nusgasy',
+          'Ýer eýeleri we ýeri ulanyjylar tarapyndan, bellenen tertipdäki dogrylygyny tassyklaýan ýer eýeçiligi (ýer ulanmak) baradaky resminamanynyň nusgasyny banka üpjün edilmegi',
+          'Daşary ýurt walýutasynda bank hasaby açmak üçin manatda hasap açylşy ýaly esasy işiň hyzmaty boýunça resminamalary bilen daşary ykdysady işjeňlige gatnaşyjynyň beýanynyň göçürmesi',
+        ],
+      },
+      adv_3: {
+        title:
+          'Türkmenistanyň raýatlary bolan ýuridiki şahslar we olaryň aýry bölümlerine (Şahamçalara we Wekillerine):',
+        list: [
+          'Hasap açmak üçin arza',
+          'Tertipnamanyň nusgasy',
+          'Döwlet hasaba alnyşy hakynda şahadatnamanyň göçürme nusgasy',
+          'Salgyt hasabyna goýlandygy hakynda şahadatnamanyň göçürme nusgasy',
+          'Kartoçka',
+          'Ýerden peýdalanmaga hukuk berýän resmi namanyň nusgasy (ýerden peýdalanmak bilen bagly iş amala aşyrylanda)',
+          'Daşary ýurt walýutasynda bank hasaby açmak üçin manatda hasap açylşy ýaly esasy işiň hyzmaty boýunça resminamalary bilen daşary ykdysady işjeňlige gatnaşyjynyň beýanynyň göçürmesi',
+        ],
+      },
+      adv_4: {
+        title:
+          'Türkmenistanyň raýaty bolmaýan ýuridiki şahslar we olaryň aýry bölümlerine (Şahamçalara we Wekillerine):',
+        list: [
+          'Hasap açmak üçin arza',
+          'Kartoçka',
+          'Salgyt hasabyna goýlandygy hakynda şahadatnamanyň göçürme nusgasy',
+          'Düzgünnamanyň nusgasy',
+          'Ynanç hatynyň asyl nusgasy (ynanç hatynyň Türkmenistanyň kanunçylygynda bellenilen tertipde kanunlaşdyrylan göçürme nusgasy)',
+        ],
+      },
+    },
   },
   charity: {
     title: 'Haýyr-sahawat gaznasy',
@@ -110,6 +166,7 @@ export default {
       terminalDocs: 'Terminaly gurnamak üçin resminamalar',
       documentList: 'Resminamalaryň sanawy',
       auditReports: 'Auditor hasabatlary',
+      bankGuarantees: 'Bank kepillikleri',
     },
   },
   services: {
@@ -118,6 +175,80 @@ export default {
       moneyTransfers: 'Pul geçirimleri',
       electronicPayments: 'Elektron tölegler',
       guarantees: 'Kepillikler',
+    },
+  },
+  yanardag: {
+    title: 'Ýanardag',
+    subTitle: 'Pul geçirmegiň iň aňsat usuly',
+    adv: {
+      adv_1: {
+        title: 'Tiz hyzmat',
+        subtitle: 'Kartdaky pul galyndysyna goýum',
+      },
+      adv_2: {
+        title: 'Ulanmasy ýeňil',
+        subtitle: '«Keşbek» hyzmaty',
+      },
+      adv_3: {
+        title: 'Ygtybarly pul geçirimi',
+        subtitle: '«Keşbek» hyzmaty',
+      },
+    },
+  },
+
+  cash: {
+    title: 'Hasaplaşyk kassa hyzmatlary',
+    subTitle: 'Fiziki taraplara',
+    adv: {
+      adv_1: {
+        title: 'Geçirim amallary',
+        subtitle:
+          'Pul serişdeleriniň aýlanyşygynyň ýokarlanmagy – "Senagat" PTB-nyň işiniň täsirliliginiň esasy görkezijisidir.',
+        text: '"Senagat" PTB-y hasap boýunça aşakdaky görkezilen amallary we onuň hyzmaty bilen baglanyşykly bank hyzmatlaryny amala aşyrýar:',
+        list: [
+          'Müşderiniň hasabyna onuň beýleki hasaplaryndan hem-de beýleki Türkmenistanyň rezidentleriniň we rezident dälleriniň hasabyndan manatdaky we daşary ýurt walýutasyndaky pul serişdelerini geçirýär.',
+          'Müşderiniň tabşyrygy boýunça onuň hasabyndan beýleki hasaplaryna hem-de Türkmenistanyň rezidentleriniň we rezident dälleriniň hasabyna manatdaky we daşary ýurt walýutasyndaky pul serişdelerini geçirýär.',
+          'Müşderiniň hasabyndan tölegler we geçirimler diňe onuň tabşyrygy boýunça ýerine ýetirilýär. Ýuridiki taraplara, üçünji tarap hasaptan tölegleri we geçirimleri diňe müşderiniň adyna notarial tassykly kepillendiriş kepilnamasy bolan ýagdaýynda amala aşyryp biler.',
+          'Müşderä hasapdan manat we daşary ýurt walýutasyndaky pul serişdelerini berýär. Türkmenistanyň raýaty bolan ýa-da bolmaýan üçünji taraplara - hasapdan manatda we daşary ýurt walýutasynda nagt pul serişdesini diňe müşderiniň adyna notarial tassykly kepillendiriş kepilnamasy bolan ýagdaýynda berilýär .',
+          'Bank Müşderiniň hasaby boýunça ähli çykdajy amallaryny onuň gündelik hasabyndaky jemiň çäklerinde amala aşyrýar.',
+          'Müşderiniň talap etmegine görä gündelik hasabyndan göçürmeleri berýär.',
+          'Müşderiniň gündelik hasabyndaky bar bolan jemiň çäklerinde, Müşderiniň ýüz tutmagyna görä nagt we nagt däl görnüşinde walýutada satyn alma ýada walýutada satuw amallaryny amala aşyrýar.',
+        ],
+      },
+      adv_2: {
+        title: 'Pulhana amallary',
+        subtitle:
+          '"Senagat" PTB-yň pulhanalarynda Müşderiniň işinden onuň bank hasaplaryna gelip gowşan nagt pullaryň (düşewünt) we gaýry gelip gowuşmalaryň kabul edilmegi, täzeden sanalmagy, çalşylmagy, ýeriniň çalşylmagy, sortlanylmagy we gaplanylmagy ýerine ýetirilýär. Pulhana amallary bölüminde (pulhanada) pul serişdeleriniň we beýleki gymmatlyklaryň kabul edilmegi, işlenilmegi we berilmegi üçin: girdeji, çykdajy we täzeden sanama pulhanalar gurnalýar.',
+        text: '"Senagat" PTB-y aşakdakylary üpjün edýär:',
+        list: [
+          'Öz müşderilerine takyk we öz wagtynda hyzmat etmek',
+          'Ynanylan gymmatlyklaryň talaba laýyk saklanylmagyny gurnamak we doly abatlygyny üpjün etmek',
+          'Pulhana işinde ýalňyşlyklara, ýitgilere, ogurlyklara we hyýanatçylykly hereketlere ýol bermezlik üçin zerur bolan ähli çäreleri gurnamak we görmek',
+        ],
+      },
+    },
+    notify:
+      '"Senagat" PTB-y tassyklanylan nyrhnama we bank hasabynyň şertnamasynyň şertlerine laýyklykda, amala aşyrylan bank amallary we berilen bank hyzmatlary üçin bank ýygymyny tutup galýar.',
+  },
+  guaranteees: {
+    title: 'Bank kepillikleri',
+    suptitle: 'Kepillikleriň esasy görnüşleri',
+    adv: {
+      adv_1: {
+        title: 'Bäsleşik (Tender) kepilligi',
+        description:
+          'bäsleşige gatnaşmak islegini bildiren we bäsleşigi gurnaýja öz tekliplerini hödürlän tarapyň (gatnaşyjynyň) islegi boýunça bellenilen puly bäsleşigi gurnaýja tölemek boýunça bankyň kepilligi',
+      },
+      adv_2: {
+        title: 'Hakujy tölegleriniň gaýtarylmagynyň kepillendirmesi',
+        description:
+          'hakujy tölegleriň gaýtarylmagynyň kepillendirmesi harytlaryň (hyzmatlaryň) getirijisi öz şertnamalaýyn borçnamalaryny ýerine ýetir medik ýagdaýynda oňa geçirilen hakujy tölegleriniň gaýtarylmagyny üpjün etmek boýunça bankyň kepilligi',
+      },
+      adv_3: {
+        title: 'Karzyň üpjün etmegiň kepillendirmesi',
+        description:
+          'karzyň üpjün edilmeginiň kepillendirmesi karz alyjynyň karz şertnamasy boýunça kreditoryň öňündäki borçnamalarynyň üpjün edilmegi boýunça bankyň kepilligi',
+      },
     },
   },
   news: {

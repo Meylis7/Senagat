@@ -6,7 +6,7 @@
     import apiService from '@/services/apiService'
     import diamond1 from '@/assets/images/dimond-1.png'
     import diamond2 from '@/assets/images/dimond-2.png'
-
+    import '@/assets/css/text.scss'
 
     import NewsSection from '@/components/website/NewsSection.vue';
 
@@ -107,7 +107,7 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[145px] pb-[60px] bg-mainBlack relative overflow-hidden">
+    <section class="hero pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
 
@@ -258,37 +258,7 @@
                 <h2 class="text-[38px] font-bold mb-10 leading-9">Полезная информация</h2>
 
                 <div class="block p-8 rounded-[20px] mb-4 bg-mainWhite">
-                    <div>
-                        <div class="block">
-                            <div class="grid grid-cols-12 py-[20px] border-solid border-0 border-b border-[#6F736D]">
-                                <h6 class="col-span-6 text-[17px] font-bold">
-                                    Стоимость оформления
-                                </h6>
-                                <p class="col-span-6 text-[17px] font-Gilroy">
-                                    30 манат
-                                </p>
-                            </div>
-
-                            <div class="grid grid-cols-12 py-[20px] border-solid border-0 border-b border-[#6F736D]">
-                                <h6 class="col-span-6 text-[17px] font-bold">
-                                    Ориентировочная доходность
-                                </h6>
-                                <p class="col-span-6 text-[17px] font-Gilroy">
-                                    6,00 % годовых
-                                </p>
-                            </div>
-
-                            <div class="grid grid-cols-12 py-[20px] border-solid border-0 border-b border-[#6F736D]">
-                                <h6 class="col-span-6 text-[17px] font-bold">
-                                    Снятие наличных
-                                </h6>
-                                <p class="col-span-6 text-[17px] font-Gilroy">
-                                    Наличные деньги не принимаются по любой другой карте, которая изначально была
-                                    внесена на «Гоюм» банковскую карту, а затем снята наличными без подтверждения ее
-                                    происхождения
-                                </p>
-                            </div>
-                        </div>
+                    <div class="text-[17px] description" v-html="credit && credit.requirements_description ? credit.requirements_description : ''">
                     </div>
                 </div>
             </div>

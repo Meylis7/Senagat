@@ -19,11 +19,10 @@
     const error = ref(null)
 
     const breadcrumbItems = computed(() => {
-        const currentTitle = deposit.value?.title || ''
         return [
             { label: t('breadcrumb.home'), path: '/' },
-            { label: t('breadcrumb.deposits'), path: '/deposits' },
-            { label: currentTitle },
+            { label: t('breadcrumb.services'), path: '/services' },
+            { label: t('yanardag.title') },
         ]
     })
 
@@ -55,8 +54,16 @@
     const diamondImages = [diamond1, diamond2]
 
     const advColSpan = computed(() => {
-        const n = (deposit.value?.advantages || []).length
+        const n = (localeAdvs.value || []).length
         return n === 2 ? 'col-span-6' : 'col-span-4'
+    })
+
+    const localeAdvs = computed(() => {
+        return [
+            { title: t('yanardag.adv.adv_1.title'), subtitle: t('yanardag.adv.adv_1.subtitle') },
+            { title: t('yanardag.adv.adv_2.title'), subtitle: t('yanardag.adv.adv_2.subtitle') },
+            { title: t('yanardag.adv.adv_3.title'), subtitle: t('yanardag.adv.adv_3.subtitle') },
+        ]
     })
 
 </script>
@@ -75,17 +82,16 @@
 
 
                 <h1 class="m-auto max-w-[600px] text-mainWhite mb-[10px] text-center text-5xl font-bold">
-                    {{ deposit?.title }}
+                    {{ t('yanardag.title') }}
                 </h1>
 
                 <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
-                    {{ deposit?.description }}
+                    {{ t('yanardag.subTitle') }}
                 </p>
 
 
                 <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
-                    <img :src="deposit?.image_url || '../../assets/images/deposit-6.png'"
-                        class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/yanardag.png" class="block w-full h-full object-contain" alt="card">
                 </span>
             </div>
         </div>
@@ -99,13 +105,13 @@
         <div class="auto_container">
             <div class="wrap">
                 <div class="grid grid-cols-12 gap-x-4">
-                    <div v-for="(adv, idx) in (deposit?.advantages || [])" :key="idx"
+                    <div v-for="(adv, idx) in localeAdvs" :key="idx"
                         :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center']">
-                        <h3 class="text-[38px] font-bold mb-[10px] leading-9">
-                            {{ adv?.name || '' }}
+                        <h3 class="text-[28px] font-bold mb-[10px] leading-9">
+                            {{ adv.title || '' }}
                         </h3>
-                        <p class="text-[17px] font-Gilroy text-[#6F736D] ">
-                            {{ adv?.description || '' }}
+                        <p class="text-[16px] font-Gilroy text-[#6F736D] ">
+                            {{ adv.subtitle || '' }}
                         </p>
                         <span class="block w-[230px] mx-auto mt-auto relative ">
                             <img :src="diamondImages[Math.floor(Math.random() * diamondImages.length)]" alt="diamond"
@@ -138,7 +144,7 @@
     </section>
 
     <!-- News ===================================================================================== -->
-    <NewsSection class="pb-[120px]"/>
+    <NewsSection class="pb-[120px]" />
 
 
 </template>
@@ -154,7 +160,7 @@
         left: 50%;
         transform: translateX(-50%);
         bottom: -362px;
-        // background: #EDC928;
+        background: #2C702C;
         filter: blur(137.15px);
         border-radius: 50%;
         z-index: 1;
