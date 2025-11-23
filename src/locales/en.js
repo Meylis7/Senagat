@@ -38,7 +38,7 @@ export default {
       adv_1: {
         title: 'Opening account',
         text:
-          'Any mutual relations of the Client with Bank begin with opening the account. Opening of settlement accounts is adjusted by the current legislation of Turkmenistan. The bank account is a way of reflection of contractual attitudes between Bank and the Client on fulfilment of Bank operations.' +
+          'Any mutual relations of the Client with Bank begin with opening the account. Opening of settlement accounts is adjusted by the current legislation of Turkmenistan. The bank account is a way of reflection of contractual attitudes between Bank and the Client on fulfilment of Bank operations.<br>' +
           'There are some kinds of accounts:',
         list: [
           'The settlement account (subaccount)',
@@ -89,6 +89,61 @@ export default {
       },
     },
   },
+  bankService: {
+    title: 'Banking Services',
+    subTitle: 'Dear citizens!',
+    text: '«Senagat» JSCB offers you the following services and activities:',
+    list: [
+      {
+        title: 'Credit',
+        text: 'Crediting legal and physical persons',
+      },
+      {
+        title: 'Money transfers',
+        text: ' Electronic remittances «Yanardag» and «Western Union»',
+      },
+      {
+        title: 'Electronic payment',
+        text: ' Electronic payments «AltynAsyr» and«Master Cart»',
+      },
+      {
+        title: 'Bank acts',
+        text: ' Factoring and leasing operations',
+      },
+      {
+        title: ' Factoring and leasing operations',
+        list: [
+          'Tender guarantee',
+          'Guarantee of return of advance payment',
+          'Credit security guarantee',
+        ],
+      },
+      {
+        title: 'Deposit transactions',
+        text: ' Various kinds of depositary contributions in national and in a foreign currency',
+      },
+      {
+        title: 'Foreign payments',
+        text: ' Payments in foreign countries on international payment system «SWIFT»',
+      },
+      {
+        title: 'Letter of credit services',
+        text: ' Services under the letter of credit',
+      },
+      {
+        title: 'Cash service',
+        text: ' Cash service',
+      },
+      {
+        title: 'Settlement and payment transactions',
+        text: ' Pay-sheet operations, others',
+      },
+      {
+        title: 'Internet banking',
+        text: ' «Internet banking» and «Mobile banking» and others',
+      },
+    ],
+  },
   charity: {
     title: 'Charitable Foundation',
     text: 'The preliminary payment calculation is for informational purposes only and is calculated on the condition of processing financial credit protection. It does not constitute a public offer.',
@@ -122,6 +177,7 @@ export default {
     moneyTransfers: 'Money Transfers',
     electronicPayments: 'Electronic Payments',
     guarantees: 'Guarantees',
+    information: 'Information',
   },
   nav: {
     loans: {
@@ -178,20 +234,6 @@ export default {
   yanardag: {
     title: 'Yanardag',
     subTitle: 'The easiest way to transfer money',
-    adv: {
-      adv_1: {
-        title: 'Fast Service',
-        subtitle: 'Deposit on the balance of funds on the card',
-      },
-      adv_2: {
-        title: 'Easy to Use',
-        subtitle: 'Cashback Service',
-      },
-      adv_3: {
-        title: 'Secure Transfer',
-        subtitle: 'Cashback Service',
-      },
-    },
   },
 
   cash: {

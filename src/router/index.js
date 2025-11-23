@@ -61,11 +61,11 @@ const router = createRouter({
           name: 'deposits-detail',
           component: () => import('@/views/website/DepositDetailView.vue'),
         },
-
         {
-          path: 'yanardag',
-          name: 'yanardag',
-          component: () => import('@/views/website/YanardagView.vue'),
+          path: 'transfer/:id',
+          name: 'transfer',
+          component: () => import('@/views/website/TransferView.vue'),
+          props: true,
         },
         {
           // Расчетно-кассовые обслуживание
@@ -84,6 +84,18 @@ const router = createRouter({
           path: 'documents',
           name: 'documents',
           component: () => import('@/views/website/DocumentsView.vue'),
+        },
+        {
+          // Аудиторские отчеты
+          path: 'audit',
+          name: 'audit',
+          component: () => import('@/views/website/AuditView.vue'),
+        },
+        {
+          // Услуги банка
+          path: 'information',
+          name: 'information',
+          component: () => import('@/views/website/InformationView.vue'),
         },
       ],
     },

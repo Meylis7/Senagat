@@ -16,15 +16,9 @@
     error.value = null
     try {
       const response = await apiService.fetchNews({ limit: 4 })
-      if (response?.success && Array.isArray(response?.data)) {
-        items.value = response.data
-      } else if (Array.isArray(response)) {
-        items.value = response
-      } else if (Array.isArray(response?.data)) {
-        items.value = response.data
-      } else {
-        items.value = []
-      }
+      const list = response?.data || response || []
+      const arr = Array.isArray(list) ? list : []
+      items.value = arr.slice(0, 4)
     } catch (e) {
       error.value = e.message || 'Failed to load news'
       items.value = []

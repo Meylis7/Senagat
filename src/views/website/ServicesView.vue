@@ -1,45 +1,73 @@
 <script setup>
-    import { ref, computed, onMounted, nextTick, watch } from 'vue';
-    import { RouterLink } from 'vue-router';
-    import { useI18n } from 'vue-i18n';
-    const { t, locale } = useI18n();
+    import { ref, computed, onMounted, nextTick, watch } from 'vue'
+    import { RouterLink } from 'vue-router'
+    import { useI18n } from 'vue-i18n'
+    import apiService from '@/services/apiService'
+    const { t } = useI18n()
 
-
-    // Tabs ==============================================================
-    const activeTab = ref('Все');
-    const tabRefs = ref([]);
-    const sliderStyle = ref({});
+    const activeTab = ref('all')
+    const tabRefs = ref([])
+    const sliderStyle = ref({})
 
     const setActiveTab = (tab) => {
-        activeTab.value = tab;
-        updateSlider();
-    };
+        activeTab.value = tab
+        updateSlider()
+    }
 
-    const tabOrder = ['Все', 'Вклад', 'Кредиты', 'Карты'];
-    const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
+    const tabOrder = ['all', 'transfers', 'information']
+    const activeIndex = computed(() => tabOrder.indexOf(activeTab.value))
 
     const updateSlider = () => {
         nextTick(() => {
-            const index = activeIndex.value;
+            const index = activeIndex.value
             if (tabRefs.value[index]) {
-                const button = tabRefs.value[index];
+                const button = tabRefs.value[index]
                 sliderStyle.value = {
                     width: `${button.offsetWidth}px`,
-                    transform: `translateX(${button.offsetLeft - 4}px)`
-                };
+                    transform: `translateX(${button.offsetLeft - 4}px)`,
+                }
             }
-        });
-    };
+        })
+    }
 
     onMounted(() => {
-        updateSlider();
-        window.addEventListener('resize', updateSlider);
-    });
+        updateSlider()
+        window.addEventListener('resize', updateSlider)
+    })
 
-    // Watch for activeTab changes to update slider
     watch(activeTab, () => {
-        updateSlider();
-    });
+        updateSlider()
+    })
+
+    const transfers = ref([])
+    const transfersLoading = ref(false)
+    const transfersError = ref(null)
+
+    const fetchTransfers = async () => {
+        transfersLoading.value = true
+        transfersError.value = null
+        try {
+            const response = await apiService.get('/v1/money-transfers')
+            if (response?.success && Array.isArray(response?.data)) {
+                transfers.value = response.data
+            } else if (Array.isArray(response)) {
+                transfers.value = response
+            } else if (Array.isArray(response?.data)) {
+                transfers.value = response.data
+            } else {
+                transfers.value = []
+            }
+        } catch (e) {
+            transfersError.value = e.message || 'Failed to load transfers'
+            transfers.value = []
+        } finally {
+            transfersLoading.value = false
+        }
+    }
+
+    onMounted(() => {
+        fetchTransfers()
+    })
 </script>
 
 <template>
@@ -85,39 +113,32 @@
 
                         <button type="button" :ref="el => tabRefs[0] = el"
                             class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
-                            :class="activeTab === 'Все' ? 'text-mainWhite py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab('Все')">
+                            :class="activeTab === 'all' ? 'text-mainWhite py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab('all')">
                             {{ t('tabs.all') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[1] = el"
                             class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
-                            :class="activeTab === 'Вклад' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab('Вклад')">
+                            :class="activeTab === 'transfers' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab('transfers')">
                             {{ t('tabs.moneyTransfers') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[2] = el"
                             class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
-                            :class="activeTab === 'Кредиты' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab('Кредиты')">
-                            {{ t('tabs.ePayments') }}
-                        </button>
-
-                        <button type="button" :ref="el => tabRefs[3] = el"
-                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
-                            :class="activeTab === 'Карты' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                            @click="setActiveTab('Карты')">
-                            {{ t('tabs.guarantees') }}
+                            :class="activeTab === 'information' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
+                            @click="setActiveTab('information')">
+                            {{ t('tabs.information') }}
                         </button>
                     </div>
                 </div>
 
-                <div v-show="activeTab === 'Все'" class="grid gap-4 lg:grid-cols-12">
+                <div v-show="activeTab === 'all'" class="grid gap-4 lg:grid-cols-12">
                     <div class="lg:col-span-8 grid gap-4 sm:grid-cols-2">
                         <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
                             <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                                Банковская карта «Алтын Асыр»
+                                Вклад Банковская карта «Алтын Асыр»
                             </h6>
                             <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
@@ -177,109 +198,130 @@
                     </div>
                 </div>
 
-                <div v-show="activeTab === 'Вклад'" class="grid gap-4 lg:grid-cols-12">
+                <div v-show="activeTab === 'transfers'" class="grid gap-4 lg:grid-cols-12">
                     <div class="lg:col-span-8 grid gap-4 sm:grid-cols-2">
-                        <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                                Депозитный вклад «Забота о родителях»
-                            </h6>
-                            <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                            <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/10p.png" class="block max-h-full object-contain"
-                                    alt="percent">
-                            </span>
+                        <article v-if="transfersLoading" v-for="n in 2" :key="n"
+                            class="rounded-[20px] bg-white p-8 animate-pulse">
+                            <div class="h-6 bg-gray-200 rounded w-40 mb-4"></div>
+                            <div class="h-4 bg-gray-200 rounded w-28"></div>
+                        </article>
+
+                        <div v-else-if="transfersError && transfers.length === 0"
+                            class="col-span-2 rounded-[20px] bg-white p-8">
+                            <p class="text-[17px] text-[#6F736D] font-Gilroy">{{ transfersError }}</p>
                         </div>
 
-                        <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                        <RouterLink v-else v-for="item in transfers" :key="item.id"
+                            :to="{ name: 'transfer', params: { id: item.id } }"
+                            class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
                             <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                                Депозитный вклад «Забота о родителях»
+                                {{ item?.title || '' }}
                             </h6>
-                            <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                            <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">{{ item?.main_title || ''
+                                }}</p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/10p.png" class="block max-h-full object-contain"
-                                    alt="percent">
+                                <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain"
+                                    alt="transfer">
                             </span>
-                        </div>
+                        </RouterLink>
+                    </div>
+                </div>
 
-                        <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                                Депозитный вклад «Забота о родителях»
-                            </h6>
-                            <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                            <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/10p.png" class="block max-h-full object-contain"
-                                    alt="percent">
-                            </span>
-                        </div>
+                <div v-show="activeTab === 'information'" class="grid gap-4 lg:grid-cols-12">
+                    <RouterLink to="/cash"
+                        class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                        <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
+                            Расчетная касса
+                        </h6>
+                        <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                        <span class="max-h-[120px] h-full flex items-end justify-end">
+                            <img src="../../assets/images/cash.png" class="block max-h-full object-contain" alt="card">
+                        </span>
+                    </RouterLink>
+
+                    <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                        <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
+                            Документы по A0установке терминала
+                        </h6>
+                        <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                        <span class="max-h-[120px] h-full flex items-end justify-end">
+                            <img src="../../assets/images/terminal.png" class="block max-h-full object-contain"
+                                alt="cart">
+                        </span>
                     </div>
 
-                    <div
-                        class="lg:col-span-4 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
-                        <h6 class="text-[34px] leading-9 font-bold mb-[10px]">
-                            Депозитный вклад «Выгодный»
+                    <RouterLink to="/guarantees"
+                        class="lg:col-span-4 lg:row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
+                        <h6 class="text-mainWhite text-[34px] leading-9 font-bold mb-[10px]">
+                            Банковские гарантии
                         </h6>
                         <p class="text-mainWhite max-w-[420px] opacity-60">
                             Без пополнения и снятия с возможностью расторжения в любой момент
                         </p>
-
-                        <span class="absolute right-1/2 translate-x-1/2 bottom-20 max-w-[240]">
-                            <img src="../../assets/images/1.5p.png"
+                        <span class="absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px] z-[1]">
+                            <img src="../../assets/images/Guarantees.png"
                                 class="block w-full h-full object-contain select-none pointer-events-none"
                                 alt="percent">
                         </span>
-                    </div>
-                </div>
+                    </RouterLink>
 
-                <div v-show="activeTab === 'Кредиты'" class="grid gap-4 lg:grid-cols-12">
-                    <div class="lg:col-span-7 grid gap-4 sm:grid-cols-2">
-                        <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                                Потребительские кредиты
-                            </h6>
-                            <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                            <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/cart.png" class="block max-h-full object-contain"
-                                    alt="cart">
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                    <RouterLink to="/audit"
+                        class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                        <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
+                            Аудиторские отчеты
+                        </h6>
+                        <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Cамый простой способ перевести
+                            деньги</p>
+                        <span class="max-h-[120px] h-full flex items-end justify-end">
+                            <img src="../../assets/images/audit.png" class="block max-h-full object-contain"
+                                alt="percent">
+                        </span>
+                    </RouterLink>
 
-                <div v-show="activeTab === 'Карты'" class="grid gap-4 lg:grid-cols-12">
-                    <div class="lg:col-span-7 grid gap-4 sm:grid-cols-2">
-                        <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                                Банковская карта «Алтын Асыр»
-                            </h6>
-                            <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                            <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/altyn-asyr-card.png"
-                                    class="block max-h-full object-contain" alt="card">
-                            </span>
-                        </div>
-
-                        <div class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                                Банковская карта «Гоюм»
-                            </h6>
-                            <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                            <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/altyn-asyr-card.png"
-                                    class="block max-h-full object-contain" alt="card">
-                            </span>
-                        </div>
-                    </div>
+                    <RouterLink to="/documents"
+                        class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                        <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
+                            Тарифы на услуги
+                        </h6>
+                        <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
+                        <span class="max-h-[120px] h-full flex items-end justify-end">
+                            <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain"
+                                alt="card">
+                        </span>
+                    </RouterLink>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Foundation ======================================================== -->
     <section class="pt-[60px] pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center justify-between relative bg-mainWhite rounded-[20px] p-8 overflow-hidden">
+                <div
+                    class="flex items-center justify-between relative bg-mainWhite rounded-[20px] p-8 overflow-hidden mb-10">
                     <div class="block max-w-[460px]">
+                        <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack">
+                            Услуги банка
+                        </h4>
+                        <p class="text-[#6F736D] text-[17px] leading-6 mb-8">
+                            АКБ «Сенагат» предлагает Вам следующие услуги и виды деятельности
+                        </p>
+                        <RouterLink to="/information"
+                            class="w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
+                            Узнать больше
+                        </RouterLink>
+                    </div>
+
+                    <span class="max-h-[220px] flex items-end justify-end">
+                        <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain"
+                            alt="card">
+                    </span>
+
+                    <span class="bg-circle"></span>
+                </div>
+
+                <div class="flex items-center justify-between relative bg-mainWhite rounded-[20px] p-8 overflow-hidden">
+                    <div class="block max-w-[500px]">
                         <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack">
                             Перечень документов для открытия счета
                         </h4>
@@ -287,7 +329,7 @@
                             Любые взаимоотношения Клиента с Банком начинаются с открытия счета. Открытие расчетных
                             счетов регулируется действующим законодательством Туркменистана.
                         </p>
-                        <RouterLink to="/"
+                        <RouterLink to="/documents"
                             class="w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
                             Узнать больше
                         </RouterLink>

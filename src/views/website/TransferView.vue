@@ -6,6 +6,7 @@
     import apiService from '@/services/apiService'
     import diamond1 from '@/assets/images/dimond-1.png'
     import diamond2 from '@/assets/images/dimond-2.png'
+    import '@/assets/css/text.scss'
 
     import NewsSection from '@/components/website/NewsSection.vue';
 
@@ -13,57 +14,50 @@
     const { t } = useI18n()
     const route = useRoute()
 
-    const depositId = computed(() => route.params?.id || route.query?.id)
-    const deposit = ref(null)
+    const transferId = computed(() => route.params?.id || route.query?.id)
+    const transfer = ref(null)
     const loading = ref(false)
     const error = ref(null)
 
     const breadcrumbItems = computed(() => {
+        const currentTitle = transfer.value?.title || ''
         return [
             { label: t('breadcrumb.home'), path: '/' },
             { label: t('breadcrumb.services'), path: '/services' },
-            { label: t('yanardag.title') },
+            { label: currentTitle },
         ]
     })
 
-    const fetchDepositDetail = async () => {
-        if (!depositId.value) return
+    const fetchTransferDetail = async () => {
+        if (!transferId.value) return
         loading.value = true
         error.value = null
         try {
-            const response = await apiService.get(`/v1/deposits/${depositId.value}`)
+            const response = await apiService.get(`/v1/money-transfers/${transferId.value}`)
             const data = response?.data || response
             if (data && !Array.isArray(data)) {
-                deposit.value = data
+                transfer.value = data
             } else {
-                deposit.value = null
-                error.value = 'Deposit not found'
+                transfer.value = null
+                error.value = 'Transfer not found'
             }
         } catch (e) {
-            error.value = e.message || 'Failed to load deposit'
-            deposit.value = null
+            error.value = e.message || 'Failed to load transfer'
+            transfer.value = null
         } finally {
             loading.value = false
         }
     }
 
     onMounted(() => {
-        fetchDepositDetail()
+        fetchTransferDetail()
     })
 
     const diamondImages = [diamond1, diamond2]
 
     const advColSpan = computed(() => {
-        const n = (localeAdvs.value || []).length
+        const n = (transfer.value?.advantages || []).length
         return n === 2 ? 'col-span-6' : 'col-span-4'
-    })
-
-    const localeAdvs = computed(() => {
-        return [
-            { title: t('yanardag.adv.adv_1.title'), subtitle: t('yanardag.adv.adv_1.subtitle') },
-            { title: t('yanardag.adv.adv_2.title'), subtitle: t('yanardag.adv.adv_2.subtitle') },
-            { title: t('yanardag.adv.adv_3.title'), subtitle: t('yanardag.adv.adv_3.subtitle') },
-        ]
     })
 
 </script>
@@ -82,22 +76,22 @@
 
 
                 <h1 class="m-auto max-w-[600px] text-mainWhite mb-[10px] text-center text-5xl font-bold">
-                    {{ t('yanardag.title') }}
+                    {{ transfer?.title }}
                 </h1>
 
                 <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
-                    {{ t('yanardag.subTitle') }}
+                    {{ transfer?.sub_title || '' }}
                 </p>
 
 
                 <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
-                    <img src="../../assets/images/yanardag.png" class="block w-full h-full object-contain" alt="card">
+                    <img :src="transfer?.image_url" class="block w-full h-full object-contain" alt="card">
                 </span>
             </div>
         </div>
 
         <span class="card-bg-circle"
-            :style="deposit?.background_color ? { background: deposit.background_color } : null"></span>
+            :style="transfer?.background_color ? { background: transfer.background_color } : null"></span>
     </section>
 
     <!-- Info  ================================================ -->
@@ -105,13 +99,13 @@
         <div class="auto_container">
             <div class="wrap">
                 <div class="grid grid-cols-12 gap-x-4">
-                    <div v-for="(adv, idx) in localeAdvs" :key="idx"
+                    <div v-for="(adv, idx) in (transfer?.advantages || [])" :key="idx"
                         :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center']">
                         <h3 class="text-[28px] font-bold mb-[10px] leading-9">
-                            {{ adv.title || '' }}
+                            {{ adv?.title || adv?.name || '' }}
                         </h3>
-                        <p class="text-[16px] font-Gilroy text-[#6F736D] ">
-                            {{ adv.subtitle || '' }}
+                        <p v-if="adv?.description" class="text-[17px] font-Gilroy text-[#6F736D]">
+                            {{ adv?.description }}
                         </p>
                         <span class="block w-[230px] mx-auto mt-auto relative ">
                             <img :src="diamondImages[Math.floor(Math.random() * diamondImages.length)]" alt="diamond"
@@ -127,18 +121,40 @@
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Полезная информация</h2>
+                <div class="text-[18px] mb-10 leading-9 description" v-html="transfer?.header_text || ''"></div>
 
-                <div class="block p-8 rounded-[20px] mb-4 bg-mainWhite">
-                    <div v-for="(adv, i) in (deposit?.details || [])" :key="i">
-                        <div class="py-[20px] border-solid border-0 border-b border-[#6F736D]">
-                            <p class=" text-[17px] font-Gilroy">
-                                {{ adv?.description }}
-                            </p>
-                        </div>
+                <h2 class="text-[28px] font-bold mb-10 leading-9 text-center">Tariff table</h2>
+
+                <div class="my-10" v-if="Array.isArray(transfer?.tariff_details) && transfer.tariff_details.length">
+                    <div v-for="(detail, di) in transfer.tariff_details" :key="di" class="mb-8">
+                        <h3 v-if="detail?.table_title" class="text-[20px] text-center mb-4 leading-8">
+                            {{ detail.table_title }}
+                        </h3>
+                        <table class="rounded-[20px] bg-mainWhite w-full text-center">
+                            <thead>
+                                <tr>
+                                    <th class="text-left pt-6 pb-4 px-4">#</th>
+                                    <th class="text-left pt-6 pb-4 px-4">Type of services and operations</th>
+                                    <th class="pb-4 px-4 pt-6">Service cost</th>
+                                    <th class="pb-4 px-4 pt-6">VAT</th>
+                                    <th class="pb-4 px-4 pt-6">Total payment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(row, ri) in (detail?.rows || [])" :key="ri"
+                                    class="border-solid border-0 border-b border-[#cecece] last:border-0 px-4 shadow-sm hover:shadow-md transition tr-3d">
+                                    <td class="text-left py-3 px-4">{{ ri + 1 }}</td>
+                                    <td class="text-left py-3 px-4">{{ row?.service_type || '' }}</td>
+                                    <td class="py-3 px-4">{{ row?.service_cost || '' }}</td>
+                                    <td class="py-3 px-4">{{ row?.vat || '' }}</td>
+                                    <td class="py-3 px-4">{{ row?.total_payment || '' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
+                <div class="text-[18px] mb-10 leading-9 description" v-html="transfer?.footer_text || ''"></div>
             </div>
         </div>
     </section>
@@ -160,7 +176,7 @@
         left: 50%;
         transform: translateX(-50%);
         bottom: -362px;
-        background: #2C702C;
+        // background: #EDC928;
         filter: blur(137.15px);
         border-radius: 50%;
         z-index: 1;
@@ -186,6 +202,16 @@
     .accordion-enter-to,
     .accordion-leave-from {
         opacity: 1;
-        max-height: 500px;
+        box-shadow: 0 4px 0 0 #cecece;
+    }
+
+    .tr-3d {
+        transition: transform .2s ease, box-shadow .2s ease;
+        transform-style: preserve-3d;
+    }
+
+    .tr-3d:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
     }
 </style>

@@ -64,9 +64,7 @@
                     <p v-if="adv.subtitle" class="col-span-6 text-[17px] font-Gilroy mb-2">
                         {{ adv.subtitle }}
                     </p>
-                    <p v-if="adv.text" class="col-span-6 text-[17px] font-Gilroy mb-2">
-                        {{ adv.text }}
-                    </p>
+                    <p v-if="adv.text" class="col-span-6 text-[17px] font-Gilroy mb-2" v-html="adv.text"></p>
                     <div v-if="Array.isArray(adv.list) && adv.list.length">
                         <ul class="text-[17px] font-Gilroy list-disc space-y-2 pl-0">
                             <li v-for="(line, i) in adv.list" :key="i"

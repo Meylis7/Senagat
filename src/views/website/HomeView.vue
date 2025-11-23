@@ -68,11 +68,6 @@
     e.target.value = formatMoney(num);
   };
 
-  // Term Options ==============================================================================
-  const termOptions = ['6 мес', '1 год', '1.5 года', '2 года', '3 года'];
-  const selectedTerm = ref('2 года');
-  const creditSelectedTerm = ref('2 года');
-
   // Currency Section ==========================================================================
   const currencyTabs = ['Текущий курс', 'Обмен'];
   const currencyActiveTab = ref('Текущий курс');

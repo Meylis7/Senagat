@@ -36,7 +36,7 @@ export default {
       adv_1: {
         title: 'Hasap açmak',
         text:
-          'Müşderi bilen Bankyň arasyndaky islendik gatnaşyk - hasaby açmak bilen başlaýar. Hasaplaşyk hasaplaryň açylmagy Türkmenistanyň hereket edýän kanunçylygy bilen düzgünleşdirilýär. Hasap açmak we ýöretmek üçin, Müşderi Bank bilen hasaplaşyk kassa hyzmatlary üçin şertnama baglaşýar.' +
+          'Müşderi bilen Bankyň arasyndaky islendik gatnaşyk - hasaby açmak bilen başlaýar. Hasaplaşyk hasaplaryň açylmagy Türkmenistanyň hereket edýän kanunçylygy bilen düzgünleşdirilýär. Hasap açmak we ýöretmek üçin, Müşderi Bank bilen hasaplaşyk kassa hyzmatlary üçin şertnama baglaşýar.<br>' +
           'Hasaplaryň birnäçe görnüşleri bar:',
         list: [
           'Hasaplaşyk hasaby (kömekçi hasaby)',
@@ -86,6 +86,62 @@ export default {
       },
     },
   },
+
+  bankService: {
+    title: 'Banking Services',
+    subTitle: 'Dear citizens!',
+    text: '«Senagat» JSCB offers you the following services and activities:',
+    list: [
+      {
+        title: 'Karz',
+        text: 'Edara görnüşli taraplara we fiziki şahslara karz(kredit) bermek',
+      },
+      {
+        title: 'Pul geçirimleri',
+        text: ' «Ýanardag» we «Western Union» elektron pul geçirimleri',
+      },
+      {
+        title: 'Elektron tölegleri',
+        text: ' «Altyn Asyr» we «MasterCard» elektron tölegleri',
+      },
+      {
+        title: 'Bank amallary',
+        text: ' Faktoring we lizing boýunça amallar',
+      },
+      {
+        title: ' Bank kepillikleri',
+        list: [
+          'Bäsleşik (Tender) kepilligi',
+          'Hakujy tölegleriniň gaýtarylmagynyň kepillendirmesi',
+          'Karzyň üpjün etmegiň kepillendirmesi',
+        ],
+      },
+      {
+        title: 'Depozit amallary',
+        text: ' Milli we daşary ýurt walýutasynda depozit goýumlarynyň dürli görnüşleri',
+      },
+      {
+        title: 'Daşary ýurt tölegleri',
+        text: ' «SWIFT» halkara töleg ulgamy boýunça daşary ýurtlara tölegler',
+      },
+      {
+        title: 'Akkreditiw hyzmaty',
+        text: ' Akkreditiw boýunça hyzmatlar',
+      },
+      {
+        title: 'Pulhana hyzmaty',
+        text: ' Pulhana hyzmatlary',
+      },
+      {
+        title: 'Hasaplaşyk we töleg hyzmaty',
+        text: ' Hasaplaşyk-töleg amallary',
+      },
+      {
+        title: 'Internet bank',
+        text: ' «Onlaýn bank» and «Mobil banking» we başgalar',
+      },
+    ],
+  },
   charity: {
     title: 'Haýyr-sahawat gaznasy',
     text: 'Deslapky tölеgiň hasaby maglumat maksatly bolup, kredidiň maliýe goragy resmileşdirilen ýagdaýynda hasaplanýar. Bu köpçülige hödürlenýän teklip däl',
@@ -116,6 +172,7 @@ export default {
     moneyTransfers: 'Pul geçirimleri',
     ePayments: 'Elektron tölegler',
     guarantees: 'Kepillikler',
+    information: 'Maglumat',
   },
   nav: {
     loans: {
@@ -180,20 +237,6 @@ export default {
   yanardag: {
     title: 'Ýanardag',
     subTitle: 'Pul geçirmegiň iň aňsat usuly',
-    adv: {
-      adv_1: {
-        title: 'Tiz hyzmat',
-        subtitle: 'Kartdaky pul galyndysyna goýum',
-      },
-      adv_2: {
-        title: 'Ulanmasy ýeňil',
-        subtitle: '«Keşbek» hyzmaty',
-      },
-      adv_3: {
-        title: 'Ygtybarly pul geçirimi',
-        subtitle: '«Keşbek» hyzmaty',
-      },
-    },
   },
 
   cash: {
