@@ -2,13 +2,16 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [vue(), vueDevTools()],
+export default defineConfig(({ mode }) => ({
+  // logLevel: 'error',
+  plugins: [vue()],
+  assetsInclude: ['**/*.docx', '**/*.doc'],
+  css: { devSourcemap: false },
   server: {
     port: 3000,
+    hmr: { overlay: false },
     proxy: {
       '/api': {
         target: 'http://109.207.172.16:4433/api',
@@ -27,4 +30,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-})
+}))

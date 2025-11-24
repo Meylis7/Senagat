@@ -97,6 +97,12 @@ const router = createRouter({
           name: 'information',
           component: () => import('@/views/website/InformationView.vue'),
         },
+        {
+          // Документы по установке терминала
+          path: 'terminal',
+          name: 'terminal',
+          component: () => import('@/views/website/TerminalView.vue'),
+        },
       ],
     },
 

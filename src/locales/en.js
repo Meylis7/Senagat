@@ -1,3 +1,5 @@
+import { list } from 'postcss'
+
 export default {
   header: {
     privateClients: 'Individual',
@@ -290,6 +292,45 @@ export default {
           'is a bank guarantee to secure the obligations of the borrower under the loan agreement to the lender',
       },
     },
+  },
+  terminal: {
+    title: 'Terminal Installation Documents',
+    subTitle: 'Full list of official documents required for terminal installation application',
+    text: 'List of documents for installing a payment terminal:',
+    docs: [
+      {
+        title: 'For private entrepreneur - individuals',
+        list: [
+          'Requisites of settlement accounts',
+          'Copy of passport',
+          'A copy of the certificate of registration of a private entrepreneur',
+          'A copy of the tax registration certificate',
+          'Copy of patent',
+          'A copy of the lease agreement or the title deed',
+        ],
+      },
+      {
+        title: 'For legal entities (I.E. and E.S.):',
+        list: [
+          "Copy of the director's passport",
+          'Guaranteed copy of Turkmenistan from the Unified State Register of Legal Entities',
+          'Guaranteed copy of the Articles of Association or Regulations of legal entities',
+          'A certified copy of the Certificate of state registration and inclusion in the Unified State Register of Legal Entities of Turkmenistan',
+          'Copy of the lease or title deed (if applicable)',
+        ],
+      },
+    ],
+    application: 'Application',
+    downloadItems: [
+      {
+        title: "Agreement on the use of the bank's property",
+        lang: '(in turkmen language)',
+      },
+      {
+        title: 'Contract attachment',
+        lang: '(in turkmen language)',
+      },
+    ],
   },
   news: {
     title: 'News worth sharing',

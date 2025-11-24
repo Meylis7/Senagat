@@ -239,16 +239,17 @@
                         </span>
                     </RouterLink>
 
-                    <div class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                    <RouterLink to="/terminal"
+                        class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
                         <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                            Документы по A0установке терминала
+                            Документы по установке терминала
                         </h6>
                         <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
                         <span class="max-h-[120px] h-full flex items-end justify-end">
                             <img src="../../assets/images/terminal.png" class="block max-h-full object-contain"
                                 alt="cart">
                         </span>
-                    </div>
+                    </RouterLink>
 
                     <RouterLink to="/guarantees"
                         class="lg:col-span-4 lg:row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
@@ -270,7 +271,8 @@
                         <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                             Аудиторские отчеты
                         </h6>
-                        <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Cамый простой способ перевести
+                        <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Cамый простой способ
+                            перевести
                             деньги</p>
                         <span class="max-h-[120px] h-full flex items-end justify-end">
                             <img src="../../assets/images/audit.png" class="block max-h-full object-contain"

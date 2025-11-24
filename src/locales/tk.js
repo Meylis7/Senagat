@@ -294,6 +294,45 @@ export default {
       },
     },
   },
+  terminal: {
+    title: 'Terminallary gurnamagyň resminamalary',
+    subTitle: 'Terminaly gurnatmak üçin zerur resminamalaryň sanawy',
+    text: 'Töleg terminallaryny gurnamak üçin hödürlenmeli resminamalaryň sanawy:',
+    docs: [
+      {
+        title: 'Hususy telekeçi – şahsy taraplar üçin',
+        list: [
+          'Hasaplaşyk hasabynyň rekwizitleri',
+          'Pasportyň nusgasy',
+          'Hususy telekeçiniň bellige alyş şahadatnamasynyň nusgasy',
+          'Salgyt hasabyna goýlandygy hakynda şahadatnamanyň nusgasy',
+          'Patentiň nusgasy',
+          'Kärende şertnamanyň ýa-da eýeçilik hukugy barada resminamanyň nusgasy',
+        ],
+      },
+      {
+        title: 'Ýuridiki şahslar (H.K. we H.J.) üçin:',
+        list: [
+          'Direktoryň pasport nusgasy',
+          'Türkmenistanyň Edara görnüşli taraplaryň ýeke-täk döwlet sanawyndan göçürmesiniň kepillendirilen nusgasy',
+          'Ýuridiki şahslaryň Tertipnamasynyň ýa-da Düzgünnamasynyň kepillendirilen nusgasy',
+          'Döwlet tarapyndan hasaba almak hem-de Türkmenistanyň Edara görnüşli taraplarynyň ýeke-täk döwlet sanawyna girizmek baradaky Şahadatnamasynyň kepillendirilen nusgasy',
+          'Kärende şertnamanyň ýa-da eýeçilik hukugy barada resminamanyň nusgasy (zerurlygyna görä)',
+        ],
+      },
+    ],
+    application: 'Arza',
+    downloadItems: [
+      {
+        title: 'Bankyň emlägini (terminalyny) ulanmaga bermek baradaky şertnamasy',
+        lang: '(türkmen dilinde)',
+      },
+      {
+        title: 'Şertnamanyň goşundysy',
+        lang: '(türkmen dilinde)',
+      },
+    ],
+  },
   news: {
     title: 'Täzelikler',
     news: 'Täzelik',
