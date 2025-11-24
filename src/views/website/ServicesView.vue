@@ -172,11 +172,6 @@
 
                 <div v-show="activeTab === 'all'" class="grid gap-4 lg:grid-cols-12">
                     <div class="lg:col-span-12 grid gap-4 lg:grid-cols-12 sm:grid-cols-2">
-                        <!-- <article v-if="transfersLoading" v-for="n in 2" :key="`all-skeleton-${n}`"
-                            class="lg:col-span-4 rounded-[20px] bg-white p-8 animate-pulse">
-                            <div class="h-6 bg-gray-200 rounded w-40 mb-4"></div>
-                            <div class="h-4 bg-gray-200 rounded w-28"></div>
-                        </article> -->
                         <RouterLink v-for="(it, idx) in visibleAllItems" :key="idx"
                             :to="it.type === 'transfer' ? { name: 'transfer', params: { id: it.data.id } } : it.data.to"
                             :class="it.type === 'transfer'
@@ -338,10 +333,10 @@
                 <div
                     class="flex items-center justify-between relative bg-mainWhite rounded-[20px] p-8 overflow-hidden mb-10">
                     <div class="block max-w-[460px]">
-                        <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack">
+                        <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack leading-tight">
                             Услуги банка
                         </h4>
-                        <p class="text-[#6F736D] text-[17px] leading-6 mb-8">
+                        <p class="text-[#6F736D] text-[17px] leading-6 mb-8 leading-tight">
                             АКБ «Сенагат» предлагает Вам следующие услуги и виды деятельности
                         </p>
                         <RouterLink to="/information"
@@ -360,10 +355,10 @@
 
                 <div class="flex items-center justify-between relative bg-mainWhite rounded-[20px] p-8 overflow-hidden">
                     <div class="block max-w-[500px]">
-                        <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack">
+                        <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack leading-tight">
                             Перечень документов для открытия счета
                         </h4>
-                        <p class="text-[#6F736D] text-[17px] leading-6 mb-8">
+                        <p class="text-[#6F736D] text-[17px] leading-6 mb-8 leading-tight">
                             Любые взаимоотношения Клиента с Банком начинаются с открытия счета. Открытие расчетных
                             счетов регулируется действующим законодательством Туркменистана.
                         </p>

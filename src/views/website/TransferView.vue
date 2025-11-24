@@ -123,7 +123,9 @@
             <div class="wrap">
                 <div class="text-[18px] mb-10 leading-9 description" v-html="transfer?.header_text || ''"></div>
 
-                <h2 class="text-[28px] font-bold mb-10 leading-9 text-center">Tariff table</h2>
+                <h2 class="text-[28px] font-bold mb-10 leading-9 text-center">
+                    {{ t('transfer.tableTitle') }}
+                </h2>
 
                 <div class="my-10" v-if="Array.isArray(transfer?.tariff_details) && transfer.tariff_details.length">
                     <div v-for="(detail, di) in transfer.tariff_details" :key="di" class="mb-8">
@@ -134,10 +136,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-left pt-6 pb-4 px-4">#</th>
-                                    <th class="text-left pt-6 pb-4 px-4">Type of services and operations</th>
-                                    <th class="pb-4 px-4 pt-6">Service cost</th>
-                                    <th class="pb-4 px-4 pt-6">VAT</th>
-                                    <th class="pb-4 px-4 pt-6">Total payment</th>
+                                    <th class="text-left pt-6 pb-4 px-4"> {{ t('transfer.serviceType') }}</th>
+                                    <th class="pb-4 px-4 pt-6"> {{ t('transfer.serviceCost') }}</th>
+                                    <th class="pb-4 px-4 pt-6"> {{ t('transfer.vat') }}</th>
+                                    <th class="pb-4 px-4 pt-6"> {{ t('transfer.totalPayment') }}</th>
                                 </tr>
                             </thead>
                             <tbody>

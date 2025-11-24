@@ -133,11 +133,11 @@
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Список отчетов</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9"> {{ t('pageTitle.reportsList') }}</h2>
 
                 <div class="block p-8 rounded-[20px] mb-4 bg-mainWhite">
                     <h6 class="col-span-6 text-[24px] font-bold mb-6">
-                        Аудиторские отчеты
+                        {{ t('nav.informations.auditReports') }}
                     </h6>
 
                     <div class="grid gap-10">

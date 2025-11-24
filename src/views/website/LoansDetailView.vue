@@ -189,7 +189,9 @@
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold leading-9 mb-8">Заявка на открытие вклада</h2>
+                <h2 class="text-[38px] font-bold leading-9 mb-8">
+                    {{ t('pageTitle.depositApplication') }}
+                </h2>
 
                 <div class="grid lg:grid-cols-2 gap-6">
                     <div class="bg-mainWhite rounded-[20px] p-6">
@@ -255,10 +257,13 @@
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Полезная информация</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                    {{ t('pageTitle.usefulInformation') }}
+                </h2>
 
                 <div class="block p-8 rounded-[20px] mb-4 bg-mainWhite">
-                    <div class="text-[17px] description" v-html="credit && credit.requirements_description ? credit.requirements_description : ''">
+                    <div class="text-[17px] description"
+                        v-html="credit && credit.requirements_description ? credit.requirements_description : ''">
                     </div>
                 </div>
             </div>

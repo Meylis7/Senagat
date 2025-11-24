@@ -130,7 +130,7 @@
 
                     <div class="block w-4/12">
                         <h1 class="mb-8 text-[28px] leading-7 font-bold">
-                            Читать еще
+                            {{ t('btn.readMore') }}
                         </h1>
 
                         <!-- <article class="bg-white rounded-[20px] overflow-hidden">

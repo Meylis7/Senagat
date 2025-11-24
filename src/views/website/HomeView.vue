@@ -307,7 +307,7 @@
     const car = shuffle((cards.value || []).map((c) => ({
       title: c.title,
       subtitle: c.sub_title || '',
-      image_url: c.image_url ,
+      image_url: c.image_url,
       type: 'card',
     })))
 

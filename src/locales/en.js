@@ -17,7 +17,32 @@ export default {
     showAll: 'Show all',
     hide: 'Hide',
     downloadAppButton: 'Download the app',
+    form: 'Form',
+    readMore: 'Read more',
   },
+  pageTitle: {
+    reportsList: 'List of Reports',
+    tariffsAndDocuments: 'Tariffs and Documents',
+    docs: 'Documents',
+    otherCards: 'Other Cards',
+    howToGetCard: 'How to get a card',
+    usefulInformation: 'Useful Information',
+    depositApplication: 'Application for opening a deposit',
+  },
+  getCard: [
+    {
+      title: 'Choose a Branch',
+      text: 'Visit the office most convenient for you',
+    },
+    {
+      title: 'Submit an Application',
+      text: 'A specialist will process the application using your passport',
+    },
+    {
+      title: 'Use the Card',
+      text: 'Receive the card, select the categories of the month, and get cashback for purchases',
+    },
+  ],
   offer: {
     title: 'Offers',
   },
@@ -332,9 +357,17 @@ export default {
       },
     ],
   },
+  transfer: {
+    tableTitle: 'Tariff table',
+    serviceType: 'Type of services and operations',
+    serviceCost: 'Service cost',
+    vat: 'vat',
+    totalPayment: 'Total payment',
+  },
   news: {
     title: 'News worth sharing',
     news: 'News',
+    subTitle: 'Only reliable and current information from Senagat',
     noNews: 'No news available yet',
     readUsSocial: 'Follow us on social networks',
     subscribeFirstNews: 'Subscribe and get the news first',
@@ -381,6 +414,12 @@ export default {
       exchangeRates: 'Exchange Rates',
       atmSearch: 'ATM Search',
     },
+  },
+
+  404: {
+    title: "The page won't open — the safe is empty.",
+    text: "The page won't open — the safe is empty.",
+    btn: 'To the homepage',
   },
 
   dashboard: {

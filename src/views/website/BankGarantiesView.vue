@@ -4,8 +4,6 @@
     import { useI18n } from 'vue-i18n'
     import Breadcrumb from '@/components/website/Breadcrumb.vue'
     import apiService from '@/services/apiService'
-    import diamond1 from '@/assets/images/dimond-1.png'
-    import diamond2 from '@/assets/images/dimond-2.png'
 
     import NewsSection from '@/components/website/NewsSection.vue';
 

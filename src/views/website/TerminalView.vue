@@ -136,7 +136,7 @@
         <div class="auto_container">
             <div class="wrap">
                 <h2 class="text-[28px] font-bold mb-10 leading-9">
-                    Документы
+                    {{ t('pageTitle.docs') }}
                 </h2>
 
                 <div v-for="(item, idx) in downloadItems" :key="idx" class="block mb-4">
@@ -151,8 +151,9 @@
                         </div>
                         <div class="block">
                             <h6 class="text-[17px] font-bold text-[#1D2417] underline mb-1 leading-5">
-                                {{ item.title }} <span class="text-sm inline-block ml-2 text-[#6F736D]">{{ item.lang
-                                    }}</span>
+                                {{ item.title }} <span class="text-sm inline-block ml-2 text-[#6F736D]">
+                                    {{ item.lang }}
+                                </span>
                             </h6>
                             <p class="text-[15px] font-Gilroy text-[#6F736D] leading-5">
                                 {{ formatSize(sizeMap[item.url]) || '-' }}

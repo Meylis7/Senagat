@@ -15,7 +15,33 @@ export default {
     showAll: 'Ählisini görkez',
     hide: 'Gizle',
     downloadAppButton: 'Programmany ýükläp al',
+    form: 'Görnüş',
+    readMore: 'Giňişleýin oka',
   },
+  pageTitle: {
+    reportsList: 'Hasabatlaryň sanawy',
+    tariffsAndDocuments: 'Nyrhnamalar we resminamalar',
+    docs: 'Resminamalar',
+    otherCards: 'Başga kartlar',
+    howToGetCard: 'Karty almak ýollary',
+    usefulInformation: 'Peýdaly maglumat',
+    depositApplication: 'Goýum açmak üçin arza',
+  },
+  getCard: [
+    {
+      title: 'Bölümi saýlaň',
+      text: 'Size amatly ofise ýüz tutuň',
+    },
+    {
+      title: 'Arza tabşyryň',
+      text: 'Hünärmen siziň pasportyňyz boýunça arzany resmileşdirer',
+    },
+    {
+      title: 'Karty ulanyň',
+      text: 'Karty alyň, aýlyk kategoriýalary saýlaň we satyn alnan zatlar üçin keşbek alyň',
+    },
+  ],
+
   offer: {
     title: 'Teklipler',
   },
@@ -333,9 +359,17 @@ export default {
       },
     ],
   },
+  transfer: {
+    tableTitle: 'Nyrhnama',
+    serviceType: 'Hyzmatlaryň we amallaryň görnüşi',
+    serviceCost: 'Hyzmatyň nyrhy',
+    vat: 'GBSS',
+    totalPayment: 'Jemi töleg',
+  },
   news: {
     title: 'Täzelikler',
     news: 'Täzelik',
+    subTitle: 'Ygtybarly we möhüm maglumatlar',
     noNews: 'Häzirki wagtda täzelikler ýok',
     readUsSocial: 'Bizi sosial ulgamlarda okaň',
     subscribeFirstNews: 'Ýazylyň we täzelikleri ilkinji bolup alyň',
@@ -382,6 +416,11 @@ export default {
       exchangeRates: 'Walýuta kurslary',
       atmSearch: 'Bankomat gözlegi',
     },
+  },
+  404: {
+    title: 'Sahypa tapylmady — hazyna boş eken.',
+    text: 'Ýöne zerur ähli maglumatlar esasy sahypamyzda bar..',
+    btn: 'Baş sahypa',
   },
 
   dashboard: {

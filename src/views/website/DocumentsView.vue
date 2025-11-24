@@ -42,7 +42,8 @@
 
 
                 <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
-                    <img src="../../assets/images/GradientGlass.png" class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/GradientGlass.png" class="block w-full h-full object-contain"
+                        alt="card">
                 </span>
             </div>
         </div>
@@ -54,7 +55,9 @@
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Полезная информация</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                    {{ t('pageTitle.usefulInformation') }}
+                </h2>
 
                 <div v-for="(adv, idx) in (tm('docs.adv') ? Object.values(tm('docs.adv')) : [])" :key="idx"
                     class="block p-8 rounded-[20px] mb-4 bg-mainWhite">

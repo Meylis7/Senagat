@@ -164,11 +164,11 @@ const router = createRouter({
       ],
     },
 
-    // {
-    //   path: "/:catchAll(.*)",
-    //   name: "not-found",
-    //   component: NotFoundView,
-    // },
+    {
+      path: '/:catchAll(.*)',
+      name: 'not-found',
+      component: () => import('@/views/404.vue'),
+    },
   ],
 })
 

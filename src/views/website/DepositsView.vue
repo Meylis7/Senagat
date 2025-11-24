@@ -5,8 +5,10 @@
     import Breadcrumb from '@/components/website/Breadcrumb.vue';
     import apiService from '@/services/apiService'
     import NewsSection from '@/components/website/NewsSection.vue';
+    import imgLens from '@/assets/images/lense.png'
 
-    const { t } = useI18n();
+
+    const { t, tm } = useI18n()
 
     const breadcrumbItems = [
         { label: t('breadcrumb.home'), path: '/' },
@@ -105,42 +107,30 @@
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Как получить карту</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                    {{ t('pageTitle.howToGetCard') }}
+                </h2>
 
                 <div class="grid grid-cols-12 gap-x-4">
-                    <div class="col-span-3 bg-mainWhite rounded-[20px] p-8">
-                        <h6 class="text-[80px] font-bold leading-none mb-8">1</h6>
-                        <h4 class="text-[28px] font-bold mb-[10px] leading-8">
-                            Выберите отделение
-                        </h4>
-                        <p class="text-[#6F736D] font-Gilroy text-[17px] leading-6">
-                            Обратитесь в удобный для вас офис
-                        </p>
-                    </div>
-
-                    <div class="col-span-3 bg-mainWhite rounded-[20px] p-8">
-                        <h6 class="text-[80px] font-bold leading-none mb-8">2</h6>
-                        <h4 class="text-[28px] font-bold mb-[10px] leading-8">
-                            Подайте заявку
-                        </h4>
-                        <p class="text-[#6F736D] font-Gilroy text-[17px] leading-6">
-                            Специалист оформит заявку по вашему паспорту
-                        </p>
-                    </div>
-
-                    <div class="col-span-6 bg-mainBlack rounded-[20px] p-8 relative overflow-hidden ellipse">
-                        <h6 class="text-[80px]  text-mainWhite font-bold leading-none mb-8">3</h6>
-                        <h4 class="text-[28px] text-mainWhite font-bold mb-[10px] leading-8 z-10">
-                            Пользуйтесь картой
-                        </h4>
-                        <p class="text-mainWhite/60 font-Gilroy text-[17px] leading-6 z-10">
-                            Получите карту, выбирайте категории месяца и получайте кешбэк за покупки
-                        </p>
-                        <span class="block w-[220px] absolute top-0 right-[51px]">
-                            <img class="block w-full h-full object-contain" src="../../assets/images/lense.png"
-                                alt="card-image">
-                        </span>
-                    </div>
+                    <template v-for="(step, idx) in tm('getCard') || []" :key="idx">
+                        <div
+                            :class="idx === 2 ? 'col-span-6 bg-mainBlack rounded-[20px] p-8 relative overflow-hidden ellipse' : 'col-span-3 bg-mainWhite rounded-[20px] p-8'">
+                            <h6
+                                :class="idx === 2 ? 'text-[80px] text-mainWhite font-bold leading-none mb-8' : 'text-[80px] font-bold leading-none mb-8'">
+                                {{ idx + 1 }}</h6>
+                            <h4
+                                :class="idx === 2 ? 'text-[28px] text-mainWhite font-bold mb-[10px] leading-8 z-10' : 'text-[28px] font-bold mb-[10px] leading-8'">
+                                {{ step.title }}
+                            </h4>
+                            <p
+                                :class="idx === 2 ? 'text-mainWhite/60 font-Gilroy text-[17px] leading-6 z-10' : 'text-[#6F736D] font-Gilroy text-[17px] leading-6'">
+                                {{ step.text }}
+                            </p>
+                            <span v-if="idx === 2" class="block w-[220px] absolute top-0 right-[51px]">
+                                <img class="block w-full h-full object-contain" :src="imgLens" alt="card-image">
+                            </span>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>

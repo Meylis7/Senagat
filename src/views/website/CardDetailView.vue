@@ -143,11 +143,12 @@
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Тарифы и документы</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                    {{ $t('pageTitle.tariffsAndDocuments') }}
+                </h2>
 
                 <div class="block p-8  rounded-[20px] bg-mainWhite">
-                    <div class="text-[17px] description"
-                        v-html="card && card.description ? card.description : ''">
+                    <div class="text-[17px] description" v-html="card && card.description ? card.description : ''">
                     </div>
                 </div>
             </div>
@@ -158,7 +159,9 @@
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Документы</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                    {{ $t('pageTitle.docs') }}
+                </h2>
 
                 <div class="block">
                     <a href="../../assets/doc/register.doc" download class="flex items-center gap-x-[10px]">
@@ -172,7 +175,7 @@
                         </span>
 
                         <h6 class="text-[17px] font-bold underline">
-                            Форма
+                            {{ $t('btn.form') }}
                         </h6>
                     </a>
                 </div>
@@ -184,7 +187,9 @@
     <section class="pt-[50px] pb-[60px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">Другие карты</h2>
+                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                    {{ $t('pageTitle.otherCards') }}
+                </h2>
 
                 <div class="grid grid-cols-12 gap-x-4">
                     <div v-for="item in otherCards" :key="item.id" class="col-span-4 bg-mainWhite rounded-[20px] p-1">

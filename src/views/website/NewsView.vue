@@ -56,11 +56,11 @@
 
 
                 <h1 class="m-auto max-w-[660px] mb-[10px] text-center text-5xl font-bold">
-                    Новости
+                    {{ t('news.news') }}
                 </h1>
 
                 <p class="text-[17px] font-Gilroy text-[#6F736D] text-center">
-                    Только достоверная и актуальная информация от Сенагат
+                    {{ t('news.subTitle') }}
                 </p>
             </div>
         </div>
