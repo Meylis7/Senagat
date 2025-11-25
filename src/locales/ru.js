@@ -351,6 +351,12 @@ export default {
       },
     ],
   },
+  tariff: {
+    title: 'Тарифы',
+    subTitle: 'Актуальные расценки на все услуги банка',
+    tariffList: 'Список тарифов',
+    section: 'Раздел',
+  },
   transfer: {
     tableTitle: 'Таблица тарифов',
     serviceType: 'Виды услуг и операций',

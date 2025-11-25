@@ -60,11 +60,38 @@
 
     watch(locale, () => { loadDeposits() })
 
+
+    const transfers = ref([])
+    const transfersLoading = ref(false)
+    const transfersError = ref(null)
+
+    const fetchTransfers = async () => {
+        transfersLoading.value = true
+        transfersError.value = null
+        try {
+            const response = await apiService.fetchTransfers()
+            if (response?.success && Array.isArray(response?.data)) {
+                transfers.value = response.data
+            } else if (Array.isArray(response)) {
+                transfers.value = response
+            } else if (Array.isArray(response?.data)) {
+                transfers.value = response.data
+            } else {
+                transfers.value = []
+            }
+        } catch (e) {
+            transfersError.value = e.message || 'Failed to load transfers'
+            transfers.value = []
+        } finally {
+            transfersLoading.value = false
+        }
+    }
+
     onMounted(async () => {
         await loadCredits()
         await loadCards()
         await loadDeposits()
-
+        await fetchTransfers()
     });
 </script>
 
@@ -86,25 +113,6 @@
                                 </RouterLink>
                             </li>
                         </ul>
-
-                        <h4 class="mt-10 mb-4 font-bold text-[17px] leading-tight text-mainBlack">
-                            {{ t('nav.transfers.title') }}
-                        </h4>
-
-                        <ul class="space-y-4">
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.transfers.Yanardag') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
-                                    {{ t('nav.transfers.WesternUnion') }}
-                                </RouterLink>
-                            </li>
-                        </ul>
                     </div>
 
                     <div class="col-span-12 sm:col-span-6 lg:col-span-3">
@@ -112,7 +120,7 @@
                             {{ t('nav.cards.title') }}
                         </h4>
 
-                        <ul class="space-y-4">
+                        <ul class="space-y-4 mb-5 pb-5 border-solid border-0 border-b border-[#EEF2ED]">
                             <li v-for="item in cards" :key="item.id">
                                 <RouterLink :to="`/cards-detail?id=${item.id}`"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
@@ -121,11 +129,28 @@
                             </li>
                         </ul>
 
-                        <h4 class="mt-10 mb-4 font-bold text-[17px] leading-tight text-mainBlack">
-                            {{ t('nav.informations.title') }}
+
+                        <h4 class=" mb-4 font-bold text-[17px] leading-tight text-mainBlack">
+                            {{ t('nav.deposits.title') }}
                         </h4>
 
                         <ul class="space-y-4">
+                            <li v-for="item in deposits" :key="item.id">
+                                <RouterLink :to="`/deposits-detail?id=${item.id}`"
+                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    {{ item.title || '' }}
+                                </RouterLink>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
+                            {{ t('nav.informations.title') }}
+                        </h4>
+
+                        <ul class="space-y-4 mb-5 pb-5 border-solid border-0 border-b border-[#EEF2ED]">
                             <li>
                                 <RouterLink to="/"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
@@ -151,16 +176,14 @@
                                 </RouterLink>
                             </li>
                         </ul>
-                    </div>
 
-                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
-                        <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
-                            {{ t('nav.deposits.title') }}
+                        <h4 class=" mb-4 font-bold text-[17px] leading-tight text-mainBlack">
+                            {{ t('nav.transfers.title') }}
                         </h4>
 
                         <ul class="space-y-4">
-                            <li v-for="item in deposits" :key="item.id">
-                                <RouterLink :to="`/deposits-detail?id=${item.id}`"
+                            <li v-for="item in transfers" :key="item.id">
+                                <RouterLink :to="{ name: 'transfer', params: { id: item.id } }"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     {{ item.title || '' }}
                                 </RouterLink>

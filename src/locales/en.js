@@ -357,6 +357,12 @@ export default {
       },
     ],
   },
+  tariff: {
+    title: 'Tariffs',
+    subTitle: 'Current rates for all bank services',
+    tariffList: 'List of Tariffs',
+    section: 'Section',
+  },
   transfer: {
     tableTitle: 'Tariff table',
     serviceType: 'Type of services and operations',

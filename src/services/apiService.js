@@ -109,6 +109,14 @@ const apiService = {
   fetchCardTypes(params = {}) {
     return apiClient.get('/v1/card/types', { params })
   },
+
+  fetchTransfers(params = {}) {
+    return apiClient.get('/v1/money-transfers', { params })
+  },
+
+  fetchTariffs(params = {}) {
+    return apiClient.get('/v1/tariff', { params })
+  },
 }
 
 export default apiService

@@ -52,7 +52,7 @@
     </section>
 
     <!-- Useful information ============================================== -->
-    <section class="py-[50px]">
+    <section class="py-[50px] pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
                 <h2 class="text-[38px] font-bold mb-10 leading-9">
@@ -79,10 +79,6 @@
             </div>
         </div>
     </section>
-
-    <!-- News ===================================================================================== -->
-    <NewsSection class="pb-[120px]" />
-
 
 </template>
 

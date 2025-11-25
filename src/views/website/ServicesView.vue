@@ -6,7 +6,7 @@
     import imgCash from '@/assets/images/cash.png'
     import imgTerminal from '@/assets/images/terminal.png'
     import imgGuarantees from '@/assets/images/Guarantees.png'
-    import imgAudit from '@/assets/images/audit.png'
+    import imgAudit from '@/assets/images/Audit.png'
     import imgGlass from '@/assets/images/GradientGlass.png'
     const { t } = useI18n()
 
@@ -52,7 +52,7 @@
         transfersLoading.value = true
         transfersError.value = null
         try {
-            const response = await apiService.get('/v1/money-transfers')
+            const response = await apiService.fetchTransfers()
             if (response?.success && Array.isArray(response?.data)) {
                 transfers.value = response.data
             } else if (Array.isArray(response)) {
@@ -79,7 +79,7 @@
         { to: '/terminal', title: 'Документы по установке терминала', img: imgTerminal },
         { to: '/guarantees', title: 'Банковские гарантии', img: imgGuarantees, special: true },
         { to: '/audit', title: 'Аудиторские отчеты', img: imgAudit },
-        { to: '/documents', title: 'Тарифы на услуги', img: imgGlass },
+        { to: '/tariff', title: 'Тарифы на услуги', img: imgGlass },
     ]
 
     const allItems = computed(() => {
@@ -188,10 +188,10 @@
                                     {{ it.data.title || '' }}
                                 </h6>
                                 <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">
-                                    {{ it.data.main_title || '' }}
+                                    {{ it.data.sub_title || '' }}
                                 </p>
                                 <span class="max-h-[120px] h-full flex items-end justify-end z-[1]">
-                                    <img src="../../assets/images/GradientGlass.png"
+                                    <img :src="it.data?.image_url"
                                         class="block max-h-full object-contain" alt="transfer">
                                 </span>
                             </template>
@@ -248,11 +248,11 @@
                             <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 {{ item?.title || '' }}
                             </h6>
-                            <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">{{ item?.main_title || ''
-                            }}</p>
+                            <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">
+                                {{ item?.sub_title || '' }}
+                            </p>
                             <span class="max-h-[120px] h-full flex items-end justify-end">
-                                <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain"
-                                    alt="transfer">
+                                <img :src="item?.image_url" class="block max-h-full object-contain" alt="transfer">
                             </span>
                         </RouterLink>
                     </div>
@@ -306,12 +306,12 @@
                             перевести
                             деньги</p>
                         <span class="max-h-[120px] h-full flex items-end justify-end">
-                            <img src="../../assets/images/audit.png" class="block max-h-full object-contain"
+                            <img src="../../assets/images/Audit.png" class="block max-h-full object-contain"
                                 alt="percent">
                         </span>
                     </RouterLink>
 
-                    <RouterLink to="/documents"
+                    <RouterLink to="/tariff"
                         class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
                         <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                             Тарифы на услуги

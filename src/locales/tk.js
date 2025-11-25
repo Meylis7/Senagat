@@ -359,6 +359,12 @@ export default {
       },
     ],
   },
+  tariff: {
+    title: 'Nyrhnamalar',
+    subTitle: 'Bank hyzmatlarynyň ählisi üçin hereket edýän nyrhlar',
+    tariffList: 'Nyrhnamalaryň sanawy',
+    section: 'Bölüm',
+  },
   transfer: {
     tableTitle: 'Nyrhnama',
     serviceType: 'Hyzmatlaryň we amallaryň görnüşi',

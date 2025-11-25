@@ -58,7 +58,7 @@
     </section>
 
     <!-- Useful information ============================================== -->
-    <section class="py-[50px]">
+    <section class="py-[50px] pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
                 <div class="block p-8 rounded-[20px] mb-4">
@@ -91,10 +91,6 @@
             </div>
         </div>
     </section>
-
-    <!-- News ===================================================================================== -->
-    <NewsSection class="pb-[120px]" />
-
 
 </template>
 

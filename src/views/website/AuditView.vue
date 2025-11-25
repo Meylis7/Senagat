@@ -121,7 +121,7 @@
 
 
                 <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
-                    <img src="../../assets/images/audit.png" class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/Audit.png" class="block w-full h-full object-contain" alt="card">
                 </span>
             </div>
         </div>
