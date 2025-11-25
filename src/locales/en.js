@@ -417,8 +417,8 @@ export default {
   },
 
   404: {
-    title: "The page won't open — the safe is empty.",
-    text: "The page won't open — the safe is empty.",
+    title: 'Page not found',
+    text: 'But everything valuable is on the main page.',
     btn: 'To the homepage',
   },
 

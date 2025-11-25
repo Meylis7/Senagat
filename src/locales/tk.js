@@ -418,8 +418,8 @@ export default {
     },
   },
   404: {
-    title: 'Sahypa tapylmady — hazyna boş eken.',
-    text: 'Ýöne zerur ähli maglumatlar esasy sahypamyzda bar..',
+    title: 'Sahypa tapylmady',
+    text: 'Ýöne zerur bolan ähli maglumatlar esasy sahypamyzda bar.',
     btn: 'Baş sahypa',
   },
 

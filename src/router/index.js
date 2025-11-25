@@ -103,6 +103,12 @@ const router = createRouter({
           name: 'terminal',
           component: () => import('@/views/website/TerminalView.vue'),
         },
+        {
+          // Tariff
+          path: 'tariff',
+          name: 'tariff',
+          component: () => import('@/views/website/TariffView.vue'),
+        },
       ],
     },
 
