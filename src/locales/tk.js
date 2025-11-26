@@ -114,9 +114,9 @@ export default {
   },
 
   bankService: {
-    title: 'Banking Services',
-    subTitle: 'Dear citizens!',
-    text: '«Senagat» JSCB offers you the following services and activities:',
+    title: 'Bank hyzmatlary',
+    subTitle: 'Hormatly raýatlar!',
+    text: '«Senagat» ATB size aşakdaky hyzmatlary we amallary hödürleýär',
     list: [
       {
         title: 'Karz',
@@ -250,6 +250,11 @@ export default {
       documentList: 'Resminamalaryň sanawy',
       auditReports: 'Auditor hasabatlary',
       bankGuarantees: 'Bank kepillikleri',
+      serviceTariffs: 'Hyzmatlar üçin nyrhnamalar',
+
+      noReplenishment: 'Goşmaça goýum goşmak göz öňünde tutulmadyk',
+      noReplenishmentWithdrawal:
+        'Goşmaça goýum goşmak ýa-da pul almak ýok. Şertnama islendik wagt ýatyrylyp bilner.',
     },
   },
   services: {
@@ -366,6 +371,13 @@ export default {
     section: 'Bölüm:',
     all: 'Ählisi',
   },
+  map: {
+    workTime: 'Iş tertibi',
+    openNow: 'Häzirki wagtda açyk',
+    roundTheClock: 'Gije-gündiz',
+    atms: 'Bankomatlar',
+    offices: 'Şahamçalar',
+  },
   transfer: {
     tableTitle: 'Nyrhnama',
     serviceType: 'Hyzmatlaryň we amallaryň görnüşi',
@@ -397,7 +409,7 @@ export default {
   },
   exchange: {
     title: 'Walýuta çalşygyny meýilleşdiriň',
-    branches: 'Bölümler',
+    branches: 'Şahamçalar',
     onCityMap: 'Şäher kartasynda',
     exchangeRates: 'Walýuta kurslary',
     currentRate: 'Häzirki kurs',

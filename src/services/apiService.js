@@ -117,6 +117,11 @@ const apiService = {
   fetchTariffs(params = {}) {
     return apiClient.get('/v1/tariff', { params })
   },
+
+  // Locations (branches, ATMs)
+  fetchLocations(params = {}) {
+    return apiClient.get('/v1/location', { params })
+  },
 }
 
 export default apiService

@@ -1,11 +1,16 @@
 <script setup>
-    import { RouterLink } from 'vue-router';
+    import { RouterLink, useRoute } from 'vue-router';
     import { useI18n } from 'vue-i18n';
     import mainLogo from '@/assets/images/main_logo.png';
     import apiService from '@/services/apiService'
 
-    import { ref, watch, onMounted, onUnmounted, } from 'vue';
+    import { ref, watch, onMounted, onUnmounted, computed } from 'vue';
 
+    const route = useRoute()
+    const isFooterHidden = computed(() => {
+        const hiddenPages = ['branches']
+        return hiddenPages.includes(route.name)
+    })
 
     const { t, locale } = useI18n();
 
@@ -96,7 +101,7 @@
 </script>
 
 <template>
-    <footer class="bg-mainWhite mt-auto ">
+    <footer v-if="!isFooterHidden" class="bg-mainWhite mt-auto ">
         <div class="auto_container">
             <div class="wrap py-[60px]">
                 <div class="grid grid-cols-12 gap-4">

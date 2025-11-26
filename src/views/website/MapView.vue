@@ -1,0 +1,426 @@
+<script setup>
+
+    import { useI18n } from 'vue-i18n';
+    import apiService from '@/services/apiService';
+    const { t, locale } = useI18n();
+
+    import logo from "@/assets/images/logo.png";
+
+    import { ref, computed, onMounted, watch } from 'vue'
+    const activeTab = ref('atms')
+    const setTab = (tab) => { activeTab.value = tab }
+
+    const locations = ref([])
+    const locationsLoading = ref(false)
+    const locationsError = ref(null)
+
+    const selectedId = ref(null)
+    const selectedLocation = computed(() => {
+        const arr = Array.isArray(locations.value) ? locations.value : []
+        return arr.find((l) => l?.id === selectedId.value) || null
+    })
+
+    const branches = computed(() => {
+        const arr = Array.isArray(locations.value) ? locations.value : []
+        return arr.filter((l) => (l?.type || '').toLowerCase() === 'branch')
+    })
+
+    const isRoundTheClock = computed(() => {
+        const wh = selectedLocation.value?.working_hours || []
+        if (Array.isArray(wh)) {
+            return wh.some((h) => (h?.from || '').toLowerCase() === 'day and night'.toLowerCase())
+        }
+        const str = typeof wh === 'string' ? wh : ''
+        return str.toLowerCase().includes('day and night')
+    })
+
+    const fetchLocations = async () => {
+        locationsLoading.value = true
+        locationsError.value = null
+        try {
+            const response = await apiService.fetchLocations()
+            if (response?.success && Array.isArray(response?.data)) {
+                locations.value = response.data
+            } else if (Array.isArray(response)) {
+                locations.value = response
+            } else if (Array.isArray(response?.data)) {
+                locations.value = response.data
+            } else {
+                locations.value = []
+            }
+        } catch (err) {
+            locationsError.value = err.message || 'Failed to load locations'
+            locations.value = []
+        } finally {
+            locationsLoading.value = false
+        }
+    }
+
+    onMounted(() => {
+        fetchLocations()
+    })
+
+    const isBranchesOpen = ref(false)
+    const toggleBranchesOpen = () => {
+        isBranchesOpen.value = !isBranchesOpen.value
+    }
+
+    const ymapsLoaded = ref(false)
+    const mapInstance = ref(null)
+    const atmSvg = `
+    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="52" height="52" rx="26" fill="#2C702C"/>
+      <path d="M26 21C25.3819 21 24.7777 21.1833 24.2638 21.5267C23.7499 21.87 23.3494 22.3581 23.1129 22.9291C22.8764 23.5001 22.8145 24.1285 22.935 24.7347C23.0556 25.3408 23.3533 25.8977 23.7903 26.3347C24.2273 26.7717 24.7842 27.0694 25.3903 27.19C25.9965 27.3105 26.6249 27.2486 27.1959 27.0121C27.7669 26.7756 28.255 26.3751 28.5983 25.8612C28.9417 25.3473 29.125 24.7431 29.125 24.125C29.125 23.2962 28.7958 22.5013 28.2097 21.9153C27.6237 21.3292 26.8288 21 26 21ZM26 26C25.6292 26 25.2666 25.89 24.9583 25.684C24.65 25.478 24.4096 25.1851 24.2677 24.8425C24.1258 24.4999 24.0887 24.1229 24.161 23.7592C24.2334 23.3955 24.412 23.0614 24.6742 22.7992C24.9364 22.537 25.2705 22.3584 25.6342 22.286C25.9979 22.2137 26.3749 22.2508 26.7175 22.3927C27.0601 22.5346 27.353 22.775 27.559 23.0833C27.765 23.3916 27.875 23.7542 27.875 24.125C27.875 24.6223 27.6775 25.0992 27.3258 25.4508C26.9742 25.8025 26.4973 26 26 26ZM26 17.25C24.1773 17.2521 22.4298 17.9771 21.1409 19.2659C19.8521 20.5548 19.1271 22.3023 19.125 24.125C19.125 26.5781 20.2586 29.1781 22.4062 31.6445C23.3713 32.759 24.4574 33.7626 25.6445 34.6367C25.7496 34.7103 25.8748 34.7498 26.0031 34.7498C26.1314 34.7498 26.2566 34.7103 26.3617 34.6367C27.5467 33.7623 28.6307 32.7587 29.5938 31.6445C31.7383 29.1781 32.875 26.5781 32.875 24.125C32.8729 22.3023 32.1479 20.5548 30.8591 19.2659C29.5702 17.9771 27.8227 17.2521 26 17.25ZM26 33.3438C24.7086 32.3281 20.375 28.5977 20.375 24.125C20.375 22.6332 20.9676 21.2024 22.0225 20.1475C23.0774 19.0926 24.5082 18.5 26 18.5C27.4918 18.5 28.9226 19.0926 29.9775 20.1475C31.0324 21.2024 31.625 22.6332 31.625 24.125C31.625 28.5961 27.2914 32.3281 26 33.3438Z" fill="#EEF2ED"/>
+    </svg>`
+    const branchSvg = `
+    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="52" height="52" rx="26" fill="#191B19"/>
+      <path d="M26 21C25.3819 21 24.7777 21.1833 24.2638 21.5267C23.7499 21.87 23.3494 22.3581 23.1129 22.9291C22.8764 23.5001 22.8145 24.1285 22.935 24.7347C23.0556 25.3408 23.3533 25.8977 23.7903 26.3347C24.2273 26.7717 24.7842 27.0694 25.3903 27.19C25.9965 27.3105 26.6249 27.2486 27.1959 27.0121C27.7669 26.7756 28.255 26.3751 28.5983 25.8612C28.9417 25.3473 29.125 24.7431 29.125 24.125C29.125 23.2962 28.7958 22.5013 28.2097 21.9153C27.6237 21.3292 26.8288 21 26 21ZM26 26C25.6292 26 25.2666 25.89 24.9583 25.684C24.65 25.478 24.4096 25.1851 24.2677 24.8425C24.1258 24.4999 24.0887 24.1229 24.161 23.7592C24.2334 23.3955 24.412 23.0614 24.6742 22.7992C24.9364 22.537 25.2705 22.3584 25.6342 22.286C25.9979 22.2137 26.3749 22.2508 26.7175 22.3927C27.0601 22.5346 27.353 22.775 27.559 23.0833C27.765 23.3916 27.875 23.7542 27.875 24.125C27.875 24.6223 27.6775 25.0992 27.3258 25.4508C26.9742 25.8025 26.4973 26 26 26ZM26 17.25C24.1773 17.2521 22.4298 17.9771 21.1409 19.2659C19.8521 20.5548 19.1271 22.3023 19.125 24.125C19.125 26.5781 20.2586 29.1781 22.4062 31.6445C23.3713 32.759 24.4574 33.7626 25.6445 34.6367C25.7496 34.7103 25.8748 34.7498 26.0031 34.7498C26.1314 34.7498 26.2566 34.7103 26.3617 34.6367C27.5467 33.7623 28.6307 32.7587 29.5938 31.6445C31.7383 29.1781 32.875 26.5781 32.875 24.125C32.8729 22.3023 32.1479 20.5548 30.8591 19.2659C29.5702 17.9771 27.8227 17.2521 26 17.25ZM26 33.3438C24.7086 32.3281 20.375 28.5977 20.375 24.125C20.375 22.6332 20.9676 21.2024 22.0225 20.1475C23.0774 19.0926 24.5082 18.5 26 18.5C27.4918 18.5 28.9226 19.0926 29.9775 20.1475C31.0324 21.2024 31.625 22.6332 31.625 24.125C31.625 28.5961 27.2914 32.3281 26 33.3438Z" fill="#EEF2ED"/>
+    </svg>`
+
+    const loadYandexMaps = () => {
+        if (window.ymaps) {
+            ymapsLoaded.value = true
+            window.ymaps.ready(initMap)
+            return
+        }
+        const s = document.createElement('script')
+        // const KEY = import.meta.env.VITE_YANDEX_MAPS_API_KEY || ''
+        // s.src = `https://api-maps.yandex.ru/2.1/?lang=ru_RU${KEY ? `&apikey=${KEY}` : ''}`
+        s.src = `https://api-maps.yandex.ru/2.1/?lang=ru_RU`
+        s.onload = () => {
+            ymapsLoaded.value = true
+            window.ymaps.ready(initMap)
+        }
+        document.head.appendChild(s)
+    }
+
+    const initMap = () => {
+        if (!window.ymaps) return
+        mapInstance.value = new window.ymaps.Map('yandexMap', {
+            center: [37.9643, 58.36],
+            zoom: 14,
+        })
+        try {
+            mapInstance.value.behaviors.disable(['scrollZoom'])
+        } catch (e) { }
+        renderMarkers()
+    }
+
+    // Clean SVG strings for valid Data URIs
+    const toDataUri = (svg) => 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg.replace(/\s+/g, ' ').trim())
+
+    const renderMarkers = () => {
+        console.log('renderMarkers called')
+        if (!mapInstance.value) {
+            console.log('Map instance not ready')
+            return
+        }
+        if (!Array.isArray(locations.value)) {
+            console.log('Locations is not an array:', locations.value)
+            return
+        }
+
+        console.log(`Processing ${locations.value.length} locations`)
+
+        try {
+            mapInstance.value.geoObjects.removeAll()
+            locations.value.forEach((item, index) => {
+                const lat = parseFloat(item?.location?.lat)
+                const lng = parseFloat(item?.location?.lng)
+                if (isNaN(lat) || isNaN(lng)) {
+                    console.warn(`Invalid coordinates for item ${index}:`, item)
+                    return
+                }
+                const type = (item?.type || '').toLowerCase()
+                const href = type === 'atm' ? toDataUri(atmSvg) : toDataUri(branchSvg)
+                const pm = new window.ymaps.Placemark([lat, lng], { hintContent: item?.name || '' }, {
+                    iconLayout: 'default#image',
+                    iconImageHref: href,
+                    iconImageSize: [52, 52],
+                    iconImageOffset: [-26, -26],
+                })
+                pm.events.add('click', () => { selectedId.value = item?.id || null })
+                mapInstance.value.geoObjects.add(pm)
+            })
+        } catch (e) {
+            console.error('Error rendering markers:', e)
+        }
+    }
+
+    onMounted(() => {
+        loadYandexMaps()
+    })
+
+    watch(locations, () => {
+        renderMarkers()
+    })
+
+
+</script>
+
+<template>
+    <section class="block fixed top-0 left-0 w-full h-screen">
+        <div class="block bg-mainWhite w-full h-screen z-[30]">
+            <div id="yandexMap" class="h-screen w-screen"></div>
+        </div>
+
+        <div
+            class="fixed top-[200px] left-10 z-[35] bg-[#F7F8F699] p-5 rounded-[20px] w-[260px] border-solid border-1 border-white">
+            <div class="tabs bg-[#F7F8F6] rounded-[20px] p-1 grid grid-cols-2 text-center mb-8">
+                <h6 @click="setTab('atms')"
+                    :class="activeTab === 'atms' ? 'text-[17px] font-Gilroy py-3 px-[14px] bg-[#1D2417] text-[#EEF2ED] rounded-2xl cursor-pointer leading-1' : 'text-[#6F736D] text-[17px] font-Gilroy py-4 px-5 rounded-2xl cursor-pointer leading-tight'">
+                    {{ t('map.atms') }}
+                </h6>
+                <h6 @click="setTab('offices')"
+                    :class="activeTab === 'offices' ? 'text-[17px] font-Gilroy py-3 px-[14px] bg-[#1D2417] text-[#EEF2ED] rounded-2xl cursor-pointer leading-1' : 'text-[#6F736D] text-[17px] font-Gilroy py-4 px-5 rounded-2xl cursor-pointer leading-tight'">
+                    {{ t('map.offices') }}
+                </h6>
+            </div>
+
+            <div class="grid gap-[22px]">
+                <h4 class="text-[#191B19] text-[17px] font-bold">
+                    {{ t('map.workTime') }}
+                </h4>
+
+                <div class="check_time">
+                    <input type="radio" id="openNow" name="wortkTime" class="hidden">
+                    <label for="openNow">{{ t('map.openNow') }}</label>
+                </div>
+
+                <div class="check_time">
+                    <input type="radio" id="anyTime" name="wortkTime" class="hidden">
+                    <label for="anyTime">{{ t('map.roundTheClock') }}</label>
+                </div>
+            </div>
+
+
+            <div v-if="selectedLocation" class="block mt-8">
+                <div class="flex mb-8">
+                    <span class="block w-5 h-5 mr-[10px]">
+                        <img :src="logo" class="block w-full h-auto object-contain" alt="logo">
+                    </span>
+                    <h2 class="text-[#6F736D] text-sm font-Gilroy max-w-[130px] overflow-hidden whitespace-nowrap">
+                        {{ selectedLocation?.name || '' }}
+                    </h2>
+
+                    <button type="button" class="cursor-pointer w-5 h-5 ml-auto">
+                        <svg class="block w-full h-auto object-contain" width="13" height="13" viewBox="0 0 13 13"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12.3175 11.4332C12.3756 11.4912 12.4217 11.5602 12.4531 11.636C12.4845 11.7119 12.5007 11.7932 12.5007 11.8753C12.5007 11.9575 12.4845 12.0388 12.4531 12.1147C12.4217 12.1905 12.3756 12.2595 12.3175 12.3175C12.2595 12.3756 12.1905 12.4217 12.1147 12.4531C12.0388 12.4845 11.9575 12.5007 11.8753 12.5007C11.7932 12.5007 11.7119 12.4845 11.636 12.4531C11.5602 12.4217 11.4912 12.3756 11.4332 12.3175L6.25035 7.13394L1.06753 12.3175C0.95026 12.4348 0.7912 12.5007 0.625347 12.5007C0.459495 12.5007 0.300435 12.4348 0.18316 12.3175C0.0658846 12.2003 3.26935e-09 12.0412 0 11.8753C-3.26935e-09 11.7095 0.0658846 11.5504 0.18316 11.4332L5.36675 6.25035L0.18316 1.06753C0.0658846 0.95026 0 0.7912 0 0.625347C0 0.459495 0.0658846 0.300435 0.18316 0.18316C0.300435 0.0658846 0.459495 0 0.625347 0C0.7912 0 0.95026 0.0658846 1.06753 0.18316L6.25035 5.36675L11.4332 0.18316C11.5504 0.0658846 11.7095 -3.26935e-09 11.8753 0C12.0412 3.26935e-09 12.2003 0.0658846 12.3175 0.18316C12.4348 0.300435 12.5007 0.459495 12.5007 0.625347C12.5007 0.7912 12.4348 0.95026 12.3175 1.06753L7.13394 6.25035L12.3175 11.4332Z"
+                                fill="#1D2417" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="grid gap-[10px] mb-8">
+                    <h4 class="text-[#191B19] text-[17px] font-bold">
+                        Адрес
+                    </h4>
+                    <div class="flex">
+                        <span>
+                            <svg width="14" height="18" viewBox="0 0 14 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.875 3.75C6.25693 3.75 5.65275 3.93328 5.13884 4.27666C4.62494 4.62004 4.2244 5.1081 3.98788 5.67911C3.75135 6.25013 3.68947 6.87847 3.81005 7.48466C3.93062 8.09085 4.22825 8.64767 4.66529 9.08471C5.10233 9.52175 5.65915 9.81938 6.26534 9.93995C6.87153 10.0605 7.49987 9.99865 8.07089 9.76212C8.64191 9.5256 9.12996 9.12506 9.47334 8.61116C9.81672 8.09725 10 7.49307 10 6.875C10 6.0462 9.67076 5.25134 9.08471 4.66529C8.49866 4.07924 7.7038 3.75 6.875 3.75ZM6.875 8.75C6.50416 8.75 6.14165 8.64003 5.83331 8.43401C5.52496 8.22798 5.28464 7.93514 5.14273 7.59253C5.00081 7.24992 4.96368 6.87292 5.03603 6.50921C5.10837 6.14549 5.28695 5.8114 5.54917 5.54917C5.8114 5.28695 6.14549 5.10837 6.50921 5.03603C6.87292 4.96368 7.24992 5.00081 7.59253 5.14273C7.93514 5.28464 8.22798 5.52496 8.43401 5.83331C8.64003 6.14165 8.75 6.50416 8.75 6.875C8.75 7.37228 8.55246 7.84919 8.20083 8.20083C7.84919 8.55246 7.37228 8.75 6.875 8.75ZM6.875 0C5.05227 0.00206776 3.30479 0.72706 2.01592 2.01592C0.72706 3.30479 0.00206776 5.05227 0 6.875C0 9.32812 1.13359 11.9281 3.28125 14.3945C4.24627 15.509 5.33239 16.5126 6.51953 17.3867C6.62462 17.4603 6.74982 17.4998 6.87812 17.4998C7.00643 17.4998 7.13163 17.4603 7.23672 17.3867C8.42168 16.5123 9.50569 15.5087 10.4688 14.3945C12.6133 11.9281 13.75 9.32812 13.75 6.875C13.7479 5.05227 13.0229 3.30479 11.7341 2.01592C10.4452 0.72706 8.69773 0.00206776 6.875 0ZM6.875 16.0938C5.58359 15.0781 1.25 11.3477 1.25 6.875C1.25 5.38316 1.84263 3.95242 2.89752 2.89752C3.95242 1.84263 5.38316 1.25 6.875 1.25C8.36684 1.25 9.79758 1.84263 10.8525 2.89752C11.9074 3.95242 12.5 5.38316 12.5 6.875C12.5 11.3461 8.16641 15.0781 6.875 16.0938Z"
+                                    fill="#6F736D" />
+                            </svg>
+                        </span>
+                        <p class="text-[#1D2417] text-sm font-Gilroy ml-[10px]">
+                            {{ selectedLocation?.address || '' }}
+                        </p>
+                    </div>
+                    <p v-if="isRoundTheClock"
+                        class="text-[#F7F8F6] text-sm font-Gilroy py-[6px] px-2 bg-[#2C702C] rounded-[20px] w-fit">
+                        открыто 24 часа
+                    </p>
+                </div>
+
+                <div class="grid gap-[10px] mb-8">
+                    <h4 class="text-[#191B19] text-[17px] font-bold">
+                        Время работы
+                    </h4>
+                    <template
+                        v-if="Array.isArray(selectedLocation?.working_hours) && selectedLocation.working_hours.length">
+                        <p v-for="(wh, idx) in selectedLocation.working_hours" :key="idx"
+                            class="text-[#1D2417] text-sm font-Gilroy">
+                            {{ wh.day }}: {{ wh.from }}<template v-if="wh.to">-{{ wh.to }}</template>
+                        </p>
+                    </template>
+                    <p v-else class="text-[#1D2417] text-sm font-Gilroy"
+                        v-if="selectedLocation?.working_hours && typeof selectedLocation.working_hours === 'string'">
+                        {{ selectedLocation.working_hours }}
+                    </p>
+                </div>
+
+                <div class="grid gap-[10px] mb-8">
+                    <h4 class="text-[#191B19] text-[17px] font-bold">
+                        Контакты
+                    </h4>
+                    <div class="grid gap-1">
+                        <p v-if="selectedLocation?.phone_number" class="text-[#1D2417] text-sm font-Gilroy">
+                            {{ selectedLocation.phone_number }}
+                        </p>
+                        <p v-if="selectedLocation?.fax_number" class="text-[#1D2417] text-sm font-Gilroy">
+                            {{ selectedLocation.fax_number }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid gap-[10px] mb-8">
+                    <h4 class="text-[#191B19] text-[17px] font-bold">
+                        Услуги
+                    </h4>
+                    <p class="text-[#1D2417] text-sm font-Gilroy">
+                        Снять наличные
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="fixed top-[200px] right-10 z-[35] bg-[#F7F8F699] p-5 rounded-[20px] border-solid border-1 border-white">
+            <button type="button" @click="toggleBranchesOpen"
+                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
+                Список филиалов
+            </button>
+        </div>
+
+        <div v-show="isBranchesOpen"
+            class="grid grid-cols-10 gap-4 fixed top-0 left-0 w-screen h-screen z-[34] bg-[#EEF2ED] pt-[200px] pl-[350px] pr-[290px] pb-[60px] overflow-auto content-start auto-rows-max">
+            <div v-for="(branch, idx) in branches" :key="branch.id || idx"
+                class="flex flex-col col-span-3 gap-5 bg-[#F7F8F6] rounded-[20px] p-5">
+                <div class="block">
+                    <h2 class="text-[#1D2417] text-sm font-bold mb-[10px]">
+                        {{ branch.name || '' }}
+                    </h2>
+                    <p
+                        class="text-[#6F736D] text-sm font-bold mb-[10px] font-Gilroy pb-[20px] border-solid border-0 border-b border-[#EEF2ED]">
+                        {{ branch.address || '' }}
+                    </p>
+                </div>
+
+                <div class="grid gap-5 mt-auto">
+                    <div class="block" v-if="branch.phone_number">
+                        <div class="flex">
+                            <div class="w-5 h-5 block mr-[6px]">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M14.8727 10.5045L11.1922 8.85531L11.182 8.85062C10.991 8.7689 10.7825 8.73611 10.5756 8.7552C10.3687 8.7743 10.1698 8.84469 9.99688 8.96C9.97653 8.97344 9.95696 8.98805 9.93829 9.00375L8.03673 10.6248C6.83204 10.0397 5.58829 8.80531 5.00313 7.61625L6.62657 5.68578C6.64219 5.66625 6.65704 5.64672 6.6711 5.62562C6.78394 5.4532 6.85239 5.25556 6.87039 5.05029C6.88838 4.84502 6.85534 4.63848 6.77423 4.44906V4.43969L5.12032 0.752967C5.01309 0.505517 4.8287 0.299385 4.59468 0.165341C4.36067 0.0312965 4.08958 -0.0234699 3.82188 0.00921691C2.76326 0.148519 1.79155 0.668411 1.08824 1.47179C0.384919 2.27517 -0.00190698 3.3071 7.06925e-06 4.37484C7.06925e-06 10.578 5.04688 15.6248 11.25 15.6248C12.3177 15.6268 13.3497 15.2399 14.1531 14.5366C14.9564 13.8333 15.4763 12.8616 15.6156 11.803C15.6484 11.5354 15.5937 11.2643 15.4598 11.0303C15.3259 10.7963 15.12 10.6119 14.8727 10.5045ZM11.25 14.3748C8.59873 14.3719 6.05687 13.3174 4.18214 11.4427C2.3074 9.56797 1.2529 7.02612 1.25001 4.37484C1.24707 3.61194 1.52192 2.87406 2.02324 2.29899C2.52456 1.72392 3.21806 1.35099 3.97423 1.24984C3.97392 1.25296 3.97392 1.2561 3.97423 1.25922L5.61485 4.93109L4.00001 6.8639C3.98362 6.88276 3.96873 6.90288 3.95548 6.92406C3.83791 7.10447 3.76894 7.31218 3.75525 7.52708C3.74157 7.74197 3.78362 7.95676 3.87735 8.15062C4.58516 9.59828 6.04376 11.0459 7.50704 11.753C7.70232 11.8458 7.91835 11.8864 8.13403 11.8708C8.3497 11.8552 8.55763 11.7839 8.73751 11.6639C8.75757 11.6504 8.77687 11.6358 8.79532 11.6202L10.6945 9.99984L14.3664 11.6444C14.3664 11.6444 14.3727 11.6444 14.375 11.6444C14.2751 12.4016 13.9027 13.0965 13.3275 13.5991C12.7524 14.1016 12.0138 14.3774 11.25 14.3748Z"
+                                        fill="#2C702C" />
+                                </svg>
+                            </div>
+
+                            <p class="text-[#2C702C] text-sm font-Gilroy">
+                                {{ branch.phone_number }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="block" v-if="branch.fax_number">
+                        <div class="flex">
+                            <div class="w-5 h-5 block mr-[6px]">
+                                <svg width="18" height="19" viewBox="0 0 18 19" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M15.4559 5.47294H15.4125V0.376111C15.4125 0.196503 15.2661 0.0507812 15.0856 0.0507812H10.2035C10.1813 0.0507812 10.1618 0.0533229 10.1422 0.057559H10.1379C10.1115 0.0643367 10.086 0.0728087 10.0613 0.0855178C10.0545 0.089754 10.0485 0.0922956 10.0417 0.0965318C10.0179 0.111782 9.99402 0.12703 9.97444 0.146518L7.00374 3.10246C6.98415 3.12195 6.96627 3.14567 6.9535 3.17194C6.94924 3.17871 6.94669 3.18464 6.94243 3.19142C6.92966 3.21768 6.9203 3.2431 6.91433 3.26937C6.91008 3.28885 6.90752 3.31088 6.90752 3.33206V5.47297H6.33025C6.28683 4.86382 5.77426 4.38005 5.15099 4.38005H3.04964C2.42638 4.38005 1.91382 4.86382 1.87038 5.47297H1.64134C0.762661 5.47297 0.0499878 6.18462 0.0499878 7.05641V16.4673C0.0499878 17.3417 0.765189 18.0508 1.64134 18.0508H15.4586C16.3373 18.0508 17.05 17.3391 17.05 16.4673V7.05641C17.05 6.1821 16.3348 5.47297 15.4586 5.47297L15.4559 5.47294ZM16.3934 16.4689C16.3934 16.9831 15.9728 17.4017 15.4559 17.4017H1.63711C1.12028 17.4017 0.699669 16.9831 0.699669 16.4689V7.05795C0.699669 6.54369 1.12028 6.12517 1.63711 6.12517H1.86188V15.1132C1.86188 15.7613 2.39403 16.2908 3.04539 16.2908H5.14675C5.7981 16.2908 6.33025 15.7613 6.33025 15.1132V6.12517H15.4542C15.9711 6.12517 16.3917 6.54369 16.3917 7.05795V16.4689H16.3934ZM3.04711 5.03071H5.14847C5.4405 5.03071 5.67807 5.26708 5.67807 5.55768V15.1135C5.67807 15.4041 5.44053 15.6405 5.14847 15.6405H3.04711C2.75508 15.6405 2.51751 15.4041 2.51751 15.1135V5.55768C2.51751 5.2671 2.75505 5.03071 3.04711 5.03071ZM7.55886 3.65739H10.2026C10.3831 3.65739 10.5296 3.51167 10.5296 3.33206V0.701441H14.7577V5.47294H7.55799V3.65737L7.55886 3.65739ZM8.0212 3.00673L9.87649 1.16065V3.00673H8.0212Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                    <path
+                                        d="M14.7894 7.01367H7.75548C7.57498 7.01367 7.42853 7.15939 7.42853 7.339V8.68778C7.42853 8.86739 7.57498 9.01311 7.75548 9.01311H14.7894C14.9699 9.01311 15.1163 8.86739 15.1163 8.68778V7.339C15.1163 7.15939 14.9699 7.01367 14.7894 7.01367ZM14.4624 8.36245H8.08244V7.66433H14.4624V8.36245Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                    <path
+                                        d="M9.09144 9.60938H7.75298C7.57247 9.60938 7.42603 9.7551 7.42603 9.9347V11.2665C7.42603 11.4461 7.57247 11.5918 7.75298 11.5918H9.09144C9.27195 11.5918 9.4184 11.4461 9.4184 11.2665V9.9347C9.4184 9.7551 9.27195 9.60938 9.09144 9.60938ZM8.76449 10.9412H8.07993V10.26H8.76449V10.9412Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                    <path
+                                        d="M9.09144 12.1973H7.75298C7.57247 12.1973 7.42603 12.343 7.42603 12.5226V13.8544C7.42603 14.034 7.57247 14.1797 7.75298 14.1797H9.09144C9.27195 14.1797 9.4184 14.034 9.4184 13.8544V12.5226C9.4184 12.343 9.27195 12.1973 9.09144 12.1973ZM8.76449 13.5291H8.07993V12.8479H8.76449V13.5291Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                    <path
+                                        d="M9.09144 14.7832H7.75298C7.57247 14.7832 7.42603 14.9289 7.42603 15.1085V16.4403C7.42603 16.62 7.57247 16.7657 7.75298 16.7657H9.09144C9.27195 16.7657 9.4184 16.62 9.4184 16.4403V15.1085C9.4184 14.9289 9.27195 14.7832 9.09144 14.7832ZM8.76449 16.115H8.07993V15.4339H8.76449V16.115Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                    <path
+                                        d="M11.9403 9.60938H10.6019C10.4213 9.60938 10.2749 9.7551 10.2749 9.9347V11.2665C10.2749 11.4461 10.4213 11.5918 10.6019 11.5918H11.9403C12.1208 11.5918 12.2673 11.4461 12.2673 11.2665V9.9347C12.2673 9.7551 12.1208 9.60938 11.9403 9.60938ZM11.6134 10.9412H10.9288V10.26H11.6134V10.9412Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                    <path
+                                        d="M11.9403 12.1973H10.6019C10.4213 12.1973 10.2749 12.343 10.2749 12.5226V13.8544C10.2749 14.034 10.4213 14.1797 10.6019 14.1797H11.9403C12.1208 14.1797 12.2673 14.034 12.2673 13.8544V12.5226C12.2673 12.343 12.1208 12.1973 11.9403 12.1973ZM11.6134 13.5291H10.9288V12.8479H11.6134V13.5291Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                    <path
+                                        d="M11.9403 14.7832H10.6019C10.4213 14.7832 10.2749 14.9289 10.2749 15.1085V16.4403C10.2749 16.62 10.4213 16.7657 10.6019 16.7657H11.9403C12.1208 16.7657 12.2673 16.62 12.2673 16.4403V15.1085C12.2673 14.9289 12.1208 14.7832 11.9403 14.7832ZM11.6134 16.115H10.9288V15.4339H11.6134V16.115Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                    <path
+                                        d="M14.7894 9.60938H13.4509C13.2704 9.60938 13.124 9.7551 13.124 9.9347V11.2665C13.124 11.4461 13.2704 11.5918 13.4509 11.5918H14.7894C14.9699 11.5918 15.1163 11.4461 15.1163 11.2665V9.9347C15.1163 9.7551 14.9699 9.60938 14.7894 9.60938ZM14.4624 10.9412H13.7779V10.26H14.4624V10.9412Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                    <path
+                                        d="M14.7894 12.1973H13.4509C13.2704 12.1973 13.124 12.343 13.124 12.5226V13.8544C13.124 14.034 13.2704 14.1797 13.4509 14.1797H14.7894C14.9699 14.1797 15.1163 14.034 15.1163 13.8544V12.5226C15.1163 12.343 14.9699 12.1973 14.7894 12.1973ZM14.4624 13.5291H13.7779V12.8479H14.4624V13.5291Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                    <path
+                                        d="M14.7894 14.7832H13.4509C13.2704 14.7832 13.124 14.9289 13.124 15.1085V16.4403C13.124 16.62 13.2704 16.7657 13.4509 16.7657H14.7894C14.9699 16.7657 15.1163 16.62 15.1163 16.4403V15.1085C15.1163 14.9289 14.9699 14.7832 14.7894 14.7832ZM14.4624 16.115H13.7779V15.4339H14.4624V16.115Z"
+                                        fill="#2C702C" stroke="#2C702C" stroke-width="0.1" />
+                                </svg>
+                            </div>
+
+                            <p class="text-[#2C702C] text-sm font-Gilroy">
+                                {{ branch.fax_number }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
+
+
+
+<style lang="scss" scoped>
+    .check_time {
+        label {
+            font-size: 17px;
+            font-weight: 400;
+            font-family: 'Gilroy';
+            cursor: pointer;
+            position: relative;
+            padding-left: 36px;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 24px;
+                height: 24px;
+                border: 1px solid #1D2417;
+                display: block;
+                transition: opacity 0.3s ease-in-out;
+            }
+
+            &::after {
+                content: '';
+                background: #2C702C;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 24px;
+                height: 24px;
+                display: block;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+                background-image: url('../../assets/images/tick.svg');
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        }
+
+        input:checked+label {
+            &::before {
+                opacity: 0 !important;
+            }
+
+            &::after {
+                opacity: 1;
+            }
+        }
+    }
+
+</style>

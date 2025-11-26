@@ -706,13 +706,14 @@
           <h2 class="text-[38px] font-bold mb-10 leading-9">{{ t('exchange.title') }}</h2>
 
           <div class="flex gap-4">
-            <div class="w-full max-w-[390px] min-h-[407px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8">
+            <RouterLink to="/branches"
+              class="w-full max-w-[390px] min-h-[407px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8">
               <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">{{ t('exchange.branches') }}</h6>
               <p class="text-[17px] text-[#6F736D] leading-6 mb-6 font-Gilroy">{{ t('exchange.onCityMap') }}</p>
               <span class="block w-[260px] absolute left-1/2 -translate-x-1/2 -bottom-[55px]">
                 <img src="../../assets/images/currency.png" class="block w-full h-full object-contain" alt="currency">
               </span>
-            </div>
+            </RouterLink>
 
             <div class="w-full max-w-[calc(100%-406px)] rounded-[20px] bg-mainWhite p-8">
               <div class="flex items-center justify-between mb-8">

@@ -75,11 +75,11 @@
     })
 
     const informationItems = [
-        { to: '/cash', title: 'Расчетная касса', img: imgCash },
-        { to: '/terminal', title: 'Документы по установке терминала', img: imgTerminal },
-        { to: '/guarantees', title: 'Банковские гарантии', img: imgGuarantees, special: true },
-        { to: '/audit', title: 'Аудиторские отчеты', img: imgAudit },
-        { to: '/tariff', title: 'Тарифы на услуги', img: imgGlass },
+        { to: '/cash', title: t('nav.informations.cashDesk'), img: imgCash, subtitle: t('nav.informations.noReplenishment') },
+        { to: '/terminal', title: t('nav.informations.terminalDocs'), img: imgTerminal, subtitle: t('nav.informations.noReplenishment') },
+        { to: '/guarantees', title: t('nav.informations.bankGuarantees'), img: imgGuarantees, special: true, subtitle: t('nav.informations.noReplenishmentWithdrawal') },
+        { to: '/audit', title: t('nav.informations.auditReports'), img: imgAudit, subtitle: 'Cамый простой способ перевести деньги' },
+        { to: '/tariff', title: t('nav.informations.serviceTariffs'), img: imgGlass, subtitle: t('nav.informations.noReplenishment') },
     ]
 
     const allItems = computed(() => {
@@ -139,30 +139,30 @@
             <div class="wrap">
                 <div class="flex items-center justify-between mb-10">
                     <h2 class="text-[38px] font-bold leading-9">
-                        Предложения
+                        {{ t('offer.title') }}
                     </h2>
 
-                    <div class="relative bg-mainWhite p-1  rounded-[20px] flex items-center gap-5">
+                    <div class="relative bg-mainWhite p-1  rounded-[20px] flex items-center ">
                         <span
                             class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-all duration-300 ease-out will-change-transform"
                             :style="sliderStyle" aria-hidden="true"></span>
 
                         <button type="button" :ref="el => tabRefs[0] = el"
-                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
+                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] "
                             :class="activeTab === 'all' ? 'text-mainWhite py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('all')">
                             {{ t('tabs.all') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[1] = el"
-                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
+                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] "
                             :class="activeTab === 'transfers' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('transfers')">
                             {{ t('tabs.moneyTransfers') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[2] = el"
-                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors"
+                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] "
                             :class="activeTab === 'information' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('information')">
                             {{ t('tabs.information') }}
@@ -191,8 +191,8 @@
                                     {{ it.data.sub_title || '' }}
                                 </p>
                                 <span class="max-h-[120px] h-full flex items-end justify-end z-[1]">
-                                    <img :src="it.data?.image_url"
-                                        class="block max-h-full object-contain" alt="transfer">
+                                    <img :src="it.data?.image_url" class="block max-h-full object-contain"
+                                        alt="transfer">
                                 </span>
                             </template>
                             <template v-else>
@@ -259,67 +259,23 @@
                 </div>
 
                 <div v-show="activeTab === 'information'" class="grid gap-4 lg:grid-cols-12">
-                    <RouterLink to="/cash"
-                        class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                        <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                            Расчетная касса
+                    <RouterLink v-for="(item, idx) in informationItems" :key="idx" :to="item.to" :class="item.special
+                        ? 'lg:col-span-4 lg:row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow'
+                        : 'col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'">
+                        <h6
+                            :class="['leading-7 font-bold mb-[10px]', item.special ? 'text-mainWhite text-[34px] leading-9' : 'text-[28px] text-mainBlack']">
+                            {{ item.title }}
                         </h6>
-                        <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                        <span class="max-h-[120px] h-full flex items-end justify-end">
-                            <img src="../../assets/images/cash.png" class="block max-h-full object-contain" alt="card">
-                        </span>
-                    </RouterLink>
-
-                    <RouterLink to="/terminal"
-                        class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                        <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                            Документы по установке терминала
-                        </h6>
-                        <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                        <span class="max-h-[120px] h-full flex items-end justify-end">
-                            <img src="../../assets/images/terminal.png" class="block max-h-full object-contain"
-                                alt="cart">
-                        </span>
-                    </RouterLink>
-
-                    <RouterLink to="/guarantees"
-                        class="lg:col-span-4 lg:row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow">
-                        <h6 class="text-mainWhite text-[34px] leading-9 font-bold mb-[10px]">
-                            Банковские гарантии
-                        </h6>
-                        <p class="text-mainWhite max-w-[420px] opacity-60">
-                            Без пополнения и снятия с возможностью расторжения в любой момент
+                        <p
+                            :class="item.special ? 'text-mainWhite max-w-[420px] opacity-60' : 'text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy'">
+                            {{ item.subtitle }}
                         </p>
-                        <span class="absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px] z-[1]">
-                            <img src="../../assets/images/Guarantees.png"
-                                class="block w-full h-full object-contain select-none pointer-events-none"
-                                alt="percent">
-                        </span>
-                    </RouterLink>
-
-                    <RouterLink to="/audit"
-                        class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                        <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                            Аудиторские отчеты
-                        </h6>
-                        <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Cамый простой способ
-                            перевести
-                            деньги</p>
-                        <span class="max-h-[120px] h-full flex items-end justify-end">
-                            <img src="../../assets/images/Audit.png" class="block max-h-full object-contain"
-                                alt="percent">
-                        </span>
-                    </RouterLink>
-
-                    <RouterLink to="/tariff"
-                        class="col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                        <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
-                            Тарифы на услуги
-                        </h6>
-                        <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">Без пополнения</p>
-                        <span class="max-h-[120px] h-full flex items-end justify-end">
-                            <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain"
-                                alt="card">
+                        <span :class="item.special
+                            ? 'absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px] z-[1]'
+                            : 'max-h-[120px] h-full flex items-end justify-end'">
+                            <img :src="item.img" :class="item.special
+                                ? 'block w-full h-full object-contain select-none pointer-events-none'
+                                : 'block max-h-full object-contain'" :alt="item.title">
                         </span>
                     </RouterLink>
                 </div>
@@ -334,14 +290,14 @@
                     class="flex items-center justify-between relative bg-mainWhite rounded-[20px] p-8 overflow-hidden mb-10">
                     <div class="block max-w-[460px]">
                         <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack leading-tight">
-                            Услуги банка
+                            {{ t('bankService.title') }}
                         </h4>
-                        <p class="text-[#6F736D] text-[17px] leading-6 mb-8 leading-tight">
-                            АКБ «Сенагат» предлагает Вам следующие услуги и виды деятельности
+                        <p class="text-[#6F736D] text-[17px] mb-8 leading-tight">
+                            {{ t('bankService.text') }}
                         </p>
                         <RouterLink to="/information"
                             class="w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
-                            Узнать больше
+                            {{ t('btn.learnMore') }}
                         </RouterLink>
                     </div>
 
@@ -356,15 +312,14 @@
                 <div class="flex items-center justify-between relative bg-mainWhite rounded-[20px] p-8 overflow-hidden">
                     <div class="block max-w-[500px]">
                         <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack leading-tight">
-                            Перечень документов для открытия счета
+                            {{ t('docs.title') }}
                         </h4>
-                        <p class="text-[#6F736D] text-[17px] leading-6 mb-8 leading-tight">
-                            Любые взаимоотношения Клиента с Банком начинаются с открытия счета. Открытие расчетных
-                            счетов регулируется действующим законодательством Туркменистана.
+                        <p class="text-[#6F736D] text-[17px] mb-8 leading-tight">
+                            {{ t('docs.subTitle') }}
                         </p>
                         <RouterLink to="/documents"
                             class="w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
-                            Узнать больше
+                            {{ t('btn.learnMore') }}
                         </RouterLink>
                     </div>
 

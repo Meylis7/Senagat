@@ -118,8 +118,9 @@ export default {
   },
   bankService: {
     title: 'Banking Services',
+    supTitle: 'Dear citizens!',
     subTitle: 'Dear citizens!',
-    text: '«Senagat» JSCB offers you the following services and activities:',
+    text: '«Senagat» JSCB offers you the following services and activities',
     list: [
       {
         title: 'Credit',
@@ -256,6 +257,11 @@ export default {
       documentList: 'List of Documents',
       auditReports: 'Audit Reports',
       bankGuarantees: 'Bank guarantees',
+      serviceTariffs: 'Service Tariffs',
+
+      noReplenishment: 'No replenishment',
+      noReplenishmentWithdrawal:
+        'No replenishment or withdrawal, with the option to terminate at any time',
     },
   },
   yanardag: {
@@ -363,6 +369,13 @@ export default {
     tariffList: 'List of Tariffs',
     section: 'Section:',
     all: 'All',
+  },
+  map: {
+    workTime: 'Hours of Operation',
+    openNow: 'Open now',
+    roundTheClock: '24/7',
+    atms: 'ATMs',
+    offices: 'Offices',
   },
   transfer: {
     tableTitle: 'Tariff table',

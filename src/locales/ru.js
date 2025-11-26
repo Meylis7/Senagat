@@ -115,9 +115,9 @@ export default {
   },
 
   bankService: {
-    title: 'Banking Services',
-    subTitle: 'Dear citizens!',
-    text: '«Senagat» JSCB offers you the following services and activities:',
+    title: 'Банковские услуги',
+    subTitle: 'Уважаемые граждане!',
+    text: 'АКБ «Сенагат» предлагает вам следующие услуги и операции',
     list: [
       {
         title: 'Кредиты',
@@ -251,6 +251,11 @@ export default {
       documentList: 'Перечень документов',
       auditReports: 'Аудиторские отчеты',
       bankGuarantees: 'Банковские гарантии',
+      serviceTariffs: 'Тарифы на услуги',
+
+      noReplenishment: 'Без пополнения',
+      noReplenishmentWithdrawal:
+        'Без пополнения и снятия с возможностью расторжения в любой момент',
     },
   },
   yanardag: {
@@ -357,6 +362,13 @@ export default {
     tariffList: 'Список тарифов',
     section: 'Раздел:',
     all: 'Все',
+  },
+  map: {
+    workTime: 'Режим работы',
+    openNow: 'Открыто сейчас',
+    roundTheClock: 'Круглосуточно',
+    atms: 'Банкоматы',
+    offices: 'Офисы',
   },
   transfer: {
     tableTitle: 'Таблица тарифов',
