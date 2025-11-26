@@ -363,7 +363,8 @@ export default {
     title: 'Nyrhnamalar',
     subTitle: 'Bank hyzmatlarynyň ählisi üçin hereket edýän nyrhlar',
     tariffList: 'Nyrhnamalaryň sanawy',
-    section: 'Bölüm',
+    section: 'Bölüm:',
+    all: 'Ählisi',
   },
   transfer: {
     tableTitle: 'Nyrhnama',

@@ -15,13 +15,13 @@
     const tariffsLoading = ref(false)
     const tariffsError = ref(null)
     const tariffsData = ref([])
-    const selectedLoan = ref('All')
+    const selectedLoan = ref(t('tariff.all'))
     const handleOptionSelected = (option) => { selectedLoan.value = option }
 
     const selectedGroup = computed(() => {
         const arr = Array.isArray(tariffsData.value) ? tariffsData.value : []
         if (arr.length === 0) return null
-        if (selectedLoan.value && selectedLoan.value !== 'All') {
+        if (selectedLoan.value && selectedLoan.value !== t('tariff.all')) {
             const found = arr.find((g) => g?.title === selectedLoan.value)
             if (found) return found
         }
@@ -70,7 +70,7 @@
 
     const groupsTables = computed(() => {
         const groups = Array.isArray(tariffsData.value) ? tariffsData.value : []
-        const filteredGroups = selectedLoan.value && selectedLoan.value !== 'All'
+        const filteredGroups = selectedLoan.value && selectedLoan.value !== t('tariff.all')
             ? groups.filter((g) => g?.title === selectedLoan.value)
             : groups
         return filteredGroups.map((grp) => {
@@ -126,10 +126,10 @@
             const list = res?.data || res
             const arr = Array.isArray(list) ? list : []
             tariffsData.value = arr
-            tariffOptions.value = ['All', ...arr.map((grp) => grp?.title).filter(Boolean)]
+            tariffOptions.value = [t('tariff.all'), ...arr.map((grp) => grp?.title).filter(Boolean)]
         } catch (e) {
             tariffsError.value = e.message || 'Failed to load tariffs'
-            tariffOptions.value = ['All']
+            tariffOptions.value = [t('tariff.all')]
         } finally {
             tariffsLoading.value = false
         }
@@ -169,11 +169,12 @@
             <div class="wrap">
                 <div class="flex items-center justify-between">
                     <div class="block">
-                        <h6>
+                        <h4 class="text-[15px] mb-2 text-mainBlack font-bold font-Gilroy max-w-[80%] truncate">
                             {{ t('tariff.section') }}
-                        </h6>
-                        <CustomDropdown :options="tariffOptions" placeholder="All" class="tariff-dd"
-                            @option-selected="handleOptionSelected" />
+                        </h4>
+                        <CustomDropdown :options="tariffOptions" :placeholder="t('tariff.all')" class="tariff-dd"
+                            menu-class="max-h-[400px] overflow-auto absolute min-w-[500px] !bg-mainWhite shadow"
+                            title-class="!bg-mainWhite min-w-[500px]" @option-selected="handleOptionSelected" />
                     </div>
 
                     <a href="../../assets/doc/Nyrhanama.pdf" download target="_blank" rel="noopener"

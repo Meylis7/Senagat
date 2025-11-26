@@ -355,7 +355,8 @@ export default {
     title: 'Тарифы',
     subTitle: 'Актуальные расценки на все услуги банка',
     tariffList: 'Список тарифов',
-    section: 'Раздел',
+    section: 'Раздел:',
+    all: 'Все',
   },
   transfer: {
     tableTitle: 'Таблица тарифов',

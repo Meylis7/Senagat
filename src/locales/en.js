@@ -361,7 +361,8 @@ export default {
     title: 'Tariffs',
     subTitle: 'Current rates for all bank services',
     tariffList: 'List of Tariffs',
-    section: 'Section',
+    section: 'Section:',
+    all: 'All',
   },
   transfer: {
     tableTitle: 'Tariff table',
