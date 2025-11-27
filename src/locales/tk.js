@@ -46,7 +46,7 @@ export default {
     title: 'Teklipler',
   },
   facts: {
-    title: 'Öz-özünden aýdyň faktlar',
+    title: 'Üstünlikler we Baýraklar',
   },
   clients: {
     title: 'Biziň bankymyzyň üstünlikli telekeçi müşderileri',
@@ -116,7 +116,7 @@ export default {
   bankService: {
     title: 'Bank hyzmatlary',
     subTitle: 'Hormatly raýatlar!',
-    text: '«Senagat» ATB size aşakdaky hyzmatlary we amallary hödürleýär',
+    text: '«Senagat» PTB-y size aşakdaky hyzmatlary we amallary hödürleýär',
     list: [
       {
         title: 'Karz',
@@ -393,6 +393,27 @@ export default {
     readUsSocial: 'Bizi sosial ulgamlarda okaň',
     subscribeFirstNews: 'Ýazylyň we täzelikleri ilkinji bolup alyň',
   },
+  about: {
+    title: '«Senagat» PTB-y barada',
+    subtitle: 'Özüňize amatly ofise gelip bilersiňiz',
+    slider: [
+      {
+        title: 'Gurluşy',
+        description:
+          'Bankyň döredilmeginiň esasy maksady Türkmenistanda täjirçilik we önümçilik işi bilen meşgullanýan telekeçileri we hususy kärhanalary ösdürmeklige ýardam bermek bolup durdy. <br> Hut şol günden başlap bank özbaşdak balansy, möhüri, borçlary, borçnamalary, hukuklary esasynda işini ýola goýdy. <br> 1989-njy ýylyň oktýabr aýynyň 20-ne "Senagat" täjirçilik bankynyň Tertipnamasy tassyklanyldy.',
+      },
+      {
+        title: '1991-1992 ýý',
+        description:
+          'Ýurdumyzyň mukaddes Garaşsyzlyga eýe bolmagy bilen, 1991-nji ýylyň noýabr aýynyň 11-ne esaslandyryjylaryň ýygnagynyň çözgüdi we Türkmenistanyň Merkezi bankynyň 1992-nji ýylyň iýun aýynyň 9-daky 3 belgili ygtyýarnamasy esasynda "Senagat" täjirçilik banky, "Senagat" paýdarlar täjirçilik bankyna öwrildi. Bank açyk görnüşli paýdarlar jemgyýeti bolmak bilen, özüniň gymmat bahaly kagyzlaryny - paýnamalaryny çykaryp, açyk görnüşinde ýerleşdirip başlady.',
+      },
+      {
+        title: 'Häzirki wagtda',
+        description:
+          'Häzirki döwürde, Türkmenistanyň "Senagat" PTB-y açyk görnüşli paýdarlar jemgyýeti bolup, Türkmenistanyň "Karz edaralary we bank işi hakynda", "Paýdarlar jemgyýeti hakynda" kanunlaryna we beýleki kanun çykaryjy namalaryna we Bankyň Tertipnamasyna laýyklykda öz işini alyp barýar. <br> Bankyň jemi 13 sany şahamçasy bolup, olardan 9-y welaýat merkezinde, 2-si Aşgabat şäherinde, 2 sanysy bolsa Balkan welaýatynyň Serdar we Türkmenbaşy şäherlerinde, bulardan başga-da 1 sany bank gullugy – Daşoguz welaýatynyň Gubadag şäherinde müşderilere hyzmat edýär. Bankyň hyzmat edýän müşderileriniň esasy bölegi fiziki taraplar we hususy telekeçilerden ybaratdyr.',
+      },
+    ],
+  },
   app: {
     title: 'Programmany ýükläp alyň',
     subTitle:
@@ -411,7 +432,7 @@ export default {
     title: 'Walýuta çalşygyny meýilleşdiriň',
     branches: 'Şahamçalar',
     onCityMap: 'Şäher kartasynda',
-    exchangeRates: 'Walýuta kurslary',
+    exchangeRates: 'Walýuta hümmeti',
     currentRate: 'Häzirki kurs',
     exchange: 'Çalyşmak',
     currency: 'Walýuta',
@@ -432,10 +453,72 @@ export default {
       requisites: 'Rekwizitler',
       news: 'Täzelikler',
       branches: 'Şahamçalar',
-      exchangeRates: 'Walýuta kurslary',
+      exchangeRates: 'Walýuta hümmeti',
       atmSearch: 'Bankomat gözlegi',
+      privacyPolicy: 'Gizlinlik syýasaty',
+      mobileBankingSystem: '“Senagat mobil bank” ulgamy',
+      paymentSystem: '“Senagat töleg” bank ulgamy',
+    },
+    text: '© 1994-2025, «Senagat» banky. Türkmenistanyň Merkezi Bankynyň 14.09.2015-nji ýyldaky 2707-nji belgili ygtyýarnamasy. «Senagat» banky şahsy maglumatlary gaýtadan işleýän operatordyr.',
+
+    office_text: 'Baş ofis',
+
+    app: {
+      title: 'Download the app',
+      text: 'Ykjam goşundy',
+      mobile: 'Android we iOS üçin programma',
     },
   },
+  privacy: {
+    title_1: 'Senagat bank Mobile banking',
+    title_2: 'Senagat Töleg',
+    subTitle: 'Gizlinlik ýörelgesi',
+    supTitle_1:
+      '“Senagat bank mobile banking” Mobil programma üpjünçiligi üçin niýetlenen Gizlinlik ýörelgesi',
+    supTitle_2: '“Senagat Töleg” Mobil programma üpjünçiligi üçin niýetlenen Gizlinlik ýörelgesi',
+    desc: [
+      {
+        title: '1. Umumy maglumat',
+      },
+      {
+        title: '2. Ulanyş şertleri',
+        text: 'Bu Gizlinlik ýörelgesi bilen ylalaşmasaňyz, Türkmenistanyň "Senagat" paýdarlar täjirçilik bankyna degişli ykjam programmalary göçürip almakdan saklanmagyňyzy haýyş edýäris. <br> Bank, ulanyjylara öňünden ýazmaça habar bermezden wagtal-wagtal bu Gizlinlik ýörelgesini üýtgedip we/ýa-da üstüni dolduryp biler. ',
+      },
+      {
+        title: '3. Ulanyjylaryň maglumatlaryny ýygnamagyň we/ýa-da gaýtadan işlemegiň maksatlary',
+        text: 'Bank, şahsy maglumatlaryňyzy gaýtadan işlemegiň aşakdaky maksatlaryna eýerip, maglumatlaryňyzy ýygnaýar we işleýär: mobil programmanyň işleýşini sazlamak we üpjün etmek, şeýle hem mobil programmanyň has amatly hem-de has çalt we ygtybarly ulanylmagyny üpjün etmek.',
+        list: [
+          'Ykjam mobil telefonyňyzyň belgisi we tor maglumatlary;',
+          'Bank kart maglumatlaryňyz;',
+          'Elektron bukja (poçta) salgyňyz;',
+          'GPS - ykjam enjamyňyzyň ýerleşýän ýeri barada maglumatlar;',
+          'Maglumat alyş-çalşyk kanallary arkaly ugradylan we kabul edilen maglumatlar (e-poçta, telefon we ş.m.), şol sanda birikdirilen faýllar (suratlaryň sany) arkaly berilýän maglumatlar we maglumatlar.',
+        ],
+      },
+      {
+        title: '4. Maglumatlardan peýdalanmak we olary aýan etmek (ýaýratmak)',
+        text: 'Bank, mobil programmany goldamak, dolandyrmak we kämilleşdirmek üçin maglumatlaryňyzy beýleki maglumatlar bilen bilelikde ýygnap, üýşürip, ýazyp alyp, saklap, birleşdirip, toparlap, anonimleşdirip, pozup, üýtgedip we ulanyp biler. <br> Gizlinlik ýörelgesi esasynda ulanyjy bara üýşürilen maglumatlar diňe şu aşakdaky ýagdaýlarda üçünji taraplara berlip bilinjekdigine meýletin razylygyňyzy bildirýärsiňiz:',
+        list: [
+          'Kanuny berjaý etmek zerur bolanda;',
+          'Adam hukuklaryny we azatlyklary goramak zerur bolan ýagdaýlarda.',
+        ],
+        subText:
+          'Galan ýagdaýlarda müşderilerden ýygnalýan we saklanylýan maglumatlaryň howpsuzlygyna Bankyň hut özi jogap berýär.',
+      },
+      {
+        title: '5. Maglumat saklamak',
+        text: 'Bu ylalaşyk taraplaryň hasyda bolsa biriniň haýyşy boýunça ikinji tarapyň ylalaşygyň ýatyrylmagy baradaky arzasyny alan pursatyndan başlap ýatyrylyp bilner.',
+      },
+      {
+        title: '6. Taraplaryň beýleki borçlary',
+      },
+      {
+        title: '7. Habarlaşmak üçin',
+        text: 'Ýüz tutma arzaňyzda Familiýaňyz, Adyňyz, habarlaşmak üçin maglumatlaryňyz hem-de ýüz tutmanyňyza doly we hemmetaraplaýyn garamak üçin zerur bolan beýleki maglumatlar berkidilen bolmaly.',
+      },
+    ],
+  },
+
   404: {
     title: 'Sahypa tapylmady',
     text: 'Ýöne zerur bolan ähli maglumatlar esasy sahypamyzda bar.',

@@ -109,11 +109,17 @@ const router = createRouter({
           name: 'tariff',
           component: () => import('@/views/website/TariffView.vue'),
         },
-          {
+        {
           // Map
           path: 'branches',
           name: 'branches',
           component: () => import('@/views/website/MapView.vue'),
+        },
+        {
+          // Политика конфиденциальности
+          path: 'privacy',
+          name: 'privacy',
+          component: () => import('@/views/website/PrivacyView.vue'),
         },
       ],
     },

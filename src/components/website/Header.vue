@@ -180,10 +180,10 @@
                                 {{ t('header.onlineReception') }}
                             </RouterLink>
 
-                            <RouterLink to="/"
+                            <a href="http://ibc.senagatbank.com.tm/login" target="_blank"
                                 class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
                                 {{ t('header.internetBank') }}
-                            </RouterLink>
+                            </a>
                         </div>
                     </div>
                 </nav>

@@ -47,7 +47,7 @@ export default {
     title: 'Offers',
   },
   facts: {
-    title: 'Facts that speak for themselves',
+    title: 'Achievements and Rewards',
   },
   clients: {
     title: 'Successful entrepreneur clients of our bank',
@@ -392,6 +392,27 @@ export default {
     readUsSocial: 'Follow us on social networks',
     subscribeFirstNews: 'Subscribe and get the news first',
   },
+  about: {
+    title: 'Senagat makes life better',
+    subtitle: 'Visit the office most convenient for you',
+    slider: [
+      {
+        title: 'Establishment',
+        description:
+          'The main purpose of the bank was to promote the development of entrepreneurs and private enterprises engaged in commercial and industrial activities in Turkmenistan. <br> From that day on, the bank began to work on its own balance sheet, seal, liabilities, obligations, rights. <br> October 20, 1989 the Charter of the Commercial Bank "Senagat" was approved.',
+      },
+      {
+        title: '1991-1992 yy',
+        description:
+          'After acquiring the status of independence of our country, on the basis of the decision of the meeting of founders dated November 11, 1991 and the decree of the Central Bank of Turkmenistan dated June 9, 1992 No. 3, the Commercial Bank "Senagat" became a joint stock company "Senagat". As a public joint stock company, the bank began to issue and place its securities - shares.',
+      },
+      {
+        title: 'Current period',
+        description:
+          'Currently, JSCB "Senagat" of Turkmenistan is an open joint stock company and operates in accordance with the legislation of Turkmenistan "On credit institutions and banking", "On joint stock companies" and other legislative acts and the Charter of the Bank. <br> The bank has 13 branches - 9 in the regional center, 2 in the city of Ashgabat, 2 in the city of Serdar and Turkmenbashi of the Balkan velayat and 1 in the city of Gubadag of the Dashoguz velayat. The bank serves over 371,000 clients, the main part of whom are individuals and private entrepreneurs.',
+      },
+    ],
+  },
   app: {
     title: 'Download the app',
     subTitle:
@@ -433,7 +454,67 @@ export default {
       branches: 'Branches',
       exchangeRates: 'Exchange Rates',
       atmSearch: 'ATM Search',
+      privacyPolicy: 'Privacy policy',
+      mobileBankingSystem: '“Senagat mobil bank” system',
+      paymentSystem: '“Senagat töleg” bank system',
     },
+    text: '© 1994-2025, Senagat Bank. License of the Bank of Turkmenistan No. 2707 dated 14.09.2015. Senagat Bank is a personal data processing operator.',
+
+    office_text: 'Main Office',
+
+    app: {
+      title: 'Download the app',
+      text: 'Mobile Application',
+      mobile: 'for Android and iOS',
+    },
+  },
+  privacy: {
+    title_1: 'Senagat bank mobile banking',
+    title_2: 'Senagat Töleg',
+    subTitle: 'Privacy policy',
+    supTitle_1: 'Privacy Policy for Mobile Application “Senagat bank mobile banking”',
+    supTitle_2: 'Privacy Policy for Mobile Application “Senagat Töleg”',
+    desc: [
+      {
+        title: '1. General information',
+      },
+      {
+        title: '2. Terms of Use',
+        text: 'If you do not agree with this Policy, please do not download mobile applications owned by Joint Stock Commercial Bank of Turkmenistan "Senagat". <br> The organization may from time to time modify and/or supplement this Policy without prior written notice to users. You need with a periodicity of one month to get acquainted with this Policy for amendments and/or additions made to it. If you continue to use application, you confirm your agreement with the new edition of the Policy.',
+      },
+      {
+        title: '3. Objectives of collecting and/or processing user data',
+        text: 'The Bank collects and processes your data, pursuing the following objectives processing your personal data, namely: the stability functioning of the application, and also more convenient, fast and safe use it for you.',
+        list: [
+          'Your mobile phone number and mobile network data;',
+          'Your bank card number;',
+          'Your e-mail address;',
+          'GPS – data about the location of your mobile device;',
+          'Information and information transmitted by you through the feedback form and other communication channels (email, phones, etc.), including the attached files (in number of images).',
+        ],
+      },
+      {
+        title: '4. Use dissemination and transmission of your data',
+        text: 'The Bank can collect, record, organize, store, modify, combine, group, depersonalize, delete, modify and use your data with other information to support, manage and develop the application. <br> You hereby express your voluntary consent that your data may be are provided to third parties only in the following cases:',
+        list: [
+          'When it is necessary to comply with the law;',
+          'In cases where it is necessary to protect human rights and fundamental freedoms',
+        ],
+        subText:
+          "In other cases, the Bank is responsible for the security of its customers' data and the security of connections and transactions conducted via the banking application.",
+      },
+      {
+        title: '5. Storage of data',
+        text: "This consent can be terminated at the request of one of the parties from the moment receipt of the second party's application for termination.",
+      },
+      {
+        title: '6. Other duties of the parties',
+      },
+      {
+        title: '7. Contacts',
+        text: 'Your request must be the name, surname, contact details for communication, as well as other information, necessary for full and complete consideration of your request.',
+      },
+    ],
   },
 
   404: {

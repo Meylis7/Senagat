@@ -56,12 +56,12 @@
 
 
                 <h1 class="m-auto max-w-[660px] mb-[10px] text-center text-5xl font-bold">
-                    {{ t('news.news') }}
+                    {{ t('news.title') }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-[#6F736D] text-center">
+                <!-- <p class="text-[17px] font-Gilroy text-[#6F736D] text-center">
                     {{ t('news.subTitle') }}
-                </p>
+                </p> -->
             </div>
         </div>
     </section>

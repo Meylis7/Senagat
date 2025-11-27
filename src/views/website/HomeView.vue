@@ -703,7 +703,7 @@
     <section class="py-[50px]">
       <div class="auto_container">
         <div class="wrap">
-          <h2 class="text-[38px] font-bold mb-10 leading-9">{{ t('exchange.title') }}</h2>
+          <!-- <h2 class="text-[38px] font-bold mb-10 leading-9">{{ t('exchange.title') }}</h2> -->
 
           <div class="flex gap-4">
             <RouterLink to="/branches"
@@ -752,7 +752,7 @@
                   <div class="col-span-4 leading-7 flex items-center  text-[28px] font-bold">{{ r.code }}</div>
                   <div class="col-span-4 leading-7 flex items-center gap-2 text-[28px] font-bold">
                     {{ r.buy.toFixed(2) }}
-                    <span v-if="r.trend === 'up'" class="text-[#2C702C] w-4 block">
+                    <!-- <span v-if="r.trend === 'up'" class="text-[#2C702C] w-4 block">
                       <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -767,11 +767,11 @@
                           d="M13.5677 1.06719L7.31768 7.31719C7.25963 7.3753 7.1907 7.4214 7.11483 7.45285C7.03896 7.4843 6.95763 7.50049 6.87549 7.50049C6.79336 7.50049 6.71203 7.4843 6.63615 7.45285C6.56028 7.4214 6.49135 7.3753 6.4333 7.31719L0.183305 1.06719C0.0957976 0.979778 0.0361929 0.86837 0.0120364 0.747067C-0.0121201 0.625764 0.000257809 0.500021 0.0476031 0.385756C0.0949484 0.271492 0.175132 0.173844 0.278003 0.105175C0.380875 0.0365058 0.501807 -9.71422e-05 0.625492 1.93625e-07H13.1255C13.2492 -9.71422e-05 13.3701 0.0365058 13.473 0.105175C13.5759 0.173844 13.656 0.271492 13.7034 0.385756C13.7507 0.500021 13.7631 0.625764 13.7389 0.747067C13.7148 0.86837 13.6552 0.979778 13.5677 1.06719Z"
                           fill="#CC1717" />
                       </svg>
-                    </span>
+                    </span> -->
                   </div>
                   <div class="col-span-4 leading-7 flex items-center gap-2 text-[28px] font-bold">
                     {{ r.sell.toFixed(2) }}
-                    <span v-if="r.trend === 'up'" class="text-[#2C702C] w-4 block">
+                    <!-- <span v-if="r.trend === 'up'" class="text-[#2C702C] w-4 block">
                       <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -786,13 +786,19 @@
                           d="M13.5677 1.06719L7.31768 7.31719C7.25963 7.3753 7.1907 7.4214 7.11483 7.45285C7.03896 7.4843 6.95763 7.50049 6.87549 7.50049C6.79336 7.50049 6.71203 7.4843 6.63615 7.45285C6.56028 7.4214 6.49135 7.3753 6.4333 7.31719L0.183305 1.06719C0.0957976 0.979778 0.0361929 0.86837 0.0120364 0.747067C-0.0121201 0.625764 0.000257809 0.500021 0.0476031 0.385756C0.0949484 0.271492 0.175132 0.173844 0.278003 0.105175C0.380875 0.0365058 0.501807 -9.71422e-05 0.625492 1.93625e-07H13.1255C13.2492 -9.71422e-05 13.3701 0.0365058 13.473 0.105175C13.5759 0.173844 13.656 0.271492 13.7034 0.385756C13.7507 0.500021 13.7631 0.625764 13.7389 0.747067C13.7148 0.86837 13.6552 0.979778 13.5677 1.06719Z"
                           fill="#CC1717" />
                       </svg>
-                    </span>
+                    </span> -->
                   </div>
                 </template>
 
-                <h6 class="col-span-8 text-[#6F736D] mt-auto text-[17px] max-w-[450px] font-Gilroy">
-                  {{ t('exchange.rateDisclaimer') }}
-                </h6>
+                <div class="block mt-auto col-span-10 max-w-[450px]">
+                  <h6 class="col-span-8 text-[#6F736D]  text-[17px]  font-Gilroy">
+                    {{ t('exchange.rateDisclaimer') }}
+                  </h6>
+                  <a href="https://www.cbt.tm/kurs/kurs_today.html" target="_blank"
+                    class="block text-[#2C702C] font-bold text-[17px] font-Gilroy mt-4">
+                    Türkmenistanyň Merkezi bankyň walýuta kursy
+                  </a>
+                </div>
               </div>
 
               <!-- <div v-show="currencyActiveTab === 'Обмен'" class="text-[#6F736D] h-[calc(100%-60px)] grid grid-cols-1">
@@ -864,7 +870,7 @@
           </h2>
 
           <div class="grid grid-cols-2 gap-4">
-            <div v-for="item in awards.slice(0, 2)" :key="item.id" class="block bg-mainWhite rounded-[20px] p-8">
+            <div v-for="item in awards" :key="item.id" class="block bg-mainWhite rounded-[20px] p-8">
               <RouterLink :to="{ name: 'awards-detail', query: { id: item.id } }" class="block">
                 <h4 class=" text-[28px] font-bold text-mainBlack mb-2">
                   {{ item.title || '' }}
@@ -897,7 +903,7 @@
                 {{ t('docs.subTitle') }}
               </p>
 
-              <RouterLink to="/"
+              <RouterLink to="/documents"
                 class="block w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] mt-[85px] px-5 py-[14px]">
                 {{ t('btn.learnMore') }}
               </RouterLink>

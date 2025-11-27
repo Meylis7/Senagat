@@ -157,25 +157,25 @@
 
                         <ul class="space-y-4 mb-5 pb-5 border-solid border-0 border-b border-[#EEF2ED]">
                             <li>
-                                <RouterLink to="/"
+                                <RouterLink to="/cash"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     {{ t('nav.informations.cashDesk') }}
                                 </RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/"
+                                <RouterLink to="/terminal"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     {{ t('nav.informations.terminalDocs') }}
                                 </RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/"
+                                <RouterLink to="/documents"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     {{ t('nav.informations.documentList') }}
                                 </RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/"
+                                <RouterLink to="/audit"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     {{ t('nav.informations.auditReports') }}
                                 </RouterLink>
@@ -203,7 +203,7 @@
 
                         <ul class="space-y-4  mb-5 pb-5  border-solid border-0 border-b border-[#EEF2ED]">
                             <li>
-                                <RouterLink to="/"
+                                <RouterLink to="/about"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     {{ t('footer.links.contacts') }}
                                 </RouterLink>
@@ -215,13 +215,13 @@
                                 </RouterLink>
                             </li> -->
                             <li>
-                                <RouterLink to="/"
+                                <RouterLink to="/news"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     {{ t('footer.links.news') }}
                                 </RouterLink>
                             </li>
                             <li>
-                                <RouterLink to="/"
+                                <RouterLink to="/branches"
                                     class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
                                     {{ t('footer.links.branches') }}
                                 </RouterLink>
@@ -272,7 +272,9 @@
                                 class="font-bold tracking-[0.2px] text-mainWhite  text-[28px] leading-7">
                                 +993 12 34 11 28
                             </a>
-                            <p class="text-[17px] font-Gilroy text-mainWhite leading-5 mt-1">Главный офис</p>
+                            <p class="text-[17px] font-Gilroy text-mainWhite leading-5 mt-1">
+                                {{ t('footer.office_text') }}
+                            </p>
                         </div>
 
                         <div class="col-span-5">
@@ -283,10 +285,10 @@
                                 </div>
                                 <div class="block">
                                     <h6 class="text-[#EEF2ED] font-bold text-[17px] leading-tight mb-[17px]">
-                                        Мобильное приложение
+                                        {{ t('footer.app.title') }}
                                     </h6>
                                     <p class="text-[#EEF2ED] font-Gilroy text-[17px] leading-tight">
-                                        Приложениедля <br> Android и iOS
+                                        {{ t('footer.app.text') || '' }} <br> {{ t('footer.app.mobile') }}
                                     </p>
                                 </div>
                             </RouterLink>
@@ -295,33 +297,22 @@
 
                     <div class="grid gap-6 mt-[60px] border-solid border-[#6F736D] border-0 border-t pt-8">
                         <h6 class="text-[#EEF2ED] text-sm leading-5">
-                            © 1994-2025, Сенагат-Банк. Лицензия Банка Туркменистана № 2707 от 14.09.2015. <span
-                                class="text-[#2C702C]">
-                                Информация о
-                                процентных ставках по договорам банковского вклада с физическими лицами. Раскрытие
-                                информации и финансовая отчётность. Раскрытие информации профессионального участника
-                                рынка
-                                ценных бумаг. Депозитарная деятельность.
-                            </span>
+                            {{ t('footer.text') }}
                         </h6>
 
-                        <h6 class="text-[#EEF2ED] text-sm leading-5">
+                        <!-- <h6 class="text-[#EEF2ED] text-sm leading-5">
                             Сенагат-Банк является оператором по обработке персональных данных.
-                            <RouterLink to="/" class="text-[#2C702C]">
-                                Политика обработки
-                                персональных данных
-                            </RouterLink>
-                        </h6>
+                        </h6> -->
 
                         <h6 class="text-[#EEF2ED] text-sm leading-5">
-                            Для повышения удобства работы с сайтом Сенагат-Банка используются файлы cookie, подробнее
-                            в
-                            <RouterLink to="/" class="text-[#2C702C]">
-                                Политика использования файлов cookie.
+                            {{ t('footer.links.privacyPolicy') }}
+                            <RouterLink to="/privacy?type=bank" class="text-[#2C702C] inline-block mx-2">
+                                {{ t('footer.links.mobileBankingSystem') }}
                             </RouterLink>
-                            В cookie содержатся данные о прошлых посещениях
-                            сайта. Если вы не хотите, чтобы эти данные обрабатывались, отключите cookie в настройках
-                            браузера
+                            <span class="text-[#2C702C] inline-block mx-2">|</span>
+                            <RouterLink to="/privacy?type=payment" class="text-[#2C702C] inline-block mx-2">
+                                {{ t('footer.links.paymentSystem') }}
+                            </RouterLink>
                         </h6>
                     </div>
                 </div>

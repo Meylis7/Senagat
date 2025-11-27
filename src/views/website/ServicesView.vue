@@ -1,6 +1,7 @@
 <script setup>
     import { ref, computed, onMounted, nextTick, watch } from 'vue'
     import { RouterLink } from 'vue-router'
+    import Breadcrumb from '@/components/website/Breadcrumb.vue'
     import { useI18n } from 'vue-i18n'
     import apiService from '@/services/apiService'
     import imgCash from '@/assets/images/cash.png'
@@ -9,6 +10,11 @@
     import imgAudit from '@/assets/images/Audit.png'
     import imgGlass from '@/assets/images/GradientGlass.png'
     const { t } = useI18n()
+
+    const breadcrumbItems = computed(() => ([
+        { label: t('breadcrumb.home'), path: '/' },
+        { label: t('breadcrumb.services') },
+    ]))
 
     const activeTab = ref('all')
     const tabRefs = ref([])
@@ -78,7 +84,7 @@
         { to: '/cash', title: t('nav.informations.cashDesk'), img: imgCash, subtitle: t('nav.informations.noReplenishment') },
         { to: '/terminal', title: t('nav.informations.terminalDocs'), img: imgTerminal, subtitle: t('nav.informations.noReplenishment') },
         { to: '/guarantees', title: t('nav.informations.bankGuarantees'), img: imgGuarantees, special: true, subtitle: t('nav.informations.noReplenishmentWithdrawal') },
-        { to: '/audit', title: t('nav.informations.auditReports'), img: imgAudit, subtitle: 'Cамый простой способ перевести деньги' },
+        { to: '/audit', title: t('nav.informations.auditReports'), img: imgAudit, subtitle: t('nav.informations.noReplenishment') },
         { to: '/tariff', title: t('nav.informations.serviceTariffs'), img: imgGlass, subtitle: t('nav.informations.noReplenishment') },
     ]
 
@@ -112,22 +118,7 @@
         <div class="auto_container">
             <div class="wrap">
                 <div class="flex items-center gap-x-2">
-                    <RouterLink to="/" class="text-[17px] font-Gilroy text-[#6F736D]">
-                        Главная
-                    </RouterLink>
-
-                    <span class="block w-[18px]">
-                        <svg class="block w-full object-contain" width="7" height="14" viewBox="0 0 7 14" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6.77279 7.39792L1.14779 13.0229C1.09553 13.0752 1.03349 13.1166 0.965204 13.1449C0.89692 13.1732 0.823734 13.1878 0.749825 13.1878C0.675915 13.1878 0.602729 13.1732 0.534445 13.1449C0.466162 13.1166 0.404117 13.0752 0.351855 13.0229C0.299593 12.9707 0.258137 12.9086 0.229853 12.8403C0.201569 12.772 0.187012 12.6989 0.187012 12.6249C0.187012 12.551 0.201569 12.4779 0.229853 12.4096C0.258137 12.3413 0.299593 12.2792 0.351855 12.227L5.57959 6.99995L0.351855 1.77292C0.246308 1.66737 0.187012 1.52421 0.187012 1.37495C0.187012 1.22568 0.246308 1.08253 0.351855 0.976978C0.457403 0.87143 0.600557 0.812134 0.749825 0.812134C0.899092 0.812134 1.04225 0.87143 1.14779 0.976978L6.77279 6.60198C6.82509 6.65422 6.86658 6.71626 6.89489 6.78454C6.9232 6.85283 6.93777 6.92603 6.93777 6.99995C6.93777 7.07387 6.9232 7.14706 6.89489 7.21535C6.86658 7.28364 6.82509 7.34567 6.77279 7.39792Z"
-                                fill="#6F736D" />
-                        </svg>
-                    </span>
-
-                    <h6 class="text-[17px] font-Gilroy text-mainBlack">
-                        Сервисы и услуги
-                    </h6>
+                    <Breadcrumb :items="breadcrumbItems" />
                 </div>
             </div>
         </div>
@@ -187,9 +178,9 @@
                                 <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                     {{ it.data.title || '' }}
                                 </h6>
-                                <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">
+                                <!-- <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">
                                     {{ it.data.sub_title || '' }}
-                                </p>
+                                </p> -->
                                 <span class="max-h-[120px] h-full flex items-end justify-end z-[1]">
                                     <img :src="it.data?.image_url" class="block max-h-full object-contain"
                                         alt="transfer">
@@ -199,9 +190,10 @@
                                 <h6
                                     :class="['text-[28px] leading-7 font-bold mb-[10px]', it.data.special ? 'text-mainWhite' : 'text-mainBlack']">
                                     {{ it.data.title }}</h6>
-                                <p
+                                <!-- <p
                                     :class="['text-[17px] leading-5 mb-1 font-Gilroy', it.data.special ? 'text-mainWhite/80' : 'text-[#6F736D]']">
-                                    Без пополнения</p>
+                                    {{ t('nav.informations.noReplenishment') }}
+                                </p> -->
                                 <span :class="it.data.special
                                     ? 'absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px] z-[1]'
                                     : 'max-h-[120px] h-full flex items-end justify-end z-[1]'
@@ -248,9 +240,9 @@
                             <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
                                 {{ item?.title || '' }}
                             </h6>
-                            <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">
+                            <!-- <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">
                                 {{ item?.sub_title || '' }}
-                            </p>
+                            </p> -->
                             <span class="max-h-[120px] h-full flex items-end justify-end">
                                 <img :src="item?.image_url" class="block max-h-full object-contain" alt="transfer">
                             </span>
@@ -266,10 +258,10 @@
                             :class="['leading-7 font-bold mb-[10px]', item.special ? 'text-mainWhite text-[34px] leading-9' : 'text-[28px] text-mainBlack']">
                             {{ item.title }}
                         </h6>
-                        <p
+                        <!-- <p
                             :class="item.special ? 'text-mainWhite max-w-[420px] opacity-60' : 'text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy'">
                             {{ item.subtitle }}
-                        </p>
+                        </p> -->
                         <span :class="item.special
                             ? 'absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px] z-[1]'
                             : 'max-h-[120px] h-full flex items-end justify-end'">
