@@ -11,59 +11,50 @@
     import NewsSection from '@/components/website/NewsSection.vue';
 
 
-    // Deposit Form State ========================================================================
-    // const depositTypes = ['Накопительный', 'Срочный', 'До востребования'];
-    // const depositType = ref(depositTypes[0]);
-    // const isDepositTypeOpen = ref(false);
-    // const setDepositType = (t) => {
-    //     depositType.value = t;
-    //     isDepositTypeOpen.value = false;
-    // };
+    const credit = ref(null)
+    const creditMin = computed(() => {
+        const minAmount = Number(credit.value?.min_amount)
+        return Number.isFinite(minAmount) && minAmount > 0 ? minAmount : 1000
+    })
+    const creditMax = computed(() => {
+        const maxAmount = Number(credit.value?.max_amount)
+        return Number.isFinite(maxAmount) && maxAmount > 0 ? maxAmount : 60000
+    })
+    const creditAmount = ref(0);
 
-    const depositMin = 5000;
-    const depositMax = 60000;
-    const depositAmount = ref(10000);
-    const creditMin = 5000;
-    const creditMax = 60000;
-    const creditAmount = ref(10000);
-    const creditTypes = ['Потребительский', 'Ипотечный', 'Автокредит'];
-    const creditType = ref(creditTypes[0]);
-    const isCreditTypeOpen = ref(false);
-    const setCreditType = (t) => {
-        creditType.value = t;
-        isCreditTypeOpen.value = false;
-    };
 
     // Utility Functions =========================================================================
-    const formatMoney = (n) => n.toLocaleString('ru-RU');
-    const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
-    const roundToStep = (v, step) => Math.round(v / step) * step;
-
-    // Input Handlers ============================================================================
-    const onDepositAmountInput = (e) => {
-        const raw = String(e.target.value).replace(/\D/g, '');
-        const num = clamp(roundToStep(Number(raw || 0), 500), depositMin, depositMax);
-        depositAmount.value = num;
-        // reflect formatted value back to the input element
-        e.target.value = formatMoney(num);
-    };
-
-    const onCreditAmountInput = (e) => {
-        const raw = String(e.target.value).replace(/\D/g, '');
-        const num = clamp(roundToStep(Number(raw || 0), 500), creditMin, creditMax);
-        creditAmount.value = num;
-        e.target.value = formatMoney(num);
-    };
+    const formatMoney = (amount) => amount.toLocaleString('ru-RU');
+    const toFixedDown = (value, digits = 2) => {
+        const p = 10 ** digits
+        return Math.trunc(Number(value) * p) / p
+    }
+    const formatMoneyFixed = (amount, digits = 2) => toFixedDown(amount, digits).toLocaleString('ru-RU', {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits,
+    });
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+    const roundToStep = (value, step) => Math.round(value / step) * step;
 
     // Term Options ==============================================================================
-    const termOptions = ['6 мес', '1 год', '1.5 года', '2 года', '3 года'];
-    const selectedTerm = ref('2 года');
     const creditSelectedTerm = ref('2 года');
+    const creditSelectedTermMonths = ref(24);
+    const termOptions = computed(() => {
+        const termYears = Number(credit.value?.term);
+        const maxYears = Number.isFinite(termYears) && termYears > 0 ? termYears : NaN;
+        const steps = Number.isFinite(maxYears)
+            ? Array.from({ length: maxYears }, (_, index) => index + 1)
+            : [1, 2, 3, 4, 5];
+        return steps.map((years) => ({
+            label: years === 1 ? '1 year' : `${years} years`,
+            months: years * 12,
+        }));
+    })
 
     const { t } = useI18n()
     const route = useRoute()
     const creditId = computed(() => route.params?.id || route.query?.id)
-    const credit = ref(null)
+
     const loading = ref(false)
     const error = ref(null)
 
@@ -84,8 +75,13 @@
             const res = await apiService.get(`/v1/credit/types/${creditId.value}`)
             const data = res?.data || res
             credit.value = data && !Array.isArray(data) ? data : null
-        } catch (e) {
-            error.value = e.message || 'Failed to load credit'
+            const minA = Number(credit.value?.min_amount)
+            const maxA = Number(credit.value?.max_amount)
+            if (Number.isFinite(minA) && Number.isFinite(maxA) && maxA > minA) {
+                creditAmount.value = roundToStep(minA, 100)
+            }
+        } catch (err) {
+            error.value = err.message || 'Failed to load credit'
             credit.value = null
         } finally {
             loading.value = false
@@ -101,6 +97,52 @@
             fetchCreditDetail()
             window.scrollTo({ top: 0, behavior: 'smooth' })
         }
+    })
+
+    watch(termOptions, (opts) => {
+        const first = Array.isArray(opts) && opts.length ? opts[0] : null
+        if (first) {
+            creditSelectedTerm.value = first.label
+            creditSelectedTermMonths.value = first.months
+        }
+    }, { immediate: true })
+
+    const progressPercent = computed(() => {
+        const min = creditMin.value
+        const max = creditMax.value
+        const denom = max - min
+        if (!Number.isFinite(min) || !Number.isFinite(max) || denom <= 0) return '0%'
+        const selectedAmount = clamp(creditAmount.value, min, max)
+        return ((selectedAmount - min) / denom) * 100 + '%'
+    })
+
+    watch([creditMin, creditMax], ([min, max]) => {
+        if (Number.isFinite(min) && Number.isFinite(max) && max > min) {
+            creditAmount.value = min
+        }
+    })
+
+    const hasAmountRange = computed(() => {
+        const creditData = credit.value
+        return !!(creditData && creditData.min_amount != null && creditData.max_amount != null)
+    })
+
+    const monthlyRate = computed(() => {
+        const interestPercent = Number(credit.value?.interest)
+        return Number.isFinite(interestPercent) && interestPercent > 0 ? interestPercent / 100 : 0
+    })
+
+    const monthlyPayment = computed(() => {
+        const principal = clamp(roundToStep(Number(creditAmount.value) || 0, 100), creditMin.value, creditMax.value)
+        const totalMonths = Number(creditSelectedTermMonths.value) || 0
+        const monthlyInterestRate = monthlyRate.value
+        if (!Number.isFinite(principal) || !Number.isFinite(totalMonths) || totalMonths <= 0) return 0
+        return (principal + principal * monthlyInterestRate) / totalMonths
+    })
+
+    const totalPayment = computed(() => {
+        const totalMonths = Number(creditSelectedTermMonths.value) || 0
+        return toFixedDown(monthlyPayment.value * totalMonths, 2)
     })
 
 </script>
@@ -186,66 +228,75 @@
     </section>
 
     <!-- Calc ===================================================================================== -->
-    <section class="py-[50px]">
+    <section class="py-[50px]" v-if="hasAmountRange">
         <div class="auto_container">
             <div class="wrap">
                 <h2 class="text-[38px] font-bold leading-9 mb-8">
                     {{ t('pageTitle.depositApplication') }}
                 </h2>
 
-                <div class="grid lg:grid-cols-2 gap-6">
-                    <div class="bg-mainWhite rounded-[20px] p-6">
+                <div class="grid lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-8 bg-mainWhite rounded-[20px] p-6">
                         <div class="mb-6">
-                            <label class="block text-[#6F736D] text-[17px] mb-3">Сумма кредита</label>
-                            <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
-                                <input type="text" :value="formatMoney(creditAmount)" @input="onCreditAmountInput"
-                                    class="w-full outline-none bg-transparent text-mainBlack font-bold" />
+                            <div class="bg-[#EEF2ED] rounded-[20px] p-5 relative">
+                                <label class="block text-[#6F736D] text-[17px] mb-1 leading-tight">
+                                    {{ t('calc.loanAmount') }}
+                                </label>
+                                <h3 class="text-[17px] font-bold text-[#1D2417] leading-tight">{{
+                                    formatMoney(creditAmount) }}
+                                </h3>
+
+                                <input type="range" :min="creditMin" :max="creditMax" step="100" v-model="creditAmount"
+                                    class="amount-range w-full absolute bottom-0 left-1/2 -translate-x-1/2 cursor-pointer max-w-[calc(100%-30px)]"
+                                    :style="{ '--progress': progressPercent }" />
                             </div>
                             <div class="mt-3">
-                                <input type="range" :min="creditMin" :max="creditMax" step="500" v-model="creditAmount"
-                                    class="w-full accent-[#2C702C]" />
+
                                 <div class="flex justify-between text-[#6F736D] mt-2">
-                                    <span>{{ formatMoney(creditMin) }}</span>
-                                    <span>{{ formatMoney(creditMax) }}</span>
+                                    <span>
+                                        {{ credit && credit.min_amount ? formatMoney(credit.min_amount) :
+                                            formatMoney(creditMin) }}
+                                    </span>
+                                    <span>
+                                        {{ credit && credit.max_amount ? formatMoney(credit.max_amount) :
+                                            formatMoney(creditMax) }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-mainBlack font-bold mb-3">Срок</label>
+                            <label class="block text-mainBlack font-bold mb-3"> {{ t('credit.term') }}</label>
                             <div class="flex flex-wrap gap-3">
-                                <button v-for="term in termOptions" :key="term" type="button"
-                                    @click="creditSelectedTerm = term"
-                                    :class="creditSelectedTerm === term ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
-                                    class="h-[48px] px-5 rounded-[12px]">{{ term }}</button>
+                                <button v-for="opt in termOptions" :key="opt.label" type="button"
+                                    @click="creditSelectedTerm = opt.label; creditSelectedTermMonths = opt.months"
+                                    :class="creditSelectedTerm === opt.label ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
+                                    class="h-[48px] px-5 rounded-[12px] leading-tight">{{ opt.label }}</button>
                             </div>
                         </div>
+
+                        <p class="text-[#6F736D] text-[17px] font-Gilroy mt-8">
+                            {{ t('calc.calculatorDisclaimer') }}
+                        </p>
                     </div>
 
-                    <div class="bg-mainWhite rounded-[20px] p-6">
-                        <div class="flex items-center justify-between mb-6">
+                    <div class="lg:col-span-4 bg-mainWhite rounded-[20px] p-6 flex flex-col justify-center">
+                        <div class="flex flex-col text-center items-center justify-between mb-6">
                             <div>
-                                <p class="text-[#6F736D] mb-2">Ежемесячный платёж</p>
-                                <h3 class="text-[42px] font-bold">1000 манат</h3>
+                                <p class="text-[#6F736D] mb-2 leading-tight"> {{ t('calc.monthlyPayment') }}</p>
+                                <h3 class="text-[42px] font-bold leading-tight">{{ formatMoneyFixed(monthlyPayment) }}
+                                    манат
+                                </h3>
                             </div>
                             <div>
-                                <span
-                                    class="inline-flex items-center justify-center h-[44px] w-[44px] rounded-[12px] bg-mainBlack text-white">1%</span>
-                                <p class="text-[#6F736D] mt-2 text-center">Ставка</p>
+                                <p class="text-[#6F736D] mb-2 leading-tight"> {{ t('calc.rate') }}</p>
+                                <h3 class="text-[42px] font-bold leading-tight">{{ credit?.interest || 0 }}%</h3>
                             </div>
-                        </div>
-
-                        <div class="bg-white rounded-[12px] p-4 mb-6">
-                            <p class="text-mainBlack font-bold mb-2">Вам понадобится:</p>
-                            <ul class="text-[#6F736D] space-y-2">
-                                <li>Паспорт</li>
-                                <li>Справка о доходах</li>
-                            </ul>
                         </div>
 
                         <RouterLink to="/"
                             class="block mt-5 text-center text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[20px] py-3">
-                            Заполнить анкету
+                            {{ t('btn.fillOutForm') }}
                         </RouterLink>
                     </div>
                 </div>
@@ -278,6 +329,44 @@
 
 
 <style lang="scss" scoped>
+    .amount-range {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 4px;
+        border-radius: 9999px;
+        background: linear-gradient(to right, #2C702C var(--progress, 0%), #E6EAE3 var(--progress, 0%));
+        outline: none;
+    }
+
+    .amount-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, #2C702C 0 7px, #ffffff 8px);
+        border: 0;
+        box-shadow: 0 0 0 4px #ffffff;
+        cursor: pointer;
+        margin-top: 0px;
+    }
+
+    .amount-range::-moz-range-track {
+        height: 8px;
+        border-radius: 9999px;
+        background: linear-gradient(to right, #2C702C var(--progress, 0%), #E6EAE3 var(--progress, 0%));
+    }
+
+    .amount-range::-moz-range-thumb {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, #2C702C 0 7px, #ffffff 8px);
+        border: 0;
+        box-shadow: 0 0 0 4px #ffffff;
+        cursor: pointer;
+    }
+
     .card-bg-circle {
         display: block;
         position: absolute;

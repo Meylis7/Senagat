@@ -19,6 +19,7 @@ export default {
     downloadAppButton: 'Download the app',
     form: 'Form',
     readMore: 'Read more',
+    fillOutForm: 'Fill out the form',
   },
   pageTitle: {
     reportsList: 'List of Reports',

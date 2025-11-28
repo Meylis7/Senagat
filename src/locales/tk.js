@@ -17,6 +17,7 @@ export default {
     downloadAppButton: 'Programmany ýükläp al',
     form: 'Görnüş',
     readMore: 'Giňişleýin oka',
+    fillOutForm: 'Anketany doldurmaly',
   },
   pageTitle: {
     reportsList: 'Hasabatlaryň sanawy',
@@ -188,7 +189,7 @@ export default {
     passport: 'Pasport',
     incomeStatement: 'Girdeji kepilnamasy',
     calculatorDisclaimer:
-      'Kalkulýatoryň hasaplamasy deslapkydyr. Şahsy şertleri arza tabşyranyňyzdan soň biläýersiňiz',
+      'Bu deslapky töleg hasaby diňe maglumat berijidir we karzyň maliýe goragyny resmileşdirmek şerti bilen hasaplandy.',
   },
   tabs: {
     all: 'Ähli',
