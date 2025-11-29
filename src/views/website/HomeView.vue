@@ -292,6 +292,7 @@
 
   const allOffers = computed(() => {
     const dep = shuffle((deposits.value || []).map((d) => ({
+      id: d.id,
       title: d.title,
       subtitle: d.sub_title || '',
       image_url: d.image_url,
@@ -299,12 +300,14 @@
       color: d.background_color
     })))
     const cre = shuffle((credits.value || []).map((c) => ({
+      id: c.id,
       title: c.title,
       subtitle: c.interest + ' %' || '',
       image_url: c.image_url,
       type: 'credit',
     })))
     const car = shuffle((cards.value || []).map((c) => ({
+      id: c.id,
       title: c.title,
       subtitle: c.sub_title || '',
       image_url: c.image_url,
@@ -333,6 +336,14 @@
     }
     return mixed
   })
+
+  const getOfferLink = (item) => {
+    if (!item || !item.type) return '/'
+    if (item.type === 'deposit') return { name: 'deposits-detail', query: { id: item.id } }
+    if (item.type === 'credit') return { name: 'loans-detail', query: { id: item.id } }
+    if (item.type === 'card') return { name: 'cards-detail', query: { id: item.id } }
+    return '/'
+  }
 
   const isAllExpanded = ref(false)
   const visibleAllOffers = computed(() => (isAllExpanded.value ? allOffers.value : allOffers.value.slice(0, 5)))
@@ -390,7 +401,7 @@
           </div>
 
           <div v-show="activeTab === 'Все'" class="grid gap-4 grid-cols-12">
-            <div v-for="(item, i) in visibleAllOffers" :key="i"
+            <RouterLink v-for="(item, i) in visibleAllOffers" :key="item.id || i" :to="getOfferLink(item)"
               :class="(i === 2 || i === 11)
                 ? 'lg:col-span-4 row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow '
                 : (i === 5)
@@ -416,7 +427,7 @@
               <div v-else class="max-h-[120px] h-full mt-auto flex items-end justify-end z-[2]">
                 <img :src="item.image_url" class="block max-h-full object-contain" alt="offer-image">
               </div>
-            </div>
+            </RouterLink>
 
             <button type="button" @click="toggleAllExpanded"
               class="col-span-12 mt-[26px] flex items-center justify-center gap-[10px] cursor-pointer">
@@ -436,7 +447,7 @@
           </div>
 
           <div v-show="activeTab === 'Вклад'" class="grid gap-4 lg:grid-cols-12">
-            <div v-for="(item, i) in deposits.slice(0, 4)" :key="item.id"
+            <RouterLink :to="`/deposits-detail?id=${item.id}`" v-for="(item, i) in deposits.slice(0, 4)" :key="item.id"
               class="lg:col-span-4 rounded-[20px] p-8 shadow-sm hover:shadow-md transition"
               :class="i === 2 ? 'row-span-2 text-mainWhite relative overflow-hidden lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow' : 'bg-white'"
               :style="i === 2 ? { '--promo-glow-bg': (item.background_color) } : null">
@@ -454,11 +465,11 @@
               <span v-else class="max-h-[120px] h-full flex items-end justify-end">
                 <img :src="item.image_url" class="block max-h-full object-contain" alt="percent">
               </span>
-            </div>
+            </RouterLink>
           </div>
 
           <div v-show="activeTab === 'Кредиты'" class="grid gap-4 lg:grid-cols-12">
-            <div v-for="item in credits" :key="item.id"
+            <RouterLink :to="`/loans-detail?id=${item.id}`" v-for="item in credits" :key="item.id"
               class="rounded-[20px] bg-white p-8 col-span-4 flex flex-col shadow-sm hover:shadow-md transition">
               <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
                 {{ item.title }}
@@ -468,11 +479,11 @@
                 <img :src="item.image_url || '../../assets/images/cart.png'" class="block max-h-full object-contain"
                   alt="cart">
               </div>
-            </div>
+            </RouterLink>
           </div>
 
           <div v-show="activeTab === 'Карты'" class="grid gap-4 lg:grid-cols-12">
-            <div v-for="item in cards" :key="item.id"
+            <RouterLink :to="`/cards-detail?id=${item.id}`" v-for="item in cards" :key="item.id"
               class="rounded-[20px] col-span-4 bg-white p-8 flex flex-col shadow-sm hover:shadow-md transition">
               <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
                 {{ item.title }}
@@ -482,7 +493,7 @@
                 <img :src="item.image_url || '../../assets/images/altyn-asyr-card.png'"
                   class="block max-h-full object-contain" alt="card">
               </div>
-            </div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -707,10 +718,12 @@
 
           <div class="flex gap-4">
             <RouterLink to="/branches"
-              class="w-full max-w-[390px] min-h-[407px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8">
-              <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">{{ t('exchange.branches') }}</h6>
-              <p class="text-[17px] text-[#6F736D] leading-6 mb-6 font-Gilroy">{{ t('exchange.onCityMap') }}</p>
-              <span class="block w-[260px] absolute left-1/2 -translate-x-1/2 -bottom-[55px]">
+              class="group glow w-full max-w-[390px] min-h-[407px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8 hover:bg-[#1D2417] transition duration-300">
+              <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px] group-hover:text-white">{{
+                t('exchange.branches') }}</h6>
+              <p class="text-[17px] text-[#6F736D] leading-6 mb-6 font-Gilroy group-hover:text-white">{{
+                t('exchange.onCityMap') }}</p>
+              <span class="block w-[260px] absolute left-1/2 -translate-x-1/2 -bottom-[55px] z-[1]">
                 <img src="../../assets/images/currency.png" class="block w-full h-full object-contain" alt="currency">
               </span>
             </RouterLink>
@@ -869,21 +882,23 @@
             {{ t('facts.title') }}
           </h2>
 
-          <div class="grid grid-cols-2 gap-4">
-            <div v-for="item in awards" :key="item.id" class="block bg-mainWhite rounded-[20px] p-8">
-              <RouterLink :to="{ name: 'awards-detail', query: { id: item.id } }" class="block">
-                <h4 class=" text-[28px] font-bold text-mainBlack mb-2">
+          <div class="grid grid-cols-12 gap-4">
+            <RouterLink :to="{ name: 'awards-detail', query: { id: item.id } }" v-for="item in awards" :key="item.id"
+              class="award_glow relative overflow-hidden group col-span-4 last:col-span-12 block bg-mainWhite rounded-[20px] p-8 hover:bg-[#1D2417] transition-all duration-300">
+              <h4 class="block">
+                <h4
+                  class=" text-[20px] font-bold text-mainBlack mb-2 group-hover:text-white transition-all duration-300">
                   {{ item.title || '' }}
                 </h4>
-              </RouterLink>
-              <p class="text-[17px] text-[#6F736D] mb-6">
+              </h4>
+              <p class="text-sm text-[#6F736D] mb-6 group-hover:text-white transition-all duration-300">
                 {{ item.sub_title || '' }}
               </p>
-              <span class="h-[220px] flex justify-end relative">
+              <span class="h-[180px] flex justify-end relative z-[1]">
                 <img :src="item.image_url || '../../assets/images/fact.png'" class="block h-full object-contain"
                   alt="card">
               </span>
-            </div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -1058,6 +1073,43 @@
     pointer-events: none;
   }
 
+  .glow::after {
+    content: "";
+    position: absolute;
+    width: 321px;
+    height: 321px;
+    right: -120px;
+    bottom: -97px;
+    background: #2C702C;
+    filter: blur(137.15px);
+    border-radius: 9999px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+  }
+
+  .glow:hover::after {
+    opacity: 1;
+  }
+
+  .award_glow::after {
+    content: "";
+    position: absolute;
+    width: 321px;
+    height: 321px;
+    right: -180px;
+    bottom: -97px;
+    background: #b7771e;
+    filter: blur(137.15px);
+    border-radius: 9999px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+  }
+
+  .award_glow:hover::after {
+    opacity: 1;
+  }
 
 
   .app-circle {

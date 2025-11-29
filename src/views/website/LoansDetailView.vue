@@ -159,14 +159,15 @@
                         currentClass="text-[17px] font-Gilroy text-mainWhite" />
                 </div>
 
+                <div class="m-auto max-w-[760px]">
+                    <h1 class=" text-mainWhite mb-[10px] text-center text-5xl font-bold">
+                        {{ credit?.title || '' }}
+                    </h1>
 
-                <h1 class="m-auto max-w-[660px] text-mainWhite mb-[10px] text-center text-5xl font-bold">
-                    {{ credit?.title || '' }}
-                </h1>
-
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
-                    {{ credit?.description || '' }}
-                </p>
+                    <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                        {{ credit?.description || '' }}
+                    </p>
+                </div>
 
                 <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
                     <img :src="credit?.image_url || '../../assets/images/loan-note.png'"

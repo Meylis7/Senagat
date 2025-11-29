@@ -78,7 +78,9 @@
         try {
             const res = await apiService.fetchNews({ limit: 4 })
             const items = res?.data || res
-            news.value = Array.isArray(items) ? items.slice(0, 4) : []
+            const list = Array.isArray(items) ? items : []
+            const currentId = String(newsId.value || '')
+            news.value = list.filter((n) => String(n.id) !== currentId).slice(0, 6)
         } catch (e) {
             news.value = []
         } finally {
@@ -130,25 +132,9 @@
 
                     <div class="block w-4/12">
                         <h1 class="mb-8 text-[28px] leading-7 font-bold">
-                            {{ t('btn.readMore') }}
+                            {{ t('news.otherNews') }}
                         </h1>
 
-                        <!-- <article class="bg-white rounded-[20px] overflow-hidden">
-                            <span class="block h-[200px] overflow-hidden rounded-2xl">
-                                <img src="../../assets/images/news.png" class="block w-full h-full object-cover"
-                                    alt="news" />
-                            </span>
-                            <div class="p-4">
-                                <RouterLink to="/" class="block text-mainBlack text-[17px] font-bold leading-6">
-                                    Газпромбанк расширил
-                                    возможности РКО для
-                                    предпринимателей
-                                    сегмента МСБ
-                                </RouterLink>
-                            </div>
-                        </article> -->
-
-                        <!-- Loading state -->
                         <template v-if="newsLoading">
                             <article v-for="n in (news.length || 3)" :key="n"
                                 class="bg-white rounded-[20px] overflow-hidden p-8 mb-4 animate-pulse">

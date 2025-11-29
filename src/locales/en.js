@@ -392,6 +392,7 @@ export default {
     noNews: 'No news available yet',
     readUsSocial: 'Follow us on social networks',
     subscribeFirstNews: 'Subscribe and get the news first',
+    otherNews: 'Other news',
   },
   about: {
     title: 'Senagat makes life better',

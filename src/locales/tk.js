@@ -393,6 +393,7 @@ export default {
     noNews: 'Häzirki wagtda täzelikler ýok',
     readUsSocial: 'Bizi sosial ulgamlarda okaň',
     subscribeFirstNews: 'Ýazylyň we täzelikleri ilkinji bolup alyň',
+    otherNews: 'Beýleki täzelikler',
   },
   about: {
     title: '«Senagat» PTB-y barada',

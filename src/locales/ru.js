@@ -385,6 +385,7 @@ export default {
     noNews: 'Новости пока отсутствуют',
     readUsSocial: 'Читайте нас в соц.сетях',
     subscribeFirstNews: 'Подпишитесь и получайте новости первыми',
+    otherNews: 'Другие новости',
   },
   about: {
     title: 'Сенагат делает жизнь лучше',
