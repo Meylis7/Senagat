@@ -429,7 +429,7 @@
               </div>
             </RouterLink>
 
-            <button type="button" @click="toggleAllExpanded"
+            <button v-show="visibleAllOffers.length > 4" type="button" @click="toggleAllExpanded"
               class="col-span-12 mt-[26px] flex items-center justify-center gap-[10px] cursor-pointer">
               <p class="text-[#2C702C] text-[17px] font-Gilroy">
                 {{ isAllExpanded ? t('btn.hide') : t('btn.showAll') }}

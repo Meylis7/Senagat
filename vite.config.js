@@ -6,7 +6,7 @@ import vue from '@vitejs/plugin-vue'
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
   // logLevel: 'error',
-  plugins: [vue()],
+  plugins: [vue(), { src: '~/plugins/ymapPlugin.js', mode: 'client' }],
   assetsInclude: ['**/*.docx', '**/*.doc'],
   css: { devSourcemap: false },
   server: {

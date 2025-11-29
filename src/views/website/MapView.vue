@@ -4,6 +4,8 @@
     import apiService from '@/services/apiService';
     const { t, locale } = useI18n();
     import logo from "@/assets/images/logo.png";
+    // import { YandexMap, YandexMapDefaultFeatures, YandexMapMarker } from 'vue-yandex-maps';
+    import { YandexMap, YandexMarker } from 'vue-yandex-maps';
 
 
     // --- Map Configuration ---
@@ -12,12 +14,7 @@
     const MAP_ZOOM = 14;
 
     // Replace #KEY with your actual Yandex Maps API key
-    const MAP_SETTINGS = {
-        apiKey: 'e089730e-a638-43c4-8f79-b637f2cb49a5',
-        lang: 'ru_RU',
-        coordorder: 'latlong',
-        version: '2.1'
-    };
+    const MAP_SETTINGS = {};
 
     const mapFeatures = [{
         module: 'control.ZoomControl',
@@ -57,24 +54,22 @@
 
     const isRoundTheClock = computed(() => {
         const wh = selectedLocation.value?.working_hours || []
+        const normalize = (s) => String(s || '').toLowerCase().trim()
+        const synonyms = ['day and night', 'day and nigh', 'круглосуточно', 'gije - gündiz']
+        const daySynonyms = ['duşenbe-şenbe', 'понедельник-воскресенье']
         if (Array.isArray(wh)) {
-            return wh.some((h) => (h?.from || '').toLowerCase() === 'day and night'.toLowerCase())
+            return wh.some((h) => {
+                const day = normalize(h?.day)
+                const from = normalize(h?.from)
+                const toEmpty = h?.to == null || normalize(h?.to) === ''
+                const fromMatches = synonyms.includes(from)
+                const dayMatches = daySynonyms.includes(day)
+                return fromMatches && toEmpty && dayMatches
+            })
         }
-        const str = typeof wh === 'string' ? wh : ''
-        return str.toLowerCase().includes('day and night')
+        const str = normalize(typeof wh === 'string' ? wh : '')
+        return synonyms.some((s) => str.includes(s))
     })
-
-
-    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-
-    const filteredLocations = computed(() => {
-        const arr = Array.isArray(locations.value) ? locations.value : []
-        if (activeTab.value === 'atms') {
-            return arr.filter((l) => (l?.type || '').toLowerCase() === 'atm')
-        }
-        return arr.filter((l) => (l?.type || '').toLowerCase() === 'branch')
-    })
-
-
 
     const fetchLocations = async () => {
         locationsLoading.value = true
@@ -107,85 +102,32 @@
         isBranchesOpen.value = !isBranchesOpen.value
     }
 
-    const ymapsLoaded = ref(false)
-    const mapInstance = ref(null)
-
-    const loadYandexMaps = () => {
-        if (window.ymaps) {
-            ymapsLoaded.value = true
-            window.ymaps.ready(initMap)
-            return
-        }
-        const s = document.createElement('script')
-        // const KEY = import.meta.env.VITE_YANDEX_MAPS_API_KEY || ''
-        // s.src = `https://api-maps.yandex.ru/2.1/?lang=ru_RU${KEY ? `&apikey=${KEY}` : ''}`
-        s.src = `https://api-maps.yandex.ru/2.1/?lang=ru_RU`
-        s.onload = () => {
-            ymapsLoaded.value = true
-            window.ymaps.ready(initMap)
-        }
-        document.head.appendChild(s)
-    }
-
-    const initMap = () => {
-        if (!window.ymaps) return
-        mapInstance.value = new window.ymaps.Map('yandexMap', {
-            center: [37.9643, 58.36],
-            zoom: 14,
-        })
-        try {
-            mapInstance.value.behaviors.disable(['scrollZoom'])
-        } catch (e) { }
-        renderMarkers()
-    }
-
     // Clean SVG strings for valid Data URIs
     const toDataUri = (svg) => 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg.replace(/\s+/g, ' ').trim())
 
-    const renderMarkers = () => {
-        console.log('renderMarkers called')
-        if (!mapInstance.value) {
-            console.log('Map instance not ready')
-            return
+    // Function to get the marker icon properties
+    const getMarkerIcon = (type) => {
+        const svgContent = (type || '').toLowerCase() === 'atm' ? atmSvg : branchSvg;
+        return {
+            iconLayout: 'default#image',
+            iconImageHref: toDataUri(svgContent),
+            iconImageSize: [52, 52],
+            iconImageOffset: [-26, -26],
+        };
+    };
+
+    // Clear selection and center map when tabs change
+    watch(activeTab, () => {
+        selectedId.value = null;
+    });
+
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-
+    const filteredLocations = computed(() => {
+        const arr = Array.isArray(locations.value) ? locations.value : []
+        if (activeTab.value === 'atms') {
+            return arr.filter((l) => (l?.type || '').toLowerCase() === 'atm')
         }
-        if (!Array.isArray(locations.value)) {
-            console.log('Locations is not an array:', locations.value)
-            return
-        }
-
-        console.log(`Processing ${locations.value.length} locations`)
-
-        try {
-            mapInstance.value.geoObjects.removeAll()
-            locations.value.forEach((item, index) => {
-                const lat = parseFloat(item?.location?.lat)
-                const lng = parseFloat(item?.location?.lng)
-                if (isNaN(lat) || isNaN(lng)) {
-                    console.warn(`Invalid coordinates for item ${index}:`, item)
-                    return
-                }
-                const type = (item?.type || '').toLowerCase()
-                const href = type === 'atm' ? toDataUri(atmSvg) : toDataUri(branchSvg)
-                const pm = new window.ymaps.Placemark([lat, lng], { hintContent: item?.name || '' }, {
-                    iconLayout: 'default#image',
-                    iconImageHref: href,
-                    iconImageSize: [52, 52],
-                    iconImageOffset: [-26, -26],
-                })
-                pm.events.add('click', () => { selectedId.value = item?.id || null })
-                mapInstance.value.geoObjects.add(pm)
-            })
-        } catch (e) {
-            console.error('Error rendering markers:', e)
-        }
-    }
-
-    onMounted(() => {
-        loadYandexMaps()
-    })
-
-    watch(locations, () => {
-        renderMarkers()
+        return arr.filter((l) => (l?.type || '').toLowerCase() === 'branch')
     })
 
 
@@ -194,12 +136,21 @@
 <template>
     <section class="block fixed top-0 left-0 w-full h-screen">
         <div class="block bg-mainWhite w-full h-screen z-[30]">
-            <div id="yandexMap" class="h-screen w-screen"></div>
+            <!-- <div id="yandexMap" class="h-screen w-screen"></div> -->
+
+            <YandexMap :settings="MAP_SETTINGS" :coordinates="DEFAULT_CENTER" :zoom="MAP_ZOOM"
+                :controls="['zoomControl', 'fullscreenControl']" :behaviors="['default', 'scrollZoom#disable']"
+                class="h-screen w-screen" :class="{ 'pointer-events-none': isBranchesOpen }">
+                <YandexMarker v-for="item in filteredLocations" :key="item.id"
+                    :coordinates="[parseFloat(item.location.lat), parseFloat(item.location.lng)]" :marker-id="item.id"
+                    :options="getMarkerIcon(item.type)" :properties="{ hintContent: item.name || '' }"
+                    @click="selectedId = item.id" />
+            </YandexMap>
         </div>
 
         <div
             class="fixed top-[200px] max-w-[320px] left-10 z-[35] bg-[#F7F8F699] p-5 rounded-[20px] border-solid border-1 border-white">
-            <div class="tabs bg-[#F7F8F6] rounded-[20px] p-1 grid grid-cols-2 text-center mb-8">
+            <div class="tabs bg-[#F7F8F6] rounded-[20px] p-1 grid grid-cols-2 text-center">
                 <h6 @click="setTab('atms')"
                     :class="activeTab === 'atms' ? 'text-[17px] font-Gilroy py-3 px-5 bg-[#1D2417] text-[#EEF2ED] rounded-2xl cursor-pointer leading-1' : 'text-[#6F736D] text-[17px] font-Gilroy py-4 px-5 rounded-2xl cursor-pointer leading-tight'">
                     {{ t('map.atms') }}
@@ -210,33 +161,17 @@
                 </h6>
             </div>
 
-            <div class="grid gap-[22px]">
-                <h4 class="text-[#191B19] text-[17px] font-bold">
-                    {{ t('map.workTime') }}
-                </h4>
-
-                <div class="check_time">
-                    <input type="radio" id="openNow" name="wortkTime" class="hidden">
-                    <label for="openNow">{{ t('map.openNow') }}</label>
-                </div>
-
-                <div class="check_time">
-                    <input type="radio" id="anyTime" name="wortkTime" class="hidden">
-                    <label for="anyTime">{{ t('map.roundTheClock') }}</label>
-                </div>
-            </div>
-
-
             <div v-if="selectedLocation" class="block mt-8">
                 <div class="flex mb-8">
-                    <span class="block w-5 h-5 mr-[10px]">
+                    <span class="block w-7 h-7 mr-[10px]">
                         <img :src="logo" class="block w-full h-auto object-contain" alt="logo">
                     </span>
-                    <h2 class="text-[#6F736D] text-sm font-Gilroy max-w-[130px] overflow-hidden whitespace-nowrap">
+                    <h2
+                        class="text-mainBlack text-lg font-bold font-Gilroy max-w-[190px] overflow-hidden whitespace-nowrap">
                         {{ selectedLocation?.name || '' }}
                     </h2>
 
-                    <button type="button" class="cursor-pointer w-5 h-5 ml-auto">
+                    <button type="button" class="cursor-pointer w-5 h-5 ml-auto" @click="selectedId = null">
                         <svg class="block w-full h-auto object-contain" width="13" height="13" viewBox="0 0 13 13"
                             fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -297,16 +232,10 @@
                         <p v-if="selectedLocation?.fax_number" class="text-[#1D2417] text-sm font-Gilroy">
                             {{ selectedLocation.fax_number }}
                         </p>
+                        <p v-if="selectedLocation?.help_desk_number" class="text-[#1D2417] text-sm font-Gilroy">
+                            {{ selectedLocation.help_desk_number }}
+                        </p>
                     </div>
-                </div>
-
-                <div class="grid gap-[10px] mb-8">
-                    <h4 class="text-[#191B19] text-[17px] font-bold">
-                        Услуги
-                    </h4>
-                    <p class="text-[#1D2417] text-sm font-Gilroy">
-                        Снять наличные
-                    </p>
                 </div>
             </div>
         </div>
