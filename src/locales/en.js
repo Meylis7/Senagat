@@ -377,6 +377,8 @@ export default {
     roundTheClock: '24/7',
     atms: 'ATMs',
     offices: 'Offices',
+    branchList: 'List of Branches',
+    showOnMap: 'Show on map',
   },
   transfer: {
     tableTitle: 'Tariff table',

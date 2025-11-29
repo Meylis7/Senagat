@@ -370,6 +370,8 @@ export default {
     roundTheClock: 'Круглосуточно',
     atms: 'Банкоматы',
     offices: 'Офисы',
+    branchList: 'Список филиалов',
+    showOnMap: 'Показать на карте',
   },
   transfer: {
     tableTitle: 'Таблица тарифов',

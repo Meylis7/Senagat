@@ -378,6 +378,8 @@ export default {
     roundTheClock: 'Gije-gündiz',
     atms: 'Bankomatlar',
     offices: 'Şahamçalar',
+    branchList: 'Şahamçalaryň sanawy',
+    showOnMap: 'Kartada görkez',
   },
   transfer: {
     tableTitle: 'Nyrhnama',

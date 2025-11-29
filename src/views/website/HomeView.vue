@@ -885,11 +885,8 @@
           <div class="grid grid-cols-12 gap-4">
             <RouterLink :to="{ name: 'awards-detail', query: { id: item.id } }" v-for="item in awards" :key="item.id"
               class="award_glow relative overflow-hidden group col-span-4 last:col-span-12 block bg-mainWhite rounded-[20px] p-8 hover:bg-[#1D2417] transition-all duration-300">
-              <h4 class="block">
-                <h4
-                  class=" text-[20px] font-bold text-mainBlack mb-2 group-hover:text-white transition-all duration-300">
-                  {{ item.title || '' }}
-                </h4>
+              <h4 class=" text-[20px] font-bold text-mainBlack mb-2 group-hover:text-white transition-all duration-300">
+                {{ item.title || '' }}
               </h4>
               <p class="text-sm text-[#6F736D] mb-6 group-hover:text-white transition-all duration-300">
                 {{ item.sub_title || '' }}
