@@ -461,12 +461,11 @@ export default {
       paymentSystem: 'Банковская система "Senagat töleg"',
     },
     text: '© 1994-2025, Сенагат-Банк. Лицензия Банка Туркменистана № 2707 от 14.09.2015. Сенагат-Банк является оператором по обработке персональных данных.',
-    office_text: 'Главный офис',
+    office_text: 'Центральный офис АКБ «Сенагат»',
 
     app: {
       title: 'Download the app',
-      text: 'Мобильное приложение',
-      mobile: 'для Android и iOS',
+      text: 'Мобильное приложение <br> для <a class="text-mainWhite underline" href="https://play.google.com/store/apps/details?id=com.senagat.bank" target="_blank">Android</a> и <a class="text-mainWhite underline" href="https://apps.apple.com/tr/app/senagat-bank/id1664222324" target="_blank">iOS</a>',
     },
   },
 

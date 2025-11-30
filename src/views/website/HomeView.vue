@@ -447,7 +447,7 @@
           </div>
 
           <div v-show="activeTab === 'Вклад'" class="grid gap-4 lg:grid-cols-12">
-            <RouterLink :to="`/deposits-detail?id=${item.id}`" v-for="(item, i) in deposits.slice(0, 4)" :key="item.id"
+            <RouterLink :to="`/deposits-detail?id=${item.id}`" v-for="(item, i) in deposits" :key="item.id"
               class="lg:col-span-4 rounded-[20px] p-8 shadow-sm hover:shadow-md transition"
               :class="i === 2 ? 'row-span-2 text-mainWhite relative overflow-hidden lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow' : 'bg-white'"
               :style="i === 2 ? { '--promo-glow-bg': (item.background_color) } : null">

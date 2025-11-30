@@ -287,9 +287,7 @@
                                     <h6 class="text-[#EEF2ED] font-bold text-[17px] leading-tight mb-[17px]">
                                         {{ t('footer.app.title') }}
                                     </h6>
-                                    <p class="text-[#EEF2ED] font-Gilroy text-[17px] leading-tight">
-                                        {{ t('footer.app.text') || '' }} <br> {{ t('footer.app.mobile') }}
-                                    </p>
+                                    <p class="text-[#EEF2ED] font-Gilroy text-[17px] leading-tight" v-html="t('footer.app.text')"></p>
                                 </div>
                             </RouterLink>
                         </div>

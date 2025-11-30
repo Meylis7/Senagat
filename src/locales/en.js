@@ -464,12 +464,11 @@ export default {
     },
     text: '© 1994-2025, Senagat Bank. License of the Bank of Turkmenistan No. 2707 dated 14.09.2015. Senagat Bank is a personal data processing operator.',
 
-    office_text: 'Main Office',
+    office_text: 'Main bank JSCB "Senagat"',
 
     app: {
       title: 'Download the app',
-      text: 'Mobile Application',
-      mobile: 'for Android and iOS',
+      text: 'Mobile Application <br> for <a class="text-mainWhite underline" href="https://play.google.com/store/apps/details?id=com.senagat.bank" target="_blank">Android</a> and <a class="text-mainWhite underline" href="https://apps.apple.com/tr/app/senagat-bank/id1664222324" target="_blank">iOS</a>',
     },
   },
   privacy: {

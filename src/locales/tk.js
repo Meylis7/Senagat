@@ -465,12 +465,11 @@ export default {
     },
     text: '© 1994-2025, «Senagat» banky. Türkmenistanyň Merkezi Bankynyň 14.09.2015-nji ýyldaky 2707-nji belgili ygtyýarnamasy. «Senagat» banky şahsy maglumatlary gaýtadan işleýän operatordyr.',
 
-    office_text: 'Baş ofis',
+    office_text: '"Senagat" PTB Baş banky',
 
     app: {
       title: 'Download the app',
-      text: 'Ykjam goşundy',
-      mobile: 'Android we iOS üçin programma',
+      text: '<a class="text-mainWhite underline" href="https://play.google.com/store/apps/details?id=com.senagat.bank" target="_blank">Android</a> we <a class="text-mainWhite underline" href="https://apps.apple.com/tr/app/senagat-bank/id1664222324" target="_blank">iOS</a> üçin <br> mobil programma',
     },
   },
   privacy: {
