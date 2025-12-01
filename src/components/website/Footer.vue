@@ -269,7 +269,7 @@
 
                         <div class="col-span-4 contact flex flex-col">
                             <a href="tel:+993 12 34 11 28"
-                                class="font-bold tracking-[0.2px] text-mainWhite  text-[28px] leading-7">
+                                class="font-bold tracking-[0.2px] text-mainWhite text-[20px] md:text-[28px] leading-7">
                                 +993 12 34 11 28
                             </a>
                             <p class="text-[17px] font-Gilroy text-mainWhite leading-5 mt-1">
@@ -287,7 +287,8 @@
                                     <h6 class="text-[#EEF2ED] font-bold text-[17px] leading-tight mb-[17px]">
                                         {{ t('footer.app.title') }}
                                     </h6>
-                                    <p class="text-[#EEF2ED] font-Gilroy text-[17px] leading-tight" v-html="t('footer.app.text')"></p>
+                                    <p class="text-[#EEF2ED] font-Gilroy text-[17px] leading-tight"
+                                        v-html="t('footer.app.text')"></p>
                                 </div>
                             </RouterLink>
                         </div>
@@ -307,7 +308,7 @@
                             <RouterLink to="/privacy?type=bank" class="text-[#2C702C] inline-block mx-2">
                                 {{ t('footer.links.mobileBankingSystem') }}
                             </RouterLink>
-                            <span class="text-[#2C702C] inline-block mx-2">|</span>
+                            <span class="text-[#2C702C]  mx-2 hidden sm:inline-block">|</span>
                             <RouterLink to="/privacy?type=payment" class="text-[#2C702C] inline-block mx-2">
                                 {{ t('footer.links.paymentSystem') }}
                             </RouterLink>

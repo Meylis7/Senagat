@@ -37,8 +37,8 @@
   <section class="py-[50px]">
     <div class="auto_container">
       <div class="wrap">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="text-[38px] font-bold">
+        <div class="flex items-center justify-between mb-5 md:mb-6">
+          <h2 class="text-[28px] lg:text-[38px] font-bold">
             {{ t('news.title') }}
           </h2>
           <RouterLink to="/news" class="text-[#2C702C] hover:opacity-80 inline-flex items-center gap-2">
@@ -52,20 +52,22 @@
         </div>
 
         <div class="grid grid-cols-12 gap-4">
-          <div class="col-span-4 rounded-[20px] overflow-hidden bg-[#1D2417] p-8 text-white relative news-promo-glow">
-            <h6 class="text-[24px] leading-9 text-mainWhite font-bold mb-[10px]">
+          <div
+            class="col-span-12 mm:col-span-4 rounded-[20px] sm:min-h-[200px] overflow-hidden bg-[#1D2417] p-8 text-white relative news-promo-glow">
+            <h6 class="text-[20px] md:text-[24px] leading-tight text-mainWhite font-bold mb-[10px] z-[1]">
               {{ t('news.readUsSocial') }}
             </h6>
-            <p class="text-mainWhite text-[17px] leading-7 opacity-60 font-Gilroy">
+            <p class="text-mainWhite text-sm md:text-[17px] leading-tight opacity-60 font-Gilroy z-[1]">
               {{ t('news.subscribeFirstNews') }}
             </p>
 
-            <span class="block ml-auto mt-[20px] w-[200px] z-10 relative">
+            <span
+              class="hidden absolute mm:relative -right-[15px] mm:right-0 -top-[70px] mm:top-0 sm:block ml-auto mt-[20px] sm:w-[300px] mm:w-[200px] z-10">
               <img :src="megaphone" alt="news-icon" class="block w-full h-auto object-contain" />
             </span>
           </div>
 
-          <div class="col-span-8 grid sm:grid-cols-2 gap-4">
+          <div class="col-span-12 mm:col-span-8 grid sm:grid-cols-2 gap-4">
             <template v-if="loading">
               <article v-for="n in 4" :key="n" class="bg-white rounded-[20px] overflow-hidden p-8 animate-pulse">
                 <div class="h-4 bg-gray-200 rounded w-32 mb-4"></div>
@@ -89,7 +91,7 @@
                   {{ item.published_at }}
                 </p>
                 <RouterLink :to="`/news-detail?id=${item.id}`"
-                  class="block mt-[20px] text-[#1D2417] text-[17px] font-bold leading-5 hover:text-[#2C702C] transition-colors overflow-hidden [text-overflow:ellipsis] [-webkit-line-clamp:3] [display:-webkit-box] [-webkit-box-orient:vertical] min-h-[60px]">
+                  class="block mt-[20px] text-[#1D2417] text-sm md:text-[17px] font-bold leading-5 hover:text-[#2C702C] transition-colors overflow-hidden [text-overflow:ellipsis] [-webkit-line-clamp:3] [display:-webkit-box] [-webkit-box-orient:vertical] md:min-h-[60px]">
                   {{ item.title || t('news.news') }}
                 </RouterLink>
               </article>

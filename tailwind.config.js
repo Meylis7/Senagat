@@ -11,6 +11,9 @@ export default {
         Gilroy: ['Gilroy', 'sans-serif'],
         Kinetika: ['Kinetika', 'sans-serif'],
       },
+      screens: {
+        mm: '53rem', // 848px
+      },
     },
   },
   plugins: [],

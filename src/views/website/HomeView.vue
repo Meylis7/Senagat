@@ -1,10 +1,13 @@
 <script setup>
   import Hero from '@/components/website/Hero.vue';
   import NewsSection from '@/components/website/NewsSection.vue';
-  import { ref, computed, onMounted, watch } from 'vue';
+  import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
   import { RouterLink } from 'vue-router';
   import { useI18n } from 'vue-i18n';
   import apiService from '@/services/apiService';
+  import { Swiper, SwiperSlide } from 'swiper/vue'
+  import { Autoplay } from 'swiper/modules'
+  import 'swiper/css'
   const { t, locale } = useI18n();
 
   // Offers Section ============================================================================
@@ -279,6 +282,15 @@
     fetchCards()
   })
 
+  // Clients slider activation: only below 900px
+  const viewportWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 0)
+  const isClientsSliderActiveSmall = computed(() => viewportWidth.value < 900)
+  const onResize = () => { viewportWidth.value = window.innerWidth }
+  onMounted(() => { window.addEventListener('resize', onResize) })
+  onUnmounted(() => { window.removeEventListener('resize', onResize) })
+
+  const swiperModules = [Autoplay,]
+
   const shuffle = (arr) => {
     const a = arr.slice()
     for (let i = a.length - 1; i > 0; i--) {
@@ -356,11 +368,11 @@
     <Hero />
 
     <!-- Offers =================================================================================== -->
-    <section class="pt-[100px] pb-[60px]">
+    <section class="pt-[60px] md:pt-[100px] md:pb-[60px]">
       <div class="auto_container">
         <div class="wrap">
-          <div class="flex items-center justify-between mb-10">
-            <h2 class="text-[38px] font-bold leading-9">
+          <div class="flex items-center justify-between flex-col sm:flex-row gap-4 mb-5 md:mb-10">
+            <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold leading-9">
               {{ t('offer.title') }}
             </h2>
 
@@ -403,28 +415,28 @@
           <div v-show="activeTab === 'Все'" class="grid gap-4 grid-cols-12">
             <RouterLink v-for="(item, i) in visibleAllOffers" :key="item.id || i" :to="getOfferLink(item)"
               :class="(i === 2 || i === 11)
-                ? 'lg:col-span-4 row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow '
+                ? 'col-span-12 sm:col-span-6 lg:col-span-4 row-span-1 lg:row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow '
                 : (i === 5)
-                  ? 'col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'
+                  ? 'col-span-12 sm:col-span-6 lg:col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'
                   : (i === 8)
-                    ? 'col-span-8 rounded-[20px] p-8 shadow-sm text-mainWhite hover:shadow-md transition flex flex-col flex-end  bg-[#191819] hot-glow relative overflow-hidden'
-                    : 'lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'"
+                    ? 'col-span-12 sm:col-span-6 lg:col-span-8 rounded-[20px] p-8 shadow-sm text-mainWhite hover:shadow-md transition flex flex-col flex-end  bg-[#191819] hot-glow relative overflow-hidden'
+                    : 'col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'"
               :style="(i === 2 || i === 11 || i === 8) ? { '--promo-glow-bg': (item.color) } : null">
-              <h6 class="text-[24px] "
+              <h6 class="text-lg leading-tight lg:text-[24px]"
                 :class="(i === 2 || i === 11 || i === 8) ? 'leading-9 font-bold mb-[10px]' : 'text-mainBlack leading-7 font-bold mb-[10px]'">
                 {{ item.title }}
               </h6>
               <p
-                :class="(i === 2 || i === 11 || i === 8) ? 'text-mainWhite max-w-[420px] opacity-60 text-[17px]' : 'text-[17px] text-[#6F736D] leading-5 font-Gilroy mb-[10px]'">
+                :class="(i === 2 || i === 11 || i === 8) ? 'text-mainWhite max-w-[420px] opacity-60 text-[17px]' : 'text-[17px] text-[#6F736D] leading-tight font-Gilroy mb-[10px]'">
                 {{ item.subtitle }}
               </p>
 
-              <span v-if="(i === 2 || i === 11)"
-                class="absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px] z-[2]">
-                <img :src="item.image_url" class="block w-full h-full object-contain select-none pointer-events-none"
+              <div v-if="(i === 2 || i === 11)"
+                class="lg:absolute lg:right-1/2 lg:translate-x-1/2 lg:bottom-20 ml-auto lg:ml-0 lg:w-full max-w-[120px] lg:max-w-[240px] z-[2]">
+                <img :src="item.image_url" class="block lg:w-full h-full object-contain select-none pointer-events-none"
                   alt="offer-image">
-              </span>
-              <div v-else class="max-h-[120px] h-full mt-auto flex items-end justify-end z-[2]">
+              </div>
+              <div v-else class="max-h-[95px] lg:max-h-[120px] h-full mt-auto flex items-end justify-end z-[2]">
                 <img :src="item.image_url" class="block max-h-full object-contain" alt="offer-image">
               </div>
             </RouterLink>
@@ -446,50 +458,51 @@
             </button>
           </div>
 
-          <div v-show="activeTab === 'Вклад'" class="grid gap-4 lg:grid-cols-12">
+          <div v-show="activeTab === 'Вклад'" class="grid gap-4 grid-cols-12">
             <RouterLink :to="`/deposits-detail?id=${item.id}`" v-for="(item, i) in deposits" :key="item.id"
-              class="lg:col-span-4 rounded-[20px] p-8 shadow-sm hover:shadow-md transition"
-              :class="i === 2 ? 'row-span-2 text-mainWhite relative overflow-hidden lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow' : 'bg-white'"
+              class="col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] p-8 shadow-sm hover:shadow-md transition"
+              :class="i === 2 ? 'row-span-1 lg:row-span-2 text-mainWhite relative overflow-hidden lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow' : 'bg-white'"
               :style="i === 2 ? { '--promo-glow-bg': (item.background_color) } : null">
-              <h6 class="text-[24px] min-h-[56px]"
-                :class="i === 2 ? 'leading-9 font-bold mb-[10px]' : 'text-mainBlack leading-7 font-bold mb-[10px]'">
+              <h6 class="text-lg leading-tight lg:text-[24px]"
+                :class="i === 2 ? 'leading-tight font-bold mb-[10px]' : 'text-mainBlack leading-7 font-bold mb-[10px]'">
                 {{ item.title }}
               </h6>
               <p class="text-[17px] text-[#6F736D] leading-5 mb-[10px] font-Gilroy">{{ item.sub_title }}</p>
 
 
-              <span v-if="i === 2" class="absolute right-1/2 translate-x-1/2 bottom-20 max-w-[240]">
-                <img :src="item.image_url" class="block w-full h-full object-contain select-none pointer-events-none"
+              <span v-if="i === 2"
+                class="lg:absolute lg:right-1/2 lg:translate-x-1/2 lg:bottom-20 ml-auto lg:ml-0 lg:w-full max-w-[120px] lg:max-w-[240px] z-[2]">
+                <img :src="item.image_url" class="block lg:w-full h-full object-contain select-none pointer-events-none"
                   alt="percent">
               </span>
-              <span v-else class="max-h-[120px] h-full flex items-end justify-end">
+              <span v-else class="max-h-[95px] lg:max-h-[120px] h-full flex items-end justify-end">
                 <img :src="item.image_url" class="block max-h-full object-contain" alt="percent">
               </span>
             </RouterLink>
           </div>
 
-          <div v-show="activeTab === 'Кредиты'" class="grid gap-4 lg:grid-cols-12">
+          <div v-show="activeTab === 'Кредиты'" class="grid gap-4 grid-cols-12">
             <RouterLink :to="`/loans-detail?id=${item.id}`" v-for="item in credits" :key="item.id"
-              class="rounded-[20px] bg-white p-8 col-span-4 flex flex-col shadow-sm hover:shadow-md transition">
+              class="rounded-[20px] bg-white p-8 col-span-12 sm:col-span-6 lg:col-span-4 flex flex-col shadow-sm hover:shadow-md transition">
               <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
                 {{ item.title }}
               </h6>
               <p class="text-[17px] text-[#6F736D] leading-5 mb-[10px] font-Gilroy">{{ item.interest + ' %' }}</p>
-              <div class="max-h-[120px] h-full mt-auto flex items-end justify-end">
+              <div class="max-h-[95px] lg:max-h-[120px] h-full mt-auto flex items-end justify-end">
                 <img :src="item.image_url || '../../assets/images/cart.png'" class="block max-h-full object-contain"
                   alt="cart">
               </div>
             </RouterLink>
           </div>
 
-          <div v-show="activeTab === 'Карты'" class="grid gap-4 lg:grid-cols-12">
+          <div v-show="activeTab === 'Карты'" class="grid gap-4 grid-cols-12">
             <RouterLink :to="`/cards-detail?id=${item.id}`" v-for="item in cards" :key="item.id"
-              class="rounded-[20px] col-span-4 bg-white p-8 flex flex-col shadow-sm hover:shadow-md transition">
+              class="rounded-[20px] col-span-12 sm:col-span-6 lg:col-span-4 bg-white p-8 flex flex-col shadow-sm hover:shadow-md transition">
               <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
                 {{ item.title }}
               </h6>
               <p class="text-[17px] text-[#6F736D] leading-5 mb-[10px] font-Gilroy">{{ item.sub_title }}</p>
-              <div class="max-h-[120px] h-full mt-auto flex items-end justify-end">
+              <div class="max-h-[95px] lg:max-h-[120px] h-full mt-auto flex items-end justify-end">
                 <img :src="item.image_url || '../../assets/images/altyn-asyr-card.png'"
                   class="block max-h-full object-contain" alt="card">
               </div>
@@ -499,375 +512,63 @@
       </div>
     </section>
 
-    <!-- Foundation =============================================================================== -->
-    <!-- <section class="pt-[60px] pb-[50px]">
-      <div class="auto_container">
-        <div class="wrap">
-          <div class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8">
-            <div class="block max-w-[460px]">
-              <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack">
-                {{ t('charity.title') }}
-              </h4>
-              <p class="text-[#6F736D] text-[17px] leading-6 mb-8 font-Gilroy">
-                {{ t('charity.text') }}
-              </p>
-              <RouterLink to="/" class="w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
-                {{ t('btn.learnMore') }}
-              </RouterLink>
-            </div>
-
-            <span class="max-h-[220px] flex items-end justify-end">
-              <img src="../../assets/images/foundation.png" class="block max-h-full object-contain" alt="card">
-            </span>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-    <!-- Calc ===================================================================================== -->
-    <!-- <section class="py-[50px]">
-      <div class="auto_container">
-        <div class="wrap">
-          <div class="flex items-center justify-between mb-8">
-            <h2 class="text-[38px] font-bold leading-9"> {{ t('calc.calculateBenefit') }}</h2>
-
-            <div class="relative bg-mainWhite p-1 rounded-[20px] grid grid-cols-2 items-center min-w-[240px]">
-              <span
-                class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-transform duration-300 ease-out will-change-transform"
-                :style="{ width: 'calc((100% - 8px) / 2)', transform: `translateX(calc(${calcActiveIndex} * 100%))`, left: '4px' }"
-                aria-hidden="true"></span>
-
-              <button type="button"
-                class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
-                :class="calcActiveTab === 'Кредит' ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                @click="setCalcTab('Кредит')">
-                {{ t('tabs.credits') }}
-              </button>
-
-              <button type="button"
-                class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl py-3 px-[14px] text-center transition-colors"
-                :class="calcActiveTab === 'Вклад' ? 'text-[#EEF2ED]' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                @click="setCalcTab('Вклад')">
-                {{ t('tabs.deposit') }}
-              </button>
-            </div>
-          </div>
-
-          <div v-show="calcActiveTab === 'Кредит'" class="grid lg:grid-cols-2 gap-6">
-            <div class="bg-mainWhite rounded-[20px] p-6">
-              <div class="mb-6">
-                <div class="relative">
-                  <button type="button" @click="isCreditTypeOpen = !isCreditTypeOpen"
-                    class="h-[56px] bg-white rounded-[12px] w-full flex items-center justify-between px-4 text-[#6F736D]">
-                    <span>{{ creditType || t('calc.creditType') }}</span>
-                    <svg :class="isCreditTypeOpen ? 'rotate-180' : ''" class="transition-transform" width="18"
-                      height="18" viewBox="0 0 24 24" fill="none">
-                      <path d="M6 9l6 6 6-6" stroke="#6F736D" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    </svg>
-                  </button>
-                  <ul v-show="isCreditTypeOpen"
-                    class="absolute z-10 mt-2 w-full bg-white rounded-[12px] shadow p-2 space-y-1">
-                    <li v-for="t in creditTypes" :key="t">
-                      <button type="button" @click="setCreditType(t)"
-                        :class="t === creditType ? 'bg-[#2C702C] text-white' : 'hover:bg-mainWhite text-mainBlack'"
-                        class="w-full text-left px-3 py-2 rounded-[8px]">{{ t }}</button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="mb-6">
-                <label class="block text-mainBlack font-bold mb-3">{{ t('calc.loanAmount') }}</label>
-                <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
-                  <input type="text" :value="formatMoney(creditAmount)" @input="onCreditAmountInput"
-                    class="w-full outline-none bg-transparent text-mainBlack font-bold" />
-                </div>
-                <div class="mt-3">
-                  <input type="range" :min="creditMin" :max="creditMax" step="500" v-model="creditAmount"
-                    class="w-full accent-[#2C702C]" />
-                  <div class="flex justify-between text-[#6F736D] mt-2">
-                    <span>{{ formatMoney(creditMin) }}</span>
-                    <span>{{ formatMoney(creditMax) }}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label class="block text-mainBlack font-bold mb-3">{{ t('calc.term') }}</label>
-                <div class="flex flex-wrap gap-3">
-                  <button v-for="term in termOptions" :key="term" type="button" @click="creditSelectedTerm = term"
-                    :class="creditSelectedTerm === term ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
-                    class="h-[48px] px-5 rounded-[12px]">{{ term }}</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-mainWhite rounded-[20px] p-6">
-              <div class="flex items-center justify-between mb-6">
-                <div>
-                  <p class="text-[#6F736D] mb-2">{{ t('calc.monthlyPayment') }}</p>
-                  <h3 class="text-[42px] font-bold">1000 манат</h3>
-                </div>
-                <div>
-                  <span
-                    class="inline-flex items-center justify-center h-[44px] w-[44px] rounded-[12px] bg-mainBlack text-white">1%</span>
-                  <p class="text-[#6F736D] mt-2 text-center">{{ t('calc.rate') }}</p>
-                </div>
-              </div>
-
-              <div class="bg-white rounded-[12px] p-4 mb-6">
-                <p class="text-mainBlack font-bold mb-2">{{ t('calc.requiredDocs') }}:</p>
-                <ul class="text-[#6F736D] space-y-2">
-                  <li>{{ t('calc.passport') }}</li>
-                  <li>{{ t('calc.incomeStatement') }}</li>
-                </ul>
-              </div>
-
-              <p class="text-[#6F736D]">{{ t('calc.calculatorDisclaimer') }}</p>
-            </div>
-          </div>
-
-          <div v-show="calcActiveTab === 'Вклад'" class="grid lg:grid-cols-2 gap-6">
-            <div class="bg-mainWhite rounded-[20px] p-6">
-              <div class="mb-6">
-                <label class="block text-[#6F736D] text-[17px] mb-3">Тип вклада</label>
-                <div class="relative">
-                  <button type="button" @click="isDepositTypeOpen = !isDepositTypeOpen"
-                    class="h-[56px] bg-white rounded-[12px] w-full flex items-center justify-between px-4 text-mainBlack">
-                    <span>{{ depositType }}</span>
-                    <svg :class="isDepositTypeOpen ? 'rotate-180' : ''" class="transition-transform" width="18"
-                      height="18" viewBox="0 0 24 24" fill="none">
-                      <path d="M6 9l6 6 6-6" stroke="#6F736D" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    </svg>
-                  </button>
-                  <ul v-show="isDepositTypeOpen"
-                    class="absolute z-10 mt-2 w-full bg-white rounded-[12px] shadow p-2 space-y-1">
-                    <li v-for="t in depositTypes" :key="t">
-                      <button type="button" @click="setDepositType(t)"
-                        :class="t === depositType ? 'bg-[#2C702C] text-white' : 'hover:bg-mainWhite text-mainBlack'"
-                        class="w-full text-left px-3 py-2 rounded-[8px]">{{ t }}</button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="mb-6">
-                <label class="block text-[#6F736D] text-[17px] mb-3">Сумма вклада</label>
-                <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
-                  <input type="text" :value="formatMoney(depositAmount)" @input="onDepositAmountInput"
-                    class="w-full outline-none bg-transparent text-mainBlack font-bold" />
-                </div>
-                <div class="mt-3">
-                  <input type="range" :min="depositMin" :max="depositMax" step="500" v-model="depositAmount"
-                    class="w-full accent-[#2C702C]" />
-                  <div class="flex justify-between text-[#6F736D] mt-2">
-                    <span>{{ formatMoney(depositMin) }}</span>
-                    <span>{{ formatMoney(depositMax) }}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label class="block text-mainBlack font-bold mb-3">Срок</label>
-                <div class="flex flex-wrap gap-3">
-                  <button v-for="term in termOptions" :key="term" type="button" @click="selectedTerm = term"
-                    :class="selectedTerm === term ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
-                    class="h-[48px] px-5 rounded-[12px]">
-                    {{ term }}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-mainWhite rounded-[20px] p-6">
-              <div class="flex items-center justify-between mb-6">
-                <div>
-                  <p class="text-[#6F736D] mb-2">Ожидаемый доход</p>
-                  <h3 class="text-[42px] font-bold">1 000 манат</h3>
-                </div>
-                <div>
-                  <span
-                    class="inline-flex items-center justify-center h-[44px] px-3 rounded-[12px] bg-mainBlack text-white">Годовая
-                    ставка</span>
-                </div>
-              </div>
-
-              <div class="bg-white rounded-[12px] p-4 mb-6">
-                <p class="text-mainBlack font-bold mb-2">Итоги</p>
-                <ul class="text-[#6F736D] space-y-2">
-                  <li>Тип: {{ depositType }}</li>
-                  <li>Сумма: {{ formatMoney(depositAmount) }} манат</li>
-                  <li>Срок: {{ selectedTerm }}</li>
-                </ul>
-              </div>
-
-              <p class="text-[#6F736D]">Расчёт калькулятора предварительный и носит справочный характер.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
     <!-- Currency ================================================================================= -->
     <section class="py-[50px]">
       <div class="auto_container">
         <div class="wrap">
-          <!-- <h2 class="text-[38px] font-bold mb-10 leading-9">{{ t('exchange.title') }}</h2> -->
+          <!-- <h2 class="text-[38px] font-bold mb-5 md:mb-10 leading-9">{{ t('exchange.title') }}</h2> -->
 
-          <div class="flex gap-4">
+          <div class="grid grid-cols-12 gap-4">
             <RouterLink to="/branches"
-              class="group glow w-full max-w-[390px] min-h-[407px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8 hover:bg-[#1D2417] transition duration-300">
-              <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px] group-hover:text-white">{{
-                t('exchange.branches') }}</h6>
-              <p class="text-[17px] text-[#6F736D] leading-6 mb-6 font-Gilroy group-hover:text-white">{{
+              class="group text-center md:text-left glow w-full col-span-12 md:col-span-4 min-h-[260px] md:min-h-[407px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8 hover:bg-[#1D2417] transition duration-300">
+              <h6
+                class="text-[18px] md:text-[24px] text-mainBlack leading-tight font-bold mb-[10px] group-hover:text-white">
+                {{
+                  t('exchange.branches') }}</h6>
+              <p class="text-sm mdtext-[17px] text-[#6F736D] leading-tight mb-6 font-Gilroy group-hover:text-white">{{
                 t('exchange.onCityMap') }}</p>
-              <span class="block w-[260px] absolute left-1/2 -translate-x-1/2 -bottom-[55px] z-[1]">
+              <span class="block w-[200px] md:w-[260px] absolute left-1/2 -translate-x-1/2 -bottom-[55px] z-[1]">
                 <img src="../../assets/images/currency.png" class="block w-full h-full object-contain" alt="currency">
               </span>
             </RouterLink>
 
-            <div class="w-full max-w-[calc(100%-406px)] rounded-[20px] bg-mainWhite p-8">
+            <div class="w-full col-span-12 md:col-span-8 rounded-[20px] bg-mainWhite p-4 ms:p-8">
               <div class="flex items-center justify-between mb-8">
-                <h6 class="text-[24px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates') }}</h6>
-
-                <!-- <div class="relative bg-white p-1 rounded-[20px] grid grid-cols-2 items-center min-w-[260px]">
-                  <span
-                    class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-transform duration-300 ease-out will-change-transform"
-                    :style="{ width: 'calc((100% - 8px) / 2)', transform: `translateX(calc(${currencyActiveIndex} * 100%))`, left: '4px' }"
-                    aria-hidden="true"></span>
-
-                  <button type="button"
-                    class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl text-[17px] py-2.5 px-4 text-center transition-colors"
-                    :class="currencyActiveTab === 'Текущий курс' ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                    @click="setCurrencyTab('Текущий курс')">
-                    {{ t('exchange.currentRate') }}
-                  </button>
-
-                  <button type="button"
-                    class="relative z-[1] w-full font-Gilroy cursor-pointer rounded-2xl text-[17px] py-2.5 px-4 text-center transition-colors"
-                    :class="currencyActiveTab === 'Обмен' ? 'text-mainWhite' : 'text-[#6F736D] hover:text-[#2C702C]'"
-                    @click="setCurrencyTab('Обмен')">
-                    {{ t('exchange.exchange') }}
-                  </button>
-                </div> -->
+                <h6 class="text-[18px] md:text-[24px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates')
+                  }}</h6>
               </div>
 
               <div v-show="currencyActiveTab === 'Текущий курс'"
-                class="grid grid-cols-12 gap-y-10 text-mainBlack h-[calc(100%-60px)] ">
-                <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">{{ t('exchange.currency') }}
+                class="grid grid-cols-12 gap-6 md:gap-y-10 text-mainBlack h-[calc(100%-60px)] ">
+                <div class="col-span-4 leading-7 text-sm ms:text-[17px] font-Gilroy text-[#6F736D]">{{
+                  t('exchange.currency') }}
                 </div>
-                <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">{{ t('exchange.buy') }}</div>
-                <div class="col-span-4 leading-7 text-[17px] font-Gilroy text-[#6F736D]">{{ t('exchange.sell') }}</div>
+                <div class="col-span-4 leading-7 text-sm ms:text-[17px] font-Gilroy text-[#6F736D]">{{ t('exchange.buy')
+                  }}</div>
+                <div class="col-span-4 leading-7 text-sm ms:text-[17px] font-Gilroy text-[#6F736D]">{{
+                  t('exchange.sell') }}</div>
 
                 <template v-for="r in rates" :key="r.code">
-                  <div class="col-span-4 leading-7 flex items-center  text-[28px] font-bold">{{ r.code }}</div>
-                  <div class="col-span-4 leading-7 flex items-center gap-2 text-[28px] font-bold">
-                    {{ r.buy.toFixed(2) }}
-                    <!-- <span v-if="r.trend === 'up'" class="text-[#2C702C] w-4 block">
-                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M13.7028 7.11455C13.6556 7.22877 13.5755 7.32639 13.4727 7.39509C13.3699 7.46379 13.2491 7.50047 13.1255 7.50049H0.625492C0.501807 7.50059 0.380875 7.46399 0.278003 7.39532C0.175132 7.32665 0.0949484 7.229 0.0476031 7.11474C0.000257809 7.00047 -0.0121201 6.87473 0.0120364 6.75343C0.0361929 6.63212 0.0957976 6.52071 0.183305 6.4333L6.4333 0.183304C6.49135 0.125194 6.56028 0.0790947 6.63615 0.047642C6.71203 0.0161893 6.79336 0 6.87549 0C6.95763 0 7.03896 0.0161893 7.11483 0.047642C7.1907 0.0790947 7.25963 0.125194 7.31768 0.183304L13.5677 6.4333C13.6551 6.52076 13.7145 6.63216 13.7386 6.75343C13.7627 6.87469 13.7502 7.00036 13.7028 7.11455Z"
-                          fill="#2C702C" />
-                      </svg>
-                    </span>
-                    <span v-else class="text-[#ED3B3B] w-4 block">
-                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M13.5677 1.06719L7.31768 7.31719C7.25963 7.3753 7.1907 7.4214 7.11483 7.45285C7.03896 7.4843 6.95763 7.50049 6.87549 7.50049C6.79336 7.50049 6.71203 7.4843 6.63615 7.45285C6.56028 7.4214 6.49135 7.3753 6.4333 7.31719L0.183305 1.06719C0.0957976 0.979778 0.0361929 0.86837 0.0120364 0.747067C-0.0121201 0.625764 0.000257809 0.500021 0.0476031 0.385756C0.0949484 0.271492 0.175132 0.173844 0.278003 0.105175C0.380875 0.0365058 0.501807 -9.71422e-05 0.625492 1.93625e-07H13.1255C13.2492 -9.71422e-05 13.3701 0.0365058 13.473 0.105175C13.5759 0.173844 13.656 0.271492 13.7034 0.385756C13.7507 0.500021 13.7631 0.625764 13.7389 0.747067C13.7148 0.86837 13.6552 0.979778 13.5677 1.06719Z"
-                          fill="#CC1717" />
-                      </svg>
-                    </span> -->
+                  <div class="col-span-4 leading-7 flex items-center  text-[18px] md:text-[28px] font-bold">{{ r.code }}
                   </div>
-                  <div class="col-span-4 leading-7 flex items-center gap-2 text-[28px] font-bold">
+                  <div class="col-span-4 leading-7 flex items-center gap-2 text-[18px] md:text-[28px] font-bold">
+                    {{ r.buy.toFixed(2) }}
+                  </div>
+                  <div class="col-span-4 leading-7 flex items-center gap-2 text-[18px] md:text-[28px] font-bold">
                     {{ r.sell.toFixed(2) }}
-                    <!-- <span v-if="r.trend === 'up'" class="text-[#2C702C] w-4 block">
-                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M13.7028 7.11455C13.6556 7.22877 13.5755 7.32639 13.4727 7.39509C13.3699 7.46379 13.2491 7.50047 13.1255 7.50049H0.625492C0.501807 7.50059 0.380875 7.46399 0.278003 7.39532C0.175132 7.32665 0.0949484 7.229 0.0476031 7.11474C0.000257809 7.00047 -0.0121201 6.87473 0.0120364 6.75343C0.0361929 6.63212 0.0957976 6.52071 0.183305 6.4333L6.4333 0.183304C6.49135 0.125194 6.56028 0.0790947 6.63615 0.047642C6.71203 0.0161893 6.79336 0 6.87549 0C6.95763 0 7.03896 0.0161893 7.11483 0.047642C7.1907 0.0790947 7.25963 0.125194 7.31768 0.183304L13.5677 6.4333C13.6551 6.52076 13.7145 6.63216 13.7386 6.75343C13.7627 6.87469 13.7502 7.00036 13.7028 7.11455Z"
-                          fill="#2C702C" />
-                      </svg>
-                    </span>
-                    <span v-else class="text-[#ED3B3B] w-4 block">
-                      <svg class="w-full h-full object-contain" width="14" height="8" viewBox="0 0 14 8" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M13.5677 1.06719L7.31768 7.31719C7.25963 7.3753 7.1907 7.4214 7.11483 7.45285C7.03896 7.4843 6.95763 7.50049 6.87549 7.50049C6.79336 7.50049 6.71203 7.4843 6.63615 7.45285C6.56028 7.4214 6.49135 7.3753 6.4333 7.31719L0.183305 1.06719C0.0957976 0.979778 0.0361929 0.86837 0.0120364 0.747067C-0.0121201 0.625764 0.000257809 0.500021 0.0476031 0.385756C0.0949484 0.271492 0.175132 0.173844 0.278003 0.105175C0.380875 0.0365058 0.501807 -9.71422e-05 0.625492 1.93625e-07H13.1255C13.2492 -9.71422e-05 13.3701 0.0365058 13.473 0.105175C13.5759 0.173844 13.656 0.271492 13.7034 0.385756C13.7507 0.500021 13.7631 0.625764 13.7389 0.747067C13.7148 0.86837 13.6552 0.979778 13.5677 1.06719Z"
-                          fill="#CC1717" />
-                      </svg>
-                    </span> -->
                   </div>
                 </template>
 
                 <div class="block mt-auto col-span-10 max-w-[450px]">
-                  <h6 class="col-span-8 text-[#6F736D]  text-[17px]  font-Gilroy">
+                  <h6 class="col-span-8 text-[#6F736D] text-sm md:text-[17px] font-Gilroy">
                     {{ t('exchange.rateDisclaimer') }}
                   </h6>
                   <a href="https://www.cbt.tm/kurs/kurs_today.html" target="_blank"
-                    class="block text-[#2C702C] font-bold text-[17px] font-Gilroy mt-4">
+                    class="block text-[#2C702C] font-bold text-sm md:text-[17px] font-Gilroy mt-4">
                     Türkmenistanyň Merkezi bankyň walýuta kursy
                   </a>
                 </div>
               </div>
-
-              <!-- <div v-show="currencyActiveTab === 'Обмен'" class="text-[#6F736D] h-[calc(100%-60px)] grid grid-cols-1">
-                <div class="grid grid-cols-12 relative gap-[56px]">
-                  <div class="flex flex-col col-span-6 gap-[10px]">
-                    <input type="number" id="currency_from" v-model.number="fromAmount"
-                      class="w-full bg-[#EEF2ED] rounded-[10px] p-5 text-[17px] text-mainBlack" placeholder="100">
-                    <div class="flex flex-wrap gap-4">
-                      <div class="block check_currency">
-                        <input type="radio" id="usd_from" name="currency_from" class="hidden" v-model="fromCurrency" value="USD" checked>
-                        <label for="usd_from">USD</label>
-                      </div>
-                      <div class="block check_currency">
-                        <input type="radio" id="tmt_from" name="currency_from" class="hidden">
-                        <label for="tmt_from">TMT</label>
-                      </div>
-                      <div class="block check_currency">
-                        <input type="radio" id="eur_from" name="currency_from" class="hidden" v-model="fromCurrency" value="EUR">
-                        <label for="eur_from">EUR</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <button type="button" class="absolute top-[24px] right-1/2 -translate-x-[-9px] cursor-pointer">
-                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M16.2812 13.281L13.2812 16.281C13.1405 16.4218 12.9496 16.5008 12.7506 16.5008C12.5516 16.5008 12.3607 16.4218 12.22 16.281C12.0792 16.1403 12.0002 15.9494 12.0002 15.7504C12.0002 15.5514 12.0792 15.3605 12.22 15.2198L13.9403 13.5004H0.75059C0.551678 13.5004 0.360912 13.4214 0.22026 13.2807C0.0796079 13.1401 0.000590086 12.9493 0.000590086 12.7504C0.000590086 12.5515 0.0796079 12.3607 0.22026 12.2201C0.360912 12.0794 0.551678 12.0004 0.75059 12.0004H13.9403L12.22 10.281C12.0792 10.1403 12.0002 9.94944 12.0002 9.75042C12.0002 9.55139 12.0792 9.36052 12.22 9.21979C12.3607 9.07906 12.5516 9 12.7506 9C12.9496 9 13.1405 9.07906 13.2812 9.21979L16.2812 12.2198C16.3509 12.2894 16.4063 12.3722 16.444 12.4632C16.4818 12.5543 16.5012 12.6519 16.5012 12.7504C16.5012 12.849 16.4818 12.9466 16.444 13.0376C16.4063 13.1287 16.3509 13.2114 16.2812 13.281ZM3.21996 7.28104C3.3607 7.42177 3.55157 7.50083 3.75059 7.50083C3.94961 7.50083 4.14048 7.42177 4.28122 7.28104C4.42195 7.14031 4.50101 6.94944 4.50101 6.75042C4.50101 6.55139 4.42195 6.36052 4.28122 6.21979L2.5609 4.50042H15.7506C15.9495 4.50042 16.1403 4.4214 16.2809 4.28075C16.4216 4.14009 16.5006 3.94933 16.5006 3.75042C16.5006 3.5515 16.4216 3.36074 16.2809 3.22009C16.1403 3.07943 15.9495 3.00042 15.7506 3.00042H2.5609L4.28122 1.28104C4.42195 1.14031 4.50101 0.94944 4.50101 0.750417C4.50101 0.551394 4.42195 0.360523 4.28121 0.219792C4.14048 0.0790615 3.94961 2.96567e-09 3.75059 0C3.55157 -2.96567e-09 3.3607 0.0790615 3.21996 0.219792L0.219965 3.21979C0.150233 3.28945 0.0949136 3.37216 0.0571704 3.46321C0.0194272 3.55426 0 3.65186 0 3.75042C0 3.84898 0.0194272 3.94657 0.0571704 4.03762C0.0949136 4.12867 0.150233 4.21139 0.219965 4.28104L3.21996 7.28104Z"
-                        fill="#6F736D" />
-                    </svg>
-                  </button>
-
-                  <div class="flex flex-col col-span-6 gap-[10px]">
-                    <input type="number" id="currency_to" :value="toAmount.toFixed(2)" readonly
-                      class="w-full bg-[#EEF2ED] rounded-[10px] p-5 text-[17px] text-mainBlack" placeholder="100">
-                    <div class="flex flex-wrap gap-4">
-                      <div class="block check_currency">
-                        <input type="radio" id="eur_to" name="currency_to" class="hidden" v-model="toCurrency" value="EUR" checked>
-                        <label for="eur_to">EUR</label>
-                      </div>
-                      <div class="block check_currency">
-                        <input type="radio" id="tmt_to" name="currency_to" class="hidden" checked>
-                        <label for="tmt_to">TMT</label>
-                      </div>
-                      <div class="block check_currency">
-                        <input type="radio" id="usd_to" name="currency_to" class="hidden" v-model="toCurrency" value="USD">
-                        <label for="usd_to">USD</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-                <h6 class="col-span-8 text-[#6F736D] mt-auto text-[17px] max-w-[450px] font-Gilroy">
-                  {{ t('exchange.rateDisclaimer') }}
-                </h6>
-              </div> -->
             </div>
           </div>
         </div>
@@ -875,17 +576,18 @@
     </section>
 
     <!-- Facts ==================================================================================== -->
-    <section class="pt-[50px] pb-[60px]">
+    <section class="md:pt-[50px] pb-[30px] md:pb-[60px]">
       <div class="auto_container">
         <div class="wrap">
-          <h2 class="text-[38px] font-bold mb-10 leading-9">
+          <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-5 md:mb-10 leading-9">
             {{ t('facts.title') }}
           </h2>
 
           <div class="grid grid-cols-12 gap-4">
             <RouterLink :to="{ name: 'awards-detail', query: { id: item.id } }" v-for="item in awards" :key="item.id"
-              class="award_glow relative overflow-hidden group col-span-4 last:col-span-12 block bg-mainWhite rounded-[20px] p-8 hover:bg-[#1D2417] transition-all duration-300">
-              <h4 class=" text-[20px] font-bold text-mainBlack mb-2 group-hover:text-white transition-all duration-300">
+              class="award_glow relative overflow-hidden group col-span-12 md:col-span-4 last:col-span-12 block bg-mainWhite rounded-[20px] p-8 hover:bg-[#1D2417] transition-all duration-300">
+              <h4
+                class="text-[18px] lg:text-[20px] leading-tight font-bold text-mainBlack mb-2 group-hover:text-white transition-all duration-300">
                 {{ item.title || '' }}
               </h4>
               <p class="text-sm text-[#6F736D] mb-6 group-hover:text-white transition-all duration-300">
@@ -902,26 +604,26 @@
     </section>
 
     <!-- Docs ===================================================================================== -->
-    <section class="pt-[60px] pb-[50px]">
+    <section class="mt-[30px] md:pt-[60px] pb-[50px]">
       <div class="auto_container">
         <div class="wrap">
           <div
             class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden purple-glow">
             <div class="block max-w-[600px]">
-              <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
+              <h6 class="text-[18px] md:text-[24px] text-mainBlack leading-tight font-bold mb-[10px]">
                 {{ t('docs.title') }}
               </h6>
-              <p class="text-[17px] text-[#6F736D] leading-5 font-Gilroy max-w-[500px]">
+              <p class="text-sm md:text-[17px] text-[#6F736D] leading-5 font-Gilroy max-w-[500px]">
                 {{ t('docs.subTitle') }}
               </p>
 
               <RouterLink to="/documents"
-                class="block w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] mt-[85px] px-5 py-[14px]">
+                class="block w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] mt-8 md:mt-[85px] px-5 py-[14px]">
                 {{ t('btn.learnMore') }}
               </RouterLink>
             </div>
 
-            <span class="max-h-[220px] block">
+            <span class="max-h-[220px] hidden md:block">
               <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain" alt="card">
             </span>
           </div>
@@ -933,14 +635,27 @@
     <NewsSection />
 
     <!-- Clients ================================================================================== -->
-    <section class="pt-[50px] pb-[60px]">
+    <section class="md:pt-[50px] pb-[80px] md:pb-[60px]">
       <div class="auto_container">
         <div class="wrap">
-          <h2 class="text-[38px] font-bold mb-10">
+          <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-5 md:mb-10">
             {{ t('clients.title') }}
           </h2>
 
-          <div class="grid grid-cols-5">
+          <div v-if="isClientsSliderActiveSmall" class="relative">
+            <Swiper :modules="swiperModules"
+              :breakpoints="{ 0: { slidesPerView: 2 }, 470: { slidesPerView: 2 }, 750: { slidesPerView: 3 } }"
+              :autoplay="{ delay: 7000, disableOnInteraction: false }" :loop="true">
+              <SwiperSlide v-for="client in clients" :key="client.id"
+                class="border-solid border-[#6F736D1A]/10 border-0 border-r-[1px] px-1">
+                <div class="grid place-items-center">
+                  <img class="h-[100px] w-[calc(100%-15px)] block object-contain" :src="client.image_url"
+                    alt="client-image">
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          </div>
+          <div v-else class="grid grid-cols-5">
             <div v-for="(client, idx) in clients" :key="client.id"
               :class="['grid place-items-center border-solid border-[#6F736D1A]/10 border-0', idx < clients.length - 1 ? 'border-r-[1px]' : '']">
               <img class="h-[100px] block object-contain" :src="client.image_url" alt="client-image">
@@ -951,7 +666,7 @@
     </section>
 
     <!-- App ====================================================================================== -->
-    <section class="pt-[60px] pb-[120px]">
+    <section class="pt-[60px] pb-[80px] md:pb-[120px] hidden md:block">
       <div class="auto_container">
         <div class="wrap">
           <div class="block relative overflow-hidden">
