@@ -34,11 +34,11 @@
 </script>
 
 <template>
-  <section class="py-[50px]">
+  <section class="py-[30px] md:py-[50px]">
     <div class="auto_container">
       <div class="wrap">
-        <div class="flex items-center justify-between mb-5 md:mb-6">
-          <h2 class="text-[28px] lg:text-[38px] font-bold">
+        <div class="flex sm:items-center justify-between flex-col sm:flex-row mb-5 md:mb-6 gap-[10px]">
+          <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold">
             {{ t('news.title') }}
           </h2>
           <RouterLink to="/news" class="text-[#2C702C] hover:opacity-80 inline-flex items-center gap-2">
