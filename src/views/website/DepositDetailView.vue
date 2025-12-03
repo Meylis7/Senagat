@@ -56,25 +56,25 @@
 
     const advColSpan = computed(() => {
         const n = (deposit.value?.advantages || []).length
-        return n === 2 ? 'col-span-6' : 'col-span-4'
+        return n === 2 ? 'col-span-12 md:col-span-6' : 'col-span-12 md:col-span-6 lg:col-span-4'
     })
 
 </script>
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
 
-                <div class="flex items-center justify-center gap-x-2 mb-[60px]">
+                <div class="flex flex-wrap items-center justify-center gap-2 mb-[60px] text-center">
                     <Breadcrumb :items="breadcrumbItems"
                         linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
                         currentClass="text-[17px] font-Gilroy text-mainWhite" />
                 </div>
 
 
-                <h1 class="m-auto max-w-[600px] text-mainWhite mb-[10px] text-center text-5xl font-bold">
+                <h1 class="m-auto max-w-[600px] text-mainWhite mb-[10px] text-center text-[28px] md:text-5xl font-bold">
                     {{ deposit?.title }}
                 </h1>
 
@@ -83,7 +83,7 @@
                 </p>
 
 
-                <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
+                <span class="block mt-[80px] md:mt-[125px] w-[250px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
                     <img :src="deposit?.image_url || '../../assets/images/deposit-6.png'"
                         class="block w-full h-full object-contain" alt="card">
                 </span>
@@ -95,19 +95,19 @@
     </section>
 
     <!-- Info  ================================================ -->
-    <section class="pt-[60px] pb-[50px]">
+    <section class="pt-[60px] md:pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="grid grid-cols-12 gap-x-4">
+                <div class="grid grid-cols-12 gap-4">
                     <div v-for="(adv, idx) in (deposit?.advantages || [])" :key="idx"
                         :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center']">
-                        <h3 class="text-[38px] font-bold mb-[10px] leading-9">
+                        <h3 class="text-[28px] md:text-[38px] font-bold mb-[10px] leading-9">
                             {{ adv?.name || '' }}
                         </h3>
-                        <p class="text-[17px] font-Gilroy text-[#6F736D] ">
+                        <p class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D] ">
                             {{ adv?.description || '' }}
                         </p>
-                        <span class="block w-[230px] mx-auto mt-auto relative ">
+                        <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
                             <img :src="diamondImages[Math.floor(Math.random() * diamondImages.length)]" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
                         </span>
@@ -118,10 +118,10 @@
     </section>
 
     <!-- Useful information ============================================== -->
-    <section class="py-[50px]">
+    <section class="pt-[60px] md:pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-10 leading-9">
                     {{ t('pageTitle.usefulInformation') }}
                 </h2>
 
@@ -140,7 +140,7 @@
     </section>
 
     <!-- News ===================================================================================== -->
-    <NewsSection class="pb-[120px]" />
+    <NewsSection class="pb-[80px] md:pb-[120px]" />
 
 
 </template>

@@ -192,6 +192,7 @@ export default {
     requiredDocs: 'You will need:',
     passport: 'Passport',
     incomeStatement: 'Income Statement',
+    currencyManat: 'Manat',
     calculatorDisclaimer:
       "The calculator's calculation is preliminary. You will be able to find out personal conditions after submitting your application.",
   },

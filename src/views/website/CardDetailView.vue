@@ -63,7 +63,7 @@
 
     const advColSpan = computed(() => {
         const n = (card.value?.advantages || []).length
-        return n === 2 ? 'col-span-6' : 'col-span-4'
+        return n === 2 ? 'col-span-12 md:col-span-6' : 'col-span-12 md:col-span-6 lg:col-span-4'
     })
 
     const otherCards = ref([])
@@ -89,17 +89,17 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
-                <div class="flex items-center justify-center gap-x-2 mb-[60px]">
+                <div class="flex flex-wrap items-center justify-center gap-2 mb-[60px] text-center">
                     <Breadcrumb :items="breadcrumbItems"
                         linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
                         currentClass="text-[17px] font-Gilroy text-mainWhite" />
                 </div>
 
 
-                <h1 class="m-auto max-w-[660px] text-mainWhite mb-[10px] text-center text-5xl font-bold">
+                <h1 class="m-auto max-w-[660px] text-mainWhite mb-[10px] text-center text-[28px] md:text-5xl font-bold">
                     {{ card?.title }}
                 </h1>
 
@@ -107,7 +107,8 @@
                     {{ card?.sub_title || '' }}
                 </p>
 
-                <span class="block mt-[140px] max-w-[400px] mx-auto relative z-10">
+                <span
+                    class="block mt-[80px] md:mt-[140px] w-[250px] md:w-[300px] lg:max-w-[400px] mx-auto relative z-10">
                     <img :src="card?.image_url" class="block w-full h-full object-contain" alt="card">
                 </span>
             </div>
@@ -117,19 +118,19 @@
     </section>
 
     <!-- Info  ================================================ -->
-    <section class="pt-[60px] pb-[50px]">
+    <section class="pt-[60px] md:pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="grid grid-cols-12 gap-x-4">
+                <div class="grid grid-cols-12 gap-4">
                     <div v-for="(adv, idx) in (card?.advantages || [])" :key="idx"
                         :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center']">
-                        <h3 class="text-[38px] font-bold mb-[10px] leading-9">
+                        <h3 class="text-[28px] md:text-[38px] font-bold mb-[10px] leading-9">
                             {{ adv?.name || '' }}
                         </h3>
-                        <p class="text-[17px] font-Gilroy text-[#6F736D] ">
+                        <p class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D] ">
                             {{ adv?.description || '' }}
                         </p>
-                        <span class="block w-[230px] mx-auto mt-auto relative ">
+                        <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
                             <img :src="diamondImages[Math.floor(Math.random() * diamondImages.length)]" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
                         </span>
@@ -143,11 +144,11 @@
     <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-10 leading-9">
                     {{ $t('pageTitle.tariffsAndDocuments') }}
                 </h2>
 
-                <div class="block p-8  rounded-[20px] bg-mainWhite">
+                <div class="block p-3 md:p-8  rounded-[20px] bg-mainWhite">
                     <div class="text-[17px] description" v-html="card && card.description ? card.description : ''">
                     </div>
                 </div>
@@ -156,10 +157,10 @@
     </section>
 
     <!-- Docs  ================================================ -->
-    <section class="py-[50px]">
+    <section class="md:py-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-10 leading-9">
                     {{ $t('pageTitle.docs') }}
                 </h2>
 
@@ -187,19 +188,20 @@
     <section class="pt-[50px] pb-[60px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-10 leading-9">
                     {{ $t('pageTitle.otherCards') }}
                 </h2>
 
-                <div class="grid grid-cols-12 gap-x-4">
-                    <div v-for="item in otherCards" :key="item.id" class="col-span-4 bg-mainWhite rounded-[20px] p-1">
+                <div class="grid grid-cols-12 gap-4">
+                    <div v-for="item in otherCards" :key="item.id"
+                        class="col-span-12 md:col-span-6 lg:col-span-4 bg-mainWhite rounded-[20px] p-1">
                         <div
                             class="bg-[#EEF2ED] rounded-2xl pt-[15px] relative flex items-end justify-center overflow-hidden">
                             <span class="block h-[150px] relative -bottom-[25px]">
                                 <img class="block w-full h-full object-contain"
                                     :src="item.image_url || '../../assets/images/card.png'" alt="card">
                             </span>
-                            <span class="block absolute right-7 bottom-5 w-[100px]">
+                            <span class="absolute right-7 bottom-5 w-[100px] hidden sm:block">
                                 <img class="block w-full h-full object-contain mix-blend-hard-light"
                                     src="../../assets/images/oval.png" alt="oval-icon">
                             </span>

@@ -188,6 +188,7 @@ export default {
     requiredDocs: 'Size gerek bolar:',
     passport: 'Pasport',
     incomeStatement: 'Girdeji kepilnamasy',
+    currencyManat: 'Manat',
     calculatorDisclaimer:
       'Bu deslapky töleg hasaby diňe maglumat berijidir we karzyň maliýe goragyny resmileşdirmek şerti bilen hasaplandy.',
   },

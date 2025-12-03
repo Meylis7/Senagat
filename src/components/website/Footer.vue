@@ -105,7 +105,7 @@
         <div class="auto_container">
             <div class="wrap py-[60px]">
                 <div class="grid grid-cols-12 gap-4">
-                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3 mb-5 lg:mb-0">
                         <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
                             {{ t('nav.loans.title') }}
                         </h4>
@@ -120,7 +120,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3 mb-5 lg:mb-0">
                         <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
                             {{ t('nav.cards.title') }}
                         </h4>
@@ -150,7 +150,7 @@
 
                     </div>
 
-                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3 mb-5 lg:mb-0">
                         <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
                             {{ t('nav.informations.title') }}
                         </h4>
@@ -196,7 +196,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3 mb-5 lg:mb-0">
                         <h4 class="mb-4 font-bold text-[17px] leading-tight text-mainBlack">
                             {{ t('header.aboutBank') }}
                         </h4>
