@@ -150,6 +150,12 @@
 
         <div
             class="fixed top-[200px] max-w-[320px] left-10 z-[35] bg-[#F7F8F699] p-5 rounded-[20px] border-solid border-1 border-white">
+            <button type="button" @click="toggleBranchesOpen"
+                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] mb-5 w-full">
+                <span v-if="!isBranchesOpen"> {{ t('map.branchList') }}</span>
+                <span v-else> {{ t('map.showOnMap') }}</span>
+            </button>
+
             <div class="tabs bg-[#F7F8F6] rounded-[20px] p-1 grid grid-cols-2 text-center">
                 <h6 @click="setTab('atms')"
                     :class="activeTab === 'atms' ? 'text-[17px] font-Gilroy py-3 px-5 bg-[#1D2417] text-[#EEF2ED] rounded-2xl cursor-pointer leading-1' : 'text-[#6F736D] text-[17px] font-Gilroy py-4 px-5 rounded-2xl cursor-pointer leading-tight'">
@@ -240,19 +246,10 @@
             </div>
         </div>
 
-        <div
-            class="fixed top-[200px] right-10 z-[35] bg-[#F7F8F699] p-5 rounded-[20px] border-solid border-1 border-white">
-            <button type="button" @click="toggleBranchesOpen"
-                class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
-                <span v-if="!isBranchesOpen"> {{ t('map.branchList') }}</span>
-                <span v-else> {{ t('map.showOnMap') }}</span>
-            </button>
-        </div>
-
         <div v-show="isBranchesOpen"
-            class="grid grid-cols-10 gap-4 fixed top-0 left-0 w-screen h-screen z-[34] bg-[#EEF2ED] pt-[200px] pl-[397px] pr-[250px] pb-[60px] overflow-auto content-start auto-rows-max">
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 fixed top-0 left-0 w-screen h-screen z-[34] bg-[#EEF2ED] pt-[200px] pl-[397px] pr-[250px] pb-[60px] overflow-auto content-start auto-rows-max">
             <div v-for="(branch, idx) in filteredLocations" :key="branch.id || idx"
-                class="flex flex-col col-span-3 gap-5 bg-[#F7F8F6] rounded-[20px] p-5">
+                class="flex flex-col gap-5 bg-[#F7F8F6] rounded-[20px] p-5">
                 <div class="block">
                     <h2 class="text-[#1D2417] text-sm font-bold mb-[10px]">
                         {{ branch.name || '' }}

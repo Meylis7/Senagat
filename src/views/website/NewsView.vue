@@ -46,16 +46,16 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[145px] pb-[60px] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
 
-                <div class="flex items-center justify-center gap-x-2 mb-[60px]">
+                <div class="flex items-center justify-center gap-2 mb-10 md:mb-[60px]">
                     <Breadcrumb :items="breadcrumbItems" />
                 </div>
 
 
-                <h1 class="m-auto max-w-[660px] mb-[10px] text-center text-5xl font-bold">
+                <h1 class="m-auto max-w-[660px] mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
                     {{ t('news.title') }}
                 </h1>
 
@@ -71,7 +71,7 @@
     </div> -->
 
     <!-- News ===================================================================================== -->
-    <section class="pt-[50px] pb-[120px]">
+    <section class="md:pt-[50px] pb-[80px] md:pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
                 <!-- <div class="flex items-center mb-10 gap-1">

@@ -51,7 +51,7 @@
     <section class="crumb pt-[110px] md:pt-[145px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center gap-x-2">
+                <div class="flex items-center gap-2">
                     <Breadcrumb :items="breadcrumbItems" />
                 </div>
             </div>
@@ -141,7 +141,7 @@
     </section>
 
     <!-- News ==================================================== -->
-    <NewsSection class="pb-[120px]" />
+    <NewsSection class="pb-[80px] md:pb-[120px]" />
 
 </template>
 

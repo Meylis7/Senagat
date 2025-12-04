@@ -74,7 +74,8 @@
                 </div>
 
 
-                <h1 class="m-auto max-w-[600px] text-mainWhite mb-[10px] text-center text-[28px] md:text-5xl font-bold">
+                <h1
+                    class="m-auto max-w-[600px] text-mainWhite mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
                     {{ deposit?.title }}
                 </h1>
 
@@ -83,7 +84,7 @@
                 </p>
 
 
-                <span class="block mt-[80px] md:mt-[125px] w-[250px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
+                <span class="block mt-[80px] md:mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
                     <img :src="deposit?.image_url || '../../assets/images/deposit-6.png'"
                         class="block w-full h-full object-contain" alt="card">
                 </span>
@@ -101,7 +102,7 @@
                 <div class="grid grid-cols-12 gap-4">
                     <div v-for="(adv, idx) in (deposit?.advantages || [])" :key="idx"
                         :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center']">
-                        <h3 class="text-[28px] md:text-[38px] font-bold mb-[10px] leading-9">
+                        <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold mb-[10px] leading-9">
                             {{ adv?.name || '' }}
                         </h3>
                         <p class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D] ">
@@ -121,7 +122,7 @@
     <section class="pt-[60px] md:pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-10 leading-9">
+                <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-10 leading-tight">
                     {{ t('pageTitle.usefulInformation') }}
                 </h2>
 

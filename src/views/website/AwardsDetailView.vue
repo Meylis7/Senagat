@@ -1,53 +1,53 @@
 <script setup>
-import Breadcrumb from '@/components/website/Breadcrumb.vue'
-import { ref, computed, onMounted, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRoute } from 'vue-router'
-import apiService from '@/services/apiService'
+  import Breadcrumb from '@/components/website/Breadcrumb.vue'
+  import { ref, computed, onMounted, watch } from 'vue'
+  import { useI18n } from 'vue-i18n'
+  import { useRoute } from 'vue-router'
+  import apiService from '@/services/apiService'
 
-const { t } = useI18n()
-const route = useRoute()
-const awardId = computed(() => route.params?.id || route.query?.id)
+  const { t } = useI18n()
+  const route = useRoute()
+  const awardId = computed(() => route.params?.id || route.query?.id)
 
-const award = ref(null)
-const loading = ref(false)
-const error = ref(null)
+  const award = ref(null)
+  const loading = ref(false)
+  const error = ref(null)
 
-const breadcrumbItems = computed(() => {
-  const currentTitle = award.value?.title || ''
-  return [
-    { label: t('breadcrumb.home'), path: '/' },
-    { label: currentTitle },
-  ]
-})
+  const breadcrumbItems = computed(() => {
+    const currentTitle = award.value?.title || ''
+    return [
+      { label: t('breadcrumb.home'), path: '/' },
+      { label: currentTitle },
+    ]
+  })
 
-const fetchAwardDetail = async () => {
-  loading.value = true
-  error.value = null
-  try {
-    const response = await apiService.fetchAwardDetail(awardId.value)
-    const data = response?.data || response
-    if (data && !Array.isArray(data)) {
-      award.value = data
-    } else {
+  const fetchAwardDetail = async () => {
+    loading.value = true
+    error.value = null
+    try {
+      const response = await apiService.fetchAwardDetail(awardId.value)
+      const data = response?.data || response
+      if (data && !Array.isArray(data)) {
+        award.value = data
+      } else {
+        award.value = null
+        error.value = 'Award not found'
+      }
+    } catch (e) {
+      error.value = e.message || 'Failed to load award'
       award.value = null
-      error.value = 'Award not found'
+    } finally {
+      loading.value = false
     }
-  } catch (e) {
-    error.value = e.message || 'Failed to load award'
-    award.value = null
-  } finally {
-    loading.value = false
   }
-}
 
-onMounted(() => {
-  if (awardId.value) fetchAwardDetail()
-})
+  onMounted(() => {
+    if (awardId.value) fetchAwardDetail()
+  })
 
-watch(awardId, (val, oldVal) => {
-  if (val && val !== oldVal) fetchAwardDetail()
-})
+  watch(awardId, (val, oldVal) => {
+    if (val && val !== oldVal) fetchAwardDetail()
+  })
 </script>
 
 <template>
@@ -55,7 +55,7 @@ watch(awardId, (val, oldVal) => {
   <section class="crumb pt-[145px]">
     <div class="auto_container">
       <div class="wrap">
-        <div class="flex items-center gap-x-2">
+        <div class="flex items-center flex-wrap  gap-2 text-center md:text-lef">
           <Breadcrumb :items="breadcrumbItems" />
         </div>
       </div>

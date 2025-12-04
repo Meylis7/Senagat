@@ -19,6 +19,7 @@
     const activeTab = ref('all')
     const tabRefs = ref([])
     const sliderStyle = ref({})
+    const isMobile = ref(false)
 
     const setActiveTab = (tab) => {
         activeTab.value = tab
@@ -33,15 +34,31 @@
             const index = activeIndex.value
             if (tabRefs.value[index]) {
                 const button = tabRefs.value[index]
-                sliderStyle.value = {
-                    width: `${button.offsetWidth}px`,
-                    transform: `translateX(${button.offsetLeft - 4}px)`,
+                const paddingPx = 4
+                isMobile.value = window.innerWidth < 640
+                if (isMobile.value) {
+                    sliderStyle.value = {
+                        height: `${button.offsetHeight}px`,
+                        width: 'auto',
+                        left: `${paddingPx}px`,
+                        right: `${paddingPx}px`,
+                        transform: `translateY(${button.offsetTop - paddingPx}px)`,
+                    }
+                } else {
+                    sliderStyle.value = {
+                        width: `${button.offsetWidth}px`,
+                        height: '48px',
+                        top: `${paddingPx}px`,
+                        bottom: `${paddingPx}px`,
+                        transform: `translateX(${button.offsetLeft - paddingPx}px)`,
+                    }
                 }
             }
         })
     }
 
     onMounted(() => {
+        isMobile.value = window.innerWidth < 640
         updateSlider()
         window.addEventListener('resize', updateSlider)
     })
@@ -114,10 +131,10 @@
 
 <template>
     <!-- Breadcrumb ======================================================== -->
-    <section class="crumb pt-[145px]">
+    <section class="crumb pt-[110px] md:pt-[145px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center gap-x-2">
+                <div class="flex items-center flex-wrap text-center gap-2">
                     <Breadcrumb :items="breadcrumbItems" />
                 </div>
             </div>
@@ -128,32 +145,33 @@
     <section class="py-[60px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center justify-between mb-10">
-                    <h2 class="text-[38px] font-bold leading-9">
+                <div class="flex items-center justify-between flex-col sm:flex-row gap-4 mb-5 md:mb-10">
+                    <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold leading-9">
                         {{ t('offer.title') }}
                     </h2>
 
-                    <div class="relative bg-mainWhite p-1  rounded-[20px] flex items-center ">
+                    <div
+                        class="relative bg-mainWhite p-1 rounded-[20px] flex flex-col sm:flex-row items-center w-full sm:w-auto">
                         <span
-                            class="absolute top-1 bottom-1 rounded-[16px] bg-[#2C702C] transition-all duration-300 ease-out will-change-transform"
+                            :class="['absolute rounded-[16px] bg-[#2C702C] transition-all duration-300 ease-out will-change-transform', isMobile ? 'left-1 right-1' : 'top-1 bottom-1']"
                             :style="sliderStyle" aria-hidden="true"></span>
 
                         <button type="button" :ref="el => tabRefs[0] = el"
-                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] "
+                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] w-full sm:w-auto"
                             :class="activeTab === 'all' ? 'text-mainWhite py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('all')">
                             {{ t('tabs.all') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[1] = el"
-                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] "
+                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] w-full sm:w-auto"
                             :class="activeTab === 'transfers' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('transfers')">
                             {{ t('tabs.moneyTransfers') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[2] = el"
-                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] "
+                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] w-full sm:w-auto"
                             :class="activeTab === 'information' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('information')">
                             {{ t('tabs.information') }}
@@ -161,21 +179,21 @@
                     </div>
                 </div>
 
-                <div v-show="activeTab === 'all'" class="grid gap-4 lg:grid-cols-12">
-                    <div class="lg:col-span-12 grid gap-4 lg:grid-cols-12 sm:grid-cols-2">
+                <div v-show="activeTab === 'all'" class="flex flex-col gap-10">
+                    <div class="grid gap-4 grid-cols-12">
                         <RouterLink v-for="(it, idx) in visibleAllItems" :key="idx"
                             :to="it.type === 'transfer' ? { name: 'transfer', params: { id: it.data.id } } : it.data.to"
                             :class="it.type === 'transfer'
                                 ? (idx === 5
-                                    ? 'lg:col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'
-                                    : 'lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition')
+                                    ? 'col-span-12 sm:col-span-6 lg:lg:col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'
+                                    : 'col-span-12 sm:col-span-6 lg:lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition')
                                 : (it.data.special
-                                    ? 'lg:col-span-4 lg:row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow'
+                                    ? 'col-span-12 sm:col-span-6 lg:lg:col-span-4 !row-span-1 lg:!row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow'
                                     : (idx === 5
-                                        ? 'lg:col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'
-                                        : 'lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'))">
+                                        ? 'col-span-12 sm:col-span-6 lg:lg:col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'
+                                        : 'col-span-12 sm:col-span-6 lg:lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'))">
                             <template v-if="it.type === 'transfer'">
-                                <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
+                                <h6 class="text-lg leading-tight lg:text-[24px] text-mainBlack font-bold mb-[10px]">
                                     {{ it.data.title || '' }}
                                 </h6>
                                 <!-- <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">
@@ -188,15 +206,15 @@
                             </template>
                             <template v-else>
                                 <h6
-                                    :class="['text-[28px] leading-7 font-bold mb-[10px]', it.data.special ? 'text-mainWhite' : 'text-mainBlack']">
+                                    :class="['text-lg leading-tight lg:text-[24px] font-bold mb-[10px]', it.data.special ? 'text-mainWhite' : 'text-mainBlack']">
                                     {{ it.data.title }}</h6>
                                 <!-- <p
                                     :class="['text-[17px] leading-5 mb-1 font-Gilroy', it.data.special ? 'text-mainWhite/80' : 'text-[#6F736D]']">
                                     {{ t('nav.informations.noReplenishment') }}
                                 </p> -->
                                 <span :class="it.data.special
-                                    ? 'absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px] z-[1]'
-                                    : 'max-h-[120px] h-full flex items-end justify-end z-[1]'
+                                    ? 'lg:absolute lg:right-1/2 lg:translate-x-1/2 lg:bottom-20 ml-auto lg:ml-0 lg:w-full max-w-[120px] lg:max-w-[240px] z-[2]'
+                                    : 'max-h-[95px] lg:max-h-[120px] h-full flex items-end justify-end'
                                     ">
                                     <img :src="it.data.img" class="block h-full object-contain" alt="card">
                                 </span>
@@ -205,7 +223,7 @@
                     </div>
 
                     <button type="button" @click="toggleAllExpanded"
-                        class="col-span-12 mt-[26px] flex items-center justify-center gap-[10px] cursor-pointer">
+                        class="flex items-center justify-center gap-[10px] cursor-pointer">
                         <p class="text-[#2C702C] text-[17px] font-Gilroy">
                             {{ isAllExpanded ? t('btn.hide') : t('btn.showAll') }}
                         </p>
@@ -221,8 +239,8 @@
                     </button>
                 </div>
 
-                <div v-show="activeTab === 'transfers'" class="grid gap-4 lg:grid-cols-12">
-                    <div class="lg:col-span-8 grid gap-4 sm:grid-cols-2">
+                <div v-show="activeTab === 'transfers'" class="grid grid-cols-12 gap-4">
+                    <div class="col-span-12 grid grid-cols-12 gap-4">
                         <article v-if="transfersLoading" v-for="n in 2" :key="n"
                             class="rounded-[20px] bg-white p-8 animate-pulse">
                             <div class="h-6 bg-gray-200 rounded w-40 mb-4"></div>
@@ -236,8 +254,8 @@
 
                         <RouterLink v-else v-for="item in transfers" :key="item.id"
                             :to="{ name: 'transfer', params: { id: item.id } }"
-                            class="rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
-                            <h6 class="text-[28px] text-mainBlack leading-7 font-bold mb-[10px]">
+                            class="col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                            <h6 class="text-lg leading-tight lg:text-[24px] text-mainBlack font-bold mb-[10px]">
                                 {{ item?.title || '' }}
                             </h6>
                             <!-- <p class="text-[17px] text-[#6F736D] leading-5 mb-1 font-Gilroy">
@@ -250,12 +268,13 @@
                     </div>
                 </div>
 
-                <div v-show="activeTab === 'information'" class="grid gap-4 lg:grid-cols-12">
-                    <RouterLink v-for="(item, idx) in informationItems" :key="idx" :to="item.to" :class="item.special
-                        ? 'lg:col-span-4 lg:row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow'
-                        : 'col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'">
+                <div v-show="activeTab === 'information'" class="grid grid-cols-12 gap-4">
+                    <RouterLink v-for="(item, idx) in informationItems" :key="idx" :to="item.to"
+                        :class="item.special
+                            ? 'col-span-12 sm:col-span-6 lg:col-span-4 !row-span-1 lg:!row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow'
+                            : 'col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'">
                         <h6
-                            :class="['leading-7 font-bold mb-[10px]', item.special ? 'text-mainWhite text-[34px] leading-9' : 'text-[28px] text-mainBlack']">
+                            :class="['leading-7 font-bold mb-[10px]', item.special ? 'text-mainWhite text-lg leading-tight lg:text-[24px] ' : 'text-lg leading-tight lg:text-[24px] text-mainBlack']">
                             {{ item.title }}
                         </h6>
                         <!-- <p
@@ -263,8 +282,8 @@
                             {{ item.subtitle }}
                         </p> -->
                         <span :class="item.special
-                            ? 'absolute right-1/2 translate-x-1/2 bottom-20 w-full max-w-[240px] z-[1]'
-                            : 'max-h-[120px] h-full flex items-end justify-end'">
+                            ? 'lg:absolute lg:right-1/2 lg:translate-x-1/2 lg:bottom-20 ml-auto lg:ml-0 lg:w-full max-w-[120px] lg:max-w-[240px] z-[2]'
+                            : 'max-h-[95px] lg:max-h-[120px] h-full flex items-end justify-end'">
                             <img :src="item.img" :class="item.special
                                 ? 'block w-full h-full object-contain select-none pointer-events-none'
                                 : 'block max-h-full object-contain'" :alt="item.title">
@@ -275,52 +294,53 @@
         </div>
     </section>
 
-    <section class="pt-[60px] pb-[120px]">
+    <section class="md:pt-[60px] pb-[80px] md:pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
                 <div
-                    class="flex items-center justify-between relative bg-mainWhite rounded-[20px] p-8 overflow-hidden mb-10">
-                    <div class="block max-w-[460px]">
-                        <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack leading-tight">
+                    class="flex flex-col md:flex-row items-center justify-between gap-4 relative bg-mainWhite rounded-[20px] text-center md:text-left p-6 md:p-8 overflow-hidden mb-10">
+                    <div class="block w-full md:max-w-[460px]">
+                        <h4 class="text-xl md:text-[28px] font-bold mb-[10px] text-mainBlack leading-tight">
                             {{ t('bankService.title') }}
                         </h4>
-                        <p class="text-[#6F736D] text-[17px] mb-8 leading-tight">
+                        <p class="text-[#6F736D] text-[15px] md:text-[17px] mb-8 leading-tight">
                             {{ t('bankService.text') }}
                         </p>
                         <RouterLink to="/information"
-                            class="w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
+                            class="w-fit block text-sm mx-auto md:mx-0 font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
                             {{ t('btn.learnMore') }}
                         </RouterLink>
                     </div>
 
-                    <span class="max-h-[220px] flex items-end justify-end">
-                        <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain"
+                    <div class="hidden md:flex min-w-[310px] max-h-[220px] overflow-hidden items-end justify-end">
+                        <img src="../../assets/images/GradientGlass.png" class="w-full h-full object-contain"
                             alt="card">
-                    </span>
+                    </div>
 
-                    <span class="bg-circle"></span>
+                    <span class="bg-circle !hidden md:!block"></span>
                 </div>
 
-                <div class="flex items-center justify-between relative bg-mainWhite rounded-[20px] p-8 overflow-hidden">
-                    <div class="block max-w-[500px]">
-                        <h4 class=" text-[28px] font-bold mb-[10px] text-mainBlack leading-tight">
+                <div
+                    class="flex flex-col md:flex-row items-center justify-between gap-4 relative bg-mainWhite rounded-[20px] text-center md:text-left p-6 md:p-8 overflow-hidden">
+                    <div class="block md:max-w-[500px]">
+                        <h4 class="text-xl md:text-[28px] font-bold mb-[10px] text-mainBlack leading-tight">
                             {{ t('docs.title') }}
                         </h4>
-                        <p class="text-[#6F736D] text-[17px] mb-8 leading-tight">
+                        <p class="text-[#6F736D] text-[15px] md:text-[17px] mb-8 leading-tight">
                             {{ t('docs.subTitle') }}
                         </p>
                         <RouterLink to="/documents"
-                            class="w-fit text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
+                            class="w-fit block text-sm mx-auto md:mx-0 font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px]">
                             {{ t('btn.learnMore') }}
                         </RouterLink>
                     </div>
 
-                    <span class="max-h-[220px] flex items-end justify-end">
-                        <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain"
+                    <div class="hidden md:flex min-w-[310px] max-h-[220px] overflow-hidden items-end justify-end">
+                        <img src="../../assets/images/GradientGlass.png" class="w-full h-full object-contain"
                             alt="card">
-                    </span>
+                    </div>
 
-                    <span class="bg-circle"></span>
+                    <span class="bg-circle !hidden md:!block"></span>
                 </div>
             </div>
         </div>

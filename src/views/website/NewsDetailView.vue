@@ -93,10 +93,11 @@
     <!-- {{ t('offer.title') }} -->
 
     <!-- Breadcrumb ======================================================== -->
-    <section class="crumb pt-[145px]">
+    <section class="crumb pt-[110px] md:pt-[145px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-baseline gap-x-2">
+                <div
+                    class="flex flex-wrap items-baseline gap-2 text-center md:text-left justify-center md:justify-start">
                     <Breadcrumb :items="breadcrumbItems" />
                 </div>
             </div>
@@ -104,19 +105,19 @@
     </section>
 
     <!-- News detail ========================================================== -->
-    <section class="pt-[60px] pb-[120px]">
+    <section class="pt-[60px] pb-[80px] md:pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex justify-between gap-4">
-                    <div class="block w-7/12">
+                <div class="grid grid-cols-12 gap-10 lg:gap-4">
+                    <div class="block col-span-12 lg:col-span-7">
                         <div v-if="loading" class="flex items-center justify-center py-10">
                             <Vue3Lottie :animationData="LoadAnimationJSON" class="!w-full md:!w-[100px] !h-[100px]" />
                         </div>
                         <div v-else>
-                            <h1 class="text-[38px] font-bold mb-2 leading-snug">
+                            <h1 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-2 leading-tight">
                                 {{ newsItem?.title }}
                             </h1>
-                            <p v-if="newsItem?.published_at" class="text-[#6F736D] text-[15px] mb-8">
+                            <p v-if="newsItem?.published_at" class="text-[#6F736D] text-sm md:text-[15px] mb-8">
                                 {{ newsItem.published_at }}
                             </p>
 
@@ -125,12 +126,12 @@
                                 :alt="newsItem?.title || 'news-image'">
                             </span> -->
 
-                            <p v-if="!error" class="text-[17px] font-Gilroy leading-7"
+                            <p v-if="!error" class="text-sm md:text-[17px] font-Gilroy leading-7"
                                 v-html="newsItem?.description || ''"></p>
                         </div>
                     </div>
 
-                    <div class="block w-4/12">
+                    <div class="block col-span-12 lg:col-span-4">
                         <h1 class="mb-8 text-[28px] leading-7 font-bold">
                             {{ t('news.otherNews') }}
                         </h1>
@@ -147,14 +148,14 @@
                             </article>
                         </template>
 
-                        <div v-else class="grid gap-4">
+                        <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <article v-for="item in news" :key="item.id"
-                                class="bg-white rounded-[20px] overflow-hidden p-8">
-                                <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
+                                class="bg-white rounded-[20px] overflow-hidden p-5 md:p-8">
+                                <p class="text-[17px] text-[#6F736D] leading-tight font-Gilroy">
                                     {{ item.published_at }}
                                 </p>
                                 <RouterLink :to="{ name: 'news-detail', query: { id: item.id } }"
-                                    class="block mt-[20px] text-[#1D2417] text-[17px] font-bold leading-5 hover:text-[#2C702C] transition-colors overflow-hidden [text-overflow:ellipsis] [-webkit-line-clamp:3] [display:-webkit-box] [-webkit-box-orient:vertical] min-h-[60px]">
+                                    class="block mt-[20px] text-[#1D2417] text-[17px] font-bold leading-tight hover:text-[#2C702C] transition-colors overflow-hidden [text-overflow:ellipsis] [-webkit-line-clamp:3] [display:-webkit-box] [-webkit-box-orient:vertical] min-h-[60px]">
                                     {{ item.title || t('news.news') }}
                                 </RouterLink>
                             </article>

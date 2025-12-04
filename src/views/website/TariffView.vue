@@ -143,16 +143,16 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[145px] pb-[60px] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] md:pb-[60px] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
 
-                <div class="flex items-center justify-center gap-x-2 mb-[60px]">
+                <div class="flex flex-wrap text-center items-center justify-center gap-2 mb-[60px]">
                     <Breadcrumb :items="breadcrumbItems" />
                 </div>
 
 
-                <h1 class="m-auto max-w-[660px] mb-[10px] text-center text-5xl font-bold">
+                <h1 class="m-auto max-w-[660px] mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
                     {{ t('tariff.title') }}
                 </h1>
 
@@ -164,17 +164,17 @@
     </section>
 
     <!-- Useful information ============================================== -->
-    <section class="py-[50px] pb-[120px]">
+    <section class="py-[50px] pb-[80px] md:pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center justify-between">
-                    <div class="block">
+                <div class="flex items-center justify-between flex-col mm:flex-row gap-6">
+                    <div class="block w-full mm:w-auto">
                         <h4 class="text-[15px] mb-2 text-mainBlack font-bold font-Gilroy max-w-[80%] truncate">
                             {{ t('tariff.section') }}
                         </h4>
                         <CustomDropdown :options="tariffOptions" :placeholder="t('tariff.all')" class="tariff-dd"
-                            menu-class="max-h-[400px] overflow-auto absolute min-w-[500px] !bg-mainWhite shadow"
-                            title-class="!bg-mainWhite min-w-[500px]" @option-selected="handleOptionSelected" />
+                            menu-class="max-h-[400px] overflow-auto absolute !min-w-full mm:min-w-[450px] !bg-mainWhite shadow"
+                            title-class="!bg-mainWhite mm:min-w-[500px]" @option-selected="handleOptionSelected" />
                     </div>
 
                     <a href="../../assets/doc/Nyrhanama.pdf" download target="_blank" rel="noopener"
@@ -194,8 +194,8 @@
                     </a>
                 </div>
 
-                <div class="my-10" v-if="Array.isArray(tariffTables) && tariffTables.length">
-                    <table class="rounded-[20px] w-full text-center">
+                <div class="my-10 overflow-auto" v-if="Array.isArray(tariffTables) && tariffTables.length">
+                    <table class="rounded-[20px] w-full text-center min-w-[550px]">
                         <thead>
                             <tr class="bg-mainWhite">
                                 <th class="text-left pt-6 pb-4 px-4">#</th>

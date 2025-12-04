@@ -61,18 +61,20 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
 
-                <div class="flex items-center justify-center gap-x-2 mb-[60px]">
+                <div
+                    class="flex items-center flex-wrap justify-center text-center md:text-lef gap-2 mb-10 md:mb-[60px]">
                     <Breadcrumb :items="breadcrumbItems"
                         linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
                         currentClass="text-[17px] font-Gilroy text-mainWhite" />
                 </div>
 
 
-                <h1 class="m-auto max-w-[600px] text-mainWhite mb-[10px] text-center text-5xl font-bold">
+                <h1
+                    class="m-auto max-w-[600px] text-mainWhite mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
                     {{ t('guaranteees.title') }}
                 </h1>
 
@@ -81,7 +83,7 @@
                 </p>
 
 
-                <span class="block mt-[125px] w-full max-w-[390px] mx-auto relative z-10">
+                <span class="block mt-[80px] md:mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
                     <img src="../../assets/images/Guarantees.png" class="block w-full h-full object-contain" alt="card">
                 </span>
             </div>
@@ -92,25 +94,25 @@
     </section>
 
     <!-- Info  ================================================ -->
-    <section class="pt-[60px] pb-[50px]">
+    <section class="pt-[60px] md:pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
-                <h2 class="text-[38px] font-bold mb-10 leading-9">
+                <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-10 leading-tight">
                     {{ t('guaranteees.suptitle') }}
                 </h2>
 
                 <div v-for="(adv, idx) in guaranteeAdvs" :key="idx"
-                    class="flex items-center justify-between bg-mainWhite rounded-[20px] p-8 relative overflow-hidden purple-glow mb-6">
-                    <div class="block max-w-[600px]">
-                        <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
+                    class="flex flex-col md:flex-row items-center justify-between gap-4 bg-mainWhite rounded-[20px] p-5 md:p-8 relative overflow-hidden  purple-glow mb-6">
+                    <div class="block w-full md:max-w-[600px]">
+                        <h6 class="text-[20px] md:text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
                             {{ adv.title || '' }}
                         </h6>
-                        <p class="text-[17px] text-[#6F736D] leading-5 font-Gilroy max-w-[500px]">
+                        <p class="text-sm md:text-[17px] text-[#6F736D] leading-5 font-Gilroy max-w-[500px]">
                             {{ adv.description || '' }}
                         </p>
                     </div>
 
-                    <span class="max-h-[220px] block">
+                    <span class="hidden md:block min-w-[310px] max-h-[220px]">
                         <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain"
                             alt="card">
                     </span>
@@ -120,7 +122,7 @@
     </section>
 
     <!-- News ===================================================================================== -->
-    <NewsSection class="pb-[120px]" />
+    <NewsSection class="pb-[80px] md:pb-[120px]" />
 
 
 </template>
@@ -139,6 +141,13 @@
         filter: blur(137.15px);
         border-radius: 9999px;
         pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+        .purple-glow::after {
+            display: none;
+            content: none;
+        }
     }
 
     .card-bg-circle {

@@ -124,7 +124,7 @@
                 <div class="grid grid-cols-12 gap-4">
                     <div v-for="(adv, idx) in (card?.advantages || [])" :key="idx"
                         :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center']">
-                        <h3 class="text-[28px] md:text-[38px] font-bold mb-[10px] leading-9">
+                        <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold mb-[10px] leading-tight">
                             {{ adv?.name || '' }}
                         </h3>
                         <p class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D] ">

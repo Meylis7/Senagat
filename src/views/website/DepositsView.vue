@@ -89,7 +89,7 @@
                         </div>
 
                         <span
-                            class="block w-full min-w-[190px] h-[165px] md:max-w-[225px] relative z-10 bg-[#EEF2ED] md:bg-transparent rounded-2xl md:rounded-none overflow-hidden">
+                            class="block w-full min-w-[190px] h-[140px] md:max-w-[225px] relative z-10 bg-[#EEF2ED] md:bg-transparent rounded-2xl md:rounded-none overflow-hidden">
                             <img class="block w-full h-full object-contain relative top-[23px] md:top-0"
                                 :src="dep?.image_url || '../../assets/images/deposit-6.png'" alt="card-image">
                         </span>
