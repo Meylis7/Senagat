@@ -68,7 +68,6 @@ const apiService = {
     })
   },
 
-  // News methods
   fetchNews(params = {}) {
     return apiClient.get('/v1/news', { params })
   },
@@ -77,7 +76,6 @@ const apiService = {
     return apiClient.get(`/v1/news/${newsId}`)
   },
 
-  // Exchange rates
   fetchExchangeRates(params = {}) {
     return apiClient.get('/v1/exchange-rate', { params })
   },
@@ -118,9 +116,29 @@ const apiService = {
     return apiClient.get('/v1/tariff', { params })
   },
 
-  // Locations (branches, ATMs)
   fetchLocations(params = {}) {
     return apiClient.get('/v1/location', { params })
+  },
+
+  // Dashboard pages ========================================
+  requestOtp(data) {
+    return apiClient.post('/v1/users/auth/request-otp', data)
+  },
+
+  verifyOtp(data) {
+    return apiClient.post('/v1/users/auth/verify-otp', data)
+  },
+
+  register(data) {
+    return apiClient.post('/v1/users/auth/register', data)
+  },
+
+  preLogin(data) {
+    return apiClient.post('/v1/users/auth/pre-login', data)
+  },
+
+  login(data) {
+    return apiClient.post('/v1/users/auth/login', data)
   },
 }
 

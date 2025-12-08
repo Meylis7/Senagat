@@ -1,4 +1,5 @@
 <script setup>
+    import { computed } from 'vue'
     import { RouterLink, useRoute } from 'vue-router';
     import { useI18n } from 'vue-i18n';
     const { t, locale } = useI18n();
@@ -11,11 +12,18 @@
         return route.path === routePath;
     }
 
+    const route = useRoute()
+    const isSignPage = computed(() => {
+        const name = String(route.name || '')
+        const path = String(route.path || '')
+        return name.includes('sign') || path.includes('/sign')
+    })
+
 
 </script>
 
 <template>
-    <header class="mb-10">
+    <header v-if="!isSignPage" class="mb-10">
         <div class="auto_container">
             <div class="wrap bg-mainWhite rounded-[20px] py-5 px-8">
                 <div class="flex items-center justify-between">

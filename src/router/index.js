@@ -128,11 +128,24 @@ const router = createRouter({
     {
       path: '/dashboard',
       component: DashboardLayout,
+      beforeEnter: (to, from, next) => {
+        const isAuthenticated = localStorage.getItem('authToken')
+        if (to.name !== 'dashboard.sign' && !isAuthenticated) {
+          next({ name: 'dashboard.sign' })
+        } else {
+          next()
+        }
+      },
       children: [
         {
           path: '',
           name: 'dashboard.home',
           component: () => import('@/views/dashboard/HomeView.vue'),
+        },
+        {
+          path: '/sign',
+          name: 'dashboard.sign',
+          component: () => import('@/views/dashboard/SignView.vue'),
         },
         {
           path: 'payments',

@@ -414,7 +414,7 @@
                                         {{ t('exchange.onCityMap') }}
                                     </p>
 
-                                    <div class="block relative w-full rounded-[10px]">
+                                    <RouterLink to="/branches" class="block relative w-full rounded-[10px]">
                                         <img class="w-full h-[74] object-contain" src="../../assets/images/map.png"
                                             alt="map">
 
@@ -429,7 +429,7 @@
                                                     fill="#EEF2ED" />
                                             </svg>
                                         </span>
-                                    </div>
+                                    </RouterLink>
                                 </div>
                             </div>
                         </div>
