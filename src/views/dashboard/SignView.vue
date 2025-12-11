@@ -176,7 +176,13 @@
                 password: password.value,
                 otp_session_token: userStore.otpSessionToken,
             }
-            await apiService.register(payload)
+            const response = await apiService.register(payload)
+            const token = response.token || response.data?.token
+
+            if (token) {
+                userStore.setUser(response.user || response.data?.user || {}, token)
+            }
+
             toast('Регистрация успешна', { type: 'success' })
             password.value = ''
             phone.value = ''
