@@ -125,6 +125,24 @@ const apiService = {
     return apiClient.post('/v1/users/auth/request-otp', data)
   },
 
+  fetchUserInfo(token) {
+    return apiClient.get('/v1/users/auth/user-information', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: { _t: Date.now() },
+    })
+  },
+
+  submitProfile(formData, token) {
+    return apiClient.post('/v1/profile', formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+  },
+
   verifyOtp(data) {
     return apiClient.post('/v1/users/auth/verify-otp', data)
   },

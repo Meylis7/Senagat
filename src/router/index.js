@@ -148,6 +148,11 @@ const router = createRouter({
           component: () => import('@/views/dashboard/SignView.vue'),
         },
         {
+          path: 'identify',
+          name: 'dashboard.identify',
+          component: () => import('@/views/dashboard/IdentifyView.vue'),
+        },
+        {
           path: 'payments',
           name: 'dashboard.payments',
           component: () => import('@/views/dashboard/PaymentsView.vue'),

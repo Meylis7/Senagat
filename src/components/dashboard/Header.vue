@@ -27,44 +27,46 @@
         <div class="auto_container">
             <div class="wrap bg-mainWhite rounded-[20px] py-5 px-8">
                 <div class="flex items-center justify-between">
-                    <RouterLink to="/dashboard" class=" w-[46px] block">
-                        <img :src="logo" class="w-full h-full object-contain" alt="logo">
-                    </RouterLink>
+                    <div class="flex items-center gap-10">
+                        <RouterLink to="/dashboard" class=" w-[46px] block">
+                            <img :src="logo" class="w-full h-full object-contain" alt="logo">
+                        </RouterLink>
 
-                    <nav>
-                        <ul class="flex items-center gap-x-8">
-                            <li>
-                                <RouterLink :to="{ name: 'dashboard.home' }"
-                                    class="text-[#1D2417] text-[17px] font-Gilroy"
-                                    :class="[isActiveLink('/dashboard') ? 'active' : '']">
-                                    {{ t('dashboard.header.dashboard') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink :to="{ name: 'dashboard.payments' }"
-                                    class="text-[#1D2417] text-[17px] font-Gilroy"
-                                    :class="[isActiveLink('/dashboard/payments') ? 'active' : '']">
-                                    {{ t('dashboard.header.payments') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink :to="{ name: 'dashboard.services' }"
-                                    class="text-[#1D2417] text-[17px] font-Gilroy"
-                                    :class="[isActiveLink('/dashboard/services') ? 'active' : '']">
-                                    {{ t('dashboard.header.services') }}
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink :to="{ name: 'dashboard.cards' }"
-                                    class="text-[#1D2417] text-[17px] font-Gilroy"
-                                    :class="[isActiveLink('/dashboard/cards') ? 'active' : '']">
-                                    {{ t('dashboard.header.cards') }}
-                                </RouterLink>
-                            </li>
-                        </ul>
-                    </nav>
+                        <nav>
+                            <ul class="flex items-center gap-x-8">
+                                <li>
+                                    <RouterLink :to="{ name: 'dashboard.home' }"
+                                        class="text-[#1D2417] text-[17px] font-Gilroy"
+                                        :class="[isActiveLink('/dashboard') ? 'active' : '']">
+                                        {{ t('dashboard.header.dashboard') }}
+                                    </RouterLink>
+                                </li>
+                                <li>
+                                    <RouterLink :to="{ name: 'dashboard.payments' }"
+                                        class="text-[#1D2417] text-[17px] font-Gilroy"
+                                        :class="[isActiveLink('/dashboard/payments') ? 'active' : '']">
+                                        {{ t('dashboard.header.payments') }}
+                                    </RouterLink>
+                                </li>
+                                <li>
+                                    <RouterLink :to="{ name: 'dashboard.services' }"
+                                        class="text-[#1D2417] text-[17px] font-Gilroy"
+                                        :class="[isActiveLink('/dashboard/services') ? 'active' : '']">
+                                        {{ t('dashboard.header.services') }}
+                                    </RouterLink>
+                                </li>
+                                <li>
+                                    <RouterLink :to="{ name: 'dashboard.cards' }"
+                                        class="text-[#1D2417] text-[17px] font-Gilroy"
+                                        :class="[isActiveLink('/dashboard/cards') ? 'active' : '']">
+                                        {{ t('dashboard.header.cards') }}
+                                    </RouterLink>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
 
-                    <form class="block relative">
+                    <!-- <form class="block relative">
                         <button class="absolute top-1/2 -translate-y-1/2 left-5 cursor-pointer block w-5 h-5">
                             <svg class="w-full h-full object-contain" width="17" height="17" viewBox="0 0 17 17"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +79,7 @@
                         <input type="text"
                             class="bg-[#EEF2ED] rounded-[20px] text-mainBlack placeholder:text-[#6F736D] py-3 pl-[50px] px-5 w-[417px] text-[17px] font-Gilroy"
                             :placeholder="t('dashboard.header.searchPlaceholder')">
-                    </form>
+                    </form> -->
 
                     <div class="flex items-center gap-x-[10px]">
                         <RouterLink :to="{ name: 'dashboard.notifications' }"

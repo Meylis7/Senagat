@@ -246,20 +246,20 @@
                                 </div>
                             </div>
                             <div class="block">
-                                <label for="getDate" class="text-[15px] font-bold mb-[10px] block">
+                                <label for="issued_date" class="text-[15px] font-bold mb-[10px] block">
                                     Дата выдачи
                                 </label>
                                 <input
                                     class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="getDate" placeholder="Дата выдачи">
+                                    type="text" id="issued_date" placeholder="Дата выдачи">
                             </div>
                             <div class="block">
-                                <label for="getOrigin" class="text-[15px] font-bold mb-[10px] block">
+                                <label for="issued_by" class="text-[15px] font-bold mb-[10px] block">
                                     Место выдачи
                                 </label>
                                 <input
                                     class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="getOrigin" placeholder="Место выдачи">
+                                    type="text" id="issued_by" placeholder="Место выдачи">
                             </div>
 
                             <h1 class="text-[48px] font-bold mt-auto">

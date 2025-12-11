@@ -1,9 +1,64 @@
 <script setup>
     import { RouterLink, useRouter } from 'vue-router';
+    import { ref, computed, onMounted, watch, onActivated } from 'vue';
     import { useUserStore } from '@/stores/userStore';
+    import apiService from '@/services/apiService';
 
     const userStore = useUserStore();
     const router = useRouter();
+
+    const userProfile = ref(null)
+    const displayName = ref('')
+    const phoneDisplay = ref('')
+
+    const fetchProfileStatus = async () => {
+        try {
+            const token = userStore.authToken
+            if (!token) {
+                userProfile.value = null
+                displayName.value = ''
+                phoneDisplay.value = userStore.phoneNumber || ''
+                return
+            }
+            const res = await apiService.fetchUserInfo(token)
+            const profile = res?.data?.profile ?? res?.profile ?? null
+            phoneDisplay.value = userStore.phoneNumber || res?.data?.phone || res?.phone || ''
+            if (!profile) {
+                userProfile.value = null
+                displayName.value = ''
+            } else {
+                userProfile.value = profile
+                const first = String(profile.first_name || '').trim()
+                const last = String(profile.last_name || '').trim()
+                displayName.value = [first, last].filter(Boolean).join(' ')
+            }
+        } catch (e) {
+            userProfile.value = null
+            displayName.value = ''
+            phoneDisplay.value = userStore.phoneNumber || ''
+        }
+    }
+
+    onMounted(fetchProfileStatus)
+    onActivated(fetchProfileStatus)
+    watch(() => userStore.authToken, () => fetchProfileStatus())
+
+    const statusProps = computed(() => {
+        const status = String(userProfile.value?.status || '').toLowerCase()
+        if (!userProfile.value) {
+            return { text: 'Not confirmed', cls: 'bg-[#6F736D]' }
+        }
+        switch (status) {
+            case 'pending':
+                return { text: 'Pending', cls: 'bg-[#ebb618]' }
+            case 'approved':
+                return { text: 'Confirmed', cls: 'bg-[#2C702C]' }
+            case 'rejected':
+                return { text: 'Rejected', cls: 'bg-[#F44336]' }
+            default:
+                return { text: 'Not confirmed', cls: 'bg-[#6F736D]' }
+        }
+    })
 
     const logout = () => {
         userStore.logout();
@@ -16,7 +71,8 @@
         <div class="auto_container">
             <div class="wrap">
                 <div class="flex flex-col gap-4 mx-auto max-w-[390px]">
-                    <RouterLink to="/" class="flex gap-4 bg-[#F7F8F6] p-[22px] rounded-[20px]">
+                    <RouterLink :to="{ name: 'dashboard.identify' }"
+                        class="flex gap-4 bg-[#F7F8F6] p-[22px] rounded-[20px]">
                         <div
                             class="block w-[60px] h-[60px] border-solid border-[1px] border-[#DADFD8] bg-[#EEF2ED] rounded-full overflow-hidden shadow-[0px_45px_13px_rgba(213,217,211,0.01),_0px_29px_12px_rgba(213,217,211,0.06),_0px_16px_10px_rgba(213,217,211,0.2),_0px_7px_7px_rgba(213,217,211,0.34),_0px_2px_4px_rgba(213,217,211,0.39)]">
                             <img class="w-full h-full object-contain" src="../../assets/images/senagat-profile.png"
@@ -25,14 +81,14 @@
 
                         <div class="flex flex-col gap-[10px]">
                             <h4 class="text-[15px] text-[#1D2417] font-bold leading-tight">
-                                Имя фамилия
+                                {{ displayName || 'Имя фамилия' }}
                             </h4>
                             <p class="text-[15px] text-[#1D2417] font-bold leading-tight">
-                                +993 64626088
+                                {{ phoneDisplay ? ('+993 ' + phoneDisplay) : '+993' }}
                             </p>
                             <h6
-                                class="text-[15px] text-[#EEF2ED] font-Gilroy leading-tight py-1 px-[10px] rounded-[10px] bg-[#6F736D]">
-                                Не подтвержден
+                                :class="['text-[15px] text-[#EEF2ED] font-Gilroy leading-tight py-1 px-[10px] rounded-[10px] w-fit', statusProps.cls]">
+                                {{ statusProps.text }}
                             </h6>
                         </div>
 
