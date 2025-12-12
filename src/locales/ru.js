@@ -550,6 +550,8 @@ export default {
     btn: {
       payServices: 'Оплатить услуги',
       allCards: 'Все карты',
+      submitApplication: 'Подать заявку',
+      details: 'Подробнее',
     },
     totalBalance: 'Общий баланс',
     payServices: 'Оплата услуги',

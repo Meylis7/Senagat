@@ -74,7 +74,7 @@
 <template>
     <header v-if="!isSignPage" class="mb-10">
         <div class="auto_container">
-            <div class="wrap bg-mainWhite rounded-[20px] py-5 px-8 relative">
+            <div class="wrap bg-mainWhite rounded-[20px] py-3 sm:py-5 px-5 sm:px-8 relative">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-10">
                         <RouterLink to="/dashboard" class=" w-[46px] block">
@@ -87,31 +87,31 @@
                             isMenuOpen ? 'opacity-100 translate-y-0 max-h-[600px] pointer-events-auto' : 'opacity-0 -translate-y-2 max-h-0 pointer-events-none',
                             'mm:opacity-100 mm:translate-y-0 mm:max-h-none mm:pointer-events-auto'
                         ]">
-                            <ul class="flex flex-col mm:flex-row items-center gap-8">
+                            <ul class="flex flex-col mm:flex-row items-center gap-8 whitespace-nowrap">
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.home' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED]"
+                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.dashboard') }}
                                     </RouterLink>
                                 </li>
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.payments' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED]"
+                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/payments') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.payments') }}
                                     </RouterLink>
                                 </li>
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.services' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED]"
+                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/services') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.services') }}
                                     </RouterLink>
                                 </li>
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.cards' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED]"
+                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/cards') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.cards') }}
                                     </RouterLink>
@@ -205,7 +205,7 @@
         &:after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
             width: 100%;
             height: 1px;

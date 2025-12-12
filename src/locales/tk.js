@@ -559,6 +559,8 @@ export default {
     btn: {
       payServices: 'Hyzmatlary tölemek',
       allCards: 'Ähli kartlar',
+      submitApplication: 'Arza tabşyrmak',
+      details: 'Giňişleýin öwrenmek',
     },
     totalBalance: 'Jemi balans',
     payServices: 'Hyzmatlar üçin tölemek',

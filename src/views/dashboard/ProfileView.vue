@@ -67,7 +67,7 @@
 </script>
 
 <template>
-    <section class="py-10">
+    <section class="pb-[80px]">
         <div class="auto_container">
             <div class="wrap">
                 <div class="flex flex-col gap-4 mx-auto max-w-[390px]">

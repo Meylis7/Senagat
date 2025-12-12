@@ -2,7 +2,7 @@
     import { RouterLink } from 'vue-router'
     import { useI18n } from 'vue-i18n';
     import apiService from '@/services/apiService';
-    import { ref, computed, onMounted } from 'vue';
+    import { ref, onMounted } from 'vue';
     import imgLens from '@/assets/images/lense.png'
 
     import Breadcrumb from '@/components/website/Breadcrumb.vue'
@@ -67,7 +67,7 @@
                     <div v-for="(card, idx) in cards" :key="card.id"
                         class="flex md:items-center justify-between flex-col-reverse md:flex-row bg-mainWhite rounded-[20px] p-2 md:p-8">
                         <div class="block p-5 px-4 md:p-0">
-                            <h4 class="md:text-[28px] font-bold text-mainBlack mb-5 leading-7">
+                            <h4 class="text-[20px] md:text-[28px] font-bold text-mainBlack mb-5 leading-7">
                                 {{ card.title || '' }}
                             </h4>
                             <div class="flex items-center gap-x-[10px] flex-wrap mb-5 md:mb-[60px]">

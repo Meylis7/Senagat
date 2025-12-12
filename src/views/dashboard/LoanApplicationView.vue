@@ -82,7 +82,7 @@
 </script>
 
 <template>
-    <section class="pb-10">
+    <section class="pb-[80px]">
         <div class="auto_container">
             <div class="warp">
                 <div class="flex items-center justify-between mb-6">
@@ -105,7 +105,6 @@
                                 Выберите тип кредита
                             </h6>
 
-                            <!-- Using the new CustomDropdown component -->
                             <CustomDropdown :options="loanOptions" placeholder="Тип кридита"
                                 @option-selected="handleOptionSelected" />
                         </div>
@@ -316,8 +315,6 @@
 
                     <div class="col-span-3">
                         <div class="flex flex-col p-[22px] rounded-[20px] gap-4 mb-4 bg-mainWhite h-[calc(100%-16px)]">
-
-                            <!-- Two new dropdown instances -->
                             <div class="block mb-4">
                                 <label class="text-[15px] font-bold mb-[10px] block">
                                     Город

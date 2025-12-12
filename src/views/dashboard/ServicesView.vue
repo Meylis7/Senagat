@@ -11,28 +11,30 @@
 </script>
 
 <template>
-    <section class="pb-10">
+    <section class="pb-[80px]">
         <div class="auto_container">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-[28px] font-bold leading-9">
+            <div class="flex flex-col sm:flex-row gap-3 items-center justify-between mb-6">
+                <h2 class="text-[22px] sm:text-[28px] font-bold leading-9">
                     {{ t('dashboard.PageTitles.services') }}
                 </h2>
 
                 <CurrentDate />
             </div>
 
-            <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div class="block">
                     <RouterLink :to="{ name: 'dashboard.loan-application' }"
-                        class="block relative bg-[#1D2417] p-[22px] rounded-[20px] min-h-[180px] overflow-hidden">
-                        <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
-                            Заявка на кредит
-                        </h4>
-                        <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
-                            На карте города
-                        </p>
+                        class="flex justify-between flex-col sm:flex-row relative gap-2 bg-[#1D2417] p-[22px] rounded-[20px] min-h-[180px] overflow-hidden">
+                        <div class="block">
+                            <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
+                                Заявка на кредит
+                            </h4>
+                            <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
+                                На карте города
+                            </p>
+                        </div>
 
-                        <span class="block h-[138px] absolute -right-4 top-1/2 -translate-y-1/2 z-[2]">
+                        <span class="block h-[138px] ml-auto relative sm:-right-[30px] z-[2]">
                             <img class="w-full h-full object-contain" src="../../assets/images/loan-cart.png"
                                 alt="service-icon">
                         </span>
@@ -41,17 +43,19 @@
                     </RouterLink>
                 </div>
 
-                <div class=" col-span-4">
-                    <RouterLink :to="{ name: 'dashboard.loan-application' }"
-                        class="block relative bg-[#1D2417] p-[22px] rounded-[20px] min-h-[180px] overflow-hidden">
-                        <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
-                            Получить справку
-                        </h4>
-                        <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
-                            На карте города
-                        </p>
+                <div class="block">
+                    <RouterLink :to="{ name: 'dashboard.certificate-application' }"
+                        class="flex justify-between flex-col sm:flex-row relative gap-2 bg-[#1D2417] p-[22px] rounded-[20px] min-h-[180px] overflow-hidden">
+                        <div class="block">
+                            <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
+                                Получить справку
+                            </h4>
+                            <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
+                                На карте города
+                            </p>
+                        </div>
 
-                        <span class="block h-[138px] absolute -right-4 top-1/2 -translate-y-1/2 z-[2]">
+                        <span class="block h-[138px] ml-auto relative sm:-right-[30px] z-[2]">
                             <img class="w-full h-full object-contain" src="../../assets/images/GradientGlass.png"
                                 alt="service-icon">
                         </span>
@@ -60,17 +64,19 @@
                     </RouterLink>
                 </div>
 
-                <div class=" col-span-4">
-                    <RouterLink :to="{ name: 'dashboard.loan-application' }"
-                        class="block relative bg-[#1D2417] p-[22px] rounded-[20px] min-h-[180px] overflow-hidden">
-                        <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
-                            Оформление карты
-                        </h4>
-                        <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
-                            На карте города
-                        </p>
+                <div class="block">
+                    <RouterLink :to="{ name: 'dashboard.cards' }"
+                        class="flex justify-between flex-col sm:flex-row relative gap-2 bg-[#1D2417] p-[22px] rounded-[20px] min-h-[180px] overflow-hidden">
+                        <div class="block">
+                            <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
+                                Оформление карты
+                            </h4>
+                            <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
+                                На карте города
+                            </p>
+                        </div>
 
-                        <span class="block h-[138px] absolute -right-4 top-1/2 -translate-y-1/2 z-[2]">
+                        <span class="block h-[138px] ml-auto relative sm:-right-[30px] z-[2]">
                             <img class="w-full h-full object-contain" src="../../assets/images/card-1.png"
                                 alt="service-icon">
                         </span>

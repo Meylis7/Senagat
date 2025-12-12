@@ -6,7 +6,7 @@
 </script>
 
 <template>
-    <section class="pb-10">
+    <section class="pb-[80px]">
         <div class="auto_container">
             <div class="wrap">
                 <div class="flex items-center mb-[22px]">

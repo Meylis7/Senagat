@@ -106,7 +106,7 @@
 </script>
 
 <template>
-    <section class="py-10">
+    <section class="pb-[80px]">
         <div class="auto_container">
             <div class="wrap">
                 <RouterLink :to="{ name: 'dashboard.profile' }" type="button" class="flex items-center gap-[10px] mb-4">

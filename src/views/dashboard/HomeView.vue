@@ -16,11 +16,11 @@
 </script>
 
 <template>
-    <section class="pb-10">
+    <section class="pb-[80px]">
         <div class="auto_container">
             <div class="wrap">
                 <div class="flex flex-col sm:flex-row gap-3 items-center justify-between mb-6">
-                    <h2 class="text-[28px] font-bold leading-9">
+                    <h2 class="text-[22px] sm:text-[28px] font-bold leading-9">
                         {{ t('dashboard.PageTitles.home') }}
                     </h2>
 
@@ -30,7 +30,8 @@
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-12 mm:col-span-4 xl:!col-span-3">
                         <div class="block bg-[#1D2417] rounded-[20px] p-[22px] overflow-hidden relative bg-circle">
-                            <h6 class="text-[15px] text-center sm:text-left text-[#EEF2ED]/60 font-Gilroy mb-4 relative z-10 leading-5">
+                            <h6
+                                class="text-[15px] text-center sm:text-left text-[#EEF2ED]/60 font-Gilroy mb-4 relative z-10 leading-5">
                                 {{ t('dashboard.totalBalance') }}
                             </h6>
 
@@ -291,10 +292,9 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-9 gap-x-4">
+                        <div class="grid grid-cols-9 gap-4">
                             <div class="col-span-12 lg:col-span-4">
-                                <div
-                                    class="block p-3 mm:p-[22px] rounded-[20px] bg-mainWhite h-[515px] overflow-y-auto">
+                                <div class="block p-3 mm:p-[22px] rounded-[20px] bg-mainWhite">
                                     <h6 class="text-[15px] sm:text-[17px] font-bold mb-4">
                                         {{ t('dashboard.blockTitiles.paymentHistory') }}
                                     </h6>

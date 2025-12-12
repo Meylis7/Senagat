@@ -173,16 +173,6 @@ const router = createRouter({
           component: () => import('@/views/dashboard/CardsView.vue'),
         },
         {
-          path: 'notifications',
-          name: 'dashboard.notifications',
-          component: () => import('@/views/dashboard/NotificationsView.vue'),
-        },
-        {
-          path: 'settings',
-          name: 'dashboard.settings',
-          component: () => import('@/views/dashboard/SettingsView.vue'),
-        },
-        {
           path: 'profile',
           name: 'dashboard.profile',
           component: () => import('@/views/dashboard/ProfileView.vue'),
@@ -193,9 +183,14 @@ const router = createRouter({
           component: () => import('@/views/dashboard/LoanApplicationView.vue'),
         },
         {
-          path: 'all-cards',
-          name: 'dashboard.allCards',
-          component: () => import('@/views/dashboard/AllCardsView.vue'),
+          path: 'certificate-application',
+          name: 'dashboard.certificate-application',
+          component: () => import('@/views/dashboard/CertificateApplicationView.vue'),
+        },
+        {
+          path: 'card-application',
+          name: 'dashboard.card-application',
+          component: () => import('@/views/dashboard/CardApplicationView.vue'),
         },
       ],
     },

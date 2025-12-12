@@ -555,6 +555,8 @@ export default {
     btn: {
       payServices: 'Pay Services',
       allCards: 'All Cards',
+      submitApplication: 'Submit Application',
+      details: 'Details',
     },
     totalBalance: 'Total Balance',
     payServices: 'Pay Services',
