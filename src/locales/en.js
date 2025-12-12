@@ -1,5 +1,3 @@
-import { list } from 'postcss'
-
 export default {
   header: {
     privateClients: 'Individual',

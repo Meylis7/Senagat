@@ -1,5 +1,5 @@
 <script setup>
-    import { computed } from 'vue'
+    import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
     import { RouterLink, useRoute } from 'vue-router';
     import { useI18n } from 'vue-i18n';
     const { t, locale } = useI18n();
@@ -19,46 +19,100 @@
         return name.includes('sign') || path.includes('/sign')
     })
 
+    const isLangOpen = ref(false)
+    const isMenuOpen = ref(false)
+    const langRef = ref(null)
+    const menuRef = ref(null)
+    const menuBtnRef = ref(null)
+
+    const currentLangLabel = computed(() => {
+        const map = { ru: 'RU', en: 'EN', tk: 'TM' }
+        return map[String(locale.value)] || 'RU'
+    })
+
+    function changeLanguage(lang) {
+        const allowed = ['ru', 'en', 'tk']
+        const next = allowed.includes(lang) ? lang : 'ru'
+        locale.value = next
+        try { localStorage.setItem('locale', next) } catch (e) { }
+        isLangOpen.value = false
+    }
+
+    function handleClickOutside(event) {
+        const target = event.target
+        const langEl = langRef.value
+        if (langEl && !langEl.contains(target)) {
+            isLangOpen.value = false
+        }
+        const menuEl = menuRef.value
+        const btnEl = menuBtnRef.value
+        const insideMenu = menuEl ? menuEl.contains(target) : false
+        const insideBtn = btnEl ? btnEl.contains(target) : false
+        if (isMenuOpen.value && !insideMenu && !insideBtn) {
+            isMenuOpen.value = false
+        }
+    }
+
+    onMounted(() => {
+        window.addEventListener('click', handleClickOutside)
+    })
+
+    onUnmounted(() => {
+        window.removeEventListener('click', handleClickOutside)
+    })
+
+    watch(
+        () => route.fullPath,
+        () => {
+            isMenuOpen.value = false
+            isLangOpen.value = false
+        }
+    )
 
 </script>
 
 <template>
     <header v-if="!isSignPage" class="mb-10">
         <div class="auto_container">
-            <div class="wrap bg-mainWhite rounded-[20px] py-5 px-8">
+            <div class="wrap bg-mainWhite rounded-[20px] py-5 px-8 relative">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-10">
                         <RouterLink to="/dashboard" class=" w-[46px] block">
                             <img :src="logo" class="w-full h-full object-contain" alt="logo">
                         </RouterLink>
 
-                        <nav>
-                            <ul class="flex items-center gap-x-8">
-                                <li>
+                        <nav ref="menuRef" :class="[
+                            'absolute top-full left-0 bg-[#F7F8F6] w-full z-20 p-8 mm:p-0 rounded-[20px] mm:rounded-none mm:relative mm:top-0',
+                            'transition-all duration-300 ease-out overflow-hidden',
+                            isMenuOpen ? 'opacity-100 translate-y-0 max-h-[600px] pointer-events-auto' : 'opacity-0 -translate-y-2 max-h-0 pointer-events-none',
+                            'mm:opacity-100 mm:translate-y-0 mm:max-h-none mm:pointer-events-auto'
+                        ]">
+                            <ul class="flex flex-col mm:flex-row items-center gap-8">
+                                <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.home' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy"
-                                        :class="[isActiveLink('/dashboard') ? 'active' : '']">
+                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED]"
+                                        :class="[isActiveLink('/dashboard') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.dashboard') }}
                                     </RouterLink>
                                 </li>
-                                <li>
+                                <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.payments' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy"
-                                        :class="[isActiveLink('/dashboard/payments') ? 'active' : '']">
+                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED]"
+                                        :class="[isActiveLink('/dashboard/payments') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.payments') }}
                                     </RouterLink>
                                 </li>
-                                <li>
+                                <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.services' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy"
-                                        :class="[isActiveLink('/dashboard/services') ? 'active' : '']">
+                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED]"
+                                        :class="[isActiveLink('/dashboard/services') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.services') }}
                                     </RouterLink>
                                 </li>
-                                <li>
+                                <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.cards' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy"
-                                        :class="[isActiveLink('/dashboard/cards') ? 'active' : '']">
+                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED]"
+                                        :class="[isActiveLink('/dashboard/cards') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.cards') }}
                                     </RouterLink>
                                 </li>
@@ -66,23 +120,36 @@
                         </nav>
                     </div>
 
-                    <!-- <form class="block relative">
-                        <button class="absolute top-1/2 -translate-y-1/2 left-5 cursor-pointer block w-5 h-5">
-                            <svg class="w-full h-full object-contain" width="17" height="17" viewBox="0 0 17 17"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M16.0845 15.2001L12.1727 11.2891C13.3065 9.92798 13.8719 8.1821 13.7512 6.41472C13.6305 4.64733 12.8331 2.9945 11.5249 1.80006C10.2166 0.605618 8.49824 -0.038471 6.72719 0.00177892C4.95615 0.0420288 3.2688 0.763519 2.01616 2.01616C0.763519 3.2688 0.0420288 4.95615 0.00177892 6.72719C-0.038471 8.49824 0.605618 10.2166 1.80006 11.5249C2.9945 12.8331 4.64733 13.6305 6.41472 13.7512C8.1821 13.8719 9.92798 13.3065 11.2891 12.1727L15.2001 16.0845C15.2581 16.1425 15.3271 16.1886 15.403 16.22C15.4788 16.2514 15.5601 16.2676 15.6423 16.2676C15.7244 16.2676 15.8057 16.2514 15.8816 16.22C15.9574 16.1886 16.0264 16.1425 16.0845 16.0845C16.1425 16.0264 16.1886 15.9574 16.22 15.8816C16.2514 15.8057 16.2676 15.7244 16.2676 15.6423C16.2676 15.5601 16.2514 15.4788 16.22 15.403C16.1886 15.3271 16.1425 15.2581 16.0845 15.2001ZM1.26727 6.89227C1.26727 5.77975 1.59717 4.69221 2.21525 3.76719C2.83333 2.84216 3.71184 2.12119 4.73967 1.69545C5.76751 1.2697 6.89851 1.15831 7.98965 1.37535C9.08079 1.59239 10.0831 2.12812 10.8697 2.91479C11.6564 3.70146 12.1921 4.70374 12.4092 5.79489C12.6262 6.88603 12.5148 8.01703 12.0891 9.04486C11.6633 10.0727 10.9424 10.9512 10.0174 11.5693C9.09232 12.1874 8.00479 12.5173 6.89227 12.5173C5.40093 12.5156 3.97115 11.9225 2.91662 10.8679C1.86209 9.81338 1.26892 8.3836 1.26727 6.89227Z"
-                                    fill="#6F736D" />
-                            </svg>
-                        </button>
-
-                        <input type="text"
-                            class="bg-[#EEF2ED] rounded-[20px] text-mainBlack placeholder:text-[#6F736D] py-3 pl-[50px] px-5 w-[417px] text-[17px] font-Gilroy"
-                            :placeholder="t('dashboard.header.searchPlaceholder')">
-                    </form> -->
-
                     <div class="flex items-center gap-x-[10px]">
-                        <RouterLink :to="{ name: 'dashboard.notifications' }"
+                        <div ref="langRef" class="relative">
+                            <button type="button" @click="isLangOpen = !isLangOpen" :class="[
+                                'flex items-center gap-2 border-solid border-[1px] border-[#EEF2ED] rounded-[10px] px-4 py-2',
+                                'text-[#1D2417]'
+                            ]">
+                                <span class="text-sm font-bold">{{ currentLangLabel }}</span>
+                                <svg :class="['transition-transform', isLangOpen ? 'rotate-180' : 'rotate-0']"
+                                    width="11" height="6" viewBox="0 0 11 6" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.1465 0.146527C10.193 0.100072 10.2481 0.0632224 10.3088 0.0380812C10.3695 0.01294 10.4346 -9.32947e-07 10.5003 -9.35819e-07C10.566 -9.38691e-07 10.631 0.0129399 10.6917 0.0380812C10.7524 0.0632224 10.8076 0.100072 10.854 0.146527C10.9005 0.192982 10.9373 0.248133 10.9625 0.308829C10.9876 0.369526 11.0006 0.43458 11.0006 0.500278C11.0006 0.565975 10.9876 0.631029 10.9625 0.691726C10.9373 0.752422 10.9005 0.807573 10.854 0.854028L5.85403 5.85403C5.80759 5.90052 5.75245 5.9374 5.69175 5.96256C5.63105 5.98772 5.56599 6.00067 5.50028 6.00067C5.43457 6.00067 5.36951 5.98772 5.30881 5.96256C5.24811 5.9374 5.19296 5.90052 5.14653 5.85403L0.146528 0.854028C0.0527075 0.760208 -2.37246e-07 0.63296 -2.4043e-07 0.500278C-2.43614e-07 0.367596 0.0527074 0.240348 0.146528 0.146528C0.240348 0.0527077 0.367596 -4.92905e-07 0.500278 -4.98705e-07C0.63296 -5.04505e-07 0.760207 0.0527076 0.854028 0.146528L5.50028 4.7934L10.1465 0.146527Z"
+                                        fill="#191B19" />
+                                </svg>
+                            </button>
+                            <div v-show="isLangOpen"
+                                class="absolute right-0 mt-2 bg-mainWhite rounded-[10px] shadow-lg py-2 px-4 z-[51]">
+                                <button type="button"
+                                    class="block w-full text-left px-3 py-2 rounded hover:text-mainWhite transition-all duration-300 text-sm hover:bg-[#2C702C] "
+                                    @click="changeLanguage('ru')">RU</button>
+                                <button type="button"
+                                    class="block w-full text-left px-3 py-2 rounded hover:text-mainWhite transition-all duration-300 text-sm hover:bg-[#2C702C] "
+                                    @click="changeLanguage('en')">EN</button>
+                                <button type="button"
+                                    class="block w-full text-left px-3 py-2 rounded hover:text-mainWhite transition-all duration-300 text-sm hover:bg-[#2C702C] "
+                                    @click="changeLanguage('tk')">TM</button>
+                            </div>
+                        </div>
+
+                        <!-- <RouterLink :to="{ name: 'dashboard.notifications' }"
                             class="group w-10 h-10 flex items-center justify-center border-solid border-[#EEF2ED] rounded-[10px] p-[10px] transition-all hover:bg-[#2C702C] duration-300">
                             <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +169,7 @@
                                     d="M8.17508 4.42508C7.4334 4.42508 6.70838 4.64502 6.0917 5.05707C5.47501 5.46913 4.99437 6.0548 4.71054 6.74002C4.42671 7.42524 4.35245 8.17924 4.49714 8.90667C4.64183 9.6341 4.99899 10.3023 5.52343 10.8267C6.04788 11.3512 6.71607 11.7083 7.4435 11.853C8.17092 11.9977 8.92492 11.9235 9.61015 11.6396C10.2954 11.3558 10.881 10.8752 11.2931 10.2585C11.7052 9.64179 11.9251 8.91676 11.9251 8.17508C11.9241 7.18084 11.5286 6.22761 10.8256 5.52458C10.1226 4.82154 9.16933 4.42612 8.17508 4.42508ZM8.17508 10.6751C7.68063 10.6751 7.19728 10.5285 6.78616 10.2538C6.37504 9.97905 6.0546 9.58861 5.86539 9.13179C5.67617 8.67498 5.62666 8.17231 5.72312 7.68736C5.81958 7.20241 6.05769 6.75695 6.40732 6.40732C6.75695 6.05769 7.20241 5.81958 7.68736 5.72312C8.17231 5.62666 8.67498 5.67617 9.13179 5.86539C9.58861 6.0546 9.97905 6.37504 10.2538 6.78616C10.5285 7.19728 10.6751 7.68063 10.6751 8.17508C10.6751 8.83813 10.4117 9.47401 9.94285 9.94285C9.47401 10.4117 8.83813 10.6751 8.17508 10.6751ZM15.0501 8.34383C15.0532 8.23133 15.0532 8.11883 15.0501 8.00633L16.2157 6.55008C16.2768 6.47362 16.3191 6.38388 16.3392 6.28807C16.3593 6.19227 16.3566 6.09309 16.3313 5.99852C16.1402 5.28024 15.8544 4.59059 15.4813 3.94774C15.4325 3.86361 15.3647 3.79205 15.2833 3.73875C15.2019 3.68545 15.1092 3.65188 15.0126 3.64071L13.1595 3.43446C13.0824 3.35321 13.0043 3.27508 12.9251 3.20008L12.7063 1.34227C12.6951 1.24556 12.6614 1.15282 12.608 1.07144C12.5545 0.990053 12.4828 0.922281 12.3985 0.873522C11.7554 0.501137 11.0658 0.21558 10.3477 0.0243032C10.2531 -0.000855417 10.1539 -0.00342863 10.0581 0.016791C9.96229 0.0370106 9.87257 0.0794573 9.79618 0.140709L8.34383 1.30008C8.23133 1.30008 8.11883 1.30008 8.00633 1.30008L6.55008 0.136803C6.47362 0.0756848 6.38388 0.0333797 6.28807 0.0132964C6.19227 -0.00678703 6.09309 -0.00408733 5.99852 0.0211782C5.28036 0.212606 4.59075 0.498431 3.94774 0.871178C3.86361 0.920027 3.79205 0.987839 3.73875 1.06922C3.68545 1.15059 3.65188 1.24329 3.64071 1.33993L3.43446 3.19618C3.35321 3.27378 3.27508 3.35191 3.20008 3.43055L1.34227 3.64383C1.24556 3.65509 1.15282 3.68878 1.07144 3.74222C0.990053 3.79566 0.922281 3.86737 0.873522 3.95165C0.501137 4.59474 0.21558 5.28434 0.0243032 6.00243C-0.000855417 6.09706 -0.00342863 6.19627 0.016791 6.29208C0.0370106 6.38788 0.0794573 6.4776 0.140709 6.55399L1.30008 8.00633C1.30008 8.11883 1.30008 8.23133 1.30008 8.34383L0.136803 9.80008C0.0756848 9.87654 0.0333797 9.96629 0.0132964 10.0621C-0.00678703 10.1579 -0.00408733 10.2571 0.0211782 10.3516C0.212264 11.0699 0.498107 11.7596 0.871178 12.4024C0.920027 12.4866 0.987839 12.5581 1.06922 12.6114C1.15059 12.6647 1.24329 12.6983 1.33993 12.7095L3.19305 12.9157C3.27066 12.997 3.34878 13.0751 3.42743 13.1501L3.64383 15.0079C3.65509 15.1046 3.68878 15.1973 3.74222 15.2787C3.79566 15.3601 3.86737 15.4279 3.95165 15.4766C4.59474 15.849 5.28434 16.1346 6.00243 16.3259C6.09706 16.351 6.19627 16.3536 6.29208 16.3334C6.38788 16.3132 6.4776 16.2707 6.55399 16.2095L8.00633 15.0501C8.11883 15.0532 8.23133 15.0532 8.34383 15.0501L9.80008 16.2157C9.87654 16.2768 9.96629 16.3191 10.0621 16.3392C10.1579 16.3593 10.2571 16.3566 10.3516 16.3313C11.0699 16.1402 11.7596 15.8544 12.4024 15.4813C12.4866 15.4325 12.5581 15.3647 12.6114 15.2833C12.6647 15.2019 12.6983 15.1092 12.7095 15.0126L12.9157 13.1595C12.997 13.0824 13.0751 13.0043 13.1501 12.9251L15.0079 12.7063C15.1046 12.6951 15.1973 12.6614 15.2787 12.608C15.3601 12.5545 15.4279 12.4828 15.4766 12.3985C15.849 11.7554 16.1346 11.0658 16.3259 10.3477C16.351 10.2531 16.3536 10.1539 16.3334 10.0581C16.3132 9.96229 16.2707 9.87257 16.2095 9.79618L15.0501 8.34383ZM13.7923 7.83602C13.8056 8.06187 13.8056 8.2883 13.7923 8.51415C13.783 8.66877 13.8314 8.82134 13.9282 8.94227L15.0368 10.3274C14.9096 10.7317 14.7467 11.1239 14.5501 11.4993L12.7845 11.6993C12.6307 11.7164 12.4887 11.7899 12.386 11.9056C12.2356 12.0747 12.0755 12.2349 11.9063 12.3852C11.7906 12.4879 11.7172 12.6299 11.7001 12.7837L11.504 14.5477C11.1286 14.7445 10.7364 14.9073 10.3321 15.0345L8.94618 13.9259C8.83527 13.8373 8.69751 13.789 8.55555 13.7891H8.51805C8.29221 13.8024 8.06577 13.8024 7.83993 13.7891C7.68531 13.7798 7.53274 13.8283 7.4118 13.9251L6.02274 15.0345C5.61847 14.9073 5.2263 14.7444 4.85087 14.5477L4.65087 12.7845C4.6338 12.6307 4.56031 12.4887 4.44462 12.386C4.27548 12.2356 4.11531 12.0755 3.96493 11.9063C3.86222 11.7906 3.72025 11.7172 3.56649 11.7001L1.80243 11.5032C1.6057 11.1278 1.44282 10.7356 1.31571 10.3313L2.4243 8.9454C2.5211 8.82447 2.56955 8.6719 2.56024 8.51727C2.54696 8.29143 2.54696 8.06499 2.56024 7.83915C2.56955 7.68452 2.5211 7.53195 2.4243 7.41102L1.31571 6.02274C1.44292 5.61847 1.6058 5.2263 1.80243 4.85087L3.56571 4.65087C3.71947 4.6338 3.86144 4.56031 3.96415 4.44462C4.11453 4.27548 4.2747 4.11531 4.44383 3.96493C4.55999 3.86215 4.63378 3.71986 4.65087 3.56571L4.84696 1.80243C5.22235 1.6057 5.61453 1.44282 6.01883 1.31571L7.40477 2.4243C7.5257 2.5211 7.67827 2.56955 7.8329 2.56024C8.05874 2.54696 8.28518 2.54696 8.51102 2.56024C8.66565 2.56955 8.81822 2.5211 8.93915 2.4243L10.3274 1.31571C10.7317 1.44292 11.1239 1.6058 11.4993 1.80243L11.6993 3.56571C11.7164 3.71947 11.7899 3.86144 11.9056 3.96415C12.0747 4.11453 12.2349 4.2747 12.3852 4.44383C12.4879 4.55953 12.6299 4.63302 12.7837 4.65008L14.5477 4.84618C14.7445 5.22157 14.9073 5.61375 15.0345 6.01805L13.9259 7.40399C13.8281 7.52594 13.7796 7.68008 13.7899 7.83602H13.7923Z"
                                     fill="#6F736D" />
                             </svg>
-                        </RouterLink>
+                        </RouterLink> -->
 
                         <RouterLink :to="{ name: 'dashboard.profile' }"
                             class="group w-10 h-10 flex items-center justify-center border-solid border-[#EEF2ED] rounded-[10px] p-[10px] transition-all hover:bg-[#2C702C] duration-300">
@@ -114,6 +181,16 @@
                                     fill="#6F736D" />
                             </svg>
                         </RouterLink>
+
+                        <button ref="menuBtnRef" class="block mm:hidden cursor-pointer w-[22px] h-[22px]"
+                            @click="isMenuOpen = !isMenuOpen">
+                            <svg class="w-full h-full object-contain pointer-events-none" width="17" height="13"
+                                viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M16.5 6.1875C16.5 6.36984 16.4276 6.54471 16.2986 6.67364C16.1697 6.80257 15.9948 6.875 15.8125 6.875H0.6875C0.505164 6.875 0.330295 6.80257 0.201364 6.67364C0.072433 6.54471 0 6.36984 0 6.1875C0 6.00516 0.072433 5.8303 0.201364 5.70136C0.330295 5.57243 0.505164 5.5 0.6875 5.5H15.8125C15.9948 5.5 16.1697 5.57243 16.2986 5.70136C16.4276 5.8303 16.5 6.00516 16.5 6.1875ZM0.6875 1.375H15.8125C15.9948 1.375 16.1697 1.30257 16.2986 1.17364C16.4276 1.0447 16.5 0.869836 16.5 0.6875C16.5 0.505164 16.4276 0.330295 16.2986 0.201364C16.1697 0.072433 15.9948 0 15.8125 0H0.6875C0.505164 0 0.330295 0.072433 0.201364 0.201364C0.072433 0.330295 0 0.505164 0 0.6875C0 0.869836 0.072433 1.0447 0.201364 1.17364C0.330295 1.30257 0.505164 1.375 0.6875 1.375ZM15.8125 11H0.6875C0.505164 11 0.330295 11.0724 0.201364 11.2014C0.072433 11.3303 0 11.5052 0 11.6875C0 11.8698 0.072433 12.0447 0.201364 12.1736C0.330295 12.3026 0.505164 12.375 0.6875 12.375H15.8125C15.9948 12.375 16.1697 12.3026 16.2986 12.1736C16.4276 12.0447 16.5 11.8698 16.5 11.6875C16.5 11.5052 16.4276 11.3303 16.2986 11.2014C16.1697 11.0724 15.9948 11 15.8125 11Z"
+                                    fill="#191B19" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
