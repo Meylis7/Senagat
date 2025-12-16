@@ -1,90 +1,270 @@
 <script setup>
-    import { RouterLink } from 'vue-router';
     import Date from '@/components/dashboard/Date.vue';
     import CustomDropdown from '@/components/dashboard/CustomDropdown.vue';
-    import { ref, computed } from 'vue';
+    import Loading from '@/components/dashboard/Loading.vue';
+    import { ref, computed, onMounted, watch } from 'vue';
+    import { RouterLink, useRoute } from 'vue-router';
+    import { useI18n } from 'vue-i18n';
+    import apiService from '@/services/apiService'
+    import { toast } from 'vue3-toastify'
+    import { useUserStore } from '@/stores/userStore';
 
-    // Additional dropdown options
-    const cityOptions = ['Ашхабад', 'Мары', 'Туркменабад', 'Дашогуз', 'Балканабад'];
-    const bankOptions = ['Сенагат банк', 'Туркменбаши банк', 'Халкбанк', 'Рысгал банк'];
 
-    // List of loan options
-    const loanOptions = [
-        'Молодым семьям',
-        'Потребительский',
-        'Свадьба и день рождения',
-        'На образование',
-        'Овердрафт',
-        'Сельское хозяйство'
-    ];
+
+    // Loan types loaded from API
+    const loanOptions = ref([]);
+    const selectedLoanId = ref(null);
+    const activeStep = ref(1);
+    const roleOptions = ['Manager', 'Entrepreneur'];
+    const filteredLoanOptions = computed(() => {
+        const arr = Array.isArray(loanOptions.value) ? loanOptions.value : [];
+        return arr.filter((it) => it?.min_amount != null && it?.max_amount != null);
+    });
+
+    const branchOptions = ref([]);
+    const selectedBranch = ref(null);
+    const branchTitleClass = computed(() => '');
+    const selectedRole = ref(null);
+    const roleId = ref(null);
+    const isManager = computed(() => (selectedRole.value || '').toLowerCase() === 'manager');
+    const isEntrepreneur = computed(() => (selectedRole.value || '').toLowerCase() === 'entrepreneur');
+    const patentNumber = ref('');
+    const registrationNumber = ref('');
+    const workAddress = ref('');
+    const workplace = ref('');
+    const position = ref('');
+    const managerWorkAddress = ref('');
+    const salary = ref('');
+    const loadingOpen = ref(false);
+    const loadingActive = ref(false);
+    const userStore = useUserStore();
+    const proceedToStep2 = () => {
+        if (!selectedLoanId.value) {
+            toast.error('Выберите тип кредита');
+            return;
+        }
+        activeStep.value = 2;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     // Handle dropdown selection
     const handleOptionSelected = (option) => {
-        console.log('Selected option:', option);
+        const id = typeof option === 'object' ? option.id : option;
+        selectedLoanId.value = id;
+        const found = Array.isArray(loanOptions.value) ? loanOptions.value.find(it => it.id === id) : null;
+        if (found) {
+            credit.value = found;
+            const minA = Number(found?.min_amount);
+            const maxA = Number(found?.max_amount);
+            if (Number.isFinite(minA) && Number.isFinite(maxA) && maxA > minA) {
+                creditAmount.value = roundToStep(minA, 100);
+            }
+        }
+    };
+    const handleRoleSelected = (option) => {
+        const value = typeof option === 'object'
+            ? (option.title ?? option.name ?? option.label ?? option.value ?? '')
+            : option;
+        selectedRole.value = value;
+        const lower = (value || '').toLowerCase();
+        roleId.value = lower === 'manager' ? 'manager' : (lower === 'entrepreneur' ? 'entrepreneur' : null);
+    };
+    const handleBranchSelected = (option) => {
+        selectedBranch.value = typeof option === 'object' ? option.id : option;
     };
 
-    // Calculator Section ========================================================================
-    const calcActiveTab = ref('Кредит');
-    const setCalcTab = (tab) => {
-        calcActiveTab.value = tab;
-    };
-    const calcTabOrder = ['Кредит', 'Вклад'];
-    const calcActiveIndex = computed(() => calcTabOrder.indexOf(calcActiveTab.value));
+    // Calculate credit min and max amount
+    const credit = ref(null)
+    const creditMin = computed(() => {
+        const minAmount = Number(credit.value?.min_amount)
+        return Number.isFinite(minAmount) && minAmount > 0 ? minAmount : 0
+    })
+    const creditMax = computed(() => {
+        const maxAmount = Number(credit.value?.max_amount)
+        return Number.isFinite(maxAmount) && maxAmount > 0 ? maxAmount : 0
+    })
+    const creditAmount = ref(0);
 
-    // Deposit Form State ========================================================================
-    // const depositTypes = ['Накопительный', 'Срочный', 'До востребования'];
-    // const depositType = ref(depositTypes[0]);
-    // const isDepositTypeOpen = ref(false);
-    // const setDepositType = (t) => {
-    //     depositType.value = t;
-    //     isDepositTypeOpen.value = false;
-    // };
-
-    const depositMin = 5000;
-    const depositMax = 60000;
-    const depositAmount = ref(10000);
-    const creditMin = 5000;
-    const creditMax = 60000;
-    const creditAmount = ref(10000);
-    const creditTypes = ['Потребительский', 'Ипотечный', 'Автокредит'];
-    const creditType = ref(creditTypes[0]);
-    const isCreditTypeOpen = ref(false);
-    const setCreditType = (t) => {
-        creditType.value = t;
-        isCreditTypeOpen.value = false;
-    };
 
     // Utility Functions =========================================================================
-    const formatMoney = (n) => n.toLocaleString('ru-RU');
-    const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
-    const roundToStep = (v, step) => Math.round(v / step) * step;
-
-    // Input Handlers ============================================================================
-    const onDepositAmountInput = (e) => {
-        const raw = String(e.target.value).replace(/\D/g, '');
-        const num = clamp(roundToStep(Number(raw || 0), 500), depositMin, depositMax);
-        depositAmount.value = num;
-        // reflect formatted value back to the input element
-        e.target.value = formatMoney(num);
-    };
-
-    const onCreditAmountInput = (e) => {
-        const raw = String(e.target.value).replace(/\D/g, '');
-        const num = clamp(roundToStep(Number(raw || 0), 500), creditMin, creditMax);
-        creditAmount.value = num;
-        e.target.value = formatMoney(num);
-    };
+    const formatMoney = (amount) => amount.toLocaleString('ru-RU');
+    const toFixedDown = (value, digits = 2) => {
+        const p = 10 ** digits
+        return Math.trunc(Number(value) * p) / p
+    }
+    const formatMoneyFixed = (amount, digits = 2) => toFixedDown(amount, digits).toLocaleString('ru-RU', {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits,
+    });
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+    const roundToStep = (value, step) => Math.round(value / step) * step;
 
     // Term Options ==============================================================================
-    const termOptions = ['1 год', '1.5 года', '2 год', '2.5 год', '3 год'];
-    const selectedTerm = ref('2 год');
-    const creditSelectedTerm = ref('2 год');
+    const creditSelectedTerm = ref('');
+    const creditSelectedTermMonths = ref(0);
+    const termOptions = computed(() => {
+        const termYears = Number(credit.value?.term);
+        const maxYears = Number.isFinite(termYears) && termYears > 0 ? termYears : NaN;
+        const steps = Number.isFinite(maxYears)
+            ? Array.from({ length: maxYears }, (_, index) => index + 1)
+            : [];
+        return steps.map((years) => ({
+            label: years === 1 ? '1 year' : `${years} years`,
+            months: years * 12,
+        }));
+    })
+
+    const { t, locale } = useI18n()
+
+    const fetchLoanTypes = async () => {
+        try {
+            const res = await apiService.fetchCreditTypes();
+            const list = res?.data || res || [];
+            const arr = Array.isArray(list) ? list : [];
+            loanOptions.value = arr.map(it => ({
+                id: it.id,
+                title: it.title,
+                description: it.description,
+                term: it.term,
+                term_text: it.term_text,
+                min_amount: it.min_amount,
+                max_amount: it.max_amount,
+                interest: it.interest,
+                image_url: it.image_url,
+                background_color: it.background_color,
+            }));
+        } catch {
+            loanOptions.value = [];
+        }
+    };
+    const fetchBranches = async () => {
+        try {
+            const res = await apiService.fetchBranches();
+            const list = res?.data || res || [];
+            const arr = Array.isArray(list) ? list : [];
+            branchOptions.value = arr.map((it) => ({
+                id: it.id,
+                name: it.name,
+            }));
+        } catch {
+            branchOptions.value = [];
+        }
+    };
+
+    onMounted(() => {
+        fetchLoanTypes()
+        fetchBranches()
+    })
+
+    watch(termOptions, (opts) => {
+        const first = Array.isArray(opts) && opts.length ? opts[0] : null
+        if (first) {
+            creditSelectedTerm.value = first.label
+            creditSelectedTermMonths.value = first.months
+        }
+    }, { immediate: true })
+
+    watch(locale, () => {
+        fetchLoanTypes()
+        fetchBranches()
+    })
+
+    const progressPercent = computed(() => {
+        const min = creditMin.value
+        const max = creditMax.value
+        const denom = max - min
+        if (!Number.isFinite(min) || !Number.isFinite(max) || denom <= 0) return '0%'
+        const selectedAmount = clamp(creditAmount.value, min, max)
+        return ((selectedAmount - min) / denom) * 100 + '%'
+    })
+
+    watch([creditMin, creditMax], ([min, max]) => {
+        if (hasAmountRange.value && Number.isFinite(min) && Number.isFinite(max) && max > min) {
+            creditAmount.value = min
+        }
+    })
+
+    const hasAmountRange = computed(() => {
+        const creditData = credit.value
+        return !!(creditData && creditData.min_amount != null && creditData.max_amount != null)
+    })
+
+    const monthlyRate = computed(() => {
+        const interestPercent = Number(credit.value?.interest)
+        return Number.isFinite(interestPercent) && interestPercent > 0 ? interestPercent / 100 : 0
+    })
+
+    const monthlyPayment = computed(() => {
+        if (!selectedLoanId.value || !credit.value) return 0
+        const principal = clamp(roundToStep(Number(creditAmount.value) || 0, 100), creditMin.value, creditMax.value)
+        const totalMonths = Number(creditSelectedTermMonths.value) || 0
+        const monthlyInterestRate = monthlyRate.value
+        if (!Number.isFinite(principal) || !Number.isFinite(totalMonths) || totalMonths <= 0) return 0
+        return (principal + principal * monthlyInterestRate) / totalMonths
+    })
+
+    const totalPayment = computed(() => {
+        const totalMonths = Number(creditSelectedTermMonths.value) || 0
+        return toFixedDown(monthlyPayment.value * totalMonths, 2)
+    })
+    const submitApplication = async () => {
+        if (!selectedLoanId.value) {
+            toast.error('Выберите тип кредита');
+            return;
+        }
+        if (!roleId.value) {
+            toast.error('Выберите роль');
+            return;
+        }
+        if (!selectedBranch.value) {
+            toast.error('Выберите филиал банка');
+            return;
+        }
+        loadingOpen.value = true;
+        loadingActive.value = true;
+        const payload = {
+            credit_id: selectedLoanId.value,
+            term: Math.round((Number(creditSelectedTermMonths.value) || 0) / 12),
+            amount: Number(creditAmount.value) || 0,
+            monthly_payment: Number(monthlyPayment.value) || 0,
+            role: roleId.value,
+            patent_number: isEntrepreneur.value ? (patentNumber.value || undefined) : undefined,
+            registration_number: isEntrepreneur.value ? (registrationNumber.value || undefined) : undefined,
+            work_address: isEntrepreneur.value ? (workAddress.value || undefined) : undefined,
+            workplace: isManager.value ? (workplace.value || undefined) : undefined,
+            position: isManager.value ? (position.value || undefined) : undefined,
+            manager_work_address: isManager.value ? (managerWorkAddress.value || undefined) : undefined,
+            salary: salary.value ? Number(salary.value) : undefined,
+            bank_branch_id: selectedBranch.value,
+        };
+        try {
+            const token =
+                userStore.authToken ||
+                localStorage.getItem('authToken') ||
+                localStorage.getItem('access_token') ||
+                localStorage.getItem('token') ||
+                '';
+            await apiService.submitCreditOrder(payload, token);
+            loadingActive.value = false;
+            toast.success('Заявка отправлена');
+        } catch (e) {
+            const msg = String(e?.message || 'Ошибка отправки заявки');
+            if (msg.toLowerCase().includes('unauthenticated') || msg.includes('401')) {
+                toast.error('Авторизация истекла. Войдите заново.');
+            } else {
+                toast.error(msg);
+            }
+            loadingOpen.value = false;
+            loadingActive.value = true;
+        }
+    };
 </script>
 
 <template>
     <section class="pb-[80px]">
         <div class="auto_container">
             <div class="warp">
+                <Loading :open="loadingOpen" :loading="loadingActive" />
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center mb-[22px]">
                         <RouterLink :to="{ name: 'dashboard.payments' }" class="text-[#6F736D] text-[28px] font-bold">
@@ -98,247 +278,218 @@
                     <Date />
                 </div>
 
-                <div class="grid grid-cols-12 gap-4">
-                    <div class="col-span-4">
-                        <div class="flex flex-col h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
-                            <h6 class="text-[17px] font-bold mb-4">
-                                Выберите тип кредита
-                            </h6>
+                <form @submit.prevent="submitApplication">
+                    <div v-if="activeStep === 1" class="grid grid-cols-12 gap-4">
+                        <div class="col-span-4">
+                            <div class="flex flex-col h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
+                                <h6 class="text-[17px] font-bold mb-4">
+                                    Выберите тип кредита
+                                </h6>
 
-                            <CustomDropdown :options="loanOptions" placeholder="Тип кридита"
-                                @option-selected="handleOptionSelected" />
+                                <CustomDropdown :options="filteredLoanOptions" placeholder="Тип кредита"
+                                    @option-selected="handleOptionSelected" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div class=" col-span-5">
-                        <div class="bg-mainWhite h-[calc(100%-16px)] rounded-[20px] p-[22px]">
-                            <div class="mb-6">
-                                <label class="block text-[#6F736D] text-[17px] mb-3">Сумма кредита</label>
-                                <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
-                                    <input type="text" :value="formatMoney(creditAmount)" @input="onCreditAmountInput"
-                                        class="w-full outline-none bg-transparent text-mainBlack font-bold" />
-                                </div>
-                                <div class="mt-3">
-                                    <input type="range" :min="creditMin" :max="creditMax" step="500"
-                                        v-model="creditAmount" class="w-full accent-[#2C702C]" />
-                                    <div class="flex justify-between text-[#6F736D] mt-2">
-                                        <span>{{ formatMoney(creditMin) }}</span>
-                                        <span>{{ formatMoney(creditMax) }}</span>
+                        <div class="col-span-5">
+                            <div class="bg-mainWhite rounded-[20px] p-6">
+                                <div class="mb-6">
+                                    <div class="bg-[#EEF2ED] rounded-[20px] p-5 relative">
+                                        <label class="block text-[#6F736D] text-[17px] mb-1 leading-tight">
+                                            {{ t('calc.loanAmount') }}
+                                        </label>
+                                        <h3 class="text-[17px] font-bold text-[#1D2417] leading-tight">{{
+                                            formatMoney(creditAmount) }}
+                                        </h3>
+
+                                        <input type="range" :min="creditMin" :max="creditMax" step="100"
+                                            v-model="creditAmount"
+                                            class="amount-range w-full absolute bottom-0 left-1/2 -translate-x-1/2 cursor-pointer max-w-[calc(100%-30px)]"
+                                            :style="{ '--progress': progressPercent }" />
+                                    </div>
+                                    <div class="mt-3">
+
+                                        <div class="flex justify-between text-[#6F736D] mt-2">
+                                            <span>
+                                                {{ credit && credit.min_amount ? formatMoney(credit.min_amount) :
+                                                    formatMoney(creditMin) }}
+                                            </span>
+                                            <span>
+                                                {{ credit && credit.max_amount ? formatMoney(credit.max_amount) :
+                                                    formatMoney(creditMax) }}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <label class="block text-mainBlack font-bold mb-3">Срок</label>
-                                <div class="flex flex-wrap gap-3">
-                                    <button v-for="term in termOptions" :key="term" type="button"
-                                        @click="creditSelectedTerm = term"
-                                        :class="creditSelectedTerm === term ? 'bg-[#1D2417] text-white' : 'bg-white text-[#6F736D]'"
-                                        class="py-3 px-5 rounded-[20px] text-[15px] font-Gilroy">{{ term }}</button>
+                                <div>
+                                    <label class="block text-mainBlack font-bold mb-3"> {{ t('credit.term') }}</label>
+                                    <div class="flex flex-wrap gap-3">
+                                        <button v-for="opt in termOptions" :key="opt.label" type="button"
+                                            @click="creditSelectedTerm = opt.label; creditSelectedTermMonths = opt.months"
+                                            :class="creditSelectedTerm === opt.label ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
+                                            class="h-[48px] px-5 rounded-[12px] leading-tight">{{ opt.label }}</button>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <p class="mt-[22px] text-[15px] text-[#6F736D] font-Gilroy">
-                                Расчет предварительного платежа носит информационный характер и рассчитан при условии
-                                оформления финансовой защиты кредита. Не является публичной офертой
-                            </p>
+                                <p class="text-[#6F736D] text-[17px] font-Gilroy mt-8 leading-6">
+                                    {{ t('calc.calculatorDisclaimer') }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-span-3">
+                            <div class="bg-mainWhite rounded-[20px] p-6 flex flex-col justify-center">
+                                <div class="flex flex-col text-center items-center justify-between mb-6 gap-5">
+                                    <div>
+                                        <p class="text-[#6F736D] mb-2 leading-tight"> {{ t('calc.monthlyPayment') }}</p>
+                                        <h3 class="text-[28px] font-bold leading-tight">{{
+                                            formatMoneyFixed(monthlyPayment) }}
+                                            {{ t('calc.currencyManat') }}
+                                        </h3>
+                                    </div>
+                                    <div>
+                                        <p class="text-[#6F736D] mb-2 leading-tight"> {{ t('calc.rate') }}</p>
+                                        <h3 class="text-3xl font-bold leading-tight">{{ credit?.interest
+                                            || 0 }}%
+                                        </h3>
+                                    </div>
+
+                                    <div class="flex items-center justify-between w-full">
+                                        <h6 class="text-[#6F736D] font-Gilroy text-[15px]">
+                                            Справка о доходах
+                                        </h6>
+
+                                        <p class="text-[#191B19] font-Gilroy text-[15px]">
+                                            1%
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <button type="button" @click="proceedToStep2"
+                                    class="block mt-5 text-center text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[20px] py-3">
+                                    Подать заявку
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class=" col-span-3">
-                        <div class="flex flex-col h-[calc(100%-16px)] p-[22px] rounded-[20px] mb-4 bg-mainWhite">
-                            <h6 class="text-[15px] text-[#6F736D] mb-[10px] font-Gilroy">
-                                Ежемесячный платеж
-                            </h6>
+                    <div v-if="activeStep === 2" class="grid grid-cols-12 gap-4 mt-10">
+                        <div class="col-span-4">
+                            <div
+                                class="flex flex-col p-[22px] rounded-[20px] h-[calc(100%-16px)] gap-4 mb-4 bg-mainWhite">
+                                <div class="block mb-4">
+                                    <label class="text-[15px] font-bold mb-[10px] block">
+                                        Филиал банка
+                                    </label>
+                                    <CustomDropdown :options="branchOptions" placeholder="Филиал банка"
+                                        :titleClass="branchTitleClass" @option-selected="handleBranchSelected" />
+                                </div>
 
-                            <p class="text-[28px] font-bold mb-[22px]">
-                                1000 манат
-                            </p>
+                                <div class="block mb-4">
+                                    <label class="text-[15px] font-bold mb-[10px] block">
+                                        Вы предприниматель?
+                                    </label>
+                                    <div class="flex items-center gap-6">
+                                        <div class="block">
+                                            <input type="radio" name="role" id="role-yes-manager" class="role hidden"
+                                                :checked="isManager" @change="handleRoleSelected('Manager')">
+                                            <label for="role-yes-manager"
+                                                class="block text-[15px] font-bold p-[12px] cursor-pointer">
+                                                Yes
+                                            </label>
+                                        </div>
 
-                            <div class="bg-[#EEF2ED] rounded-[10px] p-[22px] flex flex-col gap-3 mb-[22px]">
-                                <h6 class="text-[15px] font-bold">
-                                    Вам понадобится:
-                                </h6>
-                                <p class="text-[#6F736D] font-Gilroy text-[15px]">
-                                    Паспорт
-                                </p>
-                                <p class="text-[#6F736D] font-Gilroy text-[15px]">
-                                    Справка о доходах
-                                </p>
+                                        <div class="block">
+                                            <input type="radio" name="role" id="role-no-entrepreneur"
+                                                class="role hidden" :checked="isEntrepreneur"
+                                                @change="handleRoleSelected('Entrepreneur')">
+                                            <label for="role-no-entrepreneur"
+                                                class="block text-[15px] font-bold p-[12px] cursor-pointer">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit"
+                                    class="bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-full">
+                                    Отправить заявку
+                                </button>
                             </div>
-
-                            <div class="flex items-center justify-between">
-                                <h6 class="text-[#6F736D] font-Gilroy text-[15px]">
-                                    Справка о доходах
-                                </h6>
-
-                                <p class="text-[#191B19] font-Gilroy text-[15px]">
-                                    1%
-                                </p>
-                            </div>
-
-                            <button type="submit"
-                                class="my-4 bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-full">
-                                Оплатить
-                            </button>
-
-
                         </div>
-                    </div>
-                </div>
 
-                <form class="grid grid-cols-12 gap-4 mt-10">
-                    <div class="col-span-3">
-                        <div class="flex flex-col p-[22px] rounded-[20px] gap-4 mb-4 bg-mainWhite h-[calc(100%-16px)]">
-                            <div class="block">
-                                <label for="name" class="text-[15px] font-bold mb-[10px] block">
-                                    Имя
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="name" placeholder="Имя">
-                            </div>
-                            <div class="block">
-                                <label for="fullName" class="text-[15px] font-bold mb-[10px] block">
-                                    Фамилия
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="fullName" placeholder="Фамилия">
-                            </div>
-                            <div class="block">
-                                <label for="patronymic" class="text-[15px] font-bold mb-[10px] block">
-                                    Отчество
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="patronymic" placeholder="Отчество">
-                            </div>
+                        <div class="col-span-4">
+                            <div
+                                class="flex flex-col p-[22px] rounded-[20px] h-[calc(100%-16px)] gap-4 mb-4 bg-mainWhite">
 
-                            <h1 class="text-[48px] font-bold mt-auto">
-                                1
-                            </h1>
-                        </div>
-                    </div>
+                                <template v-if="isEntrepreneur">
+                                    <div class="block">
+                                        <label for="patent" class="text-[15px] font-bold mb-[10px] block">
+                                            Номер патента
+                                        </label>
+                                        <input
+                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            type="text" id="patent" placeholder="Номер патента" v-model="patentNumber">
+                                    </div>
+                                    <div class="block">
+                                        <label for="getIssue" class="text-[15px] font-bold mb-[10px] block">
+                                            Регистрационный номер
+                                        </label>
+                                        <input
+                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            type="text" id="getIssue" placeholder="Дата выдачи"
+                                            v-model="registrationNumber">
+                                    </div>
+                                    <div class="block">
+                                        <label for="workAddress" class="text-[15px] font-bold mb-[10px] block">
+                                            Адрес места работы
+                                        </label>
+                                        <input
+                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            type="text" id="workAddress" placeholder="Адрес места работы"
+                                            v-model="workAddress">
+                                    </div>
+                                </template>
 
-                    <div class="col-span-3">
-                        <div class="flex flex-col p-[22px] rounded-[20px] h-[calc(100%-16px)] gap-4 mb-4 bg-mainWhite">
-                            <div class="block">
-                                <label for="birthdate" class="text-[15px] font-bold mb-[10px] block">
-                                    Дата рождения
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="birthdate" placeholder="Дата рождения">
-                            </div>
-                            <div class="block">
-                                <label for="passportNumber" class="text-[15px] font-bold mb-[10px] block">
-                                    Номер паспорта
-                                </label>
-                                <div class="flex">
-                                    <input
-                                        class="block text-[15px] font-Gilroy w-[58px] mr-1 bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                        type="text" id="passportId" placeholder="AS">
+                                <template v-if="isManager">
+                                    <div class="block">
+                                        <label for="workPlaceName" class="text-[15px] font-bold mb-[10px] block">
+                                            места работы
+                                        </label>
+                                        <input
+                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            type="text" id="workPlaceName" placeholder="Номер патента"
+                                            v-model="workplace">
+                                    </div>
+                                    <div class="block">
+                                        <label for="position" class="text-[15px] font-bold mb-[10px] block">
+                                            Должность
+                                        </label>
+                                        <input
+                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            type="text" id="position" placeholder="Дата выдачи" v-model="position">
+                                    </div>
+                                    <div class="block">
+                                        <label for="workAddress2" class="text-[15px] font-bold mb-[10px] block">
+                                            Адрес места работы
+                                        </label>
+                                        <input
+                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            type="text" id="workAddress2" placeholder="Адрес места работы"
+                                            v-model="managerWorkAddress">
+                                    </div>
+                                </template>
+
+                                <div class="block">
+                                    <label for="workAddress" class="text-[15px] font-bold mb-[10px] block">
+                                        зарплата
+                                    </label>
                                     <input
                                         class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                        type="text" id="passportNumber" placeholder="Номер паспорта">
+                                        type="number" id="salary" placeholder="0" v-model="salary">
                                 </div>
                             </div>
-                            <div class="block">
-                                <label for="issued_date" class="text-[15px] font-bold mb-[10px] block">
-                                    Дата выдачи
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="issued_date" placeholder="Дата выдачи">
-                            </div>
-                            <div class="block">
-                                <label for="issued_by" class="text-[15px] font-bold mb-[10px] block">
-                                    Место выдачи
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="issued_by" placeholder="Место выдачи">
-                            </div>
-
-                            <h1 class="text-[48px] font-bold mt-auto">
-                                2
-                            </h1>
-                        </div>
-                    </div>
-
-                    <div class="col-span-3">
-                        <div class="flex flex-col p-[22px] rounded-[20px] h-[calc(100%-16px)] gap-4 mb-4 bg-mainWhite">
-                            <div class="block">
-                                <label for="patent" class="text-[15px] font-bold mb-[10px] block">
-                                    Номер патента
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="patent" placeholder="Номер патента">
-                            </div>
-                            <div class="block">
-                                <label for="register" class="text-[15px] font-bold mb-[10px] block">
-                                    Номер регистрации
-                                </label>
-                                <div class="flex">
-                                    <input
-                                        class="block text-[15px] font-Gilroy w-[58px] mr-1 bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                        type="text" id="passportId" placeholder="AS">
-                                    <input
-                                        class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                        type="text" id="register" placeholder="Номер регистрации">
-                                </div>
-                            </div>
-                            <div class="block">
-                                <label for="getIssue" class="text-[15px] font-bold mb-[10px] block">
-                                    Дата выдачи
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="getIssue" placeholder="Дата выдачи">
-                            </div>
-                            <div class="block">
-                                <label for="workAddress" class="text-[15px] font-bold mb-[10px] block">
-                                    Адрес места работы
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="workAddress" placeholder="Адрес места работы">
-                            </div>
-
-                            <h1 class="text-[48px] font-bold mt-auto">
-                                3
-                            </h1>
-                        </div>
-                    </div>
-
-                    <div class="col-span-3">
-                        <div class="flex flex-col p-[22px] rounded-[20px] gap-4 mb-4 bg-mainWhite h-[calc(100%-16px)]">
-                            <div class="block mb-4">
-                                <label class="text-[15px] font-bold mb-[10px] block">
-                                    Город
-                                </label>
-                                <CustomDropdown :options="cityOptions" placeholder="Выберите город"
-                                    @option-selected="handleOptionSelected" />
-                            </div>
-
-                            <div class="block mb-4">
-                                <label class="text-[15px] font-bold mb-[10px] block">
-                                    Банк
-                                </label>
-                                <CustomDropdown :options="bankOptions" placeholder="Выберите банк"
-                                    @option-selected="handleOptionSelected" />
-                            </div>
-
-                            <button type="submit"
-                                class="my-4 bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-full">
-                                Оплатить
-                            </button>
-
-                            <h1 class="text-[48px] font-bold mt-auto">
-                                4
-                            </h1>
                         </div>
                     </div>
                 </form>
@@ -350,4 +501,78 @@
 
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+    .amount-range {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 4px;
+        border-radius: 9999px;
+        background: linear-gradient(to right, #2C702C var(--progress, 0%), #E6EAE3 var(--progress, 0%));
+        outline: none;
+    }
+
+    .amount-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, #2C702C 0 7px, #ffffff 8px);
+        border: 0;
+        box-shadow: 0 0 0 4px #ffffff;
+        cursor: pointer;
+        margin-top: 0px;
+    }
+
+    .amount-range::-moz-range-track {
+        height: 8px;
+        border-radius: 9999px;
+        background: linear-gradient(to right, #2C702C var(--progress, 0%), #E6EAE3 var(--progress, 0%));
+    }
+
+    .amount-range::-moz-range-thumb {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, #2C702C 0 7px, #ffffff 8px);
+        border: 0;
+        box-shadow: 0 0 0 4px #ffffff;
+        cursor: pointer;
+    }
+
+    .role~label {
+        position: relative;
+        padding-left: 40px;
+        cursor: pointer;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #EEF2ED;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #2C702C;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+    }
+
+    .role:checked~label::after {
+        opacity: 100%;
+    }
+</style>

@@ -47,7 +47,7 @@
                 <p class="text-[17px] font-bold text-[#191B19] leading-tight">
                     Оплата прошла успешна
                 </p>
-                <RouterLink :to="{ name: 'home' }"
+                <RouterLink :to="{ name: 'dashboard.home' }"
                     class="text-[15px] text-[#EEF2ED] py-[10px] min-w-[160px] bg-[#2C702C] rounded-[10px] cursor-pointer text-center font-Gilroy leading-tight">
                     На главную
                 </RouterLink>

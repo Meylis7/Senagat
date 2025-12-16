@@ -67,7 +67,8 @@
                             </div>
 
                             <div class="flex flex-col sm:flex-row items-center gap-[15px]">
-                                <RouterLink :to="{ name: 'dashboard.card-application' }"
+                                <RouterLink
+                                    :to="{ name: 'dashboard.card-application', query: { id: card.id, title: card.title } }"
                                     class="block text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] text-center w-full sm:w-fit">
                                     {{ t('dashboard.btn.submitApplication') }}
                                 </RouterLink>

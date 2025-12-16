@@ -280,7 +280,7 @@
             </div>
             <div ref="contentRef">
                 <Transition v-if="activeTab" name="fade-slide" mode="out-in"
-                    class="tab-content relative bg-mainWhite py-8 !pt-[80px] lg:pt-0 px-10 lg:px-[118px] rounded-[20px] z-[50]">
+                    class="tab-content relative bg-mainWhite py-8 !pt-10 lg:pt-0 px-10 lg:px-[118px] rounded-[20px] z-[50]">
                     <section v-if="activeTab === 'one'" key="one"
                         class="flex justify-between flex-wrap gap-8 relative max-h-[calc(100vh-100px)] overflow-auto no-scrollbar">
                         <button type="button" @click.stop="activeTab = null"

@@ -108,6 +108,10 @@ const apiService = {
     return apiClient.get('/v1/card/types', { params })
   },
 
+  fetchCertificateTypes(params = {}) {
+    return apiClient.get('/v1/certificate-types', { params })
+  },
+
   fetchTransfers(params = {}) {
     return apiClient.get('/v1/money-transfers', { params })
   },
@@ -118,6 +122,24 @@ const apiService = {
 
   fetchLocations(params = {}) {
     return apiClient.get('/v1/location', { params })
+  },
+  fetchBranches(params = {}) {
+    return apiClient.get('/v1/location/branches', { params })
+  },
+  submitCertificateOrder(data, token) {
+    return apiClient.post('/v1/certificate-order', data, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  },
+  submitCreditOrder(data, token) {
+    return apiClient.post('/v1/application/credit/order', data, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  },
+  submitCardOrder(data, token) {
+    return apiClient.post('/v1/card/order', data, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
   },
 
   // Dashboard pages ========================================
