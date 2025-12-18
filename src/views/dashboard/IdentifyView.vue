@@ -109,7 +109,7 @@
     <section class="pb-[80px]">
         <div class="auto_container">
             <div class="wrap">
-                <RouterLink :to="{ name: 'dashboard.profile' }" type="button" class="flex items-center gap-[10px] mb-4">
+                <!-- <RouterLink to="/dashboard" type="button" class="flex items-center gap-[10px] mb-4">
                     <span class="w-[18px] h-[18px] block">
                         <svg class="block w-full h-full object-contain" width="7" height="13" viewBox="0 0 7 13"
                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,9 +120,9 @@
                     </span>
 
                     <h6 class="text-[17px] font-Gilroy font-bold text-[#1D2417]">
-                        Назад
+                        Home page
                     </h6>
-                </RouterLink>
+                </RouterLink> -->
 
                 <h2 class="text-[28px] font-bold leading-tight mb-[22px]">
                     Проверка личности
