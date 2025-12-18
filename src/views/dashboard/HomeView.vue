@@ -1,7 +1,7 @@
 <script setup>
     import CurrentDate from '@/components/dashboard/Date.vue';
     import { useI18n } from 'vue-i18n';
-    import { computed } from 'vue';
+    import { computed, ref } from 'vue';
     const { t } = useI18n();
 
     // Get current month index (0-11)
@@ -13,6 +13,8 @@
         const monthName = t(`date.months.${monthIndex}`);
         return t('expensesFor', { month: monthName });
     });
+
+    const payments = ref([]);
 </script>
 
 <template>
@@ -48,7 +50,8 @@
 
                                 <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
-                                        <img class="w-full h-full object-contain" src="../../assets/images/payments/astu.png" alt="payment-icon">
+                                        <img class="w-full h-full object-contain"
+                                            src="../../assets/images/payments/astu.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
                                         CDMA
@@ -57,7 +60,8 @@
 
                                 <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
-                                        <img class="w-full h-full object-contain" src="../../assets/images/payments/astu.png" alt="payment-icon">
+                                        <img class="w-full h-full object-contain"
+                                            src="../../assets/images/payments/astu.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
                                         IP TV
@@ -66,7 +70,8 @@
 
                                 <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
-                                        <img class="w-full h-full object-contain" src="../../assets/images/payments/astu.png" alt="payment-icon">
+                                        <img class="w-full h-full object-contain"
+                                            src="../../assets/images/payments/astu.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
                                         Öý tlefony
@@ -75,7 +80,8 @@
 
                                 <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
-                                        <img class="w-full h-full object-contain" src="../../assets/images/payments/astu.png" alt="payment-icon">
+                                        <img class="w-full h-full object-contain"
+                                            src="../../assets/images/payments/astu.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
                                         Internet
@@ -84,7 +90,8 @@
 
                                 <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
-                                        <img class="w-full h-full object-contain" src="../../assets/images/payments/telecom-logo.png" alt="payment-icon">
+                                        <img class="w-full h-full object-contain"
+                                            src="../../assets/images/payments/telecom-logo.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
                                         Internet
@@ -93,7 +100,8 @@
 
                                 <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
-                                        <img class="w-full h-full object-contain" src="../../assets/images/payments/beletIcon.png" alt="payment-icon">
+                                        <img class="w-full h-full object-contain"
+                                            src="../../assets/images/payments/beletIcon.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
                                         Belet film
@@ -102,7 +110,8 @@
 
                                 <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
-                                        <img class="w-full h-full object-contain" src="../../assets/images/payments/policeCar.png" alt="payment-icon">
+                                        <img class="w-full h-full object-contain"
+                                            src="../../assets/images/payments/policeCar.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
                                         PÝGG
@@ -118,99 +127,28 @@
                                         {{ t('dashboard.blockTitiles.paymentHistory') }}
                                     </h6>
 
-                                    <div
-                                        class="flex items-center justify-between py-3 border-solid border-0 border-b border-[#EEF2ED]">
-                                        <div class="block">
-                                            <h6 class="text-sm sm:text-[15px] leading-5 font-bold mb-1">
-                                                Интернет и ТВ
-                                            </h6>
-                                            <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
-                                                10 Октября 2025
-                                            </p>
-                                        </div>
-
-                                        <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                            -200
+                                    <div v-if="!payments.length" class="py-8 text-center">
+                                        <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
+                                            No payment is done yet
                                         </p>
                                     </div>
 
-                                    <div
-                                        class="flex items-center justify-between py-3 border-solid border-0 border-b border-[#EEF2ED]">
-                                        <div class="block">
-                                            <h6 class="text-sm sm:text-[15px] leading-5 font-bold mb-1">
-                                                Интернет и ТВ
-                                            </h6>
-                                            <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
-                                                10 Октября 2025
+                                    <div v-else>
+                                        <div v-for="payment in payments" :key="payment.id"
+                                            class="flex items-center justify-between py-3 border-solid border-0 border-b border-[#EEF2ED]">
+                                            <div class="block">
+                                                <h6 class="text-sm sm:text-[15px] leading-5 font-bold mb-1">
+                                                    {{ payment.title }}
+                                                </h6>
+                                                <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
+                                                    {{ payment.date }}
+                                                </p>
+                                            </div>
+
+                                            <p class="text-sm sm:text-[15px] font-bold leading-tight">
+                                                {{ payment.amount }}
                                             </p>
                                         </div>
-
-                                        <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                            -200
-                                        </p>
-                                    </div>
-
-                                    <div
-                                        class="flex items-center justify-between py-3 border-solid border-0 border-b border-[#EEF2ED]">
-                                        <div class="block">
-                                            <h6 class="text-sm sm:text-[15px] leading-5 font-bold mb-1">
-                                                Интернет и ТВ
-                                            </h6>
-                                            <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
-                                                10 Октября 2025
-                                            </p>
-                                        </div>
-
-                                        <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                            -200
-                                        </p>
-                                    </div>
-
-                                    <div
-                                        class="flex items-center justify-between py-3 border-solid border-0 border-b border-[#EEF2ED]">
-                                        <div class="block">
-                                            <h6 class="text-sm sm:text-[15px] leading-5 font-bold mb-1">
-                                                Интернет и ТВ
-                                            </h6>
-                                            <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
-                                                10 Октября 2025
-                                            </p>
-                                        </div>
-
-                                        <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                            -200
-                                        </p>
-                                    </div>
-
-                                    <div
-                                        class="flex items-center justify-between py-3 border-solid border-0 border-b border-[#EEF2ED]">
-                                        <div class="block">
-                                            <h6 class="text-sm sm:text-[15px] leading-5 font-bold mb-1">
-                                                Интернет и ТВ
-                                            </h6>
-                                            <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
-                                                10 Октября 2025
-                                            </p>
-                                        </div>
-
-                                        <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                            -200
-                                        </p>
-                                    </div>
-
-                                    <div class="flex items-center justify-between py-3">
-                                        <div class="block">
-                                            <h6 class="text-sm sm:text-[15px] leading-5 font-bold mb-1">
-                                                Интернет и ТВ
-                                            </h6>
-                                            <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
-                                                10 Октября 2025
-                                            </p>
-                                        </div>
-
-                                        <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                            -200
-                                        </p>
                                     </div>
                                 </div>
                             </div>
