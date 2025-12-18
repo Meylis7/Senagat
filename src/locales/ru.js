@@ -523,7 +523,7 @@ export default {
   dashboard: {
     header: {
       dashboard: 'Дашборд',
-      payments: 'Платежи',
+      internationalPayments: 'Международные платежи',
       services: 'Сервисы',
       cards: 'Карты',
       searchPlaceholder: 'Найди услуги можно тут',

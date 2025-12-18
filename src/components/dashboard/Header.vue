@@ -96,13 +96,6 @@
                                     </RouterLink>
                                 </li>
                                 <li class="w-full">
-                                    <RouterLink :to="{ name: 'dashboard.payments' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
-                                        :class="[isActiveLink('/dashboard/payments') ? 'active border-b-0' : '']">
-                                        {{ t('dashboard.header.payments') }}
-                                    </RouterLink>
-                                </li>
-                                <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.services' }"
                                         class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/services') ? 'active border-b-0' : '']">
@@ -110,10 +103,10 @@
                                     </RouterLink>
                                 </li>
                                 <li class="w-full">
-                                    <RouterLink :to="{ name: 'dashboard.cards' }"
+                                    <RouterLink :to="{ name: 'dashboard.payments' }"
                                         class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
-                                        :class="[isActiveLink('/dashboard/cards') ? 'active border-b-0' : '']">
-                                        {{ t('dashboard.header.cards') }}
+                                        :class="[isActiveLink('/dashboard/payments') ? 'active border-b-0' : '']">
+                                        {{ t('dashboard.header.internationalPayments') }}
                                     </RouterLink>
                                 </li>
                             </ul>

@@ -528,7 +528,7 @@ export default {
   dashboard: {
     header: {
       dashboard: 'Dashboard',
-      payments: 'Payments',
+      internationalPayments: 'International Payments',
       services: 'Services',
       cards: 'Cards',
       searchPlaceholder: 'Find services here',

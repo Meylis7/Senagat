@@ -532,7 +532,7 @@ export default {
   dashboard: {
     header: {
       dashboard: 'Dolandyryş paneli',
-      payments: 'Tölegler',
+      internationalPayments: 'Halkara tölegler',
       services: 'Hyzmatlar',
       cards: 'Kartlar',
       searchPlaceholder: 'Hyzmatlary şu ýerden tapyň',

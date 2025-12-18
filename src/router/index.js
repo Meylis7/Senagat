@@ -155,7 +155,7 @@ const router = createRouter({
         {
           path: 'payments',
           name: 'dashboard.payments',
-          component: () => import('@/views/dashboard/PaymentsView.vue'),
+          component: () => import('@/views/dashboard/InternationalPaymentsView.vue'),
         },
         {
           path: 'payment',

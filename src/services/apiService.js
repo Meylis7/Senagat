@@ -126,6 +126,14 @@ const apiService = {
   fetchBranches(params = {}) {
     return apiClient.get('/v1/location/branches', { params })
   },
+  fetchInternationalPaymentTypes(params = {}) {
+    return apiClient.get('/v1/international-payment-types', { params })
+  },
+  submitInternationalPaymentOrder(data, token) {
+    return apiClient.post('/v1/international-payment-order', data, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  },
   submitCertificateOrder(data, token) {
     return apiClient.post('/v1/certificate-order', data, {
       headers: token ? { Authorization: `Bearer ${token}` } : undefined,

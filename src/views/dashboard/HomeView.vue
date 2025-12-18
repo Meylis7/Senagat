@@ -28,141 +28,7 @@
                 </div>
 
                 <div class="grid grid-cols-12 gap-4">
-                    <div class="col-span-12 mm:col-span-4 xl:!col-span-3">
-                        <div class="block bg-[#1D2417] rounded-[20px] p-[22px] overflow-hidden relative bg-circle">
-                            <h6
-                                class="text-[15px] text-center sm:text-left text-[#EEF2ED]/60 font-Gilroy mb-4 relative z-10 leading-5">
-                                {{ t('dashboard.totalBalance') }}
-                            </h6>
-
-                            <div class="flex items-center justify-center sm:justify-normal gap-[10px] relative z-10">
-                                <h1 class="text-[38px] lg:text-[48px] text-mainWhite leading-[50px] font-bold">
-                                    1960 тмт
-                                </h1>
-                                <span class="block w-[21px] h-full">
-                                    <svg class="w-full h-full object-contain" width="20" height="14" viewBox="0 0 20 14"
-                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M19.6309 6.29672C19.6022 6.23191 18.9074 4.69055 17.3627 3.1459C15.3046 1.08773 12.705 0 9.84374 0C6.98249 0 4.38292 1.08773 2.32476 3.1459C0.780109 4.69055 0.0820234 6.23438 0.0565937 6.29672C0.0192803 6.38065 0 6.47147 0 6.56332C0 6.65517 0.0192803 6.74599 0.0565937 6.82992C0.0853046 6.89473 0.780109 8.43527 2.32476 9.97992C4.38292 12.0373 6.98249 13.125 9.84374 13.125C12.705 13.125 15.3046 12.0373 17.3627 9.97992C18.9074 8.43527 19.6022 6.89473 19.6309 6.82992C19.6682 6.74599 19.6875 6.65517 19.6875 6.56332C19.6875 6.47147 19.6682 6.38065 19.6309 6.29672ZM9.84374 11.8125C7.31882 11.8125 5.113 10.8946 3.28698 9.08496C2.53775 8.33987 1.90032 7.49024 1.39452 6.5625C1.90018 5.63468 2.53763 4.78503 3.28698 4.04004C5.113 2.23043 7.31882 1.3125 9.84374 1.3125C12.3687 1.3125 14.5745 2.23043 16.4005 4.04004C17.1512 4.78485 17.79 5.6345 18.2971 6.5625C17.7056 7.66664 15.129 11.8125 9.84374 11.8125ZM9.84374 2.625C9.06498 2.625 8.3037 2.85593 7.65618 3.28859C7.00867 3.72125 6.50399 4.3362 6.20597 5.05568C5.90795 5.77517 5.82997 6.56687 5.9819 7.33067C6.13383 8.09447 6.50884 8.79606 7.05951 9.34673C7.61018 9.8974 8.31177 10.2724 9.07557 10.4243C9.83937 10.5763 10.6311 10.4983 11.3506 10.2003C12.07 9.90226 12.685 9.39758 13.1177 8.75006C13.5503 8.10254 13.7812 7.34126 13.7812 6.5625C13.7802 5.51854 13.365 4.51766 12.6268 3.77947C11.8886 3.04128 10.8877 2.62609 9.84374 2.625ZM9.84374 9.1875C9.32457 9.1875 8.81705 9.03355 8.38537 8.74511C7.95369 8.45667 7.61724 8.0467 7.41856 7.56704C7.21988 7.08739 7.16789 6.55959 7.26918 6.05039C7.37047 5.54119 7.62047 5.07346 7.98759 4.70634C8.3547 4.33923 8.82243 4.08922 9.33163 3.98794C9.84083 3.88665 10.3686 3.93864 10.8483 4.13732C11.3279 4.336 11.7379 4.67245 12.0264 5.10413C12.3148 5.53581 12.4687 6.04332 12.4687 6.5625C12.4687 7.25869 12.1922 7.92637 11.6999 8.41865C11.2076 8.91094 10.5399 9.1875 9.84374 9.1875Z"
-                                            fill="#EEF2ED" />
-                                    </svg>
-                                </span>
-                            </div>
-
-                            <RouterLink to="/dashboard"
-                                class="mt-4 mb-10 rounded-[20px] text-mainWhite w-full block bg-[#2C702C] text-center text-[15px] leading-5 py-[10px] relative z-10">
-                                {{ t('dashboard.btn.payServices') }}
-                            </RouterLink>
-
-                            <div class="flex items-center justify-between mb-4 relative z-10">
-                                <h6 class="text-[15px] text-[#EEF2ED]/60 font-Gilroy leading-6">
-                                    {{ expensesTitle }}
-                                </h6>
-
-                                <p class="text-[15px] text-[#EEF2ED] font-bold leading-6">
-                                    300 тмт
-                                </p>
-                            </div>
-                            <div class="block bg-[#DDF0DD] rounded-[20px] h-[18px] mb-10 relative z-10"></div>
-
-                            <!-- <h6 class="text-[15px] text-[#EEF2ED]/60 font-Gilroy mb-4 relative z-10 leading-5">
-                                {{ t('dashboard.cards') }}
-                            </h6>
-
-                            <div
-                                class="block w-full rounded-[12px] bg-[url('@/assets/images/card-bg.png')] bg-cover bg-center p-5 mb-10 relative z-10">
-                                <h4 class=" text-sm text-[#EEF2ED] font-bold mb-5">
-                                    Senagat Bank
-                                </h4>
-
-                                <div class="grid grid-cols-12 gap-x-[14px] mb-10 relative z-10">
-                                    <div class=" col-span-3">
-                                        <p class="text-[#E6EAE3] text-sm font-bold">
-                                            2345
-                                        </p>
-                                    </div>
-                                    <div class=" col-span-3">
-                                        <p class="text-[#E6EAE3] text-sm font-bold">
-                                            4321
-                                        </p>
-                                    </div>
-                                    <div class=" col-span-3">
-                                        <p class="text-[#E6EAE3] text-sm font-bold">
-                                            1234
-                                        </p>
-                                    </div>
-                                    <div class=" col-span-3">
-                                        <p class="text-[#E6EAE3] text-sm font-bold">
-                                            4211
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-center justify-between relative z-10">
-                                    <h4 class=" text-sm text-[#E6EAE3] font-bold">
-                                        Mergen Jumayew
-                                    </h4>
-                                    <h4 class=" text-sm text-[#E6EAE3] font-bold">
-                                        11/27
-                                    </h4>
-                                </div>
-                            </div> -->
-
-                            <h6 class="text-[15px] text-[#EEF2ED]/60 font-Gilroy mb-4 relative z-10 leading-5">
-                                {{ t('dashboard.currencyExchangeRate') }}
-                            </h6>
-                            <div class="flex flex-col gap-y-1 relative z-10">
-                                <div class="flex items-center justify-between bg-[#191B19]/50 rounded-[10px] p-[12px]">
-                                    <div class="flex items-center gap-x-[10px]">
-                                        <span class="block w-[28px] h-[28px]">
-                                            <img class="w-full h-full object-contain" src="../../assets/images/ru.png"
-                                                alt="flag-ru">
-                                        </span>
-                                        <p class="text-[15px] text-[#EEF2ED] font-bold">
-                                            19.6
-                                        </p>
-                                    </div>
-
-                                    <p class=" text-[15px] text-[#EEF2ED] font-bold">
-                                        200
-                                    </p>
-                                </div>
-
-                                <div class="flex items-center justify-between bg-[#191B19]/50 rounded-[10px] p-[12px]">
-                                    <div class="flex items-center gap-x-[10px]">
-                                        <span class="block w-[28px] h-[28px]">
-                                            <img class="w-full h-full object-contain" src="../../assets/images/eu.png"
-                                                alt="flag-ru">
-                                        </span>
-                                        <p class="text-[15px] text-[#EEF2ED] font-bold">
-                                            19.6
-                                        </p>
-                                    </div>
-
-                                    <p class=" text-[15px] text-[#EEF2ED] font-bold">
-                                        200
-                                    </p>
-                                </div>
-
-                                <div class="flex items-center justify-between bg-[#191B19]/50 rounded-[10px] p-[12px]">
-                                    <div class="flex items-center gap-x-[10px]">
-                                        <span class="block w-[28px] h-[28px]">
-                                            <img class="w-full h-full object-contain" src="../../assets/images/usa.png"
-                                                alt="flag-ru">
-                                        </span>
-                                        <p class="text-[15px] text-[#EEF2ED] font-bold">
-                                            19.6
-                                        </p>
-                                    </div>
-
-                                    <p class=" text-[15px] text-[#EEF2ED] font-bold">
-                                        200
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-span-12 mm:col-span-8 xl:!col-span-9">
+                    <div class="col-span-12">
                         <div class="block p-3 mm:p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                             <h6 class="text-[15px] sm:text-[17px] font-bold mb-4">
                                 {{ t('dashboard.blockTitiles.selectToPay') }}
@@ -396,16 +262,6 @@
                                 </div>
                             </div>
                             <div class="col-span-12 lg:col-span-5">
-                                <div class="block p-3 mm:p-[22px] rounded-[20px] mb-4 bg-mainWhite">
-                                    <div class="flex items-center justify-between">
-                                        <h6 class="text-[15px] sm:text-[17px] font-bold mb-4">
-                                            {{ t('dashboard.blockTitiles.yearlySpending') }}
-                                        </h6>
-
-
-                                    </div>
-                                </div>
-
                                 <div class="block p-3 mm:p-[22px] rounded-[20px] bg-[#1D2417]">
                                     <h6 class="text-[17px] text-mainWhite font-bold mb-3">
                                         {{ t('exchange.branches') }}
@@ -444,7 +300,7 @@
 
 
 
-<style lang="scss" scoped>
+<style scoped>
     .bg-circle::after {
         content: "";
         position: absolute;

@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, onMounted, onUnmounted } from 'vue';
+    import { ref, onMounted, onUnmounted, watch } from 'vue';
 
     const props = defineProps({
         options: {
@@ -59,6 +59,13 @@
 
     onUnmounted(() => {
         document.removeEventListener('click', handleClickOutside);
+    });
+
+    watch(() => props.defaultOption, (val) => {
+        selectedOption.value = val || props.placeholder;
+    });
+    watch(() => props.options, () => {
+        selectedOption.value = props.defaultOption || props.placeholder;
     });
 </script>
 
