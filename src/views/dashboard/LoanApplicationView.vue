@@ -14,6 +14,7 @@
     // Loan types loaded from API
     const loanOptions = ref([]);
     const selectedLoanId = ref(null);
+    const loanTitleClass = ref('');
     const activeStep = ref(1);
     const roleOptions = ['Manager', 'Entrepreneur'];
     const filteredLoanOptions = computed(() => {
@@ -23,9 +24,18 @@
 
     const branchOptions = ref([]);
     const selectedBranch = ref(null);
-    const branchTitleClass = computed(() => '');
+    const branchTitleClass = ref('');
     const selectedRole = ref(null);
     const roleId = ref(null);
+    const roleLabelClass = ref('');
+    const patentClass = ref('');
+    const registrationClass = ref('');
+    const workAddressClass = ref('');
+    const workplaceClass = ref('');
+    const positionClass = ref('');
+    const managerWorkAddressClass = ref('');
+    const salaryClass = ref('');
+
     const isManager = computed(() => (selectedRole.value || '').toLowerCase() === 'manager');
     const isEntrepreneur = computed(() => (selectedRole.value || '').toLowerCase() === 'entrepreneur');
     const patentNumber = ref('');
@@ -40,9 +50,11 @@
     const userStore = useUserStore();
     const proceedToStep2 = () => {
         if (!selectedLoanId.value) {
+            loanTitleClass.value = 'border-solid border-[1px] border-red-500';
             toast.error('Выберите тип кредита');
             return;
         }
+        loanTitleClass.value = '';
         activeStep.value = 2;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -51,6 +63,7 @@
     const handleOptionSelected = (option) => {
         const id = typeof option === 'object' ? option.id : option;
         selectedLoanId.value = id;
+        loanTitleClass.value = '';
         const found = Array.isArray(loanOptions.value) ? loanOptions.value.find(it => it.id === id) : null;
         if (found) {
             credit.value = found;
@@ -68,9 +81,11 @@
         selectedRole.value = value;
         const lower = (value || '').toLowerCase();
         roleId.value = lower === 'manager' ? 'manager' : (lower === 'entrepreneur' ? 'entrepreneur' : null);
+        roleLabelClass.value = '';
     };
     const handleBranchSelected = (option) => {
         selectedBranch.value = typeof option === 'object' ? option.id : option;
+        branchTitleClass.value = '';
     };
 
     // Calculate credit min and max amount
@@ -208,16 +223,43 @@
         return toFixedDown(monthlyPayment.value * totalMonths, 2)
     })
     const submitApplication = async () => {
+        let errors = 0;
         if (!selectedLoanId.value) {
+            errors++;
             toast.error('Выберите тип кредита');
-            return;
         }
         if (!roleId.value) {
-            toast.error('Выберите роль');
-            return;
+            roleLabelClass.value = 'text-red-500';
+            errors++;
+        } else {
+            roleLabelClass.value = '';
         }
         if (!selectedBranch.value) {
-            toast.error('Выберите филиал банка');
+            branchTitleClass.value = 'border-solid border-[1px] border-red-500';
+            errors++;
+        } else {
+            branchTitleClass.value = '';
+        }
+
+        if (roleId.value === 'entrepreneur') {
+            if (!String(patentNumber.value || '').trim()) { patentClass.value = 'border-solid border-[1px] border-red-500'; errors++; } else { patentClass.value = ''; }
+            if (!String(registrationNumber.value || '').trim()) { registrationClass.value = 'border-solid border-[1px] border-red-500'; errors++; } else { registrationClass.value = ''; }
+            if (!String(workAddress.value || '').trim()) { workAddressClass.value = 'border-solid border-[1px] border-red-500'; errors++; } else { workAddressClass.value = ''; }
+        }
+        if (roleId.value === 'manager') {
+            if (!String(workplace.value || '').trim()) { workplaceClass.value = 'border-solid border-[1px] border-red-500'; errors++; } else { workplaceClass.value = ''; }
+            if (!String(position.value || '').trim()) { positionClass.value = 'border-solid border-[1px] border-red-500'; errors++; } else { positionClass.value = ''; }
+            if (!String(managerWorkAddress.value || '').trim()) { managerWorkAddressClass.value = 'border-solid border-[1px] border-red-500'; errors++; } else { managerWorkAddressClass.value = ''; }
+        }
+        if (!(Number(salary.value) > 0)) {
+            salaryClass.value = 'border-solid border-[1px] border-red-500';
+            errors++;
+        } else {
+            salaryClass.value = '';
+        }
+
+        if (errors > 0) {
+            if (errors > 1) toast.error('Заполните обязательные поля');
             return;
         }
         loadingOpen.value = true;
@@ -258,6 +300,14 @@
             loadingActive.value = true;
         }
     };
+
+    watch(patentNumber, (v) => { if (String(v || '').trim()) patentClass.value = '' })
+    watch(registrationNumber, (v) => { if (String(v || '').trim()) registrationClass.value = '' })
+    watch(workAddress, (v) => { if (String(v || '').trim()) workAddressClass.value = '' })
+    watch(workplace, (v) => { if (String(v || '').trim()) workplaceClass.value = '' })
+    watch(position, (v) => { if (String(v || '').trim()) positionClass.value = '' })
+    watch(managerWorkAddress, (v) => { if (String(v || '').trim()) managerWorkAddressClass.value = '' })
+    watch(salary, (v) => { if (Number(v) > 0) salaryClass.value = '' })
 </script>
 
 <template>
@@ -287,11 +337,11 @@
                                 </h6>
 
                                 <CustomDropdown :options="filteredLoanOptions" placeholder="Тип кредита"
-                                    @option-selected="handleOptionSelected" />
+                                    :titleClass="loanTitleClass" @option-selected="handleOptionSelected" />
                             </div>
                         </div>
 
-                        <div class="col-span-5">
+                        <div v-if="selectedLoanId" class="col-span-5">
                             <div class="bg-mainWhite rounded-[20px] p-6">
                                 <div class="mb-6">
                                     <div class="bg-[#EEF2ED] rounded-[20px] p-5 relative">
@@ -338,7 +388,7 @@
                             </div>
                         </div>
 
-                        <div class="col-span-3">
+                        <div v-if="selectedLoanId" class="col-span-3">
                             <div class="bg-mainWhite rounded-[20px] p-6 flex flex-col justify-center">
                                 <div class="flex flex-col text-center items-center justify-between mb-6 gap-5">
                                     <div>
@@ -387,7 +437,7 @@
                                 </div>
 
                                 <div class="block mb-4">
-                                    <label class="text-[15px] font-bold mb-[10px] block">
+                                    <label :class="['text-[15px] font-bold mb-[10px] block', roleLabelClass]">
                                         Вы предприниматель?
                                     </label>
                                     <div class="flex items-center gap-6">
@@ -429,7 +479,7 @@
                                             Номер патента
                                         </label>
                                         <input
-                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', patentClass]"
                                             type="text" id="patent" placeholder="Номер патента" v-model="patentNumber">
                                     </div>
                                     <div class="block">
@@ -437,7 +487,7 @@
                                             Регистрационный номер
                                         </label>
                                         <input
-                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', registrationClass]"
                                             type="text" id="getIssue" placeholder="Дата выдачи"
                                             v-model="registrationNumber">
                                     </div>
@@ -446,7 +496,7 @@
                                             Адрес места работы
                                         </label>
                                         <input
-                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', workAddressClass]"
                                             type="text" id="workAddress" placeholder="Адрес места работы"
                                             v-model="workAddress">
                                     </div>
@@ -458,7 +508,7 @@
                                             места работы
                                         </label>
                                         <input
-                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', workplaceClass]"
                                             type="text" id="workPlaceName" placeholder="Номер патента"
                                             v-model="workplace">
                                     </div>
@@ -467,7 +517,7 @@
                                             Должность
                                         </label>
                                         <input
-                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', positionClass]"
                                             type="text" id="position" placeholder="Дата выдачи" v-model="position">
                                     </div>
                                     <div class="block">
@@ -475,7 +525,7 @@
                                             Адрес места работы
                                         </label>
                                         <input
-                                            class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', managerWorkAddressClass]"
                                             type="text" id="workAddress2" placeholder="Адрес места работы"
                                             v-model="managerWorkAddress">
                                     </div>
@@ -486,7 +536,7 @@
                                         зарплата
                                     </label>
                                     <input
-                                        class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                        :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', salaryClass]"
                                         type="number" id="salary" placeholder="0" v-model="salary">
                                 </div>
                             </div>

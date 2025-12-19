@@ -21,6 +21,7 @@
     const branchesError = ref(null);
 
     const homeAddress = ref('');
+    const homeAddressClass = ref('');
     const submitting = ref(false);
     const submitError = ref(null);
     const errors = ref({
@@ -33,8 +34,8 @@
     const overlayLoading = ref(false);
     const userStore = useUserStore();
 
-    const certificateTitleClass = computed(() => (errors.value.certificate ? 'border border-[#EF4444]' : ''));
-    const branchTitleClass = computed(() => (errors.value.branch ? 'border border-[#EF4444]' : ''));
+    const certificateTitleClass = computed(() => (errors.value.certificate ? 'border-solid border-[1px] border-red-500' : ''));
+    const branchTitleClass = computed(() => (errors.value.branch ? 'border-solid border-[1px] border-red-500' : ''));
 
     const fetchCertificateTypes = async () => {
         certificatesLoading.value = true;
@@ -96,11 +97,20 @@
         errors.value.branch = false;
     };
 
+    watch(homeAddress, (val) => {
+        if (String(val || '').trim()) {
+            errors.value.homeAddress = false;
+            homeAddressClass.value = '';
+        }
+    });
+
     const submitOrder = async () => {
         submitError.value = null;
         errors.value.certificate = !selectedCertificate.value;
         errors.value.branch = !selectedBranch.value;
-        errors.value.homeAddress = !String(homeAddress.value || '').trim();
+        const addrEmpty = !String(homeAddress.value || '').trim();
+        errors.value.homeAddress = addrEmpty;
+        homeAddressClass.value = addrEmpty ? 'border-solid border-[1px] border-red-500' : '';
         if (errors.value.certificate || errors.value.branch || errors.value.homeAddress) {
             if (errors.value.certificate) toast.error('Выберите тип справки');
             if (errors.value.branch) toast.error('Выберите филиал банка');
@@ -198,9 +208,8 @@
                                     Домашний адрес
                                 </label>
                                 <input v-model="homeAddress"
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    :class="{ 'border border-[#EF4444]': errors.homeAddress }" type="text"
-                                    id="issued_date" placeholder="Домашний адрес">
+                                    :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', homeAddressClass]"
+                                    type="text" id="issued_date" placeholder="Домашний адрес">
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, reactive } from 'vue';
+    import { ref, reactive, onMounted } from 'vue';
     import { useI18n } from 'vue-i18n';
     import { useRouter } from 'vue-router';
     import { useUserStore } from '@/stores/userStore';
@@ -12,28 +12,85 @@
     const loading = ref(false)
     const userStore = useUserStore();
 
+    const hasProfile = ref(false)
+    const isEditable = ref(true)
 
     // File input upload
     const fileName = ref('');
     const fileError = ref(false);
 
     const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            if (file.type === 'application/pdf') {
-                fileName.value = file.name;
-                fileError.value = false;
-                formData.scan_passport = file;
-            } else {
-                fileName.value = '';
-                fileError.value = true;
-                formData.scan_passport = null;
-                event.target.value = ''; // Reset input
-            }
+        const file = event.target.files && event.target.files[0];
+        if (!file) {
+            fileName.value = '';
+            fileError.value = false;
+            formData.scan_passport = null;
+            return;
+        }
+        const name = String(file.name || '');
+        const type = String(file.type || '').toLowerCase();
+        const ext = name.split('.').pop()?.toLowerCase() || '';
+        const isPdf = type === 'application/pdf' || ext === 'pdf';
+        if (isPdf) {
+            fileName.value = name;
+            fileError.value = false;
+            formData.scan_passport = file;
+        } else {
+            fileName.value = '';
+            fileError.value = true;
+            formData.scan_passport = null;
+            event.target.value = '';
         }
     };
 
+    const fetchUserProfile = async () => {
+        try {
+            const token =
+                userStore.authToken ||
+                localStorage.getItem('authToken') ||
+                localStorage.getItem('access_token') ||
+                localStorage.getItem('token') ||
+                '';
+            if (!token) return;
+            const res = await apiService.fetchUserInfo(token);
+            const profile = res?.data?.profile ?? res?.profile ?? null;
+            if (profile) {
+                hasProfile.value = true;
+                isEditable.value = false;
+                formData.first_name = profile.first_name || '';
+                formData.last_name = profile.last_name || '';
+                formData.middle_name = profile.middle_name || '';
+                formData.birth_date = profile.birth_date || '';
+                {
+                    let series = String(profile.passport_series || '').trim();
+                    let num = String(profile.passport_number || '').trim();
+                    if (!series) {
+                        const compact = num.replace(/\s+/g, '');
+                        const m = compact.match(/^([A-Za-z]{2})(\d*)$/);
+                        if (m) {
+                            series = m[1];
+                            num = m[2];
+                        } else if (compact.length >= 2) {
+                            series = compact.slice(0, 2);
+                            num = compact.slice(2);
+                        }
+                    }
+                    formData.passportId = series.toUpperCase();
+                    formData.passport_number = num.replace(/\D/g, '');
+                }
+                formData.issued_date = profile.issued_date || '';
+                formData.issued_by = profile.issued_by || '';
+                formData.citizenship = profile.citizenship || '';
+                formData.home_phone = profile.home_phone || '';
+                formData.home_address = profile.home_address || '';
+            } else {
+                hasProfile.value = false;
+                isEditable.value = true;
+            }
+        } catch { }
+    };
 
+    onMounted(fetchUserProfile)
 
     const formData = reactive({
         first_name: '',
@@ -93,7 +150,7 @@
 
 
             await apiService.submitProfile(payload, token);
-            await router.push({ name: 'dashboard.profile' });
+            await router.push({ name: 'dashboard.home' });
             toast('Данные успешно отправлены', { type: 'success' });
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -109,24 +166,26 @@
     <section class="pb-[80px]">
         <div class="auto_container">
             <div class="wrap">
-                <!-- <RouterLink to="/dashboard" type="button" class="flex items-center gap-[10px] mb-4">
-                    <span class="w-[18px] h-[18px] block">
-                        <svg class="block w-full h-full object-contain" width="7" height="13" viewBox="0 0 7 13"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6.58591 11.4148C6.63817 11.4671 6.67963 11.5292 6.70791 11.5974C6.7362 11.6657 6.75076 11.7389 6.75076 11.8128C6.75076 11.8867 6.7362 11.9599 6.70791 12.0282C6.67963 12.0965 6.63817 12.1585 6.58591 12.2108C6.53365 12.263 6.47161 12.3045 6.40332 12.3328C6.33504 12.3611 6.26185 12.3756 6.18794 12.3756C6.11403 12.3756 6.04085 12.3611 5.97256 12.3328C5.90428 12.3045 5.84224 12.263 5.78997 12.2108L0.164974 6.58578C0.112674 6.53354 0.0711852 6.4715 0.0428778 6.40322C0.0145704 6.33493 0 6.26173 0 6.18781C0 6.11389 0.0145704 6.0407 0.0428778 5.97241C0.0711852 5.90412 0.112674 5.84208 0.164974 5.78984L5.78997 0.164844C5.89552 0.0592961 6.03868 -2.94241e-09 6.18794 0C6.33721 2.94241e-09 6.48036 0.0592961 6.58591 0.164844C6.69146 0.270392 6.75076 0.413546 6.75076 0.562813C6.75076 0.71208 6.69146 0.855234 6.58591 0.960781L1.35818 6.18781L6.58591 11.4148Z"
-                                fill="#191B19" />
-                        </svg>
-                    </span>
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+                    <h2 class="text-[28px] font-bold leading-tight text-center">
+                        Проверка личности
+                    </h2>
 
-                    <h6 class="text-[17px] font-Gilroy font-bold text-[#1D2417]">
-                        Home page
-                    </h6>
-                </RouterLink> -->
+                    <RouterLink to="/dashboard" type="button" class="flex items-center gap-[10px]">
+                        <h6 class="text-[17px] font-Gilroy font-bold text-[#1D2417]">
+                            Home page
+                        </h6>
 
-                <h2 class="text-[28px] font-bold leading-tight mb-[22px]">
-                    Проверка личности
-                </h2>
+                        <span class="w-[16px] h-[16px] block rotate-180">
+                            <svg class="block w-full h-full object-contain" width="7" height="13" viewBox="0 0 7 13"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.58591 11.4148C6.63817 11.4671 6.67963 11.5292 6.70791 11.5974C6.7362 11.6657 6.75076 11.7389 6.75076 11.8128C6.75076 11.8867 6.7362 11.9599 6.70791 12.0282C6.67963 12.0965 6.63817 12.1585 6.58591 12.2108C6.53365 12.263 6.47161 12.3045 6.40332 12.3328C6.33504 12.3611 6.26185 12.3756 6.18794 12.3756C6.11403 12.3756 6.04085 12.3611 5.97256 12.3328C5.90428 12.3045 5.84224 12.263 5.78997 12.2108L0.164974 6.58578C0.112674 6.53354 0.0711852 6.4715 0.0428778 6.40322C0.0145704 6.33493 0 6.26173 0 6.18781C0 6.11389 0.0145704 6.0407 0.0428778 5.97241C0.0711852 5.90412 0.112674 5.84208 0.164974 5.78984L5.78997 0.164844C5.89552 0.0592961 6.03868 -2.94241e-09 6.18794 0C6.33721 2.94241e-09 6.48036 0.0592961 6.58591 0.164844C6.69146 0.270392 6.75076 0.413546 6.75076 0.562813C6.75076 0.71208 6.69146 0.855234 6.58591 0.960781L1.35818 6.18781L6.58591 11.4148Z"
+                                    fill="#191B19" />
+                            </svg>
+                        </span>
+                    </RouterLink>
+                </div>
 
                 <form class="block" @submit.prevent="submitForm">
                     <div
@@ -135,7 +194,7 @@
                             <label for="name" class="text-[15px] font-bold mb-[10px] block">
                                 Имя
                             </label>
-                            <input v-model="formData.first_name"
+                            <input v-model="formData.first_name" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                 type="text" id="name" placeholder="Имя">
                         </div>
@@ -144,7 +203,7 @@
                             <label for="Surname" class="text-[15px] font-bold mb-[10px] block">
                                 Фамилия
                             </label>
-                            <input v-model="formData.last_name"
+                            <input v-model="formData.last_name" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                 type="text" id="Surname" placeholder="Фамилия">
                         </div>
@@ -153,7 +212,7 @@
                             <label for="patronymic" class="text-[15px] font-bold mb-[10px] block">
                                 Отчество
                             </label>
-                            <input v-model="formData.middle_name"
+                            <input v-model="formData.middle_name" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                 type="text" id="patronymic" placeholder="Отчество">
                         </div>
@@ -162,7 +221,7 @@
                             <label for="birthdate" class="text-[15px] font-bold mb-[10px] block">
                                 Дата рождения
                             </label>
-                            <input v-model="formData.birth_date"
+                            <input v-model="formData.birth_date" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                 type="text" id="birthdate" placeholder="Дата рождения">
                         </div>
@@ -172,10 +231,10 @@
                                 Номер паспорта
                             </label>
                             <div class="flex">
-                                <input v-model="formData.passportId"
+                                <input v-model="formData.passportId" :disabled="hasProfile && !isEditable"
                                     class="block text-[15px] font-Gilroy w-[70px] mr-1 bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19] uppercase text-center"
                                     type="text" id="passportId" placeholder="AS" maxlength="2">
-                                <input v-model="formData.passport_number"
+                                <input v-model="formData.passport_number" :disabled="hasProfile && !isEditable"
                                     class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                     type="text" id="passport_number" placeholder="Номер паспорта" maxlength="6">
                             </div>
@@ -185,7 +244,7 @@
                             <label for="issued_date" class="text-[15px] font-bold mb-[10px] block">
                                 Дата выдачи
                             </label>
-                            <input v-model="formData.issued_date"
+                            <input v-model="formData.issued_date" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                 type="text" id="issued_date" placeholder="Дата выдачи">
                         </div>
@@ -194,7 +253,7 @@
                             <label for="issued_by" class="text-[15px] font-bold mb-[10px] block">
                                 Место выдачи
                             </label>
-                            <input v-model="formData.issued_by"
+                            <input v-model="formData.issued_by" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                 type="text" id="issued_by" placeholder="Место выдачи">
                         </div>
@@ -218,7 +277,8 @@
                                     </svg>
                                 </span>
                             </div>
-                            <input class="hidden" type="file" id="scan" accept=".pdf" @change="handleFileChange">
+                            <input class="hidden" type="file" id="scan" accept="application/pdf,.pdf"
+                                @change="handleFileChange" :disabled="hasProfile && !isEditable">
                             <p v-if="fileError" class="text-red-500 text-sm mt-1">
                                 Пожалуйста, загрузите файл только в формате PDF.
                             </p>
@@ -228,7 +288,7 @@
                             <label for="citizenship" class="text-[15px] font-bold mb-[10px] block">
                                 Citizenship
                             </label>
-                            <input v-model="formData.citizenship"
+                            <input v-model="formData.citizenship" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                 type="text" id="citizenship" placeholder="Turkmenistan">
                         </div>
@@ -237,7 +297,7 @@
                             <label for="home_phone" class="text-[15px] font-bold mb-[10px] block">
                                 Home Phone
                             </label>
-                            <input v-model="formData.home_phone"
+                            <input v-model="formData.home_phone" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                 type="text" id="home_phone" placeholder="12 122112" maxlength="8">
                         </div>
@@ -246,25 +306,27 @@
                             <label for="home_address" class="text-[15px] font-bold mb-[10px] block">
                                 Home Address
                             </label>
-                            <input v-model="formData.home_address"
+                            <input v-model="formData.home_address" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                 type="text" id="home_address" placeholder="Aşgabat ş. Büzmeýin etrap">
                         </div>
 
                         <div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center mt-[10x]">
-                            <button type="submit"
+                            <button v-if="hasProfile && !isEditable" type="button" @click="isEditable = true"
+                                class="bg-[#2C702C] text-white px-10 py-3 rounded-[10px] text-sm font-bold cursor-pointer text-center flex items-center gap-4">
+                                Редактировать
+                            </button>
+                            <button v-else type="submit"
                                 class="bg-[#2C702C] text-white px-10 py-3 rounded-[10px] text-sm font-bold cursor-pointer text-center flex items-center gap-4">
                                 <p class="text-sm font-bold">
                                     Отправить заявку
                                 </p>
-
                                 <svg v-show="!loading" width="7" height="13" viewBox="0 0 7 13" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M0.164822 0.960766C0.11256 0.908503 0.071104 0.846459 0.04282 0.778176C0.014536 0.709892 -2.23984e-05 0.636706 -2.23919e-05 0.562796C-2.23855e-05 0.488887 0.014536 0.415701 0.04282 0.347417C0.071104 0.279134 0.11256 0.217089 0.164822 0.164827C0.217084 0.112565 0.279128 0.0711096 0.347412 0.0428256C0.415695 0.0145416 0.488881 -1.67599e-05 0.562791 -1.67534e-05C0.636701 -1.6747e-05 0.709887 0.0145417 0.77817 0.0428257C0.846454 0.0711096 0.908498 0.112566 0.96076 0.164828L6.58576 5.78983C6.63806 5.84207 6.67955 5.90411 6.70786 5.97239C6.73616 6.04068 6.75073 6.11388 6.75073 6.1878C6.75073 6.26172 6.73616 6.33492 6.70786 6.4032C6.67955 6.47149 6.63806 6.53353 6.58576 6.58577L0.960759 12.2108C0.855211 12.3163 0.712057 12.3756 0.56279 12.3756C0.413523 12.3756 0.270369 12.3163 0.164821 12.2108C0.059273 12.1052 -2.33855e-05 11.9621 -2.33754e-05 11.8128C-2.33653e-05 11.6635 0.0592731 11.5204 0.164821 11.4148L5.39256 6.1878L0.164822 0.960766Z"
                                         fill="#EEF2ED" />
                                 </svg>
-
                                 <svg v-show="loading" class="animate-spin" width="18" height="18" viewBox="0 0 18 18"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <mask id="mask_spinner_password" fill="white">

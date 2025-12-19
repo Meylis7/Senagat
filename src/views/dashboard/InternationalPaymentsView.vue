@@ -194,6 +194,30 @@
                 </div>
 
                 <form class="grid grid-cols-12 gap-4" @submit.prevent="submitOrder">
+                      <div class="col-span-4">
+                        <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
+                            <div class="block">
+                                <h6 class="text-[15px] font-bold mb-[10px] block">
+                                    Тип заявки
+                                </h6>
+                                <CustomDropdown v-if="paymentTypeOptions.length" :options="paymentTypeOptions"
+                                    :defaultOption="paymentTypeDefaultOption" placeholder="Тип платежа"
+                                    :titleClass="paymentTypeTitleClass" @option-selected="handlePaymentSelected" />
+                            </div>
+
+                            <div class="block">
+                                <h6 class="text-[15px] font-bold mb-[10px] block">
+                                    Филиал банка
+                                </h6>
+                                <CustomDropdown :options="branchOptions" placeholder="Филиал банка"
+                                    :titleClass="branchTitleClass" @option-selected="handleBranchSelected" />
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
                     <div class="col-span-4">
                         <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                             <div class="block">
@@ -256,30 +280,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-span-4">
-                        <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
-                            <div class="block">
-                                <h6 class="text-[15px] font-bold mb-[10px] block">
-                                    Тип заявки
-                                </h6>
-                                <CustomDropdown v-if="paymentTypeOptions.length" :options="paymentTypeOptions"
-                                    :defaultOption="paymentTypeDefaultOption" placeholder="Тип платежа"
-                                    :titleClass="paymentTypeTitleClass" @option-selected="handlePaymentSelected" />
-                            </div>
-
-                            <div class="block">
-                                <h6 class="text-[15px] font-bold mb-[10px] block">
-                                    Филиал банка
-                                </h6>
-                                <CustomDropdown :options="branchOptions" placeholder="Филиал банка"
-                                    :titleClass="branchTitleClass" @option-selected="handleBranchSelected" />
-                            </div>
-
-
-                        </div>
-                    </div>
-
+                  
                     <div class="col-span-12">
                         <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] bg-mainWhite">
                             <h5 class="text-[20px] font-bold mb-[10px] block leading-tight">
