@@ -8,6 +8,7 @@
     import apiService from '@/services/apiService'
     import { toast } from 'vue3-toastify'
     import { useUserStore } from '@/stores/userStore';
+    const { t, locale } = useI18n()
 
 
 
@@ -124,12 +125,19 @@
             ? Array.from({ length: maxYears }, (_, index) => index + 1)
             : [];
         return steps.map((years) => ({
-            label: years === 1 ? '1 year' : `${years} years`,
+            label: `${years} ${(() => {
+                if (locale.value === 'ru') {
+                    const mod10 = years % 10;
+                    const mod100 = years % 100;
+                    if (mod10 === 1 && mod100 !== 11) return t('date.year');
+                    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return t('date.yearsFew');
+                    return t('date.years');
+                }
+                return years === 1 ? t('date.year') : t('date.years');
+            })()}`,
             months: years * 12,
         }));
     })
-
-    const { t, locale } = useI18n()
 
     const fetchLoanTypes = async () => {
         try {
@@ -222,7 +230,7 @@
         const totalMonths = Number(creditSelectedTermMonths.value) || 0
         return toFixedDown(monthlyPayment.value * totalMonths, 2)
     })
-    const submitApplication = async () => {
+    const validateForm = () => {
         let errors = 0;
         if (!selectedLoanId.value) {
             errors++;
@@ -240,7 +248,6 @@
         } else {
             branchTitleClass.value = '';
         }
-
         if (roleId.value === 'entrepreneur') {
             if (!String(patentNumber.value || '').trim()) { patentClass.value = 'border-solid border-[1px] border-red-500'; errors++; } else { patentClass.value = ''; }
             if (!String(registrationNumber.value || '').trim()) { registrationClass.value = 'border-solid border-[1px] border-red-500'; errors++; } else { registrationClass.value = ''; }
@@ -257,11 +264,14 @@
         } else {
             salaryClass.value = '';
         }
-
         if (errors > 0) {
             if (errors > 1) toast.error('Заполните обязательные поля');
-            return;
+            return false;
         }
+        return true;
+    }
+    const submitApplication = async () => {
+        if (!validateForm()) return;
         loadingOpen.value = true;
         loadingActive.value = true;
         const payload = {
@@ -318,10 +328,10 @@
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center mb-[22px]">
                         <RouterLink :to="{ name: 'dashboard.payments' }" class="text-[#6F736D] text-[28px] font-bold">
-                            Сервисы
+                            {{ t('dashboard.header.services') }}
                         </RouterLink>
                         <p class="text-[28px] font-bold">
-                            /Заявка на кредит
+                            /{{ t('dashboard.services.loanApplication') }}
                         </p>
                     </div>
 
@@ -333,10 +343,10 @@
                         <div class="col-span-4">
                             <div class="flex flex-col h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                                 <h6 class="text-[17px] font-bold mb-4">
-                                    Выберите тип кредита
+                                    {{ t('dashboard.blockTitiles.selectCreditType') }}
                                 </h6>
 
-                                <CustomDropdown :options="filteredLoanOptions" placeholder="Тип кредита"
+                                <CustomDropdown :options="filteredLoanOptions" :placeholder="t('form.select.loanType')"
                                     :titleClass="loanTitleClass" @option-selected="handleOptionSelected" />
                             </div>
                         </div>
@@ -405,20 +415,20 @@
                                         </h3>
                                     </div>
 
-                                    <div class="flex items-center justify-between w-full">
+                                    <!-- <div class="flex items-center justify-between w-full">
                                         <h6 class="text-[#6F736D] font-Gilroy text-[15px]">
-                                            Справка о доходах
+                                            {{ t('calc.incomeStatement') }}
                                         </h6>
 
                                         <p class="text-[#191B19] font-Gilroy text-[15px]">
                                             1%
                                         </p>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                                 <button type="button" @click="proceedToStep2"
-                                    class="block mt-5 text-center text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[20px] py-3">
-                                    Подать заявку
+                                    class="block mt-auto text-center text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[20px] py-3">
+                                    {{ t('dashboard.btn.submitApplication') }}
                                 </button>
                             </div>
                         </div>
@@ -430,15 +440,15 @@
                                 class="flex flex-col p-[22px] rounded-[20px] h-[calc(100%-16px)] gap-4 mb-4 bg-mainWhite">
                                 <div class="block mb-4">
                                     <label class="text-[15px] font-bold mb-[10px] block">
-                                        Филиал банка
+                                        {{ t('form.select.selectBankBranch') }}
                                     </label>
-                                    <CustomDropdown :options="branchOptions" placeholder="Филиал банка"
+                                    <CustomDropdown :options="branchOptions" :placeholder="t('form.select.bankBranch')"
                                         :titleClass="branchTitleClass" @option-selected="handleBranchSelected" />
                                 </div>
 
                                 <div class="block mb-4">
                                     <label :class="['text-[15px] font-bold mb-[10px] block', roleLabelClass]">
-                                        Вы предприниматель?
+                                        {{ t('form.select.isEntrepreneur') }}
                                     </label>
                                     <div class="flex items-center gap-6">
                                         <div class="block">
@@ -446,7 +456,7 @@
                                                 :checked="isManager" @change="handleRoleSelected('Manager')">
                                             <label for="role-yes-manager"
                                                 class="block text-[15px] font-bold p-[12px] cursor-pointer">
-                                                Yes
+                                                {{ t('form.select.yes') }}
                                             </label>
                                         </div>
 
@@ -456,15 +466,15 @@
                                                 @change="handleRoleSelected('Entrepreneur')">
                                             <label for="role-no-entrepreneur"
                                                 class="block text-[15px] font-bold p-[12px] cursor-pointer">
-                                                No
+                                                {{ t('form.select.no') }}
                                             </label>
                                         </div>
                                     </div>
                                 </div>
 
                                 <button type="submit"
-                                    class="bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-full">
-                                    Отправить заявку
+                                    class="bg-[#2C702C] mt-auto rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-full">
+                                    {{ t('dashboard.btn.sendApplication') }}
                                 </button>
                             </div>
                         </div>
@@ -476,28 +486,29 @@
                                 <template v-if="isEntrepreneur">
                                     <div class="block">
                                         <label for="patent" class="text-[15px] font-bold mb-[10px] block">
-                                            Номер патента
+                                            {{ t('form.input.patentNumber') }}
                                         </label>
                                         <input
                                             :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', patentClass]"
-                                            type="text" id="patent" placeholder="Номер патента" v-model="patentNumber">
+                                            type="text" id="patent" :placeholder="t('form.input.patentNumber')"
+                                            v-model="patentNumber">
                                     </div>
                                     <div class="block">
                                         <label for="getIssue" class="text-[15px] font-bold mb-[10px] block">
-                                            Регистрационный номер
+                                            {{ t('form.input.registrationNumber') }}
                                         </label>
                                         <input
                                             :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', registrationClass]"
-                                            type="text" id="getIssue" placeholder="Дата выдачи"
+                                            type="text" id="getIssue" :placeholder="t('form.input.registrationNumber')"
                                             v-model="registrationNumber">
                                     </div>
                                     <div class="block">
                                         <label for="workAddress" class="text-[15px] font-bold mb-[10px] block">
-                                            Адрес места работы
+                                            {{ t('form.input.workAddress') }}
                                         </label>
                                         <input
                                             :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', workAddressClass]"
-                                            type="text" id="workAddress" placeholder="Адрес места работы"
+                                            type="text" id="workAddress" :placeholder="t('form.input.workAddress')"
                                             v-model="workAddress">
                                     </div>
                                 </template>
@@ -505,39 +516,40 @@
                                 <template v-if="isManager">
                                     <div class="block">
                                         <label for="workPlaceName" class="text-[15px] font-bold mb-[10px] block">
-                                            места работы
+                                            {{ t('form.input.workplace') }}
                                         </label>
                                         <input
                                             :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', workplaceClass]"
-                                            type="text" id="workPlaceName" placeholder="Номер патента"
+                                            type="text" id="workPlaceName" :placeholder="t('form.input.workplace')"
                                             v-model="workplace">
                                     </div>
                                     <div class="block">
                                         <label for="position" class="text-[15px] font-bold mb-[10px] block">
-                                            Должность
+                                            {{ t('form.input.position') }}
                                         </label>
                                         <input
                                             :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', positionClass]"
-                                            type="text" id="position" placeholder="Дата выдачи" v-model="position">
+                                            type="text" id="position" :placeholder="t('form.input.position')"
+                                            v-model="position">
                                     </div>
                                     <div class="block">
                                         <label for="workAddress2" class="text-[15px] font-bold mb-[10px] block">
-                                            Адрес места работы
+                                            {{ t('form.input.workAddress') }}
                                         </label>
                                         <input
                                             :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', managerWorkAddressClass]"
-                                            type="text" id="workAddress2" placeholder="Адрес места работы"
+                                            type="text" id="workAddress2" :placeholder="t('form.input.workAddress')"
                                             v-model="managerWorkAddress">
                                     </div>
                                 </template>
 
                                 <div class="block">
                                     <label for="workAddress" class="text-[15px] font-bold mb-[10px] block">
-                                        зарплата
+                                         {{ t('form.input.salary') }}
                                     </label>
                                     <input
                                         :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', salaryClass]"
-                                        type="number" id="salary" placeholder="0" v-model="salary">
+                                        type="number" id="salary" :placeholder="t('form.input.salary')" v-model="salary">
                                 </div>
                             </div>
                         </div>

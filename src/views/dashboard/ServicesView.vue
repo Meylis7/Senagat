@@ -27,10 +27,10 @@
                         class="flex justify-between flex-col sm:flex-row relative gap-2 bg-[#1D2417] p-[22px] rounded-[20px] min-h-[180px] overflow-hidden">
                         <div class="block">
                             <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
-                                Заявка на кредит
+                                {{ t('dashboard.services.loanApplication') }}
                             </h4>
                             <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
-                                На карте города
+                                {{ t('dashboard.services.online') }}
                             </p>
                         </div>
 
@@ -48,10 +48,10 @@
                         class="flex justify-between flex-col sm:flex-row relative gap-2 bg-[#1D2417] p-[22px] rounded-[20px] min-h-[180px] overflow-hidden">
                         <div class="block">
                             <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
-                                Получить справку
+                                {{ t('dashboard.services.getCertificate') }}
                             </h4>
                             <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
-                                На карте города
+                                {{ t('dashboard.services.fastAndEasy') }}
                             </p>
                         </div>
 
@@ -69,10 +69,10 @@
                         class="flex justify-between flex-col sm:flex-row relative gap-2 bg-[#1D2417] p-[22px] rounded-[20px] min-h-[180px] overflow-hidden">
                         <div class="block">
                             <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
-                                Оформление карты
+                                {{ t('dashboard.services.cardIssuance') }}
                             </h4>
                             <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
-                                На карте города
+                                {{ t('dashboard.services.inFewSteps') }}
                             </p>
                         </div>
 

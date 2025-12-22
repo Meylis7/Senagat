@@ -9,7 +9,7 @@
     import { useI18n } from 'vue-i18n';
     import { useUserStore } from '@/stores/userStore';
 
-    const { locale } = useI18n();
+    const { t, locale } = useI18n()
     const certificateOptions = ref([]);
     const selectedCertificate = ref(null);
     const certificatesLoading = ref(false);
@@ -104,19 +104,24 @@
         }
     });
 
-    const submitOrder = async () => {
-        submitError.value = null;
+    const validateForm = () => {
         errors.value.certificate = !selectedCertificate.value;
         errors.value.branch = !selectedBranch.value;
         const addrEmpty = !String(homeAddress.value || '').trim();
         errors.value.homeAddress = addrEmpty;
         homeAddressClass.value = addrEmpty ? 'border-solid border-[1px] border-red-500' : '';
-        if (errors.value.certificate || errors.value.branch || errors.value.homeAddress) {
+        const anyError = Object.values(errors.value).some(Boolean);
+        if (anyError) {
             if (errors.value.certificate) toast.error('Выберите тип справки');
             if (errors.value.branch) toast.error('Выберите филиал банка');
             if (errors.value.homeAddress) toast.error('Введите домашний адрес');
-            return;
         }
+        return !anyError;
+    };
+
+    const submitOrder = async () => {
+        submitError.value = null;
+        if (!validateForm()) return;
         submitting.value = true;
         overlayOpen.value = true;
         overlayLoading.value = true;
@@ -166,10 +171,10 @@
                     <div class="flex items-center">
                         <RouterLink :to="{ name: 'dashboard.services' }"
                             class="text-[#6F736D] text-[28px] font-bold leading-tight">
-                            Сервисы
+                            {{ t('dashboard.header.services') }}
                         </RouterLink>
                         <p class="text-[28px] font-bold leading-tight">
-                            /Получить справку
+                            /{{ t('dashboard.services.getCertificate') }}
                         </p>
                     </div>
 
@@ -180,11 +185,12 @@
                     <div class="col-span-4">
                         <div class="flex flex-col h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                             <h6 class="text-[15px] font-bold mb-[10px] block">
-                                Выберите тип cправки
+                                {{ t('form.select.selectCertificateType') }}
                             </h6>
 
-                            <CustomDropdown :options="certificateOptions" placeholder="Тип cправки"
-                                :titleClass="certificateTitleClass" @option-selected="handleOptionSelected" />
+                            <CustomDropdown :options="certificateOptions"
+                                :placeholder="t('form.select.certificateType')" :titleClass="certificateTitleClass"
+                                @option-selected="handleOptionSelected" />
                         </div>
                     </div>
 
@@ -193,9 +199,9 @@
                         <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                             <div class="block">
                                 <h6 class="text-[15px] font-bold mb-[10px] block">
-                                    Филиал банка
+                                    {{ t('form.select.selectBankBranch') }}
                                 </h6>
-                                <CustomDropdown :options="branchOptions" placeholder="Филиал банка"
+                                <CustomDropdown :options="branchOptions" :placeholder="t('form.select.bankBranch')"
                                     :titleClass="branchTitleClass" @option-selected="handleBranchSelected" />
                             </div>
                         </div>
@@ -205,11 +211,11 @@
                         <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                             <div class="block">
                                 <label for="issued_date" class="text-[15px] font-bold mb-[10px] block">
-                                    Домашний адрес
+                                    {{ t('form.input.homeAddress') }}
                                 </label>
                                 <input v-model="homeAddress"
                                     :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', homeAddressClass]"
-                                    type="text" id="issued_date" placeholder="Домашний адрес">
+                                    type="text" id="issued_date" :placeholder="t('form.input.homeAddress')">
                             </div>
                         </div>
                     </div>
@@ -218,7 +224,7 @@
                         <button type="submit"
                             class="bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-[250px]"
                             :disabled="submitting">
-                            Отправить заявку
+                            {{ t('dashboard.btn.sendApplication') }}
                         </button>
                     </div>
                 </form>

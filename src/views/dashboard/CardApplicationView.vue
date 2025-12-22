@@ -8,9 +8,29 @@
     import { useI18n } from 'vue-i18n';
     import { toast } from 'vue3-toastify';
     import { useUserStore } from '@/stores/userStore';
-
+    const { t, locale } = useI18n()
     const route = useRoute();
     const userStore = useUserStore();
+    const cardTitle = ref('');
+    const loadCardTitle = async () => {
+        const id = Number(route.query.id) || 0;
+        if (id) {
+            try {
+                const res = await apiService.fetchCardTypes();
+                const list = res?.data || res || [];
+                const arr = Array.isArray(list) ? list : [];
+                const match = arr.find((it) => Number(it.id) === id);
+                cardTitle.value = match?.title || String(route.query.title || '');
+            } catch {
+                cardTitle.value = String(route.query.title || '');
+            }
+        } else {
+            cardTitle.value = String(route.query.title || '');
+        }
+    };
+    onMounted(() => {
+        loadCardTitle();
+    });
     const submitting = ref(false);
     const workPosition = ref('');
     const workPhone = ref('');
@@ -20,7 +40,36 @@
     const deliveryService = ref(false);
     const overlayOpen = ref(false);
     const overlayLoading = ref(false);
-    const cardTitle = computed(() => String(route.query.title || ''));
+    const errors = ref({
+        workPosition: false,
+        workPhone: false,
+        secretWord: false,
+        email: false,
+        branch: false,
+    });
+    const isValidEmail = (val) => {
+        const v = String(val || '').trim();
+        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    };
+
+    const validateForm = () => {
+        errors.value.workPosition = !String(workPosition.value || '').trim();
+        errors.value.workPhone = !String(workPhone.value || '').trim();
+        errors.value.secretWord = !String(secretWord.value || '').trim();
+        const emailVal = String(email.value || '').trim();
+        errors.value.email = !emailVal || !isValidEmail(emailVal);
+        errors.value.branch = !selectedBranch.value;
+        const anyError = Object.values(errors.value).some(Boolean);
+        if (anyError) {
+            if (errors.value.branch) toast.error('Выберите филиал банка');
+            if (errors.value.workPosition) toast.error('Введите должность');
+            if (errors.value.workPhone) toast.error('Введите рабочий телефон');
+            if (errors.value.secretWord) toast.error('Введите секретный код');
+            if (!emailVal) toast.error('Введите email');
+            else if (!isValidEmail(emailVal)) toast.error('Введите корректный email');
+        }
+        return !anyError;
+    };
 
     const submitCardOrder = async () => {
         submitting.value = true;
@@ -30,8 +79,7 @@
             submitting.value = false;
             return;
         }
-        if (!selectedBranch.value) {
-            toast.error('Выберите филиал банка');
+        if (!validateForm()) {
             submitting.value = false;
             return;
         }
@@ -66,12 +114,12 @@
         }
     };
     // Fetch branches like CertificateApplicationView ===============================================
-    const { locale } = useI18n();
     const branchOptions = ref([]);
     const selectedBranch = ref(null);
-    const branchTitleClass = computed(() => '');
+    const branchTitleClass = computed(() => (errors.value.branch ? 'border-solid border-[1px] border-red-500' : ''));
     const handleBranchSelected = (option) => {
         selectedBranch.value = typeof option === 'object' ? option.id : option;
+        errors.value.branch = false;
     };
     const fetchBranches = async () => {
         try {
@@ -91,6 +139,20 @@
     });
     watch(locale, () => {
         fetchBranches();
+        loadCardTitle();
+    });
+    watch(workPosition, (val) => {
+        if (String(val || '').trim()) errors.value.workPosition = false;
+    });
+    watch(workPhone, (val) => {
+        if (String(val || '').trim()) errors.value.workPhone = false;
+    });
+    watch(secretWord, (val) => {
+        if (String(val || '').trim()) errors.value.secretWord = false;
+    });
+    watch(email, (val) => {
+        const v = String(val || '').trim();
+        if (v && isValidEmail(v)) errors.value.email = false;
     });
 
 
@@ -105,10 +167,10 @@
                     <div class="flex items-center">
                         <RouterLink :to="{ name: 'dashboard.cards' }"
                             class="text-[#6F736D] text-[28px] font-bold leading-tight">
-                            Карты
+                            {{ t('dashboard.cards') }}
                         </RouterLink>
                         <p class="text-[28px] font-bold leading-tight">
-                            /«{{ cardTitle }}»
+                            / {{ cardTitle }}
                         </p>
                     </div>
 
@@ -119,10 +181,10 @@
                     <div class="col-span-4">
                         <div class="flex flex-col h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                             <h6 class="text-[15px] font-bold mb-[10px] block">
-                                Выберите тип cправки
+                                {{ t('form.select.selectBankBranch') }}
                             </h6>
 
-                            <CustomDropdown :options="branchOptions" placeholder="Филиал банка"
+                            <CustomDropdown :options="branchOptions" :placeholder="t('form.select.bankBranch')"
                                 :titleClass="branchTitleClass" @option-selected="handleBranchSelected" />
                         </div>
                     </div>
@@ -131,37 +193,43 @@
                         <div class="flex flex-col h-fit gap-4 p-[22px] rounded-[20px] mb-4 bg-mainWhite">
                             <div class="block">
                                 <label for="work_position" class="text-[15px] font-bold mb-[10px] block">
-                                    Должность
+                                    {{ t('form.input.position') }}
                                 </label>
                                 <input
                                     class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="work_position" placeholder="Должность" v-model="workPosition">
+                                    :class="{ 'border-solid border-[1px] border-red-500': errors.workPosition }"
+                                    type="text" id="work_position" :placeholder="t('form.input.position')"
+                                    v-model="workPosition">
                             </div>
                             <div class="block">
                                 <label for="work_phone" class="text-[15px] font-bold mb-[10px] block">
-                                    Рабочий телефон
+                                    {{ t('form.input.workPhone') }}
                                 </label>
                                 <input
                                     class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="work_phone" placeholder="Рабочий телефон" v-model="workPhone">
+                                    :class="{ 'border-solid border-[1px] border-red-500': errors.workPhone }"
+                                    type="text" id="work_phone" :placeholder="t('form.input.workPhone')"
+                                    v-model="workPhone">
                             </div>
 
                             <div class="block">
                                 <label for="secret_word" class="text-[15px] font-bold mb-[10px] block">
-                                    Секретный код
+                                    {{ t('form.input.secretCode') }}
                                 </label>
                                 <input
                                     class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                    :class="{ 'border-solid border-[1px] border-red-500': errors.secretWord }"
                                     type="text" id="secret_word" placeholder="Секретный код" v-model="secretWord">
                             </div>
 
                             <div class="block">
                                 <label for="email" class="text-[15px] font-bold mb-[10px] block">
-                                    Email
+                                    {{ t('form.input.email') }}
                                 </label>
                                 <input
                                     class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="email" placeholder="email" v-model="email">
+                                    :class="{ 'border-solid border-[1px] border-red-500': errors.email }" type="text"
+                                    id="email" :placeholder="t('form.input.email')" v-model="email">
                             </div>
                         </div>
                     </div>
@@ -171,7 +239,7 @@
 
                             <div class="block mb-4">
                                 <label class="text-[15px] font-bold mb-[10px] block">
-                                    интернет сервис
+                                    {{ t('form.select.internetService') }}
                                 </label>
                                 <div class="flex items-center gap-6">
                                     <div class="block">
@@ -179,7 +247,7 @@
                                             :checked="internetService" @change="internetService = true">
                                         <label for="yes-internet"
                                             class="block text-[15px] font-bold p-[12px] cursor-pointer">
-                                            Yes
+                                            {{ t('form.select.yes') }}
                                         </label>
                                     </div>
 
@@ -188,7 +256,7 @@
                                             :checked="!internetService" @change="internetService = false">
                                         <label for="no-internet"
                                             class="block text-[15px] font-bold p-[12px] cursor-pointer">
-                                            No
+                                            {{ t('form.select.no') }}
                                         </label>
                                     </div>
                                 </div>
@@ -196,7 +264,7 @@
 
                             <div class="block mb-4">
                                 <label class="text-[15px] font-bold mb-[10px] block">
-                                    доставка
+                                    {{ t('form.select.delivery') }}
                                 </label>
                                 <div class="flex items-center gap-6">
                                     <div class="block">
@@ -204,7 +272,7 @@
                                             :checked="deliveryService" @change="deliveryService = true">
                                         <label for="yes-delivery"
                                             class="block text-[15px] font-bold p-[12px] cursor-pointer">
-                                            Yes
+                                            {{ t('form.select.yes') }}
                                         </label>
                                     </div>
 
@@ -213,7 +281,7 @@
                                             :checked="!deliveryService" @change="deliveryService = false">
                                         <label for="no-delivery"
                                             class="block text-[15px] font-bold p-[12px] cursor-pointer">
-                                            No
+                                            {{ t('form.select.no') }}
                                         </label>
                                     </div>
                                 </div>
@@ -222,7 +290,7 @@
                             <button type="submit"
                                 class="my-4 bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-full mt-auto"
                                 :disabled="submitting">
-                                Отправить заявку
+                                {{ t('dashboard.btn.sendApplication') }}
                             </button>
                         </div>
                     </div>

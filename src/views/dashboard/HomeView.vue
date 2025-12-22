@@ -38,7 +38,8 @@
 
                             <div
                                 class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 mm:grid-cols-4 xl:!grid-cols-5 gap-2 sm:gap-4">
-                                <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
+                                <RouterLink to="/dashboard"
+                                    class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
                                         <img class="w-full h-full object-contain"
                                             src="../../assets/images/payments/tmCell.png" alt="payment-icon">
@@ -48,7 +49,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
+                                <RouterLink to="/dashboard"
+                                    class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
                                         <img class="w-full h-full object-contain"
                                             src="../../assets/images/payments/astu.png" alt="payment-icon">
@@ -58,7 +60,8 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
+                                <RouterLink to="/dashboard"
+                                    class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
                                         <img class="w-full h-full object-contain"
                                             src="../../assets/images/payments/astu.png" alt="payment-icon">
@@ -68,37 +71,41 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
+                                <RouterLink to="/dashboard"
+                                    class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
                                         <img class="w-full h-full object-contain"
                                             src="../../assets/images/payments/astu.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                        Öý tlefony
+                                        {{ t('dashboard.payments.homePhone') }}
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
+                                <RouterLink to="/dashboard"
+                                    class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
                                         <img class="w-full h-full object-contain"
                                             src="../../assets/images/payments/astu.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                        Internet
+                                        {{ t('dashboard.payments.internet') }}
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
+                                <RouterLink to="/dashboard"
+                                    class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
                                         <img class="w-full h-full object-contain"
                                             src="../../assets/images/payments/telecom-logo.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                        Internet
+                                        {{ t('dashboard.payments.internet') }}
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
+                                <RouterLink to="/dashboard"
+                                    class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
                                         <img class="w-full h-full object-contain"
                                             src="../../assets/images/payments/beletIcon.png" alt="payment-icon">
@@ -108,13 +115,14 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard" class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
+                                <RouterLink to="/dashboard"
+                                    class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
                                         <img class="w-full h-full object-contain"
                                             src="../../assets/images/payments/policeCar.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                        PÝGG
+                                        {{ t('dashboard.payments.trafficPolice') }}
                                     </p>
                                 </RouterLink>
                             </div>
@@ -129,7 +137,7 @@
 
                                     <div v-if="!payments.length" class="py-8 text-center">
                                         <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
-                                            No payment is done yet
+                                            {{ t('dashboard.noPaymentsYet') }}
                                         </p>
                                     </div>
 
