@@ -3,7 +3,7 @@
     import { useI18n } from 'vue-i18n';
     const { t, locale } = useI18n();
 
-    import card from "@/assets/images/card-1.png";
+    import card from "@/assets/images/cards/goyum.png";
 
 
 </script>

@@ -528,14 +528,15 @@
               <p class="text-sm mdtext-[17px] text-[#6F736D] leading-tight mb-6 font-Gilroy group-hover:text-white">{{
                 t('exchange.onCityMap') }}</p>
               <span class="block w-[200px] md:w-[260px] absolute left-1/2 -translate-x-1/2 -bottom-[55px] z-[1]">
-                <img src="../../assets/images/currency.png" class="block w-full h-full object-contain" alt="currency">
+                <img src="../../assets/images/services/services (10).png" class="block w-full h-full object-contain"
+                  alt="currency">
               </span>
             </RouterLink>
 
             <div class="w-full col-span-12 md:col-span-8 rounded-[20px] bg-mainWhite p-4 ms:p-8">
               <div class="flex items-center justify-between mb-8">
                 <h6 class="text-[18px] md:text-[24px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates')
-                  }}</h6>
+                }}</h6>
               </div>
 
               <div v-show="currencyActiveTab === 'Текущий курс'"
@@ -544,7 +545,7 @@
                   t('exchange.currency') }}
                 </div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] font-Gilroy text-[#6F736D]">{{ t('exchange.buy')
-                  }}</div>
+                }}</div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] font-Gilroy text-[#6F736D]">{{
                   t('exchange.sell') }}</div>
 
@@ -623,9 +624,10 @@
               </RouterLink>
             </div>
 
-            <span class="max-h-[220px] hidden md:block">
-              <img src="../../assets/images/GradientGlass.png" class="block max-h-full object-contain" alt="card">
-            </span>
+            <div class="h-[220px] hidden md:block z-10">
+              <img src="../../assets/images/services/services (6).png" class="block w-full h-full object-contain"
+                alt="card">
+            </div>
           </div>
         </div>
       </div>

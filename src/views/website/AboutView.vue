@@ -80,7 +80,7 @@
         </p>
 
         <span class="block mt-[80px] md:mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
-          <img src="../../assets/images/senagat-big.png" class="block w-full h-full object-contain" alt="card">
+          <img src="../../assets/images/logo/logo.png" class="block w-full h-full object-contain" alt="card">
         </span>
       </div>
     </div>
@@ -158,7 +158,7 @@
 
           <div
             class="hidden lg:flex col-span-3 rounded-[20px] items-center justify-center glow relative overflow-hidden bg-[#1D2417]">
-            <img src="../../assets/images/senagat-big.png" class="w-[calc(100%-40px)] block object-contain z-[1]"
+            <img src="../../assets/images/logo/logo.png" class="w-[calc(100%-40px)] block object-contain z-[1]"
               alt="emblem">
           </div>
         </div>

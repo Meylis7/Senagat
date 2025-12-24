@@ -312,8 +312,8 @@
                         </RouterLink>
                     </div>
 
-                    <div class="hidden md:flex min-w-[310px] max-h-[220px] overflow-hidden items-end justify-end">
-                        <img src="../../assets/images/GradientGlass.png" class="w-full h-full object-contain"
+                    <div class="hidden md:flex min-w-[310px] h-[220px] z-10 overflow-hidden items-end justify-end">
+                        <img src="../../assets/images/services/services (6).png" class="w-full h-full object-contain"
                             alt="card">
                     </div>
 
@@ -335,8 +335,8 @@
                         </RouterLink>
                     </div>
 
-                    <div class="hidden md:flex min-w-[310px] max-h-[220px] overflow-hidden items-end justify-end">
-                        <img src="../../assets/images/GradientGlass.png" class="w-full h-full object-contain"
+                    <div class="hidden md:flex min-w-[310px] h-[220px] z-10 overflow-hidden items-end justify-end">
+                        <img src="../../assets/images/services/services (2).png" class="w-full h-full object-contain"
                             alt="card">
                     </div>
 

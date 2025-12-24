@@ -43,8 +43,8 @@
     const isProfileOpen = ref(false)
 
     async function checkProfileStatus() {
+        profileChecked.value = false
         try {
-            profileChecked.value = false
             const token =
                 userStore.authToken ||
                 localStorage.getItem('authToken') ||
@@ -78,12 +78,13 @@
                 const full = [first, last].filter(Boolean).join(' ').trim()
                 displayName.value = formatted || full || 'Имя фамилия'
             }
-        } catch (e) {
-            needsVerification.value = true
-            profileStatus.value = 'not-confirmed'
-            displayName.value = 'Имя фамилия'
-        } finally {
             profileChecked.value = true
+        } catch (e) {
+            needsVerification.value = false
+            profileStatus.value = 'not-confirmed'
+            // Keep previous displayName or default
+            if (!displayName.value) displayName.value = 'Имя фамилия'
+            profileChecked.value = false
         }
     }
 

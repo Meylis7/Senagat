@@ -3,7 +3,7 @@
   import { RouterLink } from 'vue-router'
   import { useI18n } from 'vue-i18n'
   import apiService from '@/services/apiService'
-  import megaphone from '@/assets/images/megaphone.png'
+  import megaphone from '@/assets/images/services/services (11).png'
 
   const { t } = useI18n()
 
@@ -62,7 +62,7 @@
             </p>
 
             <span
-              class="hidden absolute mm:relative -right-[15px] mm:right-0 -top-[70px] mm:top-0 sm:block ml-auto mt-[20px] sm:w-[300px] mm:w-[200px] z-10">
+              class="hidden absolute mm:relative -right-[15px] mm:right-0 -top-[70px] mm:top-0 sm:block ml-auto mt-[20px] sm:w-[300px] mm:w-[300px] z-10">
               <img :src="megaphone" alt="news-icon" class="block w-full h-auto object-contain" />
             </span>
           </div>
