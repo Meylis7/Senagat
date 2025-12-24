@@ -4,11 +4,11 @@
     import Breadcrumb from '@/components/website/Breadcrumb.vue'
     import { useI18n } from 'vue-i18n'
     import apiService from '@/services/apiService'
-    import imgCash from '@/assets/images/cash.png'
-    import imgTerminal from '@/assets/images/terminal.png'
-    import imgGuarantees from '@/assets/images/Guarantees.png'
-    import imgAudit from '@/assets/images/Audit.png'
-    import imgGlass from '@/assets/images/GradientGlass.png'
+    import imgCash from '@/assets/images/services/services (12).png'
+    import imgTerminal from '@/assets/images/services/services (1).png'
+    import imgGuarantees from '@/assets/images/services/services (5).png'
+    import imgAudit from '@/assets/images/services/services (8).png'
+    import imgGlass from '@/assets/images/services/services (2).png'
     const { t } = useI18n()
 
     const breadcrumbItems = computed(() => ([
