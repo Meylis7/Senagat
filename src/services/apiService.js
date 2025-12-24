@@ -130,8 +130,12 @@ const apiService = {
     return apiClient.get('/v1/international-payment-types', { params })
   },
   submitInternationalPaymentOrder(data, token) {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {}
+    if (typeof FormData !== 'undefined' && data instanceof FormData) {
+      headers['Content-Type'] = 'multipart/form-data'
+    }
     return apiClient.post('/v1/international-payment-order', data, {
-      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      headers,
     })
   },
   submitCertificateOrder(data, token) {

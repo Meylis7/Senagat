@@ -75,19 +75,7 @@
     const submitting = ref(false);
     const overlayOpen = ref(false);
     const overlayLoading = ref(false);
-    const firstName = ref('');
-    const lastName = ref('');
-    const patronymic = ref('');
-    const homeAddress = ref('');
-    const passportSeries = ref('');
-    const passportNumber = ref('');
     const errors = ref({
-        firstName: false,
-        lastName: false,
-        patronymic: false,
-        homeAddress: false,
-        passportSeries: false,
-        passportNumber: false,
         paymentType: false,
         branch: false,
         files: false,
@@ -103,12 +91,6 @@
         errors.value.branch = false;
     };
     const validateForm = () => {
-        errors.value.firstName = !String(firstName.value || '').trim();
-        errors.value.lastName = !String(lastName.value || '').trim();
-        errors.value.patronymic = !String(patronymic.value || '').trim();
-        errors.value.homeAddress = !String(homeAddress.value || '').trim();
-        errors.value.passportSeries = !(String(passportSeries.value || '').trim().length === 2);
-        errors.value.passportNumber = !(String(passportNumber.value || '').trim().length === 6);
         errors.value.paymentType = !selectedPaymentTypeId.value;
         errors.value.branch = !selectedBranch.value;
         errors.value.files =
@@ -119,22 +101,13 @@
         if (anyError) {
             if (errors.value.paymentType) toast.error('Выберите тип платежа');
             if (errors.value.branch) toast.error('Выберите филиал банка');
-            if (errors.value.firstName) toast.error('Введите имя');
-            if (errors.value.lastName) toast.error('Введите фамилию');
-            if (errors.value.patronymic) toast.error('Введите отчество');
-            if (errors.value.homeAddress) toast.error('Введите адрес');
-            if (errors.value.passportSeries || errors.value.passportNumber) toast.error('Введите номер паспорта');
             if (errors.value.files) toast.error('Загрузите документы');
         }
         return !anyError;
     };
-    const toBase64 = (file) =>
-        new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(String(reader.result || ''));
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-        });
+
+    /* Removed base64 conversion; files will be sent as multipart form-data */
+
     const submitOrder = async () => {
         submitting.value = true;
         try {
@@ -150,13 +123,22 @@
                 localStorage.getItem('access_token') ||
                 localStorage.getItem('token') ||
                 '';
-            const filesPayload = await Promise.all(fileUploads.value.map((f) => toBase64(f)));
-            const payload = {
+            const fd = new FormData();
+            fd.append('payment_type_id', String(selectedPaymentTypeId.value));
+            fd.append('branch_id', String(selectedBranch.value));
+            fileUploads.value.forEach((f) => {
+                if (f) fd.append('uploaded_files[]', f, f.name || 'file');
+            });
+            console.log('POST /v1/international-payment-order form fields:', {
                 payment_type_id: selectedPaymentTypeId.value,
                 branch_id: selectedBranch.value,
-                uploaded_files: filesPayload,
-            };
-            await apiService.submitInternationalPaymentOrder(payload, token);
+                files: fileUploads.value.map((f) => ({
+                    name: f?.name || '',
+                    type: f?.type || '',
+                    size: f?.size || 0,
+                })),
+            });
+            await apiService.submitInternationalPaymentOrder(fd, token);
             toast.success('Заявка отправлена');
             overlayLoading.value = false;
             overlayOpen.value = false;
@@ -181,24 +163,7 @@
         fetchPaymentTypes();
     });
 
-    watch(firstName, (val) => {
-        if (String(val || '').trim()) errors.value.firstName = false;
-    });
-    watch(lastName, (val) => {
-        if (String(val || '').trim()) errors.value.lastName = false;
-    });
-    watch(patronymic, (val) => {
-        if (String(val || '').trim()) errors.value.patronymic = false;
-    });
-    watch(homeAddress, (val) => {
-        if (String(val || '').trim()) errors.value.homeAddress = false;
-    });
-    watch(passportSeries, (val) => {
-        if (String(val || '').trim().length > 0) errors.value.passportSeries = false;
-    });
-    watch(passportNumber, (val) => {
-        if (String(val || '').trim().length > 0) errors.value.passportNumber = false;
-    });
+    /* Removed personal input watchers */
 </script>
 
 <template>
@@ -232,79 +197,10 @@
                                 <CustomDropdown :options="branchOptions" :placeholder="t('form.select.bankBranch')"
                                     :titleClass="branchTitleClass" @option-selected="handleBranchSelected" />
                             </div>
-
-
                         </div>
                     </div>
 
-
-                    <div class="col-span-4">
-                        <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
-                            <div class="block">
-                                <label for="name" class="text-[15px] font-bold mb-[10px] block">
-                                    {{ t('form.input.firstName') }}
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    :class="{ 'border-solid border-[1px] border-red-500': errors.firstName }"
-                                    type="text" id="name" :placeholder="t('form.input.firstName')" v-model="firstName">
-                            </div>
-                            <div class="block">
-                                <label for="fullName" class="text-[15px] font-bold mb-[10px] block">
-                                    {{ t('form.input.lastName') }}
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    :class="{ 'border-solid border-[1px] border-red-500': errors.lastName }" type="text"
-                                    id="fullName" :placeholder="t('form.input.lastName')" v-model="lastName">
-                            </div>
-                            <div class="block">
-                                <label for="patronymic" class="text-[15px] font-bold mb-[10px] block">
-                                    {{ t('form.input.middleName') }}
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    :class="{ 'border-solid border-[1px] border-red-500': errors.patronymic }"
-                                    type="text" id="patronymic" :placeholder="t('form.input.middleName')"
-                                    v-model="patronymic">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-4">
-                        <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
-                            <div class="block">
-                                <label for="address" class="text-[15px] font-bold mb-[10px] block">
-                                    {{ t('form.input.currentAddress') }}
-                                </label>
-                                <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    :class="{ 'border-solid border-[1px] border-red-500': errors.homeAddress }"
-                                    type="text" id="address" :placeholder="t('form.input.homeAddress')"
-                                    v-model="homeAddress">
-                            </div>
-
-                            <div class="block">
-                                <label for="passport_number" class="text-[15px] font-bold mb-[10px] block">
-                                    {{ t('form.input.passportNumber') }}
-                                </label>
-                                <div class="flex">
-                                    <input
-                                        class="block text-[15px] font-Gilroy w-[70px] mr-1 bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19] uppercase text-center"
-                                        :class="{ 'border-solid border-[1px] border-red-500': errors.passportSeries }"
-                                        type="text" id="passportId" placeholder="AS" maxlength="2"
-                                        v-model="passportSeries">
-                                    <input
-                                        class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                        :class="{ 'border-solid border-[1px] border-red-500': errors.passportNumber }"
-                                        type="text" id="passport_number" :placeholder="t('form.input.passportNumber')"
-                                        maxlength="6" v-model="passportNumber">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div v-if="selectedPaymentType && requiredFiles.length" class="col-span-12">
+                    <div v-if="selectedPaymentType && requiredFiles.length" class="col-span-8">
                         <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] bg-mainWhite">
                             <h5 class="text-[20px] font-bold mb-[10px] block leading-tight">
                                 {{ t('form.filesToUpload') }}
