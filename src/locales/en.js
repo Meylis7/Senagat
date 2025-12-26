@@ -532,6 +532,8 @@ export default {
       services: 'Services',
       cards: 'Cards',
       searchPlaceholder: 'Find services here',
+      verifyAccount: 'Verify your account',
+      fullName: 'Full name',
     },
     PageTitles: {
       home: 'Home',
@@ -558,6 +560,11 @@ export default {
       submitApplication: 'Submit Application',
       details: 'Details',
       sendApplication: 'Send application',
+      edit: 'Edit',
+      sendApplication: 'Send application',
+      homePage: 'Home page',
+      verify: 'Verify',
+      logout: 'Log out',
     },
     payments: {
       homePhone: 'Home phone',
@@ -571,6 +578,10 @@ export default {
       fastAndEasy: 'Quick and convenient',
       cardIssuance: 'Order a card',
       inFewSteps: 'In a few steps',
+    },
+    modal: {
+      requiredVerification:
+        'To proceed with your {service}, you must verify your profile first.',
     },
 
     totalBalance: 'Total Balance',
@@ -600,6 +611,14 @@ export default {
       middleName: 'Patronymic',
       currentAddress: 'Current residential address',
       passportNumber: 'Passport number',
+      identityVerification: 'Identity verification',
+      dateOfBirth: 'Date of birth',
+      placeOfIssue: 'Place of issue',
+      homePhone: 'Home phone',
+      passportScan: 'Passport scan',
+      dateOfIssue: 'Date of issue',
+      citizenship: 'Citizenship',
+      pdfOnlyWarning: 'Please upload the file in PDF format only.',
     },
     select: {
       loanType: 'Loan type',

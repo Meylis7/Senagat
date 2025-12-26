@@ -9,11 +9,11 @@
 </script>
 
 <template>
-    <section class="hero pt-[130px] md:pt-[155px] pb-[80px] bg-[#173A16] relative overflow-hidden">
+    <section class="hero pt-[130px] md:pt-[155px] pb-[80px]  relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
                 <h1
-                    class="text-center mx-auto  max-w-[900px] text-2xl lg:text-4xl font-bold leading-tight text-mainWhite">
+                    class="text-center mx-auto  max-w-[900px] text-2xl lg:text-4xl font-bold leading-tight text-mainBlack">
                     {{ t('hero.title') }}
                 </h1>
 
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <span class="card-bg-circle"></span>
+        <!-- <span class="card-bg-circle"></span> -->
     </section>
 </template>
 

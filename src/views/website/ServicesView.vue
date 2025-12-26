@@ -185,13 +185,13 @@
                             :to="it.type === 'transfer' ? { name: 'transfer', params: { id: it.data.id } } : it.data.to"
                             :class="it.type === 'transfer'
                                 ? (idx === 5
-                                    ? 'col-span-12 sm:col-span-6 lg:lg:col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'
-                                    : 'col-span-12 sm:col-span-6 lg:lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition')
+                                    ? 'col-span-12 sm:col-span-6 lg:lg:col-span-8 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'
+                                    : 'col-span-12 sm:col-span-6 lg:lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition')
                                 : (it.data.special
                                     ? 'col-span-12 sm:col-span-6 lg:lg:col-span-4 !row-span-1 lg:!row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow'
                                     : (idx === 5
-                                        ? 'col-span-12 sm:col-span-6 lg:lg:col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'
-                                        : 'col-span-12 sm:col-span-6 lg:lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'))">
+                                        ? 'col-span-12 sm:col-span-6 lg:lg:col-span-8 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'
+                                        : 'col-span-12 sm:col-span-6 lg:lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'))">
                             <template v-if="it.type === 'transfer'">
                                 <h6 class="text-lg leading-tight lg:text-[24px] text-mainBlack font-bold mb-[10px]">
                                     {{ it.data.title || '' }}
@@ -242,19 +242,19 @@
                 <div v-show="activeTab === 'transfers'" class="grid grid-cols-12 gap-4">
                     <div class="col-span-12 grid grid-cols-12 gap-4">
                         <article v-if="transfersLoading" v-for="n in 2" :key="n"
-                            class="rounded-[20px] bg-white p-8 animate-pulse">
+                            class="rounded-[20px] bg-[#F7F8F6] p-8 animate-pulse">
                             <div class="h-6 bg-gray-200 rounded w-40 mb-4"></div>
                             <div class="h-4 bg-gray-200 rounded w-28"></div>
                         </article>
 
                         <div v-else-if="transfersError && transfers.length === 0"
-                            class="col-span-2 rounded-[20px] bg-white p-8">
+                            class="col-span-2 rounded-[20px] bg-[#F7F8F6] p-8">
                             <p class="text-[17px] text-[#6F736D] font-Gilroy">{{ transfersError }}</p>
                         </div>
 
                         <RouterLink v-else v-for="item in transfers" :key="item.id"
                             :to="{ name: 'transfer', params: { id: item.id } }"
-                            class="col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition">
+                            class="col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition">
                             <h6 class="text-lg leading-tight lg:text-[24px] text-mainBlack font-bold mb-[10px]">
                                 {{ item?.title || '' }}
                             </h6>
@@ -272,7 +272,7 @@
                     <RouterLink v-for="(item, idx) in informationItems" :key="idx" :to="item.to"
                         :class="item.special
                             ? 'col-span-12 sm:col-span-6 lg:col-span-4 !row-span-1 lg:!row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow'
-                            : 'col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition'">
+                            : 'col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'">
                         <h6
                             :class="['leading-7 font-bold mb-[10px]', item.special ? 'text-mainWhite text-lg leading-tight lg:text-[24px] ' : 'text-lg leading-tight lg:text-[24px] text-mainBlack']">
                             {{ item.title }}

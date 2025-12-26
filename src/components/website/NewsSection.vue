@@ -3,7 +3,7 @@
   import { RouterLink } from 'vue-router'
   import { useI18n } from 'vue-i18n'
   import apiService from '@/services/apiService'
-  import megaphone from '@/assets/images/services/services (11).png'
+  import megaphone from '@/assets/images/services/services (17).png'
 
   const { t } = useI18n()
 

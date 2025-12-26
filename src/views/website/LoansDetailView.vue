@@ -149,22 +149,21 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
-
                 <div class="flex flex-wrap items-center justify-center gap-2 mb-[60px] text-center">
                     <Breadcrumb :items="breadcrumbItems"
                         linkClass="text-[17px] font-Gilroy text-[#6F736D] whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                        currentClass="text-[17px] font-Gilroy text-mainBlack" />
                 </div>
 
                 <div class="m-auto max-w-[760px]">
-                    <h1 class=" text-mainWhite mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
+                    <h1 class=" text-mainBlack mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
                         {{ credit?.title || '' }}
                     </h1>
 
-                    <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                    <p class="text-[17px] font-Gilroy text-mainBlack/60 text-center">
                         {{ credit?.description || '' }}
                     </p>
                 </div>
@@ -176,55 +175,55 @@
             </div>
         </div>
 
-        <span class="card-bg-circle"
-            :style="credit?.background_color ? { background: credit.background_color } : null"></span>
+        <!-- <span class="card-bg-circle"
+            :style="credit?.background_color ? { background: credit.background_color } : null"></span> -->
     </section>
 
     <!-- Info  ================================================ -->
-    <section class="pt-[60px] pb-[60px]">
+    <section class="pt-[60px]">
         <div class="auto_container">
             <div class="wrap">
                 <div class="grid grid-cols-12 gap-4">
                     <div
-                        class="col-span-12 md:col-span-6 lg:col-span-4 bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center">
+                        class="col-span-12 md:col-span-6 lg:col-span-4 bg-mainWhite rounded-[20px] p-8 flex flex-col justify-center">
                         <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold mb-[10px] leading-9">
                             {{ credit?.interest || '' }} %
                         </h3>
                         <p class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D] ">
                             {{ t('credit.fixedRate') }}
                         </p>
-                        <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
+                        <!-- <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
                             <img :src="diamond1" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
-                        </span>
+                        </span> -->
                     </div>
 
                     <div
-                        class="col-span-12 md:col-span-6 lg:col-span-4 bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center">
+                        class="col-span-12 md:col-span-6 lg:col-span-4 bg-mainWhite rounded-[20px] p-8 flex flex-col justify-center">
                         <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold mb-[10px] leading-9">
                             {{ credit?.term_text || '' }}
                         </h3>
                         <p class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D] ">
                             {{ t('credit.term') }}
                         </p>
-                        <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
+                        <!-- <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
                             <img :src="diamond2" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
-                        </span>
+                        </span> -->
                     </div>
 
                     <div
-                        class="col-span-12 md:col-span-6 lg:col-span-4 bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center">
+                        class="col-span-12 md:col-span-6 lg:col-span-4 bg-mainWhite rounded-[20px] p-8 flex flex-col justify-center">
                         <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold mb-[10px] leading-9">
                             {{ credit?.max_amount ? credit?.max_amount + ' TMT' : credit?.amount_text || '' }}
                         </h3>
                         <p class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D] ">
                             {{ t('credit.amount') }}
                         </p>
-                        <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
+                        <!-- <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
                             <img :src="diamond1" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
-                        </span>
+                        </span> -->
                     </div>
                 </div>
             </div>

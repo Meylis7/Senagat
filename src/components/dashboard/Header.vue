@@ -54,7 +54,7 @@
             if (!token) {
                 needsVerification.value = true
                 profileStatus.value = 'not-confirmed'
-                displayName.value = 'Имя фамилия'
+                displayName.value = ''
                 profileChecked.value = true
                 return
             }
@@ -63,7 +63,7 @@
             needsVerification.value = profile == null
             if (!profile) {
                 profileStatus.value = 'not-confirmed'
-                displayName.value = 'Имя фамилия'
+                displayName.value = ''
             } else {
                 const status = String(profile.status || '').toLowerCase()
                 if (status === 'pending' || status === 'approved' || status === 'rejected') {
@@ -76,14 +76,14 @@
                 const initial = first ? (first[0].toUpperCase() + '.') : ''
                 const formatted = [initial, last].filter(Boolean).join('').trim()
                 const full = [first, last].filter(Boolean).join(' ').trim()
-                displayName.value = formatted || full || 'Имя фамилия'
+                displayName.value = formatted || full || ''
             }
             profileChecked.value = true
         } catch (e) {
             needsVerification.value = false
             profileStatus.value = 'not-confirmed'
             // Keep previous displayName or default
-            if (!displayName.value) displayName.value = 'Имя фамилия'
+            if (!displayName.value) displayName.value = ''
             profileChecked.value = false
         }
     }
@@ -91,13 +91,13 @@
     const statusTooltip = computed(() => {
         switch (profileStatus.value) {
             case 'pending':
-                return 'Your profile verification is pending review'
+                return t('dashboard.toast.verificationPending')
             case 'approved':
-                return 'Your profile is confirmed'
+                return t('dashboard.toast.profileConfirmed')
             case 'rejected':
-                return 'Your profile verification was rejected'
+                return t('dashboard.toast.verificationRejected')
             default:
-                return 'Your profile is not confirmed'
+                return t('dashboard.toast.profileNotConfirmed')
         }
     })
 
@@ -169,7 +169,7 @@
             <div class="wrap bg-mainWhite rounded-[20px] py-3 sm:py-5 px-5 sm:px-8 relative">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-10">
-                        <RouterLink to="/dashboard" class=" w-[46px] block">
+                        <RouterLink to="/" class=" w-[46px] block">
                             <img :src="logo" class="w-full h-full object-contain" alt="logo">
                         </RouterLink>
 
@@ -273,7 +273,7 @@
                                         </svg>
                                     </span>
                                     <h6 class="text-sm font-medium text-[#191B19]">
-                                        {{ displayName || 'Имя фамилия' }}
+                                        {{ displayName || t('dashboard.header.fullName') }}
                                     </h6>
                                 </div>
 
@@ -340,7 +340,7 @@
                                         </svg>
                                     </span>
                                     <h6 class="text-sm font-medium text-[#191B19]">
-                                        Log out
+                                        {{ t('dashboard.btn.logout') }}
                                     </h6>
                                 </div>
                             </button>
@@ -366,11 +366,11 @@
             <div class="wrap bg-[hsl(60,94%,57%)]/40 rounded-[10px] p-[14px]">
                 <div class="flex items-center justify-between gap-4">
                     <h1 class="text-[18px] font-[500] text-[#191B19]">
-                        Verify your account
+                        {{ t('dashboard.header.verifyAccount') }}
                     </h1>
                     <RouterLink :to="{ name: 'dashboard.identify' }"
-                        class="text-[16px] font-bold transition-all duration-300 hover:text-mainWhite active">
-                        Verify
+                        class="text-[16px] font-bold transition-all duration-300 active">
+                        {{ t('dashboard.btn.verify') }}
                     </RouterLink>
                 </div>
             </div>

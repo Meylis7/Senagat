@@ -527,6 +527,8 @@ export default {
       services: 'Сервисы',
       cards: 'Карты',
       searchPlaceholder: 'Найди услуги можно тут',
+      verifyAccount: 'Подтвердите свой аккаунт',
+      fullName: 'Имя ',
     },
     PageTitles: {
       home: 'Главная',
@@ -553,6 +555,11 @@ export default {
       submitApplication: 'Подать заявку',
       details: 'Подробнее',
       sendApplication: 'Отправить заявку',
+      edit: 'Редактировать',
+      sendApplication: 'Отправить заявку',
+      homePage: 'Главная страница',
+      verify: 'Подтвердить',
+      logout: 'Выйти',
     },
     payments: {
       homePhone: 'Домашний телефон',
@@ -566,6 +573,10 @@ export default {
       fastAndEasy: 'Быстро и удобно',
       cardIssuance: 'Оформление карты',
       inFewSteps: 'В пару шагов',
+    },
+    modal: {
+      requiredVerification:
+        'Чтобы продолжить оформление «{service}», сначала подтвердите профиль.',
     },
 
     totalBalance: 'Общий баланс',
@@ -595,6 +606,14 @@ export default {
       middleName: 'Отчество',
       currentAddress: 'Текущий адрес проживания',
       passportNumber: 'Номер паспорта',
+      identityVerification: 'Проверка личности',
+      dateOfBirth: 'Дата рождения',
+      placeOfIssue: 'Место выдачи',
+      homePhone: 'Домашний телефон',
+      passportScan: 'Скан паспорта',
+      dateOfIssue: 'Дата выдачи',
+      citizenship: 'Гражданство',
+      pdfOnlyWarning: 'Пожалуйста, загрузите файл только в формате PDF.',
     },
     select: {
       loanType: 'Тип кредита',

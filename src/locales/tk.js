@@ -536,6 +536,8 @@ export default {
       services: 'Hyzmatlar',
       cards: 'Kartlar',
       searchPlaceholder: 'Hyzmatlary şu ýerden tapyň',
+      verifyAccount: 'Hasabyňyzy tassyklaň',
+      fullName: 'Ady',
     },
     PageTitles: {
       home: 'Baş sahypa',
@@ -543,6 +545,12 @@ export default {
       services: 'Hyzmatlar',
       cards: 'Kartlar',
       profile: 'Profil',
+    },
+    toast: {
+      verificationPending: 'Siziň profilyňyz barlaga garaşýar',
+      profileConfirmed: 'Siziň profilyňyz tassyklanyldy',
+      verificationRejected: 'Siziň profilyňyzyň barlagy ret edildi',
+      profileNotConfirmed: 'Siziň profilyňyz tassyklanmady',
     },
     blockTitiles: {
       selectToPay: 'Töleg etmek üçin saýlaň',
@@ -562,6 +570,11 @@ export default {
       submitApplication: 'Arza tabşyrmak',
       details: 'Giňişleýin öwrenmek',
       sendApplication: 'Arza ibermek',
+      edit: 'Redaktirlemek',
+      sendApplication: 'Arza ibermek',
+      homePage: 'Baş sahypa',
+      verify: 'Tassyklamak',
+      logout: 'Hasapdan çykmak',
     },
     payments: {
       homePhone: 'Öý telefony',
@@ -575,6 +588,10 @@ export default {
       fastAndEasy: 'Çalt we amatly',
       cardIssuance: 'Karty resmileşdirmek',
       inFewSteps: 'Sanlyja ädimde',
+    },
+    modal: {
+      requiredVerification:
+        '{service} almak üçin, ilki profiliňizi tassyklaň.',
     },
 
     totalBalance: 'Jemi balans',
@@ -604,6 +621,14 @@ export default {
       middleName: 'Atasynyň ady',
       currentAddress: 'Häzirki ýaşaýan salgysy',
       passportNumber: 'Pasportyň belgisi',
+      identityVerification: 'Şahsyýeti tassyklamak',
+      dateOfBirth: 'Doglan senesi',
+      placeOfIssue: 'Berlen ýeri',
+      homePhone: 'Öý telefony',
+      passportScan: 'Pasportyň skany',
+      dateOfIssue: 'Berlen senesi',
+      citizenship: 'Raýatlygy',
+      pdfOnlyWarning: 'Faýly diňe PDF formatynda ýüklemegiňizi haýyş edýäris.',
     },
     select: {
       loanType: 'Karzyň görnüşi',

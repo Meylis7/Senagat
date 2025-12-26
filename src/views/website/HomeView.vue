@@ -367,6 +367,29 @@
   <main>
     <Hero />
 
+    <!-- Foundation =============================================================================== -->
+    <section class="pt-[60px] pb-[50px]">
+      <div class="auto_container">
+        <div class="wrap">
+          <div class="flex items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8">
+            <div class="block max-w-[460px]">
+              <h4 class=" text-[28px] font-bold mb-[10px] text-[#191B19]">
+               Siziň gelejegiňiz biziň bilen!
+              </h4>
+              <!-- <p class="text-[#6F736D] text-[17px] leading-6 mb-8 font-Gilroy">
+                Расчет предварительного платежа носит информационный характер и рассчитан при условии оформления
+                финансовой защиты кредита. Не является публичной офертой
+              </p> -->
+            </div>
+
+            <span class="h-[220px] flex items-end justify-end">
+              <img src="../../assets/images/yearslogan-2.png" class="block max-h-full object-contain" alt="year-logo">
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Offers =================================================================================== -->
     <section class="pt-[60px] md:pt-[100px] md:pb-[60px]">
       <div class="auto_container">
@@ -417,10 +440,10 @@
               :class="(i === 2 || i === 11)
                 ? 'col-span-12 sm:col-span-6 lg:col-span-4 row-span-1 lg:row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow '
                 : (i === 5)
-                  ? 'col-span-12 sm:col-span-6 lg:col-span-8 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'
+                  ? 'col-span-12 sm:col-span-6 lg:col-span-8 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'
                   : (i === 8)
                     ? 'col-span-12 sm:col-span-6 lg:col-span-8 rounded-[20px] p-8 shadow-sm text-mainWhite hover:shadow-md transition flex flex-col flex-end  bg-[#191819] hot-glow relative overflow-hidden'
-                    : 'col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-white p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'"
+                    : 'col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'"
               :style="(i === 2 || i === 11 || i === 8) ? { '--promo-glow-bg': (item.color) } : null">
               <h6 class="text-lg leading-tight lg:text-[24px]"
                 :class="(i === 2 || i === 11 || i === 8) ? 'leading-9 font-bold mb-[10px]' : 'text-mainBlack leading-7 font-bold mb-[10px]'">
@@ -461,7 +484,7 @@
           <div v-show="activeTab === 'Вклад'" class="grid gap-4 grid-cols-12">
             <RouterLink :to="`/deposits-detail?id=${item.id}`" v-for="(item, i) in deposits" :key="item.id"
               class="col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] p-8 shadow-sm hover:shadow-md transition"
-              :class="i === 2 ? 'row-span-1 lg:row-span-2 text-mainWhite relative overflow-hidden lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow' : 'bg-white'"
+              :class="i === 2 ? 'row-span-1 lg:row-span-2 text-mainWhite relative overflow-hidden lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow' : 'bg-[#F7F8F6]'"
               :style="i === 2 ? { '--promo-glow-bg': (item.background_color) } : null">
               <h6 class="text-lg leading-tight lg:text-[24px]"
                 :class="i === 2 ? 'leading-tight font-bold mb-[10px]' : 'text-mainBlack leading-7 font-bold mb-[10px]'">
@@ -483,7 +506,7 @@
 
           <div v-show="activeTab === 'Кредиты'" class="grid gap-4 grid-cols-12">
             <RouterLink :to="`/loans-detail?id=${item.id}`" v-for="item in credits" :key="item.id"
-              class="rounded-[20px] bg-white p-8 col-span-12 sm:col-span-6 lg:col-span-4 flex flex-col shadow-sm hover:shadow-md transition">
+              class="rounded-[20px] bg-[#F7F8F6] p-8 col-span-12 sm:col-span-6 lg:col-span-4 flex flex-col shadow-sm hover:shadow-md transition">
               <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
                 {{ item.title }}
               </h6>
@@ -497,7 +520,7 @@
 
           <div v-show="activeTab === 'Карты'" class="grid gap-4 grid-cols-12">
             <RouterLink :to="`/cards-detail?id=${item.id}`" v-for="item in cards" :key="item.id"
-              class="rounded-[20px] col-span-12 sm:col-span-6 lg:col-span-4 bg-white p-8 flex flex-col shadow-sm hover:shadow-md transition">
+              class="rounded-[20px] col-span-12 sm:col-span-6 lg:col-span-4 bg-[#F7F8F6] p-8 flex flex-col shadow-sm hover:shadow-md transition">
               <h6 class="text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
                 {{ item.title }}
               </h6>
@@ -528,7 +551,7 @@
               <p class="text-sm mdtext-[17px] text-[#6F736D] leading-tight mb-6 font-Gilroy group-hover:text-white">{{
                 t('exchange.onCityMap') }}</p>
               <span class="block w-[200px] md:w-[260px] absolute left-1/2 -translate-x-1/2 -bottom-[55px] z-[1]">
-                <img src="../../assets/images/services/services (10).png" class="block w-full h-full object-contain"
+                <img src="../../assets/images/services/services (16).png" class="block w-full h-full object-contain"
                   alt="currency">
               </span>
             </RouterLink>
@@ -536,7 +559,7 @@
             <div class="w-full col-span-12 md:col-span-8 rounded-[20px] bg-mainWhite p-4 ms:p-8">
               <div class="flex items-center justify-between mb-8">
                 <h6 class="text-[18px] md:text-[24px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates')
-                }}</h6>
+                  }}</h6>
               </div>
 
               <div v-show="currencyActiveTab === 'Текущий курс'"
@@ -545,7 +568,7 @@
                   t('exchange.currency') }}
                 </div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] font-Gilroy text-[#6F736D]">{{ t('exchange.buy')
-                }}</div>
+                  }}</div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] font-Gilroy text-[#6F736D]">{{
                   t('exchange.sell') }}</div>
 

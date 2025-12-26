@@ -168,12 +168,12 @@
             <div class="wrap">
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
                     <h2 class="text-[28px] font-bold leading-tight text-center">
-                        Проверка личности
+                        {{ t('form.input.identityVerification') }}
                     </h2>
 
                     <RouterLink to="/dashboard" type="button" class="flex items-center gap-[10px]">
                         <h6 class="text-[17px] font-Gilroy font-bold text-[#1D2417]">
-                            Home page
+                            {{ t('dashboard.btn.homePage') }}
                         </h6>
 
                         <span class="w-[16px] h-[16px] block rotate-180">
@@ -192,43 +192,43 @@
                         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-[22px] rounded-[20px]  bg-mainWhite">
                         <div class="block">
                             <label for="name" class="text-[15px] font-bold mb-[10px] block">
-                                Имя
+                                {{ t('form.input.firstName') }}
                             </label>
                             <input v-model="formData.first_name" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                type="text" id="name" placeholder="Имя">
+                                type="text" id="name" :placeholder="t('form.input.firstName')">
                         </div>
 
                         <div class="block">
                             <label for="Surname" class="text-[15px] font-bold mb-[10px] block">
-                                Фамилия
+                                {{ t('form.input.lastName') }}
                             </label>
                             <input v-model="formData.last_name" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                type="text" id="Surname" placeholder="Фамилия">
+                                type="text" id="Surname" :placeholder="t('form.input.lastName')">
                         </div>
 
                         <div class="block">
                             <label for="patronymic" class="text-[15px] font-bold mb-[10px] block">
-                                Отчество
+                                {{ t('form.input.middleName') }}
                             </label>
                             <input v-model="formData.middle_name" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                type="text" id="patronymic" placeholder="Отчество">
+                                type="text" id="patronymic" :placeholder="t('form.input.middleName')">
                         </div>
 
                         <div class="block">
                             <label for="birthdate" class="text-[15px] font-bold mb-[10px] block">
-                                Дата рождения
+                                {{ t('form.input.dateOfBirth') }}
                             </label>
                             <input v-model="formData.birth_date" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                type="text" id="birthdate" placeholder="Дата рождения">
+                                type="text" id="birthdate" :placeholder="t('form.input.dateOfBirth')">
                         </div>
 
                         <div class="block">
                             <label for="passport_number" class="text-[15px] font-bold mb-[10px] block">
-                                Номер паспорта
+                                {{ t('form.input.passportNumber') }}
                             </label>
                             <div class="flex">
                                 <input v-model="formData.passportId" :disabled="hasProfile && !isEditable"
@@ -236,36 +236,37 @@
                                     type="text" id="passportId" placeholder="AS" maxlength="2">
                                 <input v-model="formData.passport_number" :disabled="hasProfile && !isEditable"
                                     class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                    type="text" id="passport_number" placeholder="Номер паспорта" maxlength="6">
+                                    type="text" id="passport_number" :placeholder="t('form.input.passportNumber')"
+                                    maxlength="6">
                             </div>
                         </div>
 
                         <div class="block">
                             <label for="issued_date" class="text-[15px] font-bold mb-[10px] block">
-                                Дата выдачи
+                                {{ t('form.input.dateOfIssue') }}
                             </label>
                             <input v-model="formData.issued_date" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                type="text" id="issued_date" placeholder="Дата выдачи">
+                                type="text" id="issued_date" :placeholder="t('form.input.dateOfIssue')">
                         </div>
 
                         <div class="block">
                             <label for="issued_by" class="text-[15px] font-bold mb-[10px] block">
-                                Место выдачи
+                                {{ t('form.input.placeOfIssue') }}
                             </label>
                             <input v-model="formData.issued_by" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                type="text" id="issued_by" placeholder="Место выдачи">
+                                type="text" id="issued_by" :placeholder="t('form.input.placeOfIssue')">
                         </div>
 
                         <div class="block relative">
                             <div class="block relative">
                                 <p class="text-[15px] font-bold mb-[10px] block leading-normal">
-                                    Скан паспорта
+                                    {{ t('form.input.passportScan') }}
                                 </p>
                                 <label for="scan"
                                     class="block w-full text-[15px] font-Gilroy leading-tight border-solid border-1 border-[#EEF2ED] rounded-[10px] py-3 px-5 pr-[45px] placeholder:text-[#6F736D] text-[#191B19] truncate">
-                                    {{ fileName || 'Скан паспорта' }}
+                                    {{ fileName || t('form.input.passportScan') }}
                                 </label>
 
                                 <span class="absolute bottom-4 right-4 w-5 h-5">
@@ -280,46 +281,46 @@
                             <input class="hidden" type="file" id="scan" accept="application/pdf,.pdf"
                                 @change="handleFileChange" :disabled="hasProfile && !isEditable">
                             <p v-if="fileError" class="text-red-500 text-sm mt-1">
-                                Пожалуйста, загрузите файл только в формате PDF.
+                                {{ t('form.input.pdfOnlyWarning') }}
                             </p>
                         </div>
 
                         <div class="block">
                             <label for="citizenship" class="text-[15px] font-bold mb-[10px] block">
-                                Citizenship
+                                {{ t('form.input.citizenship') }}
                             </label>
                             <input v-model="formData.citizenship" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                type="text" id="citizenship" placeholder="Turkmenistan">
+                                type="text" id="citizenship" :placeholder="t('form.input.citizenship')">
                         </div>
 
                         <div class="block">
                             <label for="home_phone" class="text-[15px] font-bold mb-[10px] block">
-                                Home Phone
+                                {{ t('form.input.homePhone') }}
                             </label>
                             <input v-model="formData.home_phone" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                type="text" id="home_phone" placeholder="12 122112" maxlength="8">
+                                type="text" id="home_phone" :placeholder="t('form.input.homePhone')" maxlength="8">
                         </div>
 
                         <div class="block">
                             <label for="home_address" class="text-[15px] font-bold mb-[10px] block">
-                                Home Address
+                                {{ t('form.input.homeAddress') }}
                             </label>
                             <input v-model="formData.home_address" :disabled="hasProfile && !isEditable"
                                 class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
-                                type="text" id="home_address" placeholder="Aşgabat ş. Büzmeýin etrap">
+                                type="text" id="home_address" :placeholder="t('form.input.homeAddress')">
                         </div>
 
                         <div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center mt-[10x]">
                             <button v-if="hasProfile && !isEditable" type="button" @click="isEditable = true"
                                 class="bg-[#2C702C] text-white px-10 py-3 rounded-[10px] text-sm font-bold cursor-pointer text-center flex items-center gap-4">
-                                Редактировать
+                                {{ t('dashboard.btn.edit') }}
                             </button>
                             <button v-else type="submit"
                                 class="bg-[#2C702C] text-white px-10 py-3 rounded-[10px] text-sm font-bold cursor-pointer text-center flex items-center gap-4">
                                 <p class="text-sm font-bold">
-                                    Отправить заявку
+                                    {{ t('dashboard.btn.sendApplication') }}
                                 </p>
                                 <svg v-show="!loading" width="7" height="13" viewBox="0 0 7 13" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">

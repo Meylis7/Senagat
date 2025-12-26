@@ -12,12 +12,6 @@
     // Get current route
     const route = useRoute();
 
-    // Check if current page is a detail page
-    const isDetailPage = computed(() => {
-        const detailPages = ['cards-detail', 'loans-detail', 'deposits-detail', 'about'];
-        return detailPages.includes(route.name);
-    });
-
     const activeTab = ref(null);
     const navRef = ref(null);
     const contentRef = ref(null);
@@ -170,8 +164,7 @@
     ]">
         <div class="auto_container">
             <div :class="[
-                'header_inner flex items-center rounded-[20px] py-3 px-4 md:py-5 md:px-8 transition-all duration-500 ease-out relative',
-                !isDetailPage ? 'bg-mainWhite' : '',
+                'header_inner flex items-center rounded-[20px] py-3 px-4 md:py-5 md:px-8 transition-all duration-500 ease-out relative bg-mainWhite',
                 isSticky ? 'mt-3 rounded-[14px] py-3 shadow-lg bg-mainWhite' : ''
             ]">
                 <RouterLink to="/" class="block w-[46px] min-w-[46px] shrink-0 mr-8">
@@ -183,37 +176,32 @@
                         <div
                             :class="[isMenuOpen ? 'flex flex-col !items-start w-full rounded-[20px] p-8 absolute top-[100%] left-0 bg-mainWhite' : 'hidden', 'lg:flex items-center gap-[28px]']">
                             <h4 :class="[
-                                'nav-tab cursor-pointer select-none relative font-Gilroy text-[17px] font-normal',
-                                isMenuOpen ? 'text-mainBlack' : (isDetailPage && !isSticky ? 'text-mainWhite' : 'text-mainBlack'),
+                                'nav-tab cursor-pointer select-none relative font-Gilroy text-[17px] font-normal text-mainBlack',
                                 activeTab === 'one' ? 'after:contents' : ' !after:hidden'
                             ]" @click="setTab('one')">
                                 {{ t('header.privateClients') }}
                             </h4>
 
                             <h4 :class="[
-                                'nav-tab cursor-pointer select-none relative font-Gilroy text-[17px] font-normal',
-                                isMenuOpen ? 'text-mainBlack' : (isDetailPage && !isSticky ? 'text-mainWhite' : 'text-mainBlack'),
+                                'nav-tab cursor-pointer select-none relative font-Gilroy text-[17px] font-normal text-mainBlack',
                                 activeTab === 'two' ? 'after:contents' : ' !after:hidden'
                             ]" @click="setTab('two')">
                                 {{ t('header.businessAndIP') }}
                             </h4>
 
                             <RouterLink to="/services" :class="[
-                                'font-Gilroy text-[17px] font-normal',
-                                isMenuOpen ? 'text-mainBlack' : (isDetailPage && !isSticky ? 'text-mainWhite' : 'text-mainBlack')
+                                'font-Gilroy text-[17px] font-normal text-mainBlack'
                             ]"> {{ t('nav.services.title') }}
                             </RouterLink>
 
                             <RouterLink to="/about" :class="[
-                                'font-Gilroy text-[17px] font-normal',
-                                isMenuOpen ? 'text-mainBlack' : (isDetailPage && !isSticky ? 'text-mainWhite' : 'text-mainBlack')
+                                'font-Gilroy text-[17px] font-normal text-mainBlack'
                             ]">{{ t('header.aboutBank') }}
                             </RouterLink>
 
                             <div class="grid sm:grid-cols-2 lg:hidden w-full gap-3 sm:gap-6">
                                 <RouterLink to="/dashboard" :class="[
-                                    'text-sm font-bold border-solid border-[1px] rounded-[10px] px-5 py-[14px] text-center',
-                                    isMenuOpen ? 'text-[#1D2417] border-[#1D2417]' : (isDetailPage && !isSticky ? 'text-mainWhite border-[#F7F8F6]' : 'text-[#1D2417] border-[#1D2417]')
+                                    'text-sm font-bold border-solid border-[1px] rounded-[10px] px-5 py-[14px] text-center text-[#1D2417] border-[#1D2417]'
                                 ]">
                                     {{ t('header.onlineReception') }}
                                 </RouterLink>
@@ -228,8 +216,7 @@
                         <div class="flex items-center ml-auto gap-x-2">
                             <div ref="langRef" class="relative">
                                 <button type="button" @click="isLangOpen = !isLangOpen" :class="[
-                                    'flex items-center gap-2 border-solid border-[1px] border-[#EEF2ED] rounded-[10px] px-4 py-2',
-                                    isDetailPage && !isSticky ? 'border-[#F7F8F6] text-mainWhite' : 'text-[#1D2417]'
+                                    'flex items-center gap-2 border-solid border-[1px] border-[#EEF2ED] rounded-[10px] px-4 py-2 text-[#1D2417]'
                                 ]">
                                     <span class="text-sm font-bold">{{ currentLangLabel }}</span>
                                     <svg :class="['transition-transform', isLangOpen ? 'rotate-180' : 'rotate-0']"
@@ -237,7 +224,7 @@
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M10.1465 0.146527C10.193 0.100072 10.2481 0.0632224 10.3088 0.0380812C10.3695 0.01294 10.4346 -9.32947e-07 10.5003 -9.35819e-07C10.566 -9.38691e-07 10.631 0.0129399 10.6917 0.0380812C10.7524 0.0632224 10.8076 0.100072 10.854 0.146527C10.9005 0.192982 10.9373 0.248133 10.9625 0.308829C10.9876 0.369526 11.0006 0.43458 11.0006 0.500278C11.0006 0.565975 10.9876 0.631029 10.9625 0.691726C10.9373 0.752422 10.9005 0.807573 10.854 0.854028L5.85403 5.85403C5.80759 5.90052 5.75245 5.9374 5.69175 5.96256C5.63105 5.98772 5.56599 6.00067 5.50028 6.00067C5.43457 6.00067 5.36951 5.98772 5.30881 5.96256C5.24811 5.9374 5.19296 5.90052 5.14653 5.85403L0.146528 0.854028C0.0527075 0.760208 -2.37246e-07 0.63296 -2.4043e-07 0.500278C-2.43614e-07 0.367596 0.0527074 0.240348 0.146528 0.146528C0.240348 0.0527077 0.367596 -4.92905e-07 0.500278 -4.98705e-07C0.63296 -5.04505e-07 0.760207 0.0527076 0.854028 0.146528L5.50028 4.7934L10.1465 0.146527Z"
-                                            :fill="isDetailPage && !isSticky ? '#F7F8F6' : '#191B19'" />
+                                            :fill="'#191B19'" />
                                     </svg>
                                 </button>
                                 <div v-show="isLangOpen"
@@ -254,8 +241,7 @@
                                 </div>
                             </div>
                             <RouterLink to="/dashboard" :class="[
-                                'text-sm font-bold border-solid border-[1px] rounded-[10px] px-5 py-[14px] hidden lg:block',
-                                isDetailPage && !isSticky ? 'text-mainWhite border-[#F7F8F6]' : 'text-[#1D2417] border-[#1D2417]'
+                                'text-sm font-bold border-solid border-[1px] rounded-[10px] px-5 py-[14px] hidden lg:block text-[#1D2417] border-[#1D2417]'
                             ]">
                                 {{ t('header.onlineReception') }}
                             </RouterLink>
@@ -271,7 +257,7 @@
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M16.5 6.1875C16.5 6.36984 16.4276 6.54471 16.2986 6.67364C16.1697 6.80257 15.9948 6.875 15.8125 6.875H0.6875C0.505164 6.875 0.330295 6.80257 0.201364 6.67364C0.072433 6.54471 0 6.36984 0 6.1875C0 6.00516 0.072433 5.8303 0.201364 5.70136C0.330295 5.57243 0.505164 5.5 0.6875 5.5H15.8125C15.9948 5.5 16.1697 5.57243 16.2986 5.70136C16.4276 5.8303 16.5 6.00516 16.5 6.1875ZM0.6875 1.375H15.8125C15.9948 1.375 16.1697 1.30257 16.2986 1.17364C16.4276 1.0447 16.5 0.869836 16.5 0.6875C16.5 0.505164 16.4276 0.330295 16.2986 0.201364C16.1697 0.072433 15.9948 0 15.8125 0H0.6875C0.505164 0 0.330295 0.072433 0.201364 0.201364C0.072433 0.330295 0 0.505164 0 0.6875C0 0.869836 0.072433 1.0447 0.201364 1.17364C0.330295 1.30257 0.505164 1.375 0.6875 1.375ZM15.8125 11H0.6875C0.505164 11 0.330295 11.0724 0.201364 11.2014C0.072433 11.3303 0 11.5052 0 11.6875C0 11.8698 0.072433 12.0447 0.201364 12.1736C0.330295 12.3026 0.505164 12.375 0.6875 12.375H15.8125C15.9948 12.375 16.1697 12.3026 16.2986 12.1736C16.4276 12.0447 16.5 11.8698 16.5 11.6875C16.5 11.5052 16.4276 11.3303 16.2986 11.2014C16.1697 11.0724 15.9948 11 15.8125 11Z"
-                                        :fill="isSticky ? '#191B19' : (isDetailPage ? '#F7F8F6' : '#191B19')" />
+                                        :fill="'#191B19'" />
                                 </svg>
                             </button>
                         </div>

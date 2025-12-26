@@ -89,21 +89,21 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] relative overflow-hidden">
         <div class="auto_container">
             <div class="hero_wrap">
                 <div class="flex flex-wrap items-center justify-center gap-2 mb-[60px] text-center">
                     <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                        linkClass="text-[17px] font-Gilroy text-mainBlack/60 whitespace-nowrap"
+                        currentClass="text-[17px] font-Gilroy text-mainBlack" />
                 </div>
 
 
-                <h1 class="m-auto max-w-[660px] text-mainWhite mb-[10px] text-center text-[28px] md:text-5xl font-bold">
+                <h1 class="m-auto max-w-[660px] text-mainBlack mb-[10px] text-center text-[28px] md:text-5xl font-bold">
                     {{ card?.title }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <p class="text-[17px] font-Gilroy text-mainBlack/60 text-center">
                     {{ card?.sub_title || '' }}
                 </p>
 
@@ -114,7 +114,7 @@
             </div>
         </div>
 
-        <span class="card-bg-circle"></span>
+        <!-- <span class="card-bg-circle"></span> -->
     </section>
 
     <!-- Info  ================================================ -->
@@ -123,17 +123,17 @@
             <div class="wrap">
                 <div class="grid grid-cols-12 gap-4">
                     <div v-for="(adv, idx) in (card?.advantages || [])" :key="idx"
-                        :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center']">
+                        :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 flex flex-col justify-center']">
                         <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold mb-[10px] leading-tight">
                             {{ adv?.name || '' }}
                         </h3>
                         <p class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D] ">
                             {{ adv?.description || '' }}
                         </p>
-                        <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
+                        <!-- <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
                             <img :src="diamondImages[Math.floor(Math.random() * diamondImages.length)]" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
-                        </span>
+                        </span> -->
                     </div>
                 </div>
             </div>
@@ -197,14 +197,14 @@
                         class="col-span-12 md:col-span-6 lg:col-span-4 bg-mainWhite rounded-[20px] p-1">
                         <div
                             class="bg-[#EEF2ED] rounded-2xl pt-[15px] relative flex items-end justify-center overflow-hidden">
-                            <span class="block h-[150px] relative -bottom-[25px]">
+                            <span class="block h-[150px] relative pt-[15px]">
                                 <img class="block w-full h-full object-contain"
                                     :src="item.image_url || '../../assets/images/card.png'" alt="card">
                             </span>
-                            <span class="absolute right-7 bottom-5 w-[100px] hidden sm:block">
+                            <!-- <span class="absolute right-7 bottom-5 w-[100px] hidden sm:block">
                                 <img class="block w-full h-full object-contain mix-blend-hard-light"
                                     src="../../assets/images/oval.png" alt="oval-icon">
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="block p-4">
