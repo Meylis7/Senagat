@@ -6,6 +6,7 @@ export default {
     onlineReception: 'Onlaýn kanulhana',
     internetBank: 'Internet bank',
   },
+  slogan: 'Siziň gelejegiňiz biziň bilen!',
   hero: {
     title:
       'Bank kartlaryny onlaýn arkaly sargyt etmek hem-de sargyt edilen bank kartlaryny Çapar bilen eliňize eltip bermek hyzmaty',

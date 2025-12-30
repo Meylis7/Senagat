@@ -6,6 +6,7 @@ export default {
     onlineReception: 'Online Reception',
     internetBank: 'Internet Banking',
   },
+  slogan: 'Your future is with us!',
   hero: {
     title:
       'The service of ordering bank cards online and delivering the ordered bank cards right to your hands via Çapar.',
@@ -580,8 +581,7 @@ export default {
       inFewSteps: 'In a few steps',
     },
     modal: {
-      requiredVerification:
-        'To proceed with your {service}, you must verify your profile first.',
+      requiredVerification: 'To proceed with your {service}, you must verify your profile first.',
     },
 
     totalBalance: 'Total Balance',

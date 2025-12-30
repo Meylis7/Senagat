@@ -519,7 +519,7 @@
           <div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8">
             <div class="block max-w-[460px]">
               <h4 class=" text-[18px] md:text-[28px] text-center md:text-left font-bold mb-[10px] text-[#191B19]">
-                Siziň gelejegiňiz biziň bilen!
+                 {{ t('slogan') }}
               </h4>
               <!-- <p class="text-[#6F736D] text-[17px] leading-6 mb-8 font-Gilroy">
                 Расчет предварительного платежа носит информационный характер и рассчитан при условии оформления

@@ -6,6 +6,7 @@ export default {
     onlineReception: 'Онлайн приёмная',
     internetBank: 'Интернет банк',
   },
+  slogan: 'Ваше будущее с нами!',
   hero: {
     title:
       'Услуга по заказу банковских карт онлайн и доставке заказанных банковских карт курьером "Çapar" прямо вам в руки.',
@@ -575,8 +576,7 @@ export default {
       inFewSteps: 'В пару шагов',
     },
     modal: {
-      requiredVerification:
-        'Чтобы продолжить оформление «{service}», сначала подтвердите профиль.',
+      requiredVerification: 'Чтобы продолжить оформление «{service}», сначала подтвердите профиль.',
     },
 
     totalBalance: 'Общий баланс',
