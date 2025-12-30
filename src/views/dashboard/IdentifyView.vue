@@ -1,11 +1,12 @@
 <script setup>
-    import { ref, reactive, onMounted } from 'vue';
+    import { ref, reactive, onMounted, watch, computed } from 'vue';
     import { useI18n } from 'vue-i18n';
     import { useRouter } from 'vue-router';
     import { useUserStore } from '@/stores/userStore';
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
     import apiService from '@/services/apiService';
+    import CustomDropdown from '@/components/dashboard/CustomDropdown.vue';
 
     const { t, locale } = useI18n();
     const router = useRouter();
@@ -62,21 +63,32 @@
                 formData.middle_name = profile.middle_name || '';
                 formData.birth_date = profile.birth_date || '';
                 {
-                    let series = String(profile.passport_series || '').trim();
-                    let num = String(profile.passport_number || '').trim();
-                    if (!series) {
-                        const compact = num.replace(/\s+/g, '');
-                        const m = compact.match(/^([A-Za-z]{2})(\d*)$/);
-                        if (m) {
-                            series = m[1];
-                            num = m[2];
-                        } else if (compact.length >= 2) {
-                            series = compact.slice(0, 2);
-                            num = compact.slice(2);
+                    let series = String(profile.passport_series || '').trim().toUpperCase();
+                    let rawNum = String(profile.passport_number || '').trim();
+                    const compactNum = rawNum.replace(/\s+/g, '').toUpperCase();
+                    const romanSorted = [...romanOptions].sort((a, b) => b.length - a.length);
+                    let roman = '';
+                    let remainder = compactNum;
+                    for (const r of romanSorted) {
+                        if (remainder.startsWith(r)) {
+                            roman = r;
+                            remainder = remainder.slice(r.length);
+                            break;
                         }
                     }
+                    if (!series) {
+                        if (remainder.length >= 2) {
+                            series = remainder.slice(0, 2);
+                            remainder = remainder.slice(2);
+                        }
+                    }
+                    const digits = remainder.replace(/\D/g, '');
                     formData.passportId = series.toUpperCase();
-                    formData.passport_number = num.replace(/\D/g, '');
+                    formData.passport_number = digits;
+                    if (roman) romanSelected.value = roman;
+                    if (seriesOptions.includes(formData.passportId)) {
+                        seriesSelected.value = formData.passportId;
+                    }
                 }
                 formData.issued_date = profile.issued_date || '';
                 formData.issued_by = profile.issued_by || '';
@@ -107,30 +119,123 @@
         home_address: ''
     });
 
+    const romanOptions = ['I', 'II', 'III', 'IV'];
+    const seriesOptions = ['AŞ', 'AH', 'MR', 'LB', 'DZ', 'BN'];
+    const romanSelected = ref(romanOptions[0]);
+    const seriesSelected = ref(seriesOptions[0]);
+    formData.passportId = seriesSelected.value;
+
+    const errors = reactive({
+        firstName: false,
+        lastName: false,
+        middleName: false,
+        birthDate: false,
+        roman: false,
+        series: false,
+        passportNumber: false,
+        issuedDate: false,
+        issuedBy: false,
+        scanPassport: false,
+        citizenship: false,
+        homePhone: false,
+        homeAddress: false
+    });
+    const errorBorder = 'border-solid border-[1px] border-red-500';
+    const disabledTitle = computed(() => (hasProfile.value && !isEditable.value ? 'pointer-events-none opacity-50' : ''));
+    const firstNameClass = computed(() => (errors.firstName ? errorBorder : ''));
+    const lastNameClass = computed(() => (errors.lastName ? errorBorder : ''));
+    const middleNameClass = computed(() => (errors.middleName ? errorBorder : ''));
+    const birthDateClass = computed(() => (errors.birthDate ? errorBorder : ''));
+    const passportNumberClass = computed(() => (errors.passportNumber ? errorBorder : ''));
+    const issuedDateClass = computed(() => (errors.issuedDate ? errorBorder : ''));
+    const issuedByClass = computed(() => (errors.issuedBy ? errorBorder : ''));
+    const citizenshipClass = computed(() => (errors.citizenship ? errorBorder : ''));
+    const homePhoneClass = computed(() => (errors.homePhone ? errorBorder : ''));
+    const homeAddressClass = computed(() => (errors.homeAddress ? errorBorder : ''));
+    const romanTitleClass = computed(() => [disabledTitle.value, errors.roman ? errorBorder : ''].filter(Boolean).join(' '));
+    const seriesTitleClass = computed(() => [disabledTitle.value, errors.series ? errorBorder : ''].filter(Boolean).join(' '));
+    const scanLabelClass = computed(() => ((fileError.value || errors.scanPassport) ? errorBorder : ''));
+
+    const handleRomanSelected = (option) => {
+        const v = typeof option === 'object'
+            ? (option.title ?? option.name ?? option.label ?? String(option.id ?? ''))
+            : option;
+        romanSelected.value = v;
+        errors.roman = !romanOptions.includes(romanSelected.value);
+    };
+    const handleSeriesSelected = (option) => {
+        const v = typeof option === 'object'
+            ? (option.title ?? option.name ?? option.label ?? String(option.id ?? ''))
+            : option;
+        seriesSelected.value = v;
+        formData.passportId = String(v).toUpperCase();
+        errors.series = !seriesOptions.includes(String(formData.passportId || '').toUpperCase());
+    };
+
+    watch(() => formData.passportId, (val) => {
+        if (seriesOptions.includes(String(val).toUpperCase())) {
+            seriesSelected.value = String(val).toUpperCase();
+        }
+        errors.series = !seriesOptions.includes(String(formData.passportId || '').toUpperCase());
+    });
+    watch(() => formData.first_name, (v) => { if (String(v || '').trim()) errors.firstName = false; });
+    watch(() => formData.last_name, (v) => { if (String(v || '').trim()) errors.lastName = false; });
+    watch(() => formData.middle_name, (v) => { if (String(v || '').trim()) errors.middleName = false; });
+    watch(() => formData.birth_date, (v) => { if (String(v || '').trim()) errors.birthDate = false; });
+    watch(() => formData.passport_number, (v) => { if (/^\d{6}$/.test(String(v || '').trim())) errors.passportNumber = false; });
+    watch(() => formData.issued_date, (v) => { if (String(v || '').trim()) errors.issuedDate = false; });
+    watch(() => formData.issued_by, (v) => { if (String(v || '').trim()) errors.issuedBy = false; });
+    watch(fileError, (v) => { if (!v) errors.scanPassport = false; });
+    watch(() => formData.scan_passport, (v) => { if (v) errors.scanPassport = false; });
+    watch(() => formData.citizenship, (v) => { if (String(v || '').trim()) errors.citizenship = false; });
+    watch(() => formData.home_phone, (v) => { if (String(v || '').trim()) errors.homePhone = false; });
+    watch(() => formData.home_address, (v) => { if (String(v || '').trim()) errors.homeAddress = false; });
 
     const submitForm = async () => {
         loading.value = true
         try {
             const f = formData;
-            if (!String(f.first_name || '').trim()) { toast('Заполните поле: Имя', { type: 'error' }); loading.value = false; return; }
-            if (!String(f.last_name || '').trim()) { toast('Заполните поле: Фамилия', { type: 'error' }); loading.value = false; return; }
-            if (!String(f.birth_date || '').trim()) { toast('Заполните поле: Дата рождения', { type: 'error' }); loading.value = false; return; }
-            if (!/^[A-Za-z]{2}$/.test(String(f.passportId || '').trim())) { toast('Неверная серия паспорта', { type: 'error' }); loading.value = false; return; }
-            if (!/^\d{6}$/.test(String(f.passport_number || '').trim())) { toast('Неверный номер паспорта', { type: 'error' }); loading.value = false; return; }
-            if (!String(f.issued_date || '').trim()) { toast('Заполните поле: Дата выдачи', { type: 'error' }); loading.value = false; return; }
-            if (!String(f.issued_by || '').trim()) { toast('Заполните поле: Место выдачи', { type: 'error' }); loading.value = false; return; }
-            if (fileError.value) { toast('Скан паспорта должен быть PDF', { type: 'error' }); loading.value = false; return; }
-            if (!f.scan_passport) { toast('Загрузите скан паспорта (PDF)', { type: 'error' }); loading.value = false; return; }
-            if (!String(f.citizenship || '').trim()) { toast('Заполните поле: Citizenship', { type: 'error' }); loading.value = false; return; }
-            if (!String(f.home_phone || '').trim()) { toast('Заполните поле: Home Phone', { type: 'error' }); loading.value = false; return; }
-            if (!String(f.home_address || '').trim()) { toast('Заполните поле: Home Address', { type: 'error' }); loading.value = false; return; }
+            errors.firstName = !String(f.first_name || '').trim();
+            errors.lastName = !String(f.last_name || '').trim();
+            errors.middleName = !String(f.middle_name || '').trim();
+            errors.birthDate = !String(f.birth_date || '').trim();
+            errors.roman = !romanOptions.includes(romanSelected.value);
+            errors.series = !seriesOptions.includes(String(f.passportId || '').toUpperCase());
+            errors.passportNumber = !/^\d{6}$/.test(String(f.passport_number || '').trim());
+            errors.issuedDate = !String(f.issued_date || '').trim();
+            errors.issuedBy = !String(f.issued_by || '').trim();
+            errors.scanPassport = hasProfile.value
+                ? Boolean(fileError.value)
+                : (Boolean(fileError.value) || !f.scan_passport);
+            errors.citizenship = !String(f.citizenship || '').trim();
+            errors.homePhone = !String(f.home_phone || '').trim();
+            errors.homeAddress = !String(f.home_address || '').trim();
+            const anyError = Object.values(errors).some(Boolean);
+            if (anyError) {
+                if (errors.firstName) toast('Заполните поле: Имя', { type: 'error' });
+                else if (errors.lastName) toast('Заполните поле: Фамилия', { type: 'error' });
+                else if (errors.middleName) toast('Заполните поле: Отчество', { type: 'error' });
+                else if (errors.birthDate) toast('Заполните поле: Дата рождения', { type: 'error' });
+                else if (errors.series) toast('Неверная серия паспорта', { type: 'error' });
+                else if (errors.passportNumber) toast('Неверный номер паспорта', { type: 'error' });
+                else if (errors.issuedDate) toast('Заполните поле: Дата выдачи', { type: 'error' });
+                else if (errors.issuedBy) toast('Заполните поле: Место выдачи', { type: 'error' });
+                else if (errors.scanPassport) toast(fileError.value ? 'Скан паспорта должен быть PDF' : 'Загрузите скан паспорта (PDF)', { type: 'error' });
+                else if (errors.citizenship) toast('Заполните поле: Citizenship', { type: 'error' });
+                else if (errors.homePhone) toast('Заполните поле: Home Phone', { type: 'error' });
+                else if (errors.homeAddress) toast('Заполните поле: Home Address', { type: 'error' });
+                loading.value = false;
+                return;
+            }
 
             const payload = new FormData();
             payload.append('first_name', formData.first_name);
             payload.append('last_name', formData.last_name);
             payload.append('middle_name', formData.middle_name);
             payload.append('birth_date', formData.birth_date);
-            payload.append('passport_number', formData.passportId + formData.passport_number);
+            payload.append('passport_number', String(romanSelected.value || '') + String(formData.passportId || '') + String(formData.passport_number || ''));
+            payload.append('passport_series', formData.passportId);
+            payload.append('passport_roman', romanSelected.value);
             payload.append('issued_date', formData.issued_date);
             payload.append('issued_by', formData.issued_by);
             if (formData.scan_passport) {
@@ -195,7 +300,7 @@
                                 {{ t('form.input.firstName') }}
                             </label>
                             <input v-model="formData.first_name" :disabled="hasProfile && !isEditable"
-                                class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', firstNameClass]"
                                 type="text" id="name" :placeholder="t('form.input.firstName')">
                         </div>
 
@@ -204,7 +309,7 @@
                                 {{ t('form.input.lastName') }}
                             </label>
                             <input v-model="formData.last_name" :disabled="hasProfile && !isEditable"
-                                class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', lastNameClass]"
                                 type="text" id="Surname" :placeholder="t('form.input.lastName')">
                         </div>
 
@@ -213,7 +318,7 @@
                                 {{ t('form.input.middleName') }}
                             </label>
                             <input v-model="formData.middle_name" :disabled="hasProfile && !isEditable"
-                                class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', middleNameClass]"
                                 type="text" id="patronymic" :placeholder="t('form.input.middleName')">
                         </div>
 
@@ -222,7 +327,7 @@
                                 {{ t('form.input.dateOfBirth') }}
                             </label>
                             <input v-model="formData.birth_date" :disabled="hasProfile && !isEditable"
-                                class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', birthDateClass]"
                                 type="text" id="birthdate" :placeholder="t('form.input.dateOfBirth')">
                         </div>
 
@@ -230,12 +335,21 @@
                             <label for="passport_number" class="text-[15px] font-bold mb-[10px] block">
                                 {{ t('form.input.passportNumber') }}
                             </label>
-                            <div class="flex">
-                                <input v-model="formData.passportId" :disabled="hasProfile && !isEditable"
+                            <div class="flex gap-2">
+                                <!-- <input v-model="formData.passportId" :disabled="hasProfile && !isEditable"
                                     class="block text-[15px] font-Gilroy w-[70px] mr-1 bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19] uppercase text-center"
-                                    type="text" id="passportId" placeholder="AS" maxlength="2">
+                                    type="text" id="passportId" placeholder="AS" maxlength="2"> -->
+
+                                <CustomDropdown :options="romanOptions" :defaultOption="romanSelected"
+                                    :placeholder="'I'" :titleClass="romanTitleClass + ' identify-arrow-small'"
+                                    @option-selected="handleRomanSelected" />
+
+                                <CustomDropdown :options="seriesOptions" :defaultOption="seriesSelected"
+                                    :placeholder="'AŞ'" :titleClass="seriesTitleClass + ' identify-arrow-small'"
+                                    @option-selected="handleSeriesSelected" />
+
                                 <input v-model="formData.passport_number" :disabled="hasProfile && !isEditable"
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                    :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', passportNumberClass]"
                                     type="text" id="passport_number" :placeholder="t('form.input.passportNumber')"
                                     maxlength="6">
                             </div>
@@ -246,7 +360,7 @@
                                 {{ t('form.input.dateOfIssue') }}
                             </label>
                             <input v-model="formData.issued_date" :disabled="hasProfile && !isEditable"
-                                class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', issuedDateClass]"
                                 type="text" id="issued_date" :placeholder="t('form.input.dateOfIssue')">
                         </div>
 
@@ -255,7 +369,7 @@
                                 {{ t('form.input.placeOfIssue') }}
                             </label>
                             <input v-model="formData.issued_by" :disabled="hasProfile && !isEditable"
-                                class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', issuedByClass]"
                                 type="text" id="issued_by" :placeholder="t('form.input.placeOfIssue')">
                         </div>
 
@@ -265,7 +379,7 @@
                                     {{ t('form.input.passportScan') }}
                                 </p>
                                 <label for="scan"
-                                    class="block w-full text-[15px] font-Gilroy leading-tight border-solid border-1 border-[#EEF2ED] rounded-[10px] py-3 px-5 pr-[45px] placeholder:text-[#6F736D] text-[#191B19] truncate">
+                                    :class="['block w-full text-[15px] font-Gilroy leading-tight border-solid border-1 border-[#EEF2ED] rounded-[10px] py-3 px-5 pr-[45px] placeholder:text-[#6F736D] text-[#191B19] truncate', scanLabelClass]">
                                     {{ fileName || t('form.input.passportScan') }}
                                 </label>
 
@@ -290,7 +404,7 @@
                                 {{ t('form.input.citizenship') }}
                             </label>
                             <input v-model="formData.citizenship" :disabled="hasProfile && !isEditable"
-                                class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', citizenshipClass]"
                                 type="text" id="citizenship" :placeholder="t('form.input.citizenship')">
                         </div>
 
@@ -299,7 +413,7 @@
                                 {{ t('form.input.homePhone') }}
                             </label>
                             <input v-model="formData.home_phone" :disabled="hasProfile && !isEditable"
-                                class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', homePhoneClass]"
                                 type="text" id="home_phone" :placeholder="t('form.input.homePhone')" maxlength="8">
                         </div>
 
@@ -308,7 +422,7 @@
                                 {{ t('form.input.homeAddress') }}
                             </label>
                             <input v-model="formData.home_address" :disabled="hasProfile && !isEditable"
-                                class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', homeAddressClass]"
                                 type="text" id="home_address" :placeholder="t('form.input.homeAddress')">
                         </div>
 
@@ -347,4 +461,20 @@
     </section>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+    :deep(.identify-arrow-small) {
+        gap: 6px;
+        min-width: 75px;
+        margin-bottom: 0;
+    }
+
+    :deep(.identify-arrow-small span) {
+        width: 12px !important;
+        margin-left: 4px;
+    }
+
+    :deep(.identify-arrow-small span svg) {
+        width: 10px !important;
+        height: 5px !important;
+    }
+</style>
