@@ -60,22 +60,21 @@
 
 <template>
   <!-- Hero  ================================================= -->
-  <section class="hero pt-[110px] md:pt-[130px] pb-[60px] bg-[#173A16] relative overflow-hidden">
+  <section class="hero pt-[110px] md:pt-[130px] pb-[60px] relative overflow-hidden">
     <div class="auto_container">
       <div class="hero_wrap">
 
         <div class="flex items-center justify-center flex-wrap gap-2 mb-10 md:mb-[60px] text-center md:text-lef">
-          <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-            currentClass="text-sm md:text-[17px] font-Gilroy text-mainWhite" />
+          <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] font-Gilroy whitespace-nowrap"
+            currentClass="text-sm md:text-[17px] font-Gilroy" />
         </div>
 
-
         <h1
-          class="m-auto max-w-[660px] text-mainWhite mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
+          class="m-auto max-w-[660px] mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
           {{ t('about.title') }}
         </h1>
 
-        <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+        <p class="text-[17px] font-Gilroy text-center">
           {{ t('about.subtitle') }}
         </p>
 
@@ -85,7 +84,7 @@
       </div>
     </div>
 
-    <span class="card-bg-circle"></span>
+    <!-- <span class="card-bg-circle"></span> -->
   </section>
 
   <!-- Facts ================================================= -->
