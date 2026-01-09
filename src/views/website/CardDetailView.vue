@@ -8,6 +8,8 @@
     import diamond2 from '@/assets/images/dimond-2.png'
     import '@/assets/css/text.scss'
 
+    import greenBg from '@/assets/images/green_bg.png'
+
     const { t } = useI18n()
     const route = useRoute()
 
@@ -89,21 +91,22 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] relative overflow-hidden bg-cover bg-center"
+        :style="{ backgroundImage: `url(${greenBg})` }">
         <div class="auto_container">
             <div class="hero_wrap">
                 <div class="flex flex-wrap items-center justify-center gap-2 mb-[60px] text-center">
                     <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainBlack/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainBlack" />
+                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
                 </div>
 
 
-                <h1 class="m-auto max-w-[660px] text-mainBlack mb-[10px] text-center text-[28px] md:text-5xl font-bold">
+                <h1 class="m-auto max-w-[660px] text-mainWhite mb-[10px] text-center text-[28px] md:text-5xl font-bold">
                     {{ card?.title }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainBlack/60 text-center">
+                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
                     {{ card?.sub_title || '' }}
                 </p>
 

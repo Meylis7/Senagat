@@ -367,8 +367,31 @@
   <main>
     <Hero />
 
+    <!-- Foundation =============================================================================== -->
+    <section class="">
+      <div class="auto_container">
+        <div class="wrap">
+          <div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8">
+            <div class="block max-w-[460px]">
+              <h4 class=" text-[18px] md:text-[28px] text-center md:text-left font-bold mb-[10px] text-[#191B19]">
+                {{ t('slogan') }}
+              </h4>
+              <!-- <p class="text-[#6F736D] text-[17px] leading-6 mb-8 font-Gilroy">
+                Расчет предварительного платежа носит информационный характер и рассчитан при условии оформления
+                финансовой защиты кредита. Не является публичной офертой
+              </p> -->
+            </div>
+
+            <span class="h-[170px] md:h-[220px] flex items-end justify-end">
+              <img src="../../assets/images/yearslogan-2.png" class="block max-h-full object-contain" alt="year-logo">
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Offers =================================================================================== -->
-    <section class="pt-[60px] md:pt-[100px]">
+    <section class="pt-[60px] md:pt-[100px] pb-[30px]">
       <div class="auto_container">
         <div class="wrap">
           <div class="flex items-center justify-between flex-col sm:flex-row gap-4 mb-5 md:mb-10">
@@ -512,29 +535,6 @@
       </div>
     </section>
 
-    <!-- Foundation =============================================================================== -->
-    <section class="pt-[60px] pb-[50px]">
-      <div class="auto_container">
-        <div class="wrap">
-          <div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8">
-            <div class="block max-w-[460px]">
-              <h4 class=" text-[18px] md:text-[28px] text-center md:text-left font-bold mb-[10px] text-[#191B19]">
-                 {{ t('slogan') }}
-              </h4>
-              <!-- <p class="text-[#6F736D] text-[17px] leading-6 mb-8 font-Gilroy">
-                Расчет предварительного платежа носит информационный характер и рассчитан при условии оформления
-                финансовой защиты кредита. Не является публичной офертой
-              </p> -->
-            </div>
-
-            <span class="h-[170px] md:h-[220px] flex items-end justify-end">
-              <img src="../../assets/images/yearslogan-2.png" class="block max-h-full object-contain" alt="year-logo">
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Currency ================================================================================= -->
     <section class="py-[50px]">
       <div class="auto_container">
@@ -559,7 +559,7 @@
             <div class="w-full col-span-12 md:col-span-8 rounded-[20px] bg-mainWhite p-4 ms:p-8">
               <div class="flex items-center justify-between mb-8">
                 <h6 class="text-[18px] md:text-[24px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates')
-                  }}</h6>
+                }}</h6>
               </div>
 
               <div v-show="currencyActiveTab === 'Текущий курс'"
@@ -568,7 +568,7 @@
                   t('exchange.currency') }}
                 </div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] font-Gilroy text-[#6F736D]">{{ t('exchange.buy')
-                  }}</div>
+                }}</div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] font-Gilroy text-[#6F736D]">{{
                   t('exchange.sell') }}</div>
 

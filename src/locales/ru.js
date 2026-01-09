@@ -235,7 +235,7 @@ export default {
       goyumCardDeposit: 'Вклад по банковской карте «Гоюм»',
     },
     services: {
-      title: 'Сервисы и услуги',
+      title: 'Услуги',
       // moneyTransfers: 'Денежные переводы',
       // safetyDepositBoxes: 'Аренда сейфовых ячеек',
       // currencyExchange: 'Обмен валюты',

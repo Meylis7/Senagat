@@ -7,7 +7,7 @@
 
 
 
-    import logo from "@/assets/images/logo.png";
+    import logo from "@/assets/images/main_logo.png";
 
     // Get current route
     const route = useRoute();
@@ -119,7 +119,7 @@
             const list = res?.data || res
             const arr = Array.isArray(list) ? list : []
             cards.value = arr.filter((it) => String(it.category) === 'individual')
-            cardsBusiness.value = arr.filter((it) => String(it.category) === 'entrepreneur')
+            cardsBusiness.value = arr.filter((it) => String(it.category) === 'legal_entity')
         } catch (e) {
             cards.value = []
             cardsBusiness.value = []
@@ -157,17 +157,16 @@
 </script>
 
 <template>
-    <!-- <div :style="{ height: isSticky ? spacerHeight + 'px' : 'auto' }"></div> -->
     <header ref="headerRef" :class="[
-        'top-0 left- w-full z-50 transition-all duration-700 ease-out',
-        isSticky ? 'fixed -translate-y-3' : 'absolute translate-y-0'
+        'top-[0] left- w-full z-50 transition-all duration-500 ease-out',
+        isSticky ? 'fixed !top-0 -translate-y-3' : 'absolute translate-y-0'
     ]">
         <div class="auto_container">
             <div :class="[
                 'header_inner flex items-center rounded-[20px] py-3 px-4 md:py-5 md:px-8 transition-all duration-500 ease-out relative bg-mainWhite',
                 isSticky ? 'mt-3 rounded-[14px] py-3 shadow-lg bg-mainWhite' : ''
             ]">
-                <RouterLink to="/" class="block w-[46px] min-w-[46px] shrink-0 mr-8">
+                <RouterLink to="/" class="block w-[126px] min-w-[46px] shrink-0 mr-8">
                     <img :src="logo" class="block w-full h-auto object-contain" alt="logo">
                 </RouterLink>
 
@@ -194,20 +193,27 @@
                             ]"> {{ t('nav.services.title') }}
                             </RouterLink>
 
+                            <RouterLink to="/news" :class="[
+                                'font-Gilroy text-[17px] font-normal text-mainBlack'
+                            ]"> {{ t('footer.links.news') }}
+                            </RouterLink>
+
+
                             <RouterLink to="/about" :class="[
                                 'font-Gilroy text-[17px] font-normal text-mainBlack'
                             ]">{{ t('header.aboutBank') }}
                             </RouterLink>
 
+
                             <div class="grid sm:grid-cols-2 lg:hidden w-full gap-3 sm:gap-6">
                                 <RouterLink to="/dashboard" :class="[
-                                    'text-sm font-bold border-solid border-[1px] rounded-[10px] px-5 py-[14px] text-center text-[#1D2417] border-[#1D2417]'
+                                    'text-sm font-bold border-solid border-[1px] rounded-[10px] px-4 py-[14px] text-center text-[#1D2417] border-[#1D2417]'
                                 ]">
                                     {{ t('header.onlineReception') }}
                                 </RouterLink>
 
                                 <a href="http://ibc.senagatbank.com.tm/login" target="_blank"
-                                    class="text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] text-center">
+                                    class="text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-4 py-[14px] text-center">
                                     {{ t('header.internetBank') }}
                                 </a>
                             </div>
@@ -264,13 +270,14 @@
                     </div>
                 </nav>
             </div>
+
             <div ref="contentRef">
                 <Transition v-if="activeTab" name="fade-slide" mode="out-in"
                     class="tab-content relative bg-mainWhite py-8 !pt-10 lg:pt-0 px-10 lg:px-[118px] rounded-[20px] z-[50]">
                     <section v-if="activeTab === 'one'" key="one"
                         class="flex justify-between flex-wrap gap-8 relative max-h-[calc(100vh-100px)] overflow-auto no-scrollbar">
                         <button type="button" @click.stop="activeTab = null"
-                            class="lg:hidden block cursor-pointer w-5 h-fit absolute top-8 left-8">
+                            class="lg:hidden block cursor-pointer w-5 h-fit absolute top-5 left-7">
                             <svg class="w-full h-full object-contain" width="24" height="18" viewBox="0 0 24 18"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -279,8 +286,10 @@
                             </svg>
                         </button>
                         <div class="block w-full lg:w-[calc(33.33%-24px)]">
-                            <RouterLink to="/loans" class="block text-[17px] font-bold mb-[22px]">{{
-                                t('nav.loans.title') }}</RouterLink>
+                            <RouterLink :to="{ path: '/loans', query: { category: 'individual' } }"
+                                class="block text-[17px] font-bold mb-[22px]">{{
+                                    t('nav.loans.title') }}
+                            </RouterLink>
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li v-for="item in loans" :key="item.id">
                                     <RouterLink :to="`/loans-detail?id=${item.id}`"
@@ -291,8 +300,10 @@
                         </div>
 
                         <div class="block w-full lg:w-[calc(33.33%-24px)]">
-                            <RouterLink to="/cards" class="block text-[17px] font-bold mb-[22px]">{{
-                                t('nav.cards.title') }}</RouterLink>
+                            <RouterLink :to="{ path: '/cards', query: { category: 'individual' } }"
+                                class="block text-[17px] font-bold mb-[22px]">{{
+                                    t('nav.cards.title') }}
+                            </RouterLink>
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li v-for="item in cards" :key="item.id">
                                     <RouterLink :to="`/cards-detail?id=${item.id}`"
@@ -318,7 +329,7 @@
                     <section v-else-if="activeTab === 'two'" key="two"
                         class="flex gap-x-8 flex-wrap gap-8 relative max-h-[calc(100vh-100px)] overflow-auto no-scrollbar">
                         <button type="button" @click.stop="activeTab = null"
-                            class="lg:hidden block cursor-pointer w-5 h-fit absolute top-8 left-8">
+                            class="lg:hidden block cursor-pointer w-5 h-fit absolute top-5 left-7">
                             <svg class="w-full h-full object-contain" width="24" height="18" viewBox="0 0 24 18"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -327,7 +338,10 @@
                             </svg>
                         </button>
                         <div class="block w-full lg:w-[calc(33.33%-32px)]">
-                            <h4 class="text-[17px] font-bold mb-[22px]">{{ t('nav.loans.title') }}</h4>
+                            <RouterLink :to="{ path: '/loans', query: { category: 'legal_entity' } }"
+                                class="block text-[17px] font-bold mb-[22px]">
+                                {{ t('nav.loans.title') }}
+                            </RouterLink>
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li v-for="item in loansBusiness" :key="item.id">
                                     <RouterLink :to="`/loans-detail?id=${item.id}`"
@@ -338,7 +352,10 @@
                         </div>
 
                         <div class="block w-full lg:w-[calc(33.33%-32px)]">
-                            <h4 class="text-[17px] font-bold mb-[22px]">{{ t('nav.cards.title') }}</h4>
+                            <RouterLink :to="{ path: '/cards', query: { category: 'legal_entity' } }"
+                                class="block text-[17px] font-bold mb-[22px]">
+                                {{ t('nav.cards.title') }}
+                            </RouterLink>
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li v-for="item in cardsBusiness" :key="item.id">
                                     <RouterLink :to="`/cards-detail?id=${item.id}`"

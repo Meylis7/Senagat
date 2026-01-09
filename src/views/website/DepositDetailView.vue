@@ -9,6 +9,7 @@
 
     import NewsSection from '@/components/website/NewsSection.vue';
 
+    import greenBg from '@/assets/images/green_bg.png'
 
     const { t } = useI18n()
     const route = useRoute()
@@ -63,23 +64,24 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] relative overflow-hidden  bg-cover bg-center"
+        :style="{ backgroundImage: `url(${greenBg})` }">
         <div class="auto_container">
             <div class="hero_wrap">
 
                 <div class="flex flex-wrap items-center justify-center gap-2 mb-[60px] text-center">
                     <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainBlack/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainBlack" />
+                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
                 </div>
 
 
                 <h1
-                    class="m-auto max-w-[600px] text-mainBlack mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
+                    class="m-auto max-w-[600px] text-mainWhite mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
                     {{ deposit?.title }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainBlack/60 text-center">
+                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
                     {{ deposit?.description }}
                 </p>
 

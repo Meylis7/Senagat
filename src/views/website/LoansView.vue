@@ -1,6 +1,6 @@
 <script setup>
-    import { RouterLink } from 'vue-router';
-    import { ref, computed, onMounted } from 'vue';
+    import { RouterLink, useRoute } from 'vue-router';
+    import { ref, computed, onMounted, watch } from 'vue';
     import { useI18n } from 'vue-i18n';
     import apiService from '@/services/apiService';
     import NewsSection from '@/components/website/NewsSection.vue';
@@ -15,6 +15,7 @@
         { label: t('tabs.credits') },
     ];
 
+    const route = useRoute()
     const credits = ref([])
     const creditsLoading = ref(false)
     const creditsError = ref(null)
@@ -25,11 +26,17 @@
         try {
             const response = await apiService.fetchCreditTypes()
             if (response?.success && Array.isArray(response?.data)) {
-                credits.value = response.data
+                const raw = String(route.query?.category || '').toLowerCase()
+                const category = raw === 'legal_entity' ? 'legal_entity' : 'individual'
+                credits.value = (response.data || []).filter((it) => String(it.category) === category)
             } else if (Array.isArray(response)) {
-                credits.value = response
+                const raw = String(route.query?.category || '').toLowerCase()
+                const category = raw === 'legal_entity' ? 'legal_entity' : 'individual'
+                credits.value = (response || []).filter((it) => String(it.category) === category)
             } else if (Array.isArray(response?.data)) {
-                credits.value = response.data
+                const raw = String(route.query?.category || '').toLowerCase()
+                const category = raw === 'legal_entity' ? 'legal_entity' : 'individual'
+                credits.value = (response.data || []).filter((it) => String(it.category) === category)
             } else {
                 credits.value = []
             }
@@ -44,6 +51,10 @@
     onMounted(() => {
         fetchCredits();
     });
+    // Refetch when category changes via query
+    watch(() => route.fullPath, () => {
+        fetchCredits()
+    })
 </script>
 
 <template>

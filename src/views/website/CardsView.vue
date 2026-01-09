@@ -1,5 +1,5 @@
 <script setup>
-    import { RouterLink } from 'vue-router'
+    import { RouterLink, useRoute } from 'vue-router'
     import { useI18n } from 'vue-i18n';
     import apiService from '@/services/apiService';
     import { ref, onMounted } from 'vue';
@@ -16,6 +16,7 @@
         { label: t('tabs.cards') },
     ]
 
+    const route = useRoute()
     const cards = ref([])
     const cardsLoading = ref(false)
     const cardsError = ref(null)
@@ -27,7 +28,9 @@
             const response = await apiService.fetchCardTypes()
             const list = response?.data || response || []
             const arr = Array.isArray(list) ? list : []
-            cards.value = arr.filter((it) => String(it.category) === 'individual')
+            const raw = String(route.query?.category || '').toLowerCase()
+            const category = raw === 'legal_entity' ? 'legal_entity' : 'individual'
+            cards.value = arr.filter((it) => String(it.category) === category)
         } catch (error) {
             cardsError.value = error.message || 'Failed to load cards'
             cards.value = []
@@ -40,6 +43,10 @@
     onMounted(() => {
         fetchCards();
     });
+    // Refetch when category changes via query
+    watch(() => route.fullPath, () => {
+        fetchCards()
+    })
 
 </script>
 
