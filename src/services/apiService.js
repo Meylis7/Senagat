@@ -103,6 +103,9 @@ const apiService = {
   fetchDeposits(params = {}) {
     return apiClient.get('/v1/deposits', { params })
   },
+  fetchDepositDetail(id) {
+    return apiClient.get(`/v1/deposits/${id}`)
+  },
 
   fetchCardTypes(params = {}) {
     return apiClient.get('/v1/card/types', { params })
@@ -114,6 +117,9 @@ const apiService = {
 
   fetchTransfers(params = {}) {
     return apiClient.get('/v1/money-transfers', { params })
+  },
+  fetchTransferDetail(id) {
+    return apiClient.get(`/v1/money-transfers/${id}`)
   },
 
   fetchTariffs(params = {}) {

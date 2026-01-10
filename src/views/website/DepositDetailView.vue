@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, computed, onMounted } from 'vue';
+    import { ref, computed, onMounted, watch } from 'vue';
     import { RouterLink, useRoute } from 'vue-router';
     import { useI18n } from 'vue-i18n'
     import Breadcrumb from '@/components/website/Breadcrumb.vue'
@@ -33,7 +33,7 @@
         loading.value = true
         error.value = null
         try {
-            const response = await apiService.get(`/v1/deposits/${depositId.value}`)
+            const response = await apiService.fetchDepositDetail(depositId.value)
             const data = response?.data || response
             if (data && !Array.isArray(data)) {
                 deposit.value = data
@@ -58,6 +58,13 @@
     const advColSpan = computed(() => {
         const n = (deposit.value?.advantages || []).length
         return n === 2 ? 'col-span-12 md:col-span-6' : 'col-span-12 md:col-span-6 lg:col-span-4'
+    })
+
+    watch(depositId, (val, oldVal) => {
+        if (val && val !== oldVal) {
+            fetchDepositDetail()
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
     })
 
 </script>

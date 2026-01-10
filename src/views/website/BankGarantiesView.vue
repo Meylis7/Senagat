@@ -6,50 +6,51 @@
     import apiService from '@/services/apiService'
 
     import NewsSection from '@/components/website/NewsSection.vue';
+    import greenBg from '@/assets/images/green_bg.png'
+
 
 
     const { t, tm } = useI18n()
-    const route = useRoute()
+    // const route = useRoute()
 
-    const depositId = computed(() => route.params?.id || route.query?.id)
-    const deposit = ref(null)
-    const loading = ref(false)
-    const error = ref(null)
+    // const depositId = computed(() => route.params?.id || route.query?.id)
+    // const deposit = ref(null)
+    // const loading = ref(false)
+    // const error = ref(null)
 
     const breadcrumbItems = computed(() => {
-        const currentTitle = deposit.value?.title || ''
+        // const currentTitle = deposit.value?.title || ''
         return [
             { label: t('breadcrumb.home'), path: '/' },
             { label: t('breadcrumb.services'), path: '/services' },
-            { label: t('nav.informations.title'), path: '/services' },
             { label: t('nav.informations.bankGuarantees') },
         ]
     })
 
-    const fetchDepositDetail = async () => {
-        if (!depositId.value) return
-        loading.value = true
-        error.value = null
-        try {
-            const response = await apiService.get(`/v1/deposits/${depositId.value}`)
-            const data = response?.data || response
-            if (data && !Array.isArray(data)) {
-                deposit.value = data
-            } else {
-                deposit.value = null
-                error.value = 'Deposit not found'
-            }
-        } catch (e) {
-            error.value = e.message || 'Failed to load deposit'
-            deposit.value = null
-        } finally {
-            loading.value = false
-        }
-    }
+    // const fetchDepositDetail = async () => {
+    //     if (!depositId.value) return
+    //     loading.value = true
+    //     error.value = null
+    //     try {
+    //         const response = await apiService.fetchDepositDetail(depositId.value)
+    //         const data = response?.data || response
+    //         if (data && !Array.isArray(data)) {
+    //             deposit.value = data
+    //         } else {
+    //             deposit.value = null
+    //             error.value = 'Deposit not found'
+    //         }
+    //     } catch (e) {
+    //         error.value = e.message || 'Failed to load deposit'
+    //         deposit.value = null
+    //     } finally {
+    //         loading.value = false
+    //     }
+    // }
 
-    onMounted(() => {
-        fetchDepositDetail()
-    })
+    // onMounted(() => {
+    //     fetchDepositDetail()
+    // })
 
 
     const guaranteeAdvs = computed(() => {
@@ -61,7 +62,8 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] relative overflow-hidden bg-cover bg-center"
+        :style="{ backgroundImage: `url(${greenBg})` }">
         <div class="auto_container">
             <div class="hero_wrap">
 
@@ -84,13 +86,13 @@
 
 
                 <span class="block mt-[80px] md:mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
-                    <img src="../../assets/images/Guarantees.png" class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/services/services (5).png" class="block w-full h-full object-contain" alt="card">
                 </span>
             </div>
         </div>
 
-        <span class="card-bg-circle"
-            :style="deposit?.background_color ? { background: deposit.background_color } : null"></span>
+        <!-- <span class="card-bg-circle"
+            :style="deposit?.background_color ? { background: deposit.background_color } : null"></span> -->
     </section>
 
     <!-- Info  ================================================ -->

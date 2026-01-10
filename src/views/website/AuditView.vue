@@ -4,10 +4,10 @@
     import { useI18n } from 'vue-i18n'
     import Breadcrumb from '@/components/website/Breadcrumb.vue'
     import apiService from '@/services/apiService'
-    import diamond1 from '@/assets/images/dimond-1.png'
-    import diamond2 from '@/assets/images/dimond-2.png'
 
     import NewsSection from '@/components/website/NewsSection.vue';
+    import greenBg from '@/assets/images/green_bg.png'
+
 
 
     const { t, tm } = useI18n()
@@ -22,7 +22,6 @@
         return [
             { label: t('breadcrumb.home'), path: '/' },
             { label: t('breadcrumb.services'), path: '/services' },
-            { label: t('nav.informations.title'), path: '/services' },
             { label: t('nav.informations.auditReports') },
         ]
     })
@@ -100,7 +99,8 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden  bg-cover bg-center"
+        :style="{ backgroundImage: `url(${greenBg})` }">
         <div class="auto_container">
             <div class="hero_wrap">
 
@@ -123,12 +123,12 @@
 
 
                 <span class="block mt-[80px] md:mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
-                    <img src="../../assets/images/Audit.png" class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/services/services (8).png" class="block w-full h-full object-contain" alt="card">
                 </span>
             </div>
         </div>
 
-        <span class="card-bg-circle"></span>
+        <!-- <span class="card-bg-circle"></span> -->
     </section>
 
     <!-- Useful information ============================================== -->

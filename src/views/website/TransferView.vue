@@ -9,6 +9,8 @@
     import '@/assets/css/text.scss'
 
     import NewsSection from '@/components/website/NewsSection.vue';
+    import greenBg from '@/assets/images/green_bg.png'
+
 
 
     const { t } = useI18n()
@@ -33,7 +35,7 @@
         loading.value = true
         error.value = null
         try {
-            const response = await apiService.get(`/v1/money-transfers/${transferId.value}`)
+            const response = await apiService.fetchTransferDetail(transferId.value)
             const data = response?.data || response
             if (data && !Array.isArray(data)) {
                 transfer.value = data
@@ -64,11 +66,13 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden">
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] relative overflow-hidden bg-cover bg-center"
+        :style="{ backgroundImage: `url(${greenBg})` }">
         <div class="auto_container">
             <div class="hero_wrap">
 
-                <div class="flex items-center flex-wrap justify-center gap-2 mb-10 md:mb-[60px] text-center md:text-left">
+                <div
+                    class="flex items-center flex-wrap justify-center gap-2 mb-10 md:mb-[60px] text-center md:text-left">
                     <Breadcrumb :items="breadcrumbItems"
                         linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
                         currentClass="text-[17px] font-Gilroy text-mainWhite" />
@@ -83,15 +87,14 @@
                     {{ transfer?.sub_title || '' }}
                 </p>
 
-
-                <span class="block mt-[125px] w-full w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
+                <span class="block mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
                     <img :src="transfer?.image_url" class="block w-full h-full object-contain" alt="card">
                 </span>
             </div>
         </div>
 
-        <span class="card-bg-circle"
-            :style="transfer?.background_color ? { background: transfer.background_color } : null"></span>
+        <!-- <span class="card-bg-circle"
+            :style="transfer?.background_color ? { background: transfer.background_color } : null"></span> -->
     </section>
 
     <!-- Info  ================================================ -->
@@ -130,7 +133,8 @@
 
                 <div class="my-10" v-if="Array.isArray(transfer?.tariff_details) && transfer.tariff_details.length">
                     <div v-for="(detail, di) in transfer.tariff_details" :key="di" class="mb-8">
-                        <h3 v-if="detail?.table_title" class="text-[17px] md:text-[20px] text-center mb-4 leading-tight">
+                        <h3 v-if="detail?.table_title"
+                            class="text-[17px] md:text-[20px] text-center mb-4 leading-tight">
                             {{ detail.table_title }}
                         </h3>
                         <div class="block overflow-auto w-full">
@@ -159,7 +163,8 @@
                     </div>
                 </div>
 
-                <div class="text-sm md:text-[18px] mb-10 leading-tight description" v-html="transfer?.footer_text || ''">
+                <div class="text-sm md:text-[18px] mb-10 leading-tight description"
+                    v-html="transfer?.footer_text || ''">
                 </div>
             </div>
         </div>

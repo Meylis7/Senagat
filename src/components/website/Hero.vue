@@ -9,17 +9,17 @@
     import 'swiper/css/effect-fade'
 
     import card from "@/assets/images/cards/hero-card.png";
-    import hero1 from '@/assets/images/slider/sldier (2).png'
-    import hero2 from '@/assets/images/slider/sldier (1).png'
-    import hero3 from '@/assets/images/slider/sldier (3).png'
-    import hero4 from '@/assets/images/slider/sldier (4).png'
+    import hero1 from '@/assets/images/slider/slide (2).png'
+    import hero2 from '@/assets/images/slider/slide (1).png'
+    import hero3 from '@/assets/images/slider/slide (3).png'
+    import hero4 from '@/assets/images/slider/slide (4).png'
     const heroImages = ref([hero1, hero2, hero3, hero4])
 
 </script>
 
 <template>
     <section>
-        <Swiper :modules="[Autoplay, EffectFade]" :autoplay="{ delay: 8000, disableOnInteraction: false }" :loop="true"
+        <Swiper :modules="[Autoplay, EffectFade]" :autoplay="{ delay: 4000, disableOnInteraction: false }" :loop="true"
             :slides-per-view="1" :space-between="0" effect="fade" :fade-effect="{ crossFade: true }">
             <SwiperSlide v-for="img in heroImages" :key="img" class="mb-[80px] relative overflow-hidden max-h-[1200px]">
                 <!-- <div class="item">
