@@ -543,6 +543,12 @@ export default {
       cards: 'Cards',
       profile: 'Profile',
     },
+    toast: {
+      verificationPending: 'Your profile verification is pending review',
+      profileConfirmed: 'Your profile has been confirmed',
+      verificationRejected: 'Your profile verification was rejected',
+      profileNotConfirmed: 'Your profile is not confirmed',
+    },
     blockTitiles: {
       selectToPay: 'Select what to pay',
       paymentHistory: 'Payment History',

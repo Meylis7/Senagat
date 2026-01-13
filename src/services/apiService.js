@@ -132,6 +132,30 @@ const apiService = {
   fetchBranches(params = {}) {
     return apiClient.get('/v1/location/branches', { params })
   },
+  fetchBanks(params = {}) {
+    return apiClient.get('/v1/belet/banks', { params })
+  },
+  fetchBanksAuth(token, params = {}) {
+    return apiClient.get('/v1/belet/banks', {
+      params,
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  },
+  fetchBeletBalancesAuth(token, params = {}) {
+    return apiClient.get('/v1/belet/balances', {
+      params,
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  },
+  checkBeletPhone(token, phone) {
+    return apiClient.post(
+      '/v1/belet/belet/check-phone',
+      { phone },
+      {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      },
+    )
+  },
   fetchInternationalPaymentTypes(params = {}) {
     return apiClient.get('/v1/international-payment-types', { params })
   },
@@ -146,6 +170,11 @@ const apiService = {
   },
   submitCertificateOrder(data, token) {
     return apiClient.post('/v1/certificate-order', data, {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  },
+  submitBeletTopUp(data, token) {
+    return apiClient.post('/v1/belet/top-up', data, {
       headers: token ? { Authorization: `Bearer ${token}` } : undefined,
     })
   },

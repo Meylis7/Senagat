@@ -75,10 +75,10 @@
         <div @click="toggleDropdown"
             class="cursor-pointer py-3 px-5 rounded-[10px] bg-[#EEF2ED] flex items-center justify-between mb-1"
             :class="props.titleClass">
-            <h4 class="text-[15px] text-[#6F736D] font-Gilroy max-w-[80%] truncate">
+            <h4 class="text-[15px] text-mainBlack font-medium font-Gilroy max-w-[80%] truncate">
                 {{ selectedOption }}
             </h4>
-            <span class="block w-[18px] transition-transform duration-300 ml-[5px]"
+            <span class="block w-[15px] transition-transform duration-300 ml-[5px]"
                 :class="{ 'rotate-180': isDropdownOpen }">
                 <svg class="w-full h-full object-contain" width="13" height="7" viewBox="0 0 13 7" fill="none"
                     xmlns="http://www.w3.org/2000/svg">

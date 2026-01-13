@@ -538,6 +538,12 @@ export default {
       cards: 'Карты',
       profile: 'Профиль',
     },
+    toast: {
+      verificationPending: 'Ваш профиль ожидает проверки',
+      profileConfirmed: 'Ваш профиль подтвержден',
+      verificationRejected: 'Проверка вашего профиля отклонена',
+      profileNotConfirmed: 'Ваш профиль не подтвержден',
+    },
     blockTitiles: {
       selectToPay: 'Выберите что бы оплатить',
       paymentHistory: 'История платежей',

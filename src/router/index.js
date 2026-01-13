@@ -192,6 +192,12 @@ const router = createRouter({
           name: 'dashboard.card-application',
           component: () => import('@/views/dashboard/CardApplicationView.vue'),
         },
+
+        {
+          path: 'belet',
+          name: 'dashboard.belet',
+          component: () => import('@/views/dashboard/BeletView.vue'),
+        },
       ],
     },
 

@@ -104,7 +104,7 @@
                                     </p>
                                 </RouterLink>
 
-                                <RouterLink to="/dashboard"
+                                <RouterLink :to="{ name: 'dashboard.belet' }"
                                     class="flex items-center gap-[10px] p-2 sm:p-3 hover:shadow-md hover:bg-[#fafafa] rounded-xl transition-all duration-300">
                                     <span class="block w-9 sm:w-[50px] h-9 sm:h-[50px]">
                                         <img class="w-full h-full object-contain"
