@@ -547,6 +547,13 @@ export default {
       cards: 'Kartlar',
       profile: 'Profil',
     },
+    status: {
+      notConfirmed: 'Tassyklanmady',
+      confirmed: 'Tassyklandy',
+      success: 'Şowly',
+      rejected: 'Ret edildi',
+      pending: 'Garaşylýar',
+    },
     toast: {
       verificationPending: 'Siziň profilyňyz barlaga garaşýar',
       profileConfirmed: 'Siziň profilyňyz tassyklanyldy',
@@ -576,6 +583,9 @@ export default {
       homePage: 'Baş sahypa',
       verify: 'Tassyklamak',
       logout: 'Hasapdan çykmak',
+      pay: 'Tölemek',
+      back: 'Yza',
+      signUp: 'Hasaba durmak',
     },
     payments: {
       homePhone: 'Öý telefony',
@@ -591,8 +601,15 @@ export default {
       inFewSteps: 'Sanlyja ädimde',
     },
     modal: {
-      requiredVerification:
-        '{service} almak üçin, ilki profiliňizi tassyklaň.',
+      requiredVerification: '{service} almak üçin, ilki profiliňizi tassyklaň.',
+    },
+    payment: {
+      status: 'Status',
+      title: 'Sözbaşy',
+      amount: 'Möçberi',
+      date: 'Sene',
+      description: 'Düşündiriş',
+      allHistory: 'Ähli taryhy',
     },
 
     totalBalance: 'Jemi balans',
@@ -605,6 +622,8 @@ export default {
 
   form: {
     filesToUpload: 'Ýüklemek üçin faýllar',
+    registration: 'Hasaba durmak',
+    signIn: 'Içerik girmek',
     label: {},
     input: {
       patentNumber: 'Patent belgisi',
@@ -630,6 +649,13 @@ export default {
       dateOfIssue: 'Berlen senesi',
       citizenship: 'Raýatlygy',
       pdfOnlyWarning: 'Faýly diňe PDF formatynda ýüklemegiňizi haýyş edýäris.',
+      enterPhone: 'Telefon belgiňizi giriziň',
+      paymentOptions: 'Töleg görnüşleri',
+      insertPassword: 'Paroly giriziň',
+      codeSentTo: 'Kod şu belgä iberildi',
+      createPassword: 'Parol dörediň',
+      createStrongPassword: 'Ynamly parol dörediň',
+      password: 'Parol',
     },
     select: {
       loanType: 'Karzyň görnüşi',

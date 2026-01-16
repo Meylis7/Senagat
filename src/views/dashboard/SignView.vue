@@ -235,11 +235,11 @@
             <div class="grid grid-cols-2 bg-[#F7F8F6] p-1 gap-5 rounded-[20px] w-full mb-4">
                 <h5 @click="activeTab = 'signup'; currentStep = 'phone'"
                     :class="['text-[17px] rounded-2xl font-Gilroy py-3 text-center cursor-pointer', activeTab === 'signup' ? 'bg-[#2C702C] text-[#EEF2ED]' : 'text-[#6F736D]']">
-                    Регистрация
+                    {{ t('form.registration') }}
                 </h5>
                 <h5 @click="activeTab = 'signin'; currentStep = 'phone'"
                     :class="['text-[17px] rounded-2xl font-Gilroy py-3 text-center cursor-pointer', activeTab === 'signin' ? 'bg-[#2C702C] text-[#EEF2ED]' : 'text-[#6F736D]']">
-                    Войти
+                    {{ t('form.signIn') }}
                 </h5>
             </div>
 
@@ -248,13 +248,13 @@
                 <div class="grid gap-4 bg-[#F7F8F6] p-[22px] rounded-[20px] w-full">
                     <div class="block">
                         <label for="phone_l" class="block text-[17px] font-bold text-[#191B19] mb-4">
-                            Введите телефон
+                            {{ t('form.input.enterPhone') }}
                         </label>
                         <div class="flex">
                             <input type="number" value="+993" placeholder="+993" readonly
                                 class="py-3 text-center rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] font-Gilroy mr-1 w-[72px] block">
 
-                            <input type="number" id="phone_l" placeholder="Введите номер" v-model="phone"
+                            <input type="number" id="phone_l" :placeholder="t('form.input.enterPhone')" v-model="phone"
                                 @input="onPhoneInput"
                                 :class="['py-3 px-5 rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] font-Gilroy w-[calc(100%-72px)]', { 'border-solid border border-red-500': isPhoneError }]">
                         </div>
@@ -262,15 +262,16 @@
 
                     <div class="block">
                         <label for="password_l" class="block text-[17px] font-bold text-[#191B19] mb-4">
-                            Введите пароль
+                            {{ t('form.input.insertPassword') }}
                         </label>
-                        <input type="password" id="password_l" placeholder="Пароль" v-model="password"
+                        <input type="password" id="password_l" :placeholder="t('form.input.password')"
+                            v-model="password"
                             class="py-3 px-5 rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] font-Gilroy w-[calc(100%-0px)]">
                     </div>
 
                     <button class="w-full flex items-center justify-center gap-2 py-2 rounded-[10px] bg-[#2C702C]">
                         <p class="text-[16px] text-[#EEF2ED] ">
-                            Войти
+                            {{ t('form.signIn') }}
                         </p>
                         <svg v-show="!loading" width="7" height="13" viewBox="0 0 7 13" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -298,13 +299,13 @@
                 <div class="grid gap-4 bg-[#F7F8F6] p-[22px] rounded-[20px] w-full">
                     <div class="block">
                         <label for="phone_s" class="block text-[17px] font-bold text-[#191B19] mb-4">
-                            Введите телефон
+                            {{ t('form.input.enterPhone') }}
                         </label>
                         <div class="flex">
                             <input type="number" value="+993" placeholder="+993" readonly
                                 class="py-3 text-center rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] font-Gilroy mr-1 w-[72px] block">
 
-                            <input type="number" id="phone_s" placeholder="Введите номер" v-model="phone"
+                            <input type="number" id="phone_s" :placeholder="t('form.input.enterPhone')" v-model="phone"
                                 @input="onPhoneInput"
                                 :class="['py-3 px-5 rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] font-Gilroy mr-[10px] w-[calc(100%-144px)]', { 'border-solid borde-1 border-red-500': isPhoneError }]">
 
@@ -344,16 +345,16 @@
                     </span>
 
                     <h6 class="text-[17px] font-Gilroy font-bold text-[#1D2417]">
-                        Назад
+                        {{ t('dashboard.btn.back') }}
                     </h6>
                 </button>
 
                 <div class="grid bg-[#F7F8F6] p-[22px] rounded-[20px] w-full relative">
                     <label for="phone" class="block text-[17px] font-bold text-[#191B19] mb-4">
-                        Введите телефон
+                        {{ t('form.input.insertPassword') }}
                     </label>
                     <p class="text-[15px] text-[#6F736D] font-Gilroy mb-4">
-                        Код был отправлен на +993{{ sentPhone || userStore.phoneNumber || '' }}
+                        {{ t('form.input.codeSentTo') }} +993{{ sentPhone || userStore.phoneNumber || '' }}
                     </p>
                     <div class="relative min-h-[48px] flex items-center justify-center">
                         <div class="grid grid-cols-5 gap-1"
@@ -393,22 +394,22 @@
                     </span>
 
                     <h6 class="text-[17px] font-Gilroy font-bold text-[#1D2417]">
-                        Назад
+                        {{ t('dashboard.btn.back') }}
                     </h6>
                 </button>
                 <div class="relative grid bg-[#F7F8F6] p-[22px] rounded-[20px] w-full">
                     <label for="password_s" class="block text-[17px] font-bold text-[#191B19] mb-4">
-                        Придумайте пароль
+                        {{ t('form.input.createPassword') }}
                     </label>
                     <p class="text-[15px] text-[#6F736D] font-Gilroy mb-4">
-                        Придумайте надежный пароль
+                        {{ t('form.input.createStrongPassword') }}
                     </p>
-                    <input type="password" id="password_s" placeholder="Пароль" v-model="password"
+                    <input type="password" id="password_s" :placeholder="t('form.input.password')" v-model="password"
                         class="py-3 px-5 rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] font-Gilroy w-[calc(100%-0px)]">
 
                     <button class="w-full flex items-center justify-center gap-2 py-2 mt-4 rounded-[10px] bg-[#2C702C]">
                         <p class="text-[16px] text-[#EEF2ED]">
-                            Зарегистрироваться
+                            {{ t('dashboard.btn.signUp') }}
                         </p>
                         <svg v-show="!loading" width="7" height="13" viewBox="0 0 7 13" fill="none"
                             xmlns="http://www.w3.org/2000/svg">

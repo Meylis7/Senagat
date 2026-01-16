@@ -227,6 +227,13 @@ const apiService = {
   login(data) {
     return apiClient.post('/v1/users/auth/login', data)
   },
+  
+  fetchPaymentHistoryAuth(token, params = {}) {
+    return apiClient.get('/v1/payment-history', {
+      params,
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    })
+  },
 }
 
 export default apiService

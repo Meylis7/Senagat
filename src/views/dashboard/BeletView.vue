@@ -231,12 +231,12 @@
     <section class="pb-[80px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="flex items-center mb-[22px]">
-                    <RouterLink :to="{ name: 'dashboard.payments' }" class="text-[#6F736D] text-[28px] font-bold">
-                        Платежи
+                <div class="flex items-center mb-[22px] gap-2">
+                    <RouterLink to="/dashboard" class="text-[#6F736D] text-[28px] font-bold">
+                        {{ t('dashboard.PageTitles.home') }}
                     </RouterLink>
                     <p class="text-[28px] font-bold">
-                        /Интернет и ТВ
+                        / Belet Film
                     </p>
                 </div>
 
@@ -244,14 +244,14 @@
                     <div class="col-span-5 p-[22px] rounded-[20px] bg-mainWhite">
                         <div class="block">
                             <label for="phone_s" class="block text-[15px] font-bold text-[#191B19] mb-4">
-                                Введите телефон
+                                {{ t('form.input.enterPhone') }}
                             </label>
                             <div class="flex relative">
                                 <input type="number" value="+993" placeholder="+993" readonly
                                     class="py-3 text-center rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] font-Gilroy mr-1 w-[72px] block">
 
-                                <input type="number" id="phone_s" placeholder="Введите номер" v-model="phone"
-                                    @input="onPhoneInput" @blur="checkPhone"
+                                <input type="number" id="phone_s" :placeholder="t('form.input.enterPhone')"
+                                    v-model="phone" @input="onPhoneInput" @blur="checkPhone"
                                     :class="['py-3 px-5 rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] font-Gilroy w-[calc(100%-75px)]', { 'border-solid border border-red-500': isPhoneError }]">
 
                                 <span class="absolute top-1/2 right-5 -translate-y-1/2 z-10">
@@ -283,7 +283,7 @@
                     <div class="col-span-7 p-[22px] rounded-[20px] bg-mainWhite">
                         <div class="flex flex-col h-fit mb-4">
                             <h6 class="text-[15px] font-bold mb-[10px] block">
-                                Payment options
+                                {{ t('form.input.paymentOptions') }}
                             </h6>
 
                             <div class="grid grid-cols-2 gap-4">
@@ -317,7 +317,7 @@
                             'bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] w-full md:min-w-[300px] py-[14px] text-[15px] font-Gilroy flex items-center justify-center gap-3',
                             (!canSubmit || submitting) ? 'opacity-50 cursor-not-allowed' : 'opacity-100 cursor-pointer'
                         ]">
-                            Оплатить
+                            {{ t('dashboard.btn.pay') }}
 
                             <svg v-show="!submitting" width="7" height="13" viewBox="0 0 7 13" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">

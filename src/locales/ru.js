@@ -538,6 +538,13 @@ export default {
       cards: 'Карты',
       profile: 'Профиль',
     },
+    status: {
+      notConfirmed: 'Не подтвержден',
+      confirmed: 'Подтвержден',
+      success: 'Успешно',
+      rejected: 'Отклонен',
+      pending: 'В ожидании',
+    },
     toast: {
       verificationPending: 'Ваш профиль ожидает проверки',
       profileConfirmed: 'Ваш профиль подтвержден',
@@ -567,6 +574,9 @@ export default {
       homePage: 'Главная страница',
       verify: 'Подтвердить',
       logout: 'Выйти',
+      pay: 'Оплатить',
+      back: 'Назад',
+      signUp: 'Зарегистрироваться',
     },
     payments: {
       homePhone: 'Домашний телефон',
@@ -584,6 +594,14 @@ export default {
     modal: {
       requiredVerification: 'Чтобы продолжить оформление «{service}», сначала подтвердите профиль.',
     },
+    payment: {
+      status: 'Статус',
+      title: 'Заголовок',
+      amount: 'Сумма',
+      date: 'Дата',
+      description: 'Описание',
+      allHistory: 'Вся история',
+    },
 
     totalBalance: 'Общий баланс',
     payServices: 'Оплата услуги',
@@ -595,6 +613,8 @@ export default {
 
   form: {
     filesToUpload: 'Файлы для загрузки',
+    registration: 'Регистрация',
+    signIn: 'Войти',
     label: {},
     input: {
       patentNumber: 'Номер патента',
@@ -620,6 +640,13 @@ export default {
       dateOfIssue: 'Дата выдачи',
       citizenship: 'Гражданство',
       pdfOnlyWarning: 'Пожалуйста, загрузите файл только в формате PDF.',
+      enterPhone: 'Введите номер телефона',
+      paymentOptions: 'Варианты оплаты',
+      insertPassword: 'Введите пароль',
+      codeSentTo: 'Код был отправлен на',
+      createPassword: 'Придумайте пароль',
+      createStrongPassword: 'Придумайте надежный пароль',
+      password: 'Пароль',
     },
     select: {
       loanType: 'Тип кредита',

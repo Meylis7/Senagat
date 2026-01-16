@@ -1,7 +1,9 @@
 <script setup>
     import CurrentDate from '@/components/dashboard/Date.vue';
     import { useI18n } from 'vue-i18n';
-    import { computed, ref } from 'vue';
+    import { computed, ref, onMounted } from 'vue';
+    import { useUserStore } from '@/stores/userStore';
+    import apiService from '@/services/apiService';
     const { t } = useI18n();
 
     // Get current month index (0-11)
@@ -15,6 +17,65 @@
     });
 
     const payments = ref([]);
+    const paymentsLimited = computed(() => payments.value.slice(0, 5));
+    const userStore = useUserStore();
+    const getAuthToken = () =>
+        userStore.authToken ||
+        localStorage.getItem('authToken') ||
+        localStorage.getItem('access_token') ||
+        localStorage.getItem('token') ||
+        '';
+    const statusLabel = (s) => {
+        const v = String(s || '').toLowerCase();
+        if (['approve', 'confirmed', 'success', 'proceed', 'processed'].includes(v)) return t('dashboard.status.success');
+        if (['rejected', 'failed', 'canceled'].includes(v)) return t('dashboard.status.rejected');
+        if (['pending'].includes(v)) return t('dashboard.status.pending');
+        if (['notconfirmed'].includes(v)) return t('dashboard.status.notConfirmed');
+        return t('dashboard.status.notConfirmed');
+    };
+    const statusTextClass = (s) => {
+        const v = String(s || '').toLowerCase();
+        if (['approve', 'confirmed', 'success', 'proceed', 'processed'].includes(v)) return 'text-[#2C702C]';
+        if (['rejected', 'failed', 'canceled'].includes(v)) return 'text-[#F44336]';
+        if (['pending'].includes(v)) return 'text-[#EBB618]';
+        if (['notconfirmed'].includes(v)) return 'text-[#6F736D]';
+        return 'text-[#6F736D]';
+    };
+    const statusBgClass = (s) => {
+        const v = String(s || '').toLowerCase();
+        if (['approve', 'confirmed', 'success', 'proceed', 'processed'].includes(v)) return 'bg-[#2C702C]/10';
+        if (['rejected', 'failed', 'canceled'].includes(v)) return 'bg-[#F44336]/10';
+        if (['pending'].includes(v)) return 'bg-[#EBB618]/10';
+        if (['notconfirmed'].includes(v)) return 'bg-[#6F736D]/10';
+        return 'bg-[#6F736D]/10';
+    };
+    const loadPayments = async () => {
+        try {
+            const token = getAuthToken();
+            if (!token) {
+                payments.value = [];
+                return;
+            }
+            const res = await apiService.fetchPaymentHistoryAuth(token);
+            const list = res?.data?.items || res?.items || res?.data || res || [];
+            const arr = Array.isArray(list) ? list : [];
+            payments.value = arr.map((it) => ({
+                id: it.id,
+                title: it.type,
+                date: it.created_at,
+                amount: it.amount,
+                status: it.status,
+                description: it?.payment_target?.type
+                    ? `${it.payment_target.value}`
+                    : `${it.value}`,
+            }));
+        } catch (e) {
+            payments.value = [];
+        }
+    };
+    onMounted(() => {
+        loadPayments();
+    });
 </script>
 
 <template>
@@ -128,12 +189,22 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-9 gap-4">
-                            <div class="col-span-12 lg:col-span-4">
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-12 lg:col-span-8">
                                 <div class="block p-3 mm:p-[22px] rounded-[20px] bg-mainWhite">
-                                    <h6 class="text-[15px] sm:text-[17px] font-bold mb-4">
-                                        {{ t('dashboard.blockTitiles.paymentHistory') }}
-                                    </h6>
+                                    <div class="flex items-center justify-between gap-2 mb-3">
+                                        <h6 class="text-[15px] sm:text-[17px] font-bold mb-4">
+                                            {{ t('dashboard.blockTitiles.paymentHistory') }}
+                                        </h6>
+
+                                        <RouterLink :to="{ name: 'dashboard.payments' }"
+                                            class="flex items-center gap-2">
+                                            <!-- {{ t('dashboard.viewAll') }} -->
+                                            <p class="text-sm sm:text-[15px] font-bold leading-tight text-[#2C702C]">
+                                                   {{ t('dashboard.payment.allHistory') }}
+                                            </p>
+                                        </RouterLink>
+                                    </div>
 
                                     <div v-if="!payments.length" class="py-8 text-center">
                                         <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
@@ -142,25 +213,66 @@
                                     </div>
 
                                     <div v-else>
-                                        <div v-for="payment in payments" :key="payment.id"
-                                            class="flex items-center justify-between py-3 border-solid border-0 border-b border-[#EEF2ED]">
-                                            <div class="block">
-                                                <h6 class="text-sm sm:text-[15px] leading-5 font-bold mb-1">
-                                                    {{ payment.title }}
-                                                </h6>
-                                                <p class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
-                                                    {{ payment.date }}
-                                                </p>
+                                        <div class="rounded-[12px] border border-[#EEF2ED] overflow-hidden">
+                                            <div
+                                                class="hidden sm:grid grid-cols-5 gap-2 bg-[#EEF2ED]/60 text-[#6F736D] px-3 py-3 font-bold text-center">
+                                                <div class="block">
+                                                      {{ t('dashboard.payment.status') }}
+                                                </div>
+                                                <div class="block">
+                                                       {{ t('dashboard.payment.title') }}
+                                                </div>
+                                                <div class="block">
+                                                       {{ t('dashboard.payment.amount') }}
+                                                </div>
+                                                <div class="block">
+                                                       {{ t('dashboard.payment.date') }}
+                                                </div>
+                                                <div class="block">
+                                                       {{ t('dashboard.payment.description') }}
+                                                </div>
                                             </div>
 
-                                            <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                                {{ payment.amount }}
-                                            </p>
+                                            <div v-for="payment in paymentsLimited" :key="payment.id"
+                                                class="flex flex-wrap justify-center sm:grid grid-cols-5 gap-4 sm:gap-2 px-3 py-3 border-solid border-0 border-b border-[#EEF2ED] last:border-b-0 text-center">
+                                                <div
+                                                    :class="['px-2 py-2 sm:py-1 rounded-[8px] text-xs sm:text-[13px] font-bold w-full', statusTextClass(payment.status), statusBgClass(payment.status)]">
+                                                    {{ statusLabel(payment.status) }}
+                                                </div>
+
+                                                <div class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
+                                                    <p
+                                                        class="text-sm sm:text-[15px] font-bold leading-5 text-mainBlack capitalize font-Gilroy">
+                                                        {{ payment.title }}
+                                                    </p>
+                                                </div>
+
+                                                <div class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
+                                                    <p class="text-sm sm:text-[15px] font-bold leading-tight">
+                                                        - {{ payment.amount }} TMT
+                                                    </p>
+                                                </div>
+
+                                                <div class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
+                                                    <p
+                                                        class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
+                                                        {{ payment.date }}
+                                                    </p>
+                                                </div>
+
+                                                <div class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
+                                                    <p
+                                                        class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
+                                                        {{ payment.description }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-span-12 lg:col-span-5">
+
+                            <div class="col-span-12 lg:col-span-4">
                                 <div class="block p-3 mm:p-[22px] rounded-[20px] bg-[#1D2417]">
                                     <h6 class="text-[17px] text-mainWhite font-bold mb-3">
                                         {{ t('exchange.branches') }}
@@ -171,8 +283,8 @@
                                     </p>
 
                                     <RouterLink to="/branches" class="block relative w-full rounded-[10px]">
-                                        <img class="w-full h-[74] object-contain" src="../../assets/images/map.png"
-                                            alt="map">
+                                        <img class="w-full h-[200px] object-cover rounded-[16px]"
+                                            src="../../assets/images/map.png" alt="map">
 
                                         <span class="block absolute right-[87px] -top-6 rounded-[100px]">
                                             <svg class="w-[52px] h-[52px] object-contain" width="52" height="52"

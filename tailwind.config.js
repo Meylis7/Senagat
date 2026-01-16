@@ -12,6 +12,7 @@ export default {
         Kinetika: ['Kinetika', 'sans-serif'],
       },
       screens: {
+        ss: '25rem', // 400px
         mm: '53rem', // 848px
       },
     },

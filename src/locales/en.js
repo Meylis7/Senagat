@@ -542,6 +542,14 @@ export default {
       services: 'Services',
       cards: 'Cards',
       profile: 'Profile',
+      beletFilm: 'Belet Film',
+    },
+    status: {
+      notConfirmed: 'Not confirmed',
+      confirmed: 'Confirmed',
+      success: 'Success',
+      rejected: 'Rejected',
+      pending: 'Pending',
     },
     toast: {
       verificationPending: 'Your profile verification is pending review',
@@ -572,6 +580,9 @@ export default {
       homePage: 'Home page',
       verify: 'Verify',
       logout: 'Log out',
+      pay: 'Pay',
+      back: 'Back',
+      signUp: 'Sign up',
     },
     payments: {
       homePhone: 'Home phone',
@@ -589,6 +600,14 @@ export default {
     modal: {
       requiredVerification: 'To proceed with your {service}, you must verify your profile first.',
     },
+    payment: {
+      status: 'Status',
+      title: 'Title',
+      amount: 'Amount',
+      date: 'Date',
+      description: 'Description',
+      allHistory: 'All history',
+    },
 
     totalBalance: 'Total Balance',
     payServices: 'Pay Services',
@@ -600,6 +619,8 @@ export default {
 
   form: {
     filesToUpload: 'Files to upload',
+    registration: 'Registration',
+    signIn: 'Sign in',
     label: {},
     input: {
       patentNumber: 'Patent number',
@@ -625,6 +646,13 @@ export default {
       dateOfIssue: 'Date of issue',
       citizenship: 'Citizenship',
       pdfOnlyWarning: 'Please upload the file in PDF format only.',
+      enterPhone: 'Enter phone number',
+      paymentOptions: 'Payment options',
+      insertPassword: 'Enter password',
+      codeSentTo: 'The code was sent to',
+      createPassword: 'Create a password',
+      createStrongPassword: 'Create a strong password',
+      password: 'Password',
     },
     select: {
       loanType: 'Loan type',
