@@ -214,7 +214,7 @@
                                     {{ t('form.input.homeAddress') }}
                                 </label>
                                 <input v-model="homeAddress"
-                                    :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', homeAddressClass]"
+                                    :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', homeAddressClass]"
                                     type="text" id="issued_date" :placeholder="t('form.input.homeAddress')">
                             </div>
                         </div>
@@ -222,7 +222,7 @@
 
                     <div class="col-span-12 flex justify-center">
                         <button type="submit"
-                            class="bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-[250px]"
+                            class="bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] w-[250px]"
                             :disabled="submitting">
                             {{ t('dashboard.btn.sendApplication') }}
                         </button>

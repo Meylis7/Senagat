@@ -77,7 +77,7 @@
                             </h4>
                             <div class="flex items-center gap-x-[10px]  mb-5 md:mb-[60px]">
                                 <p v-for="(adv, idx) in (dep?.advantages || []).slice(0, 2)" :key="idx"
-                                    class="text-sm md:text-[17px] font-Gilroy text-[#2C702C] p-3 rounded-2xl bg-[#EEF2ED] w-fit leading-7">
+                                    class="text-sm md:text-[17px] text-[#2C702C] p-3 rounded-2xl bg-[#EEF2ED] w-fit leading-7">
                                     {{ [adv?.name, adv?.description].filter(Boolean).join(' ') }}
                                 </p>
                             </div>
@@ -94,9 +94,9 @@
                                 :src="dep?.image_url || '../../assets/images/deposit-6.png'" alt="card-image">
                         </span>
 
-                        <span class="loan-bg-circle !hidden md:!block"
+                        <!-- <span class="loan-bg-circle !hidden md:!block"
                             :class="dep?.background_class || 'loan-bg-yellow'"
-                            :style="dep?.background_color ? { background: dep.background_color } : null"></span>
+                            :style="dep?.background_color ? { background: dep.background_color } : null"></span> -->
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                                 {{ step.title }}
                             </h4>
                             <p
-                                :class="idx === 2 ? 'text-mainWhite/60 font-Gilroy text-sm lg:text-[17px] leading-6 z-10' : 'text-[#6F736D] font-Gilroy text-[17px] leading-6'">
+                                :class="idx === 2 ? 'text-mainWhite/60 text-sm lg:text-[17px] leading-6 z-10' : 'text-[#6F736D] text-[17px] leading-6'">
                                 {{ step.text }}
                             </p>
                             <span v-if="idx === 2"

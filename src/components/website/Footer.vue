@@ -113,7 +113,7 @@
                         <ul class="space-y-4">
                             <li v-for="item in loans" :key="item.id">
                                 <RouterLink :to="`/loans-detail?id=${item.id}`"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ item.title || '' }}
                                 </RouterLink>
                             </li>
@@ -128,7 +128,7 @@
                         <ul class="space-y-4 mb-5 pb-5 border-solid border-0 border-b border-[#EEF2ED]">
                             <li v-for="item in cards" :key="item.id">
                                 <RouterLink :to="`/cards-detail?id=${item.id}`"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ item.title || '' }}
                                 </RouterLink>
                             </li>
@@ -142,7 +142,7 @@
                         <ul class="space-y-4">
                             <li v-for="item in deposits" :key="item.id">
                                 <RouterLink :to="`/deposits-detail?id=${item.id}`"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ item.title || '' }}
                                 </RouterLink>
                             </li>
@@ -158,25 +158,25 @@
                         <ul class="space-y-4 mb-5 pb-5 border-solid border-0 border-b border-[#EEF2ED]">
                             <li>
                                 <RouterLink to="/cash"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ t('nav.informations.cashDesk') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/terminal"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ t('nav.informations.terminalDocs') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/documents"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ t('nav.informations.documentList') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/audit"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ t('nav.informations.auditReports') }}
                                 </RouterLink>
                             </li>
@@ -189,7 +189,7 @@
                         <ul class="space-y-4">
                             <li v-for="item in transfers" :key="item.id">
                                 <RouterLink :to="{ name: 'transfer', params: { id: item.id } }"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ item.title || '' }}
                                 </RouterLink>
                             </li>
@@ -204,25 +204,25 @@
                         <ul class="space-y-4  mb-5 pb-5  border-solid border-0 border-b border-[#EEF2ED]">
                             <li>
                                 <RouterLink to="/about"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ t('footer.links.contacts') }}
                                 </RouterLink>
                             </li>
                             <!-- <li>
                                 <RouterLink to="/"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ t('footer.links.requisites') }}
                                 </RouterLink>
                             </li> -->
                             <li>
                                 <RouterLink to="/news"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ t('footer.links.news') }}
                                 </RouterLink>
                             </li>
                             <li>
                                 <RouterLink to="/branches"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     {{ t('footer.links.branches') }}
                                 </RouterLink>
                             </li>
@@ -235,19 +235,19 @@
                         <ul class="space-y-4">
                             <li v-if="locale !== 'en'">
                                 <button @click="changeLanguage('en')"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     English
                                 </button>
                             </li>
                             <li v-if="locale !== 'ru'">
                                 <button @click="changeLanguage('ru')"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     Русский
                                 </button>
                             </li>
                             <li v-if="locale !== 'tk'">
                                 <button @click="changeLanguage('tk')"
-                                    class="text-[#6F736D] font-Gilroy hover:text-[#111] transition-colors duration-200">
+                                    class="text-[#6F736D] hover:text-[#111] transition-colors duration-200">
                                     Türkmençe
                                 </button>
                             </li>
@@ -272,7 +272,7 @@
                                 class="font-bold tracking-[0.2px] text-mainWhite text-[20px] md:text-[28px] leading-7">
                                 +993 12 34 11 28
                             </a>
-                            <p class="text-[17px] font-Gilroy text-mainWhite leading-5 mt-1">
+                            <p class="text-[17px] text-mainWhite leading-5 mt-1">
                                 {{ t('footer.office_text') }}
                             </p>
                         </div>
@@ -287,8 +287,8 @@
                                     <h6 class="text-[#EEF2ED] font-bold text-[17px] leading-tight mb-[17px]">
                                         {{ t('footer.app.title') }}
                                     </h6>
-                                    <p class="text-[#EEF2ED] font-Gilroy text-[17px] leading-tight"
-                                        v-html="t('footer.app.text')"></p>
+                                    <p class="text-[#EEF2ED] text-[17px] leading-tight" v-html="t('footer.app.text')">
+                                    </p>
                                 </div>
                             </RouterLink>
                         </div>

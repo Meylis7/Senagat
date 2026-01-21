@@ -79,7 +79,7 @@
           </span>
 
           <div v-if="error" class="text-red-600 text-[15px] mb-4">{{ error }}</div>
-          <div v-if="award?.description" class="text-[17px] font-Gilroy leading-7" v-html="award.description"></div>
+          <div v-if="award?.description" class="text-[17px] leading-7" v-html="award.description"></div>
 
           <div v-if="award?.description_images && award.description_images.length" class="grid grid-cols-12 gap-4 mt-6">
             <span v-for="(img, idx) in award.description_images" :key="idx" class="col-span-4 block">

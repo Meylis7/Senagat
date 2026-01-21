@@ -48,7 +48,7 @@
                     Оплата прошла успешна
                 </p>
                 <RouterLink :to="{ name: 'dashboard.home' }"
-                    class="text-[15px] text-[#EEF2ED] py-[10px] min-w-[160px] bg-[#2C702C] rounded-[10px] cursor-pointer text-center font-Gilroy leading-tight">
+                    class="text-[15px] text-[#EEF2ED] py-[10px] min-w-[160px] bg-[#2C702C] rounded-[10px] cursor-pointer text-center leading-tight">
                     На главную
                 </RouterLink>
             </div>

@@ -248,11 +248,11 @@
                             </label>
                             <div class="flex relative">
                                 <input type="number" value="+993" placeholder="+993" readonly
-                                    class="py-3 text-center rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] font-Gilroy mr-1 w-[72px] block">
+                                    class="py-3 text-center rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] mr-1 w-[72px] block">
 
                                 <input type="number" id="phone_s" :placeholder="t('form.input.enterPhone')"
                                     v-model="phone" @input="onPhoneInput" @blur="checkPhone"
-                                    :class="['py-3 px-5 rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] font-Gilroy w-[calc(100%-75px)]', { 'border-solid border border-red-500': isPhoneError }]">
+                                    :class="['py-3 px-5 rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] w-[calc(100%-75px)]', { 'border-solid border border-red-500': isPhoneError }]">
 
                                 <span class="absolute top-1/2 right-5 -translate-y-1/2 z-10">
                                     <svg v-show="phoneCheckLoading" :class="phoneCheckLoading ? 'animate-spin' : ''"
@@ -314,7 +314,7 @@
                         </div>
 
                         <button type="submit" :disabled="!canSubmit || submitting" :class="[
-                            'bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] w-full md:min-w-[300px] py-[14px] text-[15px] font-Gilroy flex items-center justify-center gap-3',
+                            'bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] w-full md:min-w-[300px] py-[14px] text-[15px] flex items-center justify-center gap-3',
                             (!canSubmit || submitting) ? 'opacity-50 cursor-not-allowed' : 'opacity-100 cursor-pointer'
                         ]">
                             {{ t('dashboard.btn.pay') }}
@@ -361,7 +361,7 @@
                             </button>
                         </div>
 
-                        <p class="text-[15px] font-Gilroy text-[#6F736D] mb-5 text-center">
+                        <p class="text-[15px] text-[#6F736D] mb-5 text-center">
                             You don't have registered phone number in Belet film. To proceed payment, first you need to
                             register phone
                             number in Belet film.

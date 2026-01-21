@@ -86,9 +86,8 @@
 
                 <div
                     class="flex items-center justify-center flex-wrap gap-2 mb-10 md:mb-[60px] text-center md:text-left">
-                    <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] text-mainWhite" />
                 </div>
 
 
@@ -97,13 +96,14 @@
                     {{ t('terminal.title') }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <p class="text-[17px] text-mainWhite/60 text-center">
                     {{ t('terminal.subTitle') }}
                 </p>
 
 
                 <span class="block mt-[80px] md:mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
-                    <img src="../../assets/images/services/services (1).png" class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/services/services (1).png" class="block w-full h-full object-contain"
+                        alt="card">
                 </span>
             </div>
         </div>
@@ -124,7 +124,7 @@
                         {{ doc.title }}
                     </h6>
                     <div>
-                        <ul class="text-sm md:text-[17px] font-Gilroy list-disc space-y-2 pl-0">
+                        <ul class="text-sm md:text-[17px] list-disc space-y-2 pl-0">
                             <li v-for="(line, i) in (doc.list || [])" :key="i"
                                 class="py-[10px] md:py-[20px] border-solid border-0 border-b border-[#6F736D]">{{ line
                                 }}</li>
@@ -160,14 +160,14 @@
                                     {{ item.lang }}
                                 </span>
                             </h6>
-                            <p class="text-[15px] font-Gilroy text-[#6F736D] leading-tight">
+                            <p class="text-[15px] text-[#6F736D] leading-tight">
                                 {{ formatSize(sizeMap[item.url]) || '-' }}
                             </p>
                         </div>
                     </div>
                     <div class="flex items-center gap-[14px]">
                         <a :href="item.url" download target="_blank" rel="noopener" class="flex gap-1">
-                            <p class="text-[15px] font-Gilroy font-bold text-[#6F736D] leading-tight">TM</p>
+                            <p class="text-[15px] font-bold text-[#6F736D] leading-tight">TM</p>
                             <span class="block w-[14px]">
                                 <svg class="w-full h-full object-contain" width="9" height="10" viewBox="0 0 9 10"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">

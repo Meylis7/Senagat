@@ -61,7 +61,7 @@
                             </h4>
                             <div class="flex items-center gap-x-[10px] flex-wrap mb-5 md:mb-[60px]">
                                 <p v-for="(adv, i) in (card.advantages || []).slice(0, 1)" :key="i"
-                                    class="text-sm md:text-[17px] font-Gilroy text-[#2C702C] p-3 rounded-2xl bg-[#EEF2ED] w-fit">
+                                    class="text-sm md:text-[17px] text-[#2C702C] p-3 rounded-2xl bg-[#EEF2ED] w-fit">
                                     {{ [adv?.name, adv?.description].filter(Boolean).join(' ') }}
                                 </p>
                             </div>
@@ -74,7 +74,7 @@
                                 </RouterLink>
 
                                 <RouterLink :to="`/cards-detail?id=${card.id}`"
-                                    class="block text-[15px] font-Gilroy text-[#6F736D] transition-all duration-300 hover:text-[#2C702C] hover:underline">
+                                    class="block text-[15px] text-[#6F736D] transition-all duration-300 hover:text-[#2C702C] hover:underline">
                                     {{ t('dashboard.btn.details') }}
                                 </RouterLink>
                             </div>

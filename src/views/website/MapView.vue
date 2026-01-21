@@ -160,11 +160,11 @@
 
                 <div class="tabs bg-[#F7F8F6] rounded-lg sm:rounded-[20px] p-1 grid grid-cols-2 text-center">
                     <h6 @click="setTab('atms')"
-                        :class="activeTab === 'atms' ? 'text-sm sm:text-[17px] font-Gilroy p-2 sm:py-3 sm:px-5 bg-[#1D2417] text-[#EEF2ED] rounded-lg sm:rounded-2xl cursor-pointer ' : 'text-[#6F736D] text-sm sm:text-[17px] font-Gilroy p-2 sm:py-4 sm:px-5 rounded-lg sm:rounded-2xl cursor-pointer '">
+                        :class="activeTab === 'atms' ? 'text-sm sm:text-[17px] p-2 sm:py-3 sm:px-5 bg-[#1D2417] text-[#EEF2ED] rounded-lg sm:rounded-2xl cursor-pointer ' : 'text-[#6F736D] text-sm sm:text-[17px] p-2 sm:py-4 sm:px-5 rounded-lg sm:rounded-2xl cursor-pointer '">
                         {{ t('map.atms') }}
                     </h6>
                     <h6 @click="setTab('offices')"
-                        :class="activeTab === 'offices' ? 'text-sm sm:text-[17px] font-Gilroy p-2 sm:py-3 sm:px-5 bg-[#1D2417] text-[#EEF2ED] rounded-lg sm:rounded-2xl cursor-pointer ' : 'text-[#6F736D] text-sm sm:text-[17px] font-Gilroy p-2 sm:py-4 sm:px-5 rounded-lg sm:rounded-2xl cursor-pointer '">
+                        :class="activeTab === 'offices' ? 'text-sm sm:text-[17px] p-2 sm:py-3 sm:px-5 bg-[#1D2417] text-[#EEF2ED] rounded-lg sm:rounded-2xl cursor-pointer ' : 'text-[#6F736D] text-sm sm:text-[17px] p-2 sm:py-4 sm:px-5 rounded-lg sm:rounded-2xl cursor-pointer '">
                         {{ t('map.offices') }}
                     </h6>
                 </div>
@@ -174,8 +174,7 @@
                         <span class="block w-7 h-7 mr-[10px]">
                             <img :src="logo" class="block w-full h-auto object-contain" alt="logo">
                         </span>
-                        <h2
-                            class="text-mainBlack text-lg font-bold font-Gilroy max-w-[190px] overflow-hidden whitespace-nowrap">
+                        <h2 class="text-mainBlack text-lg font-bold max-w-[190px] overflow-hidden whitespace-nowrap">
                             {{ selectedLocation?.name || '' }}
                         </h2>
 
@@ -202,12 +201,12 @@
                                         fill="#6F736D" />
                                 </svg>
                             </span>
-                            <p class="text-[#1D2417] text-sm font-Gilroy ml-[10px]">
+                            <p class="text-[#1D2417] text-sm ml-[10px]">
                                 {{ selectedLocation?.address || '' }}
                             </p>
                         </div>
                         <p v-if="isRoundTheClock"
-                            class="text-[#F7F8F6] text-sm font-Gilroy py-[6px] px-2 bg-[#2C702C] rounded-[20px] w-fit">
+                            class="text-[#F7F8F6] text-sm py-[6px] px-2 bg-[#2C702C] rounded-[20px] w-fit">
                             открыто 24 часа
                         </p>
                     </div>
@@ -257,7 +256,7 @@
                                 {{ branch.name || '' }}
                             </h2>
                             <p
-                                class="text-[#6F736D] text-sm font-bold mb-[10px] font-Gilroy pb-[20px] border-solid border-0 border-b border-[#EEF2ED]">
+                                class="text-[#6F736D] text-sm font-bold mb-[10px] pb-[20px] border-solid border-0 border-b border-[#EEF2ED]">
                                 {{ branch.address || '' }}
                             </p>
                         </div>

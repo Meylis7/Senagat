@@ -126,7 +126,7 @@
                                 :alt="newsItem?.title || 'news-image'">
                             </span> -->
 
-                            <p v-if="!error" class="text-sm md:text-[17px] font-Gilroy leading-7"
+                            <p v-if="!error" class="text-sm md:text-[17px] leading-7"
                                 v-html="newsItem?.description || ''"></p>
                         </div>
                     </div>

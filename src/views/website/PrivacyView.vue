@@ -31,9 +31,8 @@
             <div class="hero_wrap">
 
                 <div class="flex items-center justify-center flex-wrap gap-2 mb-[60px] text-center">
-                    <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] text-mainWhite" />
                 </div>
 
 
@@ -42,7 +41,7 @@
                     {{ privacyTitle }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <p class="text-[17px] text-mainWhite/60 text-center">
                     {{ t('privacy.subTitle') }}
                 </p>
 
@@ -69,15 +68,14 @@
                     <h4 class="text-[#191B19] text-[18px] sm:text-[22px] md:text-[28px] font-bold mb-2 mb:mb-5">
                         {{ section.title }}
                     </h4>
-                    <p v-if="section.text" class="text-[#6F736D] text-sm md:text-[17px] font-Gilroy mb-5"
-                        v-html="section.text">
+                    <p v-if="section.text" class="text-[#6F736D] text-sm md:text-[17px] mb-5" v-html="section.text">
                     </p>
                     <ul v-if="Array.isArray(section.list)" class="list-outside">
                         <li v-for="(li, i) in section.list" :key="i" class="mb-5">
                             <p class="text-[#6F736D] text-sm md:text-[17px] font-Gilroy" v-html="li"></p>
                         </li>
                     </ul>
-                    <p v-if="section.subText" class="text-[#6F736D] text-sm md:text-[17px] font-Gilroy mb-5"
+                    <p v-if="section.subText" class="text-[#6F736D] text-sm md:text-[17px] mb-5"
                         v-html="section.subText"></p>
                 </div>
             </div>

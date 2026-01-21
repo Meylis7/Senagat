@@ -182,21 +182,21 @@
                             <ul class="flex flex-col mm:flex-row items-center gap-8 whitespace-nowrap">
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.home' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.dashboard') }}
                                     </RouterLink>
                                 </li>
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.services' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/services') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.services') }}
                                     </RouterLink>
                                 </li>
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.payments' }"
-                                        class="text-[#1D2417] text-[17px] font-Gilroy block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/payments') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.internationalPayments') }}
                                     </RouterLink>

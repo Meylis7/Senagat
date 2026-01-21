@@ -28,8 +28,8 @@
             <div class="hero_wrap">
 
                 <div class="flex items-center justify-center flex-wrap gap-2 mb-10 md:mb-[60px]">
-                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] font-Gilroy text-mainWhite/60"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] text-mainWhite/60"
+                        currentClass="text-[17px] text-mainWhite" />
                 </div>
 
 
@@ -38,13 +38,14 @@
                     {{ t('cash.title') }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <p class="text-[17px] text-mainWhite/60 text-center">
                     {{ t('cash.subTitle') }}
                 </p>
 
 
                 <span class="block mt-[80px] md:mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
-                    <img src="../../assets/images/services/services (12).png" class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/services/services (12).png" class="block w-full h-full object-contain"
+                        alt="card">
                 </span>
             </div>
         </div>
@@ -64,14 +65,14 @@
                     <h6 class="text-[20px] md:text-[24px] font-bold mb-6">
                         {{ t('cash.adv.adv_1.title') }}
                     </h6>
-                    <p class="text-sm md:text-[17px] font-Gilroy mb-2">
+                    <p class="text-sm md:text-[17px] mb-2">
                         {{ t('cash.adv.adv_1.subtitle') }}
                     </p>
-                    <p class="text-sm md:text-[17px] font-Gilroy mb-2">
+                    <p class="text-sm md:text-[17px] mb-2">
                         {{ t('cash.adv.adv_1.text') }}
                     </p>
                     <div>
-                        <ul class="text-sm md:text-[17px] font-Gilroy list-disc space-y-2 pl-0">
+                        <ul class="text-sm md:text-[17px] list-disc space-y-2 pl-0">
                             <li v-for="(line, i) in (tm('cash.adv.adv_1.list') || [])" :key="i"
                                 class="py-[20px] border-solid border-0 border-b border-[#6F736D]">{{ line }}</li>
                         </ul>
@@ -82,14 +83,14 @@
                     <h6 class="text-[20px] md:text-[24px] font-bold mb-6">
                         {{ t('cash.adv.adv_2.title') }}
                     </h6>
-                    <p class="text-sm md:text-[17px] font-Gilroy mb-2">
+                    <p class="text-sm md:text-[17px] mb-2">
                         {{ t('cash.adv.adv_2.subtitle') }}
                     </p>
-                    <p class="text-sm md:text-[17px] font-Gilroy mb-2">
+                    <p class="text-sm md:text-[17px] mb-2">
                         {{ t('cash.adv.adv_2.text') }}
                     </p>
                     <div>
-                        <ul class="text-sm md:text-[17px] font-Gilroy list-disc space-y-2 pl-0">
+                        <ul class="text-sm md:text-[17px] list-disc space-y-2 pl-0">
                             <li v-for="(line, i) in (tm('cash.adv.adv_2.list') || [])" :key="i"
                                 class="py-[20px] border-solid border-0 border-b border-[#6F736D]">{{ line }}</li>
                         </ul>

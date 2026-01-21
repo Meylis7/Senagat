@@ -87,7 +87,7 @@
                                 {{ phoneDisplay ? ('+993 ' + phoneDisplay) : '+993' }}
                             </p>
                             <h6
-                                :class="['text-[15px] text-[#EEF2ED] font-Gilroy leading-tight py-1 px-[10px] rounded-[10px] w-fit', statusProps.cls]">
+                                :class="['text-[15px] text-[#EEF2ED] leading-tight py-1 px-[10px] rounded-[10px] w-fit', statusProps.cls]">
                                 {{ statusProps.text }}
                             </h6>
                         </div>
@@ -112,7 +112,7 @@
                             </svg>
                         </div>
 
-                        <h4 class="text-sm text-[#191B19] font-Gilroy leading-tight">
+                        <h4 class="text-sm text-[#191B19] leading-tight">
                             Учетные записи
                         </h4>
 
@@ -136,7 +136,7 @@
                             </svg>
                         </div>
 
-                        <h4 class="text-sm text-[#191B19] font-Gilroy leading-tight">
+                        <h4 class="text-sm text-[#191B19] leading-tight">
                             Уведомления
                         </h4>
 
@@ -161,7 +161,7 @@
                             </svg>
                         </div>
 
-                        <h4 class="text-sm text-[#191B19] font-Gilroy leading-tight">
+                        <h4 class="text-sm text-[#191B19] leading-tight">
                             Log out
                         </h4>
 

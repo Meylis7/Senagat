@@ -196,7 +196,7 @@
                                     {{ t('form.input.position') }}
                                 </label>
                                 <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                    class="block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                     :class="{ 'border-solid border-[1px] border-red-500': errors.workPosition }"
                                     type="text" id="work_position" :placeholder="t('form.input.position')"
                                     v-model="workPosition">
@@ -206,7 +206,7 @@
                                     {{ t('form.input.workPhone') }}
                                 </label>
                                 <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                    class="block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                     :class="{ 'border-solid border-[1px] border-red-500': errors.workPhone }"
                                     type="text" id="work_phone" :placeholder="t('form.input.workPhone')"
                                     v-model="workPhone">
@@ -217,7 +217,7 @@
                                     {{ t('form.input.secretCode') }}
                                 </label>
                                 <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                    class="block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                     :class="{ 'border-solid border-[1px] border-red-500': errors.secretWord }"
                                     type="text" id="secret_word" placeholder="Секретный код" v-model="secretWord">
                             </div>
@@ -227,7 +227,7 @@
                                     {{ t('form.input.email') }}
                                 </label>
                                 <input
-                                    class="block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
+                                    class="block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]"
                                     :class="{ 'border-solid border-[1px] border-red-500': errors.email }" type="text"
                                     id="email" :placeholder="t('form.input.email')" v-model="email">
                             </div>
@@ -288,7 +288,7 @@
                             </div>
 
                             <button type="submit"
-                                class="my-4 bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-full mt-auto"
+                                class="my-4 bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] w-full mt-auto"
                                 :disabled="submitting">
                                 {{ t('dashboard.btn.sendApplication') }}
                             </button>

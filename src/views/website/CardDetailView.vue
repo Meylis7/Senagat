@@ -96,9 +96,8 @@
         <div class="auto_container">
             <div class="hero_wrap">
                 <div class="flex flex-wrap items-center justify-center gap-2 mb-[60px] text-center">
-                    <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] text-mainWhite" />
                 </div>
 
 
@@ -106,7 +105,7 @@
                     {{ card?.title }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <p class="text-[17px] text-mainWhite/60 text-center">
                     {{ card?.sub_title || '' }}
                 </p>
 
@@ -130,7 +129,7 @@
                         <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold mb-[10px] leading-tight">
                             {{ adv?.name || '' }}
                         </h3>
-                        <p class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D] ">
+                        <p class="text-[15px] md:text-[17px] text-[#6F736D] ">
                             {{ adv?.description || '' }}
                         </p>
                         <!-- <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
@@ -216,7 +215,7 @@
                             </h4>
                             <div class="flex items-center gap-x-[10px] mb-5">
                                 <p v-for="(adv, idx) in (item.advantages || []).slice(0, 1)" :key="idx"
-                                    class="text-sm font-Gilroy text-[#2C702C] p-3 rounded-2xl bg-[#EEF2ED] w-fit truncate max-w-[380px]">
+                                    class="text-sm text-[#2C702C] p-3 rounded-2xl bg-[#EEF2ED] w-fit truncate max-w-[380px]">
                                     {{ [adv?.name, adv?.description].filter(Boolean).join(' ') }}
                                 </p>
                             </div>

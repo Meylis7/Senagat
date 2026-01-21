@@ -69,9 +69,8 @@
 
                 <div
                     class="flex items-center flex-wrap justify-center text-center md:text-lef gap-2 mb-10 md:mb-[60px]">
-                    <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] text-mainWhite" />
                 </div>
 
 
@@ -80,13 +79,14 @@
                     {{ t('guaranteees.title') }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <p class="text-[17px] text-mainWhite/60 text-center">
                     {{ t('yanardag.subTitle') }}
                 </p>
 
 
                 <span class="block mt-[80px] md:mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
-                    <img src="../../assets/images/services/services (5).png" class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/services/services (5).png" class="block w-full h-full object-contain"
+                        alt="card">
                 </span>
             </div>
         </div>
@@ -109,7 +109,7 @@
                         <h6 class="text-[20px] md:text-[24px] text-mainBlack leading-7 font-bold mb-[10px]">
                             {{ adv.title || '' }}
                         </h6>
-                        <p class="text-sm md:text-[17px] text-[#6F736D] leading-5 font-Gilroy max-w-[500px]">
+                        <p class="text-sm md:text-[17px] text-[#6F736D] leading-5 max-w-[500px]">
                             {{ adv.description || '' }}
                         </p>
                     </div>

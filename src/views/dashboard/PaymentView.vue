@@ -116,19 +116,19 @@
 
                             <div class="grid grid-cols-2 gap-x-1 mb-10">
                                 <div class="block">
-                                    <label for="phone" class="block text-[17px] text-[#6F736D] font-Gilroy mb-4">
+                                    <label for="phone" class="block text-[17px] text-[#6F736D] mb-4">
                                         Номер телефона
                                     </label>
                                     <input type="number" placeholder="947605" id="phone"
-                                        class="bg-[#EEF2ED] rounded-[10px] py-3 px-5 text-[15px] font-Gilroy tracking-wider w-full">
+                                        class="bg-[#EEF2ED] rounded-[10px] py-3 px-5 text-[15px] tracking-wider w-full">
                                 </div>
 
                                 <div class="block">
-                                    <label for="sum" class="block text-[17px] text-[#6F736D] font-Gilroy mb-4">
+                                    <label for="sum" class="block text-[17px] text-[#6F736D] mb-4">
                                         Сумма
                                     </label>
                                     <input type="number" placeholder="300" id="phone"
-                                        class="bg-[#EEF2ED] rounded-[10px] py-3 px-5 text-[15px] font-Gilroy tracking-wider w-full">
+                                        class="bg-[#EEF2ED] rounded-[10px] py-3 px-5 text-[15px] tracking-wider w-full">
                                 </div>
                             </div>
 
@@ -215,7 +215,7 @@
                             </div>
 
                             <button type="submit"
-                                class="my-4 bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-full">
+                                class="my-4 bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] w-full">
                                 Оплатить
                             </button>
 

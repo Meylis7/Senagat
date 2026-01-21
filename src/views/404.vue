@@ -17,11 +17,11 @@
             <h1 class="text-[48px] text-[#EEF2ED] font-bold leading-tight">
                 {{ t('404.title') }}
             </h1>
-            <p class="text-[17px] text-mainWhite font-Gilroy leading-tight">
+            <p class="text-[17px] text-mainWhite leading-tight">
                 {{ t('404.text') }}
             </p>
             <RouterLink to="/"
-                class="block mt-3 w-fit text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[10px] py-3 px-[35px]">
+                class="block mt-3 w-fit text-white text-[17px] font-normal bg-[#2C702C] rounded-[10px] py-3 px-[35px]">
                 {{ t('404.btn') }}
             </RouterLink>
         </div>

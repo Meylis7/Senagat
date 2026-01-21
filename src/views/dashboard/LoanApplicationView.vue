@@ -392,7 +392,7 @@
                                     </div>
                                 </div>
 
-                                <p class="text-[#6F736D] text-[17px] font-Gilroy mt-8 leading-6">
+                                <p class="text-[#6F736D] text-[17px] mt-8 leading-6">
                                     {{ t('calc.calculatorDisclaimer') }}
                                 </p>
                             </div>
@@ -416,18 +416,18 @@
                                     </div>
 
                                     <!-- <div class="flex items-center justify-between w-full">
-                                        <h6 class="text-[#6F736D] font-Gilroy text-[15px]">
+                                        <h6 class="text-[#6F736D] text-[15px]">
                                             {{ t('calc.incomeStatement') }}
                                         </h6>
 
-                                        <p class="text-[#191B19] font-Gilroy text-[15px]">
+                                        <p class="text-[#191B19] text-[15px]">
                                             1%
                                         </p>
                                     </div> -->
                                 </div>
 
                                 <button type="button" @click="proceedToStep2"
-                                    class="block mt-auto text-center text-white text-[17px] font-normal font-Gilroy bg-[#2C702C] rounded-[20px] py-3">
+                                    class="block mt-auto text-center text-white text-[17px] font-normal bg-[#2C702C] rounded-[20px] py-3">
                                     {{ t('dashboard.btn.submitApplication') }}
                                 </button>
                             </div>
@@ -473,7 +473,7 @@
                                 </div>
 
                                 <button type="submit"
-                                    class="bg-[#2C702C] mt-auto rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-full">
+                                    class="bg-[#2C702C] mt-auto rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] w-full">
                                     {{ t('dashboard.btn.sendApplication') }}
                                 </button>
                             </div>
@@ -489,7 +489,7 @@
                                             {{ t('form.input.patentNumber') }}
                                         </label>
                                         <input
-                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', patentClass]"
+                                            :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', patentClass]"
                                             type="text" id="patent" :placeholder="t('form.input.patentNumber')"
                                             v-model="patentNumber">
                                     </div>
@@ -498,7 +498,7 @@
                                             {{ t('form.input.registrationNumber') }}
                                         </label>
                                         <input
-                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', registrationClass]"
+                                            :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', registrationClass]"
                                             type="text" id="getIssue" :placeholder="t('form.input.registrationNumber')"
                                             v-model="registrationNumber">
                                     </div>
@@ -507,7 +507,7 @@
                                             {{ t('form.input.workAddress') }}
                                         </label>
                                         <input
-                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', workAddressClass]"
+                                            :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', workAddressClass]"
                                             type="text" id="workAddress" :placeholder="t('form.input.workAddress')"
                                             v-model="workAddress">
                                     </div>
@@ -519,7 +519,7 @@
                                             {{ t('form.input.workplace') }}
                                         </label>
                                         <input
-                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', workplaceClass]"
+                                            :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', workplaceClass]"
                                             type="text" id="workPlaceName" :placeholder="t('form.input.workplace')"
                                             v-model="workplace">
                                     </div>
@@ -528,7 +528,7 @@
                                             {{ t('form.input.position') }}
                                         </label>
                                         <input
-                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', positionClass]"
+                                            :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', positionClass]"
                                             type="text" id="position" :placeholder="t('form.input.position')"
                                             v-model="position">
                                     </div>
@@ -537,7 +537,7 @@
                                             {{ t('form.input.workAddress') }}
                                         </label>
                                         <input
-                                            :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', managerWorkAddressClass]"
+                                            :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', managerWorkAddressClass]"
                                             type="text" id="workAddress2" :placeholder="t('form.input.workAddress')"
                                             v-model="managerWorkAddress">
                                     </div>
@@ -545,11 +545,12 @@
 
                                 <div class="block">
                                     <label for="workAddress" class="text-[15px] font-bold mb-[10px] block">
-                                         {{ t('form.input.salary') }}
+                                        {{ t('form.input.salary') }}
                                     </label>
                                     <input
-                                        :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', salaryClass]"
-                                        type="number" id="salary" :placeholder="t('form.input.salary')" v-model="salary">
+                                        :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', salaryClass]"
+                                        type="number" id="salary" :placeholder="t('form.input.salary')"
+                                        v-model="salary">
                                 </div>
                             </div>
                         </div>

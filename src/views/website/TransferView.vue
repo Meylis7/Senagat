@@ -73,9 +73,8 @@
 
                 <div
                     class="flex items-center flex-wrap justify-center gap-2 mb-10 md:mb-[60px] text-center md:text-left">
-                    <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] text-mainWhite" />
                 </div>
 
 
@@ -83,7 +82,7 @@
                     {{ transfer?.title }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <p class="text-[17px] text-mainWhite/60 text-center">
                     {{ transfer?.sub_title || '' }}
                 </p>
 
@@ -107,7 +106,7 @@
                         <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold mb-[10px] leading-tight">
                             {{ adv?.title || adv?.name || '' }}
                         </h3>
-                        <p v-if="adv?.description" class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D]">
+                        <p v-if="adv?.description" class="text-[15px] md:text-[17px] text-[#6F736D]">
                             {{ adv?.description }}
                         </p>
                         <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">

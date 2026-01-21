@@ -2,7 +2,7 @@
     import { RouterLink, useRoute } from 'vue-router'
     import { useI18n } from 'vue-i18n';
     import apiService from '@/services/apiService';
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, watch } from 'vue';
     import imgLens from '@/assets/images/lense.png'
 
     import Breadcrumb from '@/components/website/Breadcrumb.vue'
@@ -79,7 +79,7 @@
                             </h4>
                             <div class="flex items-center gap-x-[10px] flex-wrap mb-5 md:mb-[60px]">
                                 <p v-for="(adv, i) in (card.advantages || []).slice(0, 1)" :key="i"
-                                    class="text-sm md:text-[17px] font-Gilroy text-[#2C702C] p-3 rounded-2xl bg-[#EEF2ED] w-fit">
+                                    class="text-sm md:text-[17px] text-[#2C702C] p-3 rounded-2xl bg-[#EEF2ED] w-fit">
                                     {{ [adv?.name, adv?.description].filter(Boolean).join(' ') }}
                                 </p>
                             </div>
@@ -120,7 +120,7 @@
                                 {{ step.title }}
                             </h4>
                             <p
-                                :class="idx === 2 ? 'text-mainWhite/60 font-Gilroy text-sm lg:text-[17px] leading-6 z-10' : 'text-[#6F736D] font-Gilroy text-[17px] leading-6'">
+                                :class="idx === 2 ? 'text-mainWhite/60 text-sm lg:text-[17px] leading-6 z-10' : 'text-[#6F736D] text-[17px] leading-6'">
                                 {{ step.text }}
                             </p>
                             <span v-if="idx === 2"

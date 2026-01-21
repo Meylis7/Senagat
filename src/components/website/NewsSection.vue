@@ -57,7 +57,7 @@
             <h6 class="text-[20px] md:text-[24px] leading-tight text-mainWhite font-bold mb-[10px] z-[1]">
               {{ t('news.readUsSocial') }}
             </h6>
-            <p class="text-mainWhite text-sm md:text-[17px] leading-tight opacity-60 font-Gilroy z-[1]">
+            <p class="text-mainWhite text-sm md:text-[17px] leading-tight opacity-60 z-[1]">
               {{ t('news.subscribeFirstNews') }}
             </p>
 

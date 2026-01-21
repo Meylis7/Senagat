@@ -277,7 +277,7 @@
                     </h2>
 
                     <RouterLink to="/dashboard" type="button" class="flex items-center gap-[10px]">
-                        <h6 class="text-[17px] font-Gilroy font-bold text-[#1D2417]">
+                        <h6 class="text-[17px] font-bold text-[#1D2417]">
                             {{ t('dashboard.btn.homePage') }}
                         </h6>
 
@@ -300,7 +300,7 @@
                                 {{ t('form.input.firstName') }}
                             </label>
                             <input v-model="formData.first_name" :disabled="hasProfile && !isEditable"
-                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', firstNameClass]"
+                                :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', firstNameClass]"
                                 type="text" id="name" :placeholder="t('form.input.firstName')">
                         </div>
 
@@ -309,7 +309,7 @@
                                 {{ t('form.input.lastName') }}
                             </label>
                             <input v-model="formData.last_name" :disabled="hasProfile && !isEditable"
-                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', lastNameClass]"
+                                :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', lastNameClass]"
                                 type="text" id="Surname" :placeholder="t('form.input.lastName')">
                         </div>
 
@@ -318,7 +318,7 @@
                                 {{ t('form.input.middleName') }}
                             </label>
                             <input v-model="formData.middle_name" :disabled="hasProfile && !isEditable"
-                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', middleNameClass]"
+                                :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', middleNameClass]"
                                 type="text" id="patronymic" :placeholder="t('form.input.middleName')">
                         </div>
 
@@ -327,7 +327,7 @@
                                 {{ t('form.input.dateOfBirth') }}
                             </label>
                             <input v-model="formData.birth_date" :disabled="hasProfile && !isEditable"
-                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', birthDateClass]"
+                                :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', birthDateClass]"
                                 type="text" id="birthdate" :placeholder="t('form.input.dateOfBirth')">
                         </div>
 
@@ -337,7 +337,7 @@
                             </label>
                             <div class="flex gap-2">
                                 <!-- <input v-model="formData.passportId" :disabled="hasProfile && !isEditable"
-                                    class="block text-[15px] font-Gilroy w-[70px] mr-1 bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19] uppercase text-center"
+                                    class="block text-[15px] w-[70px] mr-1 bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19] uppercase text-center"
                                     type="text" id="passportId" placeholder="AS" maxlength="2"> -->
 
                                 <CustomDropdown :options="romanOptions" :defaultOption="romanSelected"
@@ -349,7 +349,7 @@
                                     @option-selected="handleSeriesSelected" />
 
                                 <input v-model="formData.passport_number" :disabled="hasProfile && !isEditable"
-                                    :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', passportNumberClass]"
+                                    :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', passportNumberClass]"
                                     type="text" id="passport_number" :placeholder="t('form.input.passportNumber')"
                                     maxlength="6">
                             </div>
@@ -360,7 +360,7 @@
                                 {{ t('form.input.dateOfIssue') }}
                             </label>
                             <input v-model="formData.issued_date" :disabled="hasProfile && !isEditable"
-                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', issuedDateClass]"
+                                :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', issuedDateClass]"
                                 type="text" id="issued_date" :placeholder="t('form.input.dateOfIssue')">
                         </div>
 
@@ -369,7 +369,7 @@
                                 {{ t('form.input.placeOfIssue') }}
                             </label>
                             <input v-model="formData.issued_by" :disabled="hasProfile && !isEditable"
-                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', issuedByClass]"
+                                :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', issuedByClass]"
                                 type="text" id="issued_by" :placeholder="t('form.input.placeOfIssue')">
                         </div>
 
@@ -379,7 +379,7 @@
                                     {{ t('form.input.passportScan') }}
                                 </p>
                                 <label for="scan"
-                                    :class="['block w-full text-[15px] font-Gilroy leading-tight border-solid border-1 border-[#EEF2ED] rounded-[10px] py-3 px-5 pr-[45px] placeholder:text-[#6F736D] text-[#191B19] truncate', scanLabelClass]">
+                                    :class="['block w-full text-[15px] leading-tight border-solid border-1 border-[#EEF2ED] rounded-[10px] py-3 px-5 pr-[45px] placeholder:text-[#6F736D] text-[#191B19] truncate', scanLabelClass]">
                                     {{ fileName || t('form.input.passportScan') }}
                                 </label>
 
@@ -404,7 +404,7 @@
                                 {{ t('form.input.citizenship') }}
                             </label>
                             <input v-model="formData.citizenship" :disabled="hasProfile && !isEditable"
-                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', citizenshipClass]"
+                                :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', citizenshipClass]"
                                 type="text" id="citizenship" :placeholder="t('form.input.citizenship')">
                         </div>
 
@@ -413,7 +413,7 @@
                                 {{ t('form.input.homePhone') }}
                             </label>
                             <input v-model="formData.home_phone" :disabled="hasProfile && !isEditable"
-                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', homePhoneClass]"
+                                :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', homePhoneClass]"
                                 type="text" id="home_phone" :placeholder="t('form.input.homePhone')" maxlength="8">
                         </div>
 
@@ -422,7 +422,7 @@
                                 {{ t('form.input.homeAddress') }}
                             </label>
                             <input v-model="formData.home_address" :disabled="hasProfile && !isEditable"
-                                :class="['block w-full text-[15px] font-Gilroy bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', homeAddressClass]"
+                                :class="['block w-full text-[15px] bg-[#EEF2ED] rounded-[10px] py-3 px-5 placeholder:text-[#6F736D] text-[#191B19]', homeAddressClass]"
                                 type="text" id="home_address" :placeholder="t('form.input.homeAddress')">
                         </div>
 

@@ -77,9 +77,8 @@
             <div class="hero_wrap">
 
                 <div class="flex flex-wrap items-center justify-center gap-2 mb-[60px] text-center">
-                    <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] text-mainWhite" />
                 </div>
 
 
@@ -88,7 +87,7 @@
                     {{ deposit?.title }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <p class="text-[17px] text-mainWhite/60 text-center">
                     {{ deposit?.description }}
                 </p>
 
@@ -114,7 +113,7 @@
                         <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold mb-[10px] leading-9">
                             {{ adv?.name || '' }}
                         </h3>
-                        <p class="text-[15px] md:text-[17px] font-Gilroy text-[#6F736D] ">
+                        <p class="text-[15px] md:text-[17px] text-[#6F736D] ">
                             {{ adv?.description || '' }}
                         </p>
                         <!-- <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">

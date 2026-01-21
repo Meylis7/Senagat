@@ -156,7 +156,7 @@
                     {{ t('tariff.title') }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-[#6F736D] text-center">
+                <p class="text-[17px] text-[#6F736D] text-center">
                     {{ t('tariff.subTitle') }}
                 </p>
             </div>
@@ -169,7 +169,7 @@
             <div class="wrap">
                 <div class="flex items-center justify-between flex-col mm:flex-row gap-6">
                     <div class="block w-full mm:w-auto">
-                        <h4 class="text-[15px] mb-2 text-mainBlack font-bold font-Gilroy max-w-[80%] truncate">
+                        <h4 class="text-[15px] mb-2 text-mainBlack font-bold max-w-[80%] truncate">
                             {{ t('tariff.section') }}
                         </h4>
                         <CustomDropdown :options="tariffOptions" :placeholder="t('tariff.all')" class="tariff-dd"

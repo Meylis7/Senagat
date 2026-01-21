@@ -157,21 +157,21 @@
                             :style="sliderStyle" aria-hidden="true"></span>
 
                         <button type="button" :ref="el => tabRefs[0] = el"
-                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] w-full sm:w-auto"
+                            class="relative z-[1] cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] w-full sm:w-auto"
                             :class="activeTab === 'all' ? 'text-mainWhite py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('all')">
                             {{ t('tabs.all') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[1] = el"
-                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] w-full sm:w-auto"
+                            class="relative z-[1] cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] w-full sm:w-auto"
                             :class="activeTab === 'transfers' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('transfers')">
                             {{ t('tabs.moneyTransfers') }}
                         </button>
 
                         <button type="button" :ref="el => tabRefs[2] = el"
-                            class="relative z-[1] font-Gilroy cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] w-full sm:w-auto"
+                            class="relative z-[1] cursor-pointer rounded-2xl text-center transition-colors py-3 px-[14px] w-full sm:w-auto"
                             :class="activeTab === 'information' ? 'text-[#EEF2ED] py-3 px-[14px]' : 'text-[#6F736D] hover:text-[#2C702C]'"
                             @click="setActiveTab('information')">
                             {{ t('tabs.information') }}
@@ -188,7 +188,7 @@
                                     ? 'col-span-12 sm:col-span-6 lg:lg:col-span-8 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'
                                     : 'col-span-12 sm:col-span-6 lg:lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition')
                                 : (it.data.special
-                                    ? 'col-span-12 sm:col-span-6 lg:lg:col-span-4 !row-span-1 lg:!row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow'
+                                    ? 'col-span-12 sm:col-span-6 lg:lg:col-span-4 !row-span-1 lg:!row-span-2 rounded-[20px] text-mainBlack relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#F7F8F6]'
                                     : (idx === 5
                                         ? 'col-span-12 sm:col-span-6 lg:lg:col-span-8 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'
                                         : 'col-span-12 sm:col-span-6 lg:lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'))">
@@ -206,7 +206,7 @@
                             </template>
                             <template v-else>
                                 <h6
-                                    :class="['text-lg leading-tight lg:text-[24px] font-bold mb-[10px]', it.data.special ? 'text-mainWhite' : 'text-mainBlack']">
+                                    :class="['text-lg leading-tight lg:text-[24px] font-bold mb-[10px]', it.data.special ? 'text-mainBlack' : 'text-mainBlack']">
                                     {{ it.data.title }}</h6>
                                 <!-- <p
                                     :class="['text-[17px] leading-5 mb-1 font-Gilroy', it.data.special ? 'text-mainWhite/80' : 'text-[#6F736D]']">
@@ -271,7 +271,7 @@
                 <div v-show="activeTab === 'information'" class="grid grid-cols-12 gap-4">
                     <RouterLink v-for="(item, idx) in informationItems" :key="idx" :to="item.to"
                         :class="item.special
-                            ? 'col-span-12 sm:col-span-6 lg:col-span-4 !row-span-1 lg:!row-span-2 rounded-[20px] text-mainWhite relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#191819] bg-deposit hot-glow'
+                            ? 'col-span-12 sm:col-span-6 lg:col-span-4 !row-span-1 lg:!row-span-2 rounded-[20px] text-mainBlack relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#F7F8F6] bg-deposit hot-glow'
                             : 'col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'">
                         <h6
                             :class="['leading-7 font-bold mb-[10px]', item.special ? 'text-mainWhite text-lg leading-tight lg:text-[24px] ' : 'text-lg leading-tight lg:text-[24px] text-mainBlack']">

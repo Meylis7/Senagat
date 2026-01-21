@@ -106,9 +106,8 @@
 
                 <div
                     class="flex items-center justify-center flex-wrap gap-2 mb-10 md:mb-[60px] text-center md:text-lef">
-                    <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] text-mainWhite" />
                 </div>
 
 
@@ -117,13 +116,14 @@
                     {{ t('nav.informations.auditReports') }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <p class="text-[17px] text-mainWhite/60 text-center">
                     {{ t('yanardag.subTitle') }}
                 </p>
 
 
                 <span class="block mt-[80px] md:mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
-                    <img src="../../assets/images/services/services (8).png" class="block w-full h-full object-contain" alt="card">
+                    <img src="../../assets/images/services/services (8).png" class="block w-full h-full object-contain"
+                        alt="card">
                 </span>
             </div>
         </div>
@@ -159,7 +159,7 @@
                                         class="text-sm md:text-[17px] font-bold text-[#1D2417] underline mb-1 leading-5">
                                         {{ report?.title || '' }}
                                     </h6>
-                                    <p class="text-[15px] font-Gilroy text-[#6F736D] leading-5">
+                                    <p class="text-[15px] text-[#6F736D] leading-5">
                                         {{ formatSize(sizeMap[report?.pdf_file]) || '-' }}
                                     </p>
                                 </div>
@@ -167,7 +167,7 @@
                             <div class="flex items-center gap-[14px]">
                                 <a v-for="lf in getLangFiles(report?.pdf_files || {})" :key="lf.code" :href="lf.url"
                                     download target="_blank" rel="noopener" class="flex gap-1">
-                                    <p class="text-[15px] font-Gilroy font-bold text-[#6F736D] leading-5">
+                                    <p class="text-[15px] font-bold text-[#6F736D] leading-5">
                                         {{ lf.code.toUpperCase() }}
                                     </p>
                                     <span class="block w-[14px]">

@@ -91,7 +91,7 @@
                             <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
                                 {{ t('dashboard.services.loanApplication') }}
                             </h4>
-                            <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
+                            <p class="text-[15px] text-mainWhite/60 relative z-[2]">
                                 {{ t('dashboard.services.online') }}
                             </p>
                         </div>
@@ -113,7 +113,7 @@
                             <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
                                 {{ t('dashboard.services.getCertificate') }}
                             </h4>
-                            <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
+                            <p class="text-[15px] text-mainWhite/60 relative z-[2]">
                                 {{ t('dashboard.services.fastAndEasy') }}
                             </p>
                         </div>
@@ -135,7 +135,7 @@
                             <h4 class="text-[17px] font-bold text-mainWhite mb-3 relative z-[2]">
                                 {{ t('dashboard.services.cardIssuance') }}
                             </h4>
-                            <p class="text-[15px] font-Gilroy text-mainWhite/60 relative z-[2]">
+                            <p class="text-[15px] text-mainWhite/60 relative z-[2]">
                                 {{ t('dashboard.services.inFewSteps') }}
                             </p>
                         </div>
@@ -167,7 +167,7 @@
                         </button>
                     </div>
 
-                    <p class="text-[15px] font-Gilroy text-[#6F736D] mb-5 text-center">
+                    <p class="text-[15px] text-[#6F736D] mb-5 text-center">
                         {{ t('dashboard.modal.requiredVerification', { service: selectedServiceTitle }) }}
                     </p>
 

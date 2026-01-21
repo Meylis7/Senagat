@@ -26,9 +26,8 @@
             <div class="hero_wrap">
 
                 <div class="flex items-center flex-wrap justify-center gap-2 mb-[60px] text-center">
-                    <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] text-mainWhite" />
                 </div>
 
 
@@ -37,7 +36,7 @@
                     {{ t('docs.title') }}
                 </h1>
 
-                <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <p class="text-[17px] text-mainWhite/60 text-center">
                     {{ t('docs.supTitle') }}
                 </p>
 
@@ -65,12 +64,12 @@
                     <h6 class="text-[20px] md:text-[24px] font-bold mb-6">
                         {{ adv.title || '' }}
                     </h6>
-                    <p v-if="adv.subtitle" class="text-sm md:text-[17px] font-Gilroy mb-2">
+                    <p v-if="adv.subtitle" class="text-sm md:text-[17px] mb-2">
                         {{ adv.subtitle }}
                     </p>
-                    <p v-if="adv.text" class="text-sm md:text-[17px] font-Gilroy mb-2" v-html="adv.text"></p>
+                    <p v-if="adv.text" class="text-sm md:text-[17px] mb-2" v-html="adv.text"></p>
                     <div v-if="Array.isArray(adv.list) && adv.list.length">
-                        <ul class="text-sm md:text-[17px] font-Gilroy list-disc space-y-2 pl-0">
+                        <ul class="text-sm md:text-[17px] list-disc space-y-2 pl-0">
                             <li v-for="(line, i) in adv.list" :key="i"
                                 class="py-[10px] md:py-[20px] border-solid border-0 border-b border-[#6F736D]">{{ line
                                 }}</li>

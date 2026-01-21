@@ -32,9 +32,8 @@
             <div class="hero_wrap">
 
                 <div class="flex items-center justify-center flex-wrap text-center gap-2 mb-[60px]">
-                    <Breadcrumb :items="breadcrumbItems"
-                        linkClass="text-[17px] font-Gilroy text-mainWhite/60 whitespace-nowrap"
-                        currentClass="text-[17px] font-Gilroy text-mainWhite" />
+                    <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] text-mainWhite/60 whitespace-nowrap"
+                        currentClass="text-[17px] text-mainWhite" />
                 </div>
 
 
@@ -43,7 +42,7 @@
                     {{ t('bankService.title') }}
                 </h1>
 
-                <!-- <p class="text-[17px] font-Gilroy text-mainWhite/60 text-center">
+                <!-- <p class="text-[17px] text-mainWhite/60 text-center">
                     {{ t('yanardag.subTitle') }}
                 </p> -->
 

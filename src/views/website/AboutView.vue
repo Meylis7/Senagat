@@ -65,16 +65,15 @@
       <div class="hero_wrap">
 
         <div class="flex items-center justify-center flex-wrap gap-2 mb-10 md:mb-[60px] text-center md:text-lef">
-          <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] font-Gilroy whitespace-nowrap"
+          <Breadcrumb :items="breadcrumbItems" linkClass="text-[17px] whitespace-nowrap"
             currentClass="text-sm md:text-[17px] font-Gilroy" />
         </div>
 
-        <h1
-          class="m-auto max-w-[660px] mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
+        <h1 class="m-auto max-w-[660px] mb-[10px] text-center text-[22px] md:text-[28px] lg:text-5xl font-bold">
           {{ t('about.title') }}
         </h1>
 
-        <p class="text-[17px] font-Gilroy text-center">
+        <p class="text-[17px] text-center">
           {{ t('about.subtitle') }}
         </p>
 
@@ -150,7 +149,7 @@
                   </button>
                 </div>
 
-                <p class="p-6 md:p-8 text-[15px] md:text-[17px] font-Gilroy leading-tight" v-html="s.description"></p>
+                <p class="p-6 md:p-8 text-[15px] md:text-[17px] leading-tight" v-html="s.description"></p>
               </SwiperSlide>
             </Swiper>
           </div>
@@ -175,7 +174,7 @@
             <h4 class="text-[28px] text-mainWhite font-bold mb-[10px] leading-8 z-10">
               {{ t('app.title') }}
             </h4>
-            <p class="text-mainWhite/60 font-Gilroy text-[17px] leading-6 z-10 max-w-[330px]">
+            <p class="text-mainWhite/60 text-[17px] leading-6 z-10 max-w-[330px]">
               {{ t('app.subTitle') }}
             </p>
             <div class="flex gap-4">

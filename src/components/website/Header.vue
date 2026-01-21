@@ -175,32 +175,32 @@
                         <div
                             :class="[isMenuOpen ? 'flex flex-col !items-start w-full rounded-[20px] p-8 absolute top-[100%] left-0 bg-mainWhite' : 'hidden', 'lg:flex items-center gap-[28px]']">
                             <h4 :class="[
-                                'nav-tab cursor-pointer select-none relative font-Gilroy text-[17px] font-normal text-mainBlack',
+                                'nav-tab cursor-pointer select-none relative text-[17px] font-normal text-mainBlack',
                                 activeTab === 'one' ? 'after:contents' : ' !after:hidden'
                             ]" @click="setTab('one')">
                                 {{ t('header.privateClients') }}
                             </h4>
 
                             <h4 :class="[
-                                'nav-tab cursor-pointer select-none relative font-Gilroy text-[17px] font-normal text-mainBlack',
+                                'nav-tab cursor-pointer select-none relative text-[17px] font-normal text-mainBlack',
                                 activeTab === 'two' ? 'after:contents' : ' !after:hidden'
                             ]" @click="setTab('two')">
                                 {{ t('header.businessAndIP') }}
                             </h4>
 
                             <RouterLink to="/services" :class="[
-                                'font-Gilroy text-[17px] font-normal text-mainBlack'
+                                'text-[17px] font-normal text-mainBlack'
                             ]"> {{ t('nav.services.title') }}
                             </RouterLink>
 
                             <RouterLink to="/news" :class="[
-                                'font-Gilroy text-[17px] font-normal text-mainBlack'
+                                'text-[17px] font-normal text-mainBlack'
                             ]"> {{ t('footer.links.news') }}
                             </RouterLink>
 
 
                             <RouterLink to="/about" :class="[
-                                'font-Gilroy text-[17px] font-normal text-mainBlack'
+                                'text-[17px] font-normal text-mainBlack'
                             ]">{{ t('header.aboutBank') }}
                             </RouterLink>
 
@@ -293,7 +293,7 @@
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li v-for="item in loans" :key="item.id">
                                     <RouterLink :to="`/loans-detail?id=${item.id}`"
-                                        class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
+                                        class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] transition-all">
                                         {{ item.title || '' }}</RouterLink>
                                 </li>
                             </ul>
@@ -307,7 +307,7 @@
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li v-for="item in cards" :key="item.id">
                                     <RouterLink :to="`/cards-detail?id=${item.id}`"
-                                        class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
+                                        class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] transition-all">
                                         {{ item.title || '' }}</RouterLink>
                                 </li>
                             </ul>
@@ -319,7 +319,7 @@
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li v-for="item in deposits" :key="item.id">
                                     <RouterLink :to="`/deposits-detail?id=${item.id}`"
-                                        class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
+                                        class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] transition-all">
                                         {{ item.title || '' }}</RouterLink>
                                 </li>
                             </ul>
@@ -345,7 +345,7 @@
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li v-for="item in loansBusiness" :key="item.id">
                                     <RouterLink :to="`/loans-detail?id=${item.id}`"
-                                        class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
+                                        class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] transition-all">
                                         {{ item.title || '' }}</RouterLink>
                                 </li>
                             </ul>
@@ -359,7 +359,7 @@
                             <ul class="flex flex-col gap-y-[22px]">
                                 <li v-for="item in cardsBusiness" :key="item.id">
                                     <RouterLink :to="`/cards-detail?id=${item.id}`"
-                                        class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] font-Gilroy transition-all">
+                                        class="text-[17px] font-normal text-[#6F736D] hover:text-[#2C702C] transition-all">
                                         {{ item.title || '' }}</RouterLink>
                                 </li>
                             </ul>

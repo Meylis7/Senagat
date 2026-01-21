@@ -12,11 +12,11 @@
         },
         linkClass: {
             type: String,
-            default: 'text-[17px] font-Gilroy text-[#6F736D] whitespace-nowrap'
+            default: 'text-[17px] text-[#6F736D] whitespace-nowrap'
         },
         currentClass: {
             type: String,
-            default: 'text-[17px] font-Gilroy text-mainBlack'
+            default: 'text-[17px] text-mainBlack'
         }
     })
 </script>

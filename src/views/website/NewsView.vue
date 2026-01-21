@@ -59,7 +59,7 @@
                     {{ t('news.title') }}
                 </h1>
 
-                <!-- <p class="text-[17px] font-Gilroy text-[#6F736D] text-center">
+                <!-- <p class="text-[17px] text-[#6F736D] text-center">
                     {{ t('news.subTitle') }}
                 </p> -->
             </div>
@@ -75,27 +75,27 @@
         <div class="auto_container">
             <div class="wrap">
                 <!-- <div class="flex items-center mb-10 gap-1">
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
+                    <h6 class="text-[17px] text-[#6F736D] py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Кредит
                     </h6>
 
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
+                    <h6 class="text-[17px] text-[#6F736D] py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Карта
                     </h6>
 
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
+                    <h6 class="text-[17px] text-[#6F736D] py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Вклады
                     </h6>
 
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
+                    <h6 class="text-[17px] text-[#6F736D] py-3 px-[14px] rounded-2xl bg-mainWhite">
                         График работы
                     </h6>
 
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
+                    <h6 class="text-[17px] text-[#6F736D] py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Важно
                     </h6>
 
-                    <h6 class="text-[17px] text-[#6F736D] font-Gilroy py-3 px-[14px] rounded-2xl bg-mainWhite">
+                    <h6 class="text-[17px] text-[#6F736D] py-3 px-[14px] rounded-2xl bg-mainWhite">
                         Мобильная версия
                     </h6>
                 </div> -->

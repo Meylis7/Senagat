@@ -218,7 +218,7 @@
                                     {{ title }}
                                 </h6>
                                 <label :for="'scan-' + idx"
-                                    class="block w-full text-[15px] font-Gilroy leading-tight border-solid border-1 border-[#EEF2ED] rounded-[10px] py-3 px-5 pr-[45px] placeholder:text-[#6F736D] text-[#191B19] cursor-pointer"
+                                    class="block w-full text-[15px] leading-tight border-solid border-1 border-[#EEF2ED] rounded-[10px] py-3 px-5 pr-[45px] placeholder:text-[#6F736D] text-[#191B19] cursor-pointer"
                                     :class="{ 'border-solid border-[1px] border-red-500': errors.files && !fileUploads[idx] }">
                                     {{ fileUploads[idx]?.name || 'Загрузить файл' }}
                                 </label>
@@ -240,7 +240,7 @@
 
                     <div class="col-span-12 flex justify-center mt-5">
                         <button type="submit"
-                            class="bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] font-Gilroy w-[250px]"
+                            class="bg-[#2C702C] rounded-[10px] text-center text-[#EEF2ED] py-[14px] text-[15px] w-[250px]"
                             :disabled="submitting">
                             {{ t('dashboard.btn.sendApplication') }}
                         </button>
