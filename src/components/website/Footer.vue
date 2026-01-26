@@ -257,7 +257,7 @@
             </div>
         </div>
 
-        <div class="bg-[#1D2417] py-[60px] text-mainWhite">
+        <div class="bg-[#134613] py-[60px] text-mainWhite">
             <div class="auto_container">
                 <div class="wrap">
                     <div class="grid items-center md:grid-cols-12 gap-8">
@@ -305,11 +305,11 @@
 
                         <h6 class="text-[#EEF2ED] text-sm leading-5">
                             {{ t('footer.links.privacyPolicy') }}
-                            <RouterLink to="/privacy?type=bank" class="text-[#2C702C] inline-block mx-2">
+                            <RouterLink to="/privacy?type=bank" class="text-[#ffe96e] inline-block mx-2">
                                 {{ t('footer.links.mobileBankingSystem') }}
                             </RouterLink>
-                            <span class="text-[#2C702C]  mx-2 hidden sm:inline-block">|</span>
-                            <RouterLink to="/privacy?type=payment" class="text-[#2C702C] inline-block mx-2">
+                            <span class="text-[#ffe96e]  mx-2 hidden sm:inline-block">|</span>
+                            <RouterLink to="/privacy?type=payment" class="text-[#ffe96e] inline-block mx-2">
                                 {{ t('footer.links.paymentSystem') }}
                             </RouterLink>
                         </h6>

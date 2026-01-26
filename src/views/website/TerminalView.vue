@@ -101,8 +101,8 @@
                 </p>
 
 
-                <span class="block mt-[80px] md:mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
-                    <img src="../../assets/images/services/services (1).png" class="block w-full h-full object-contain"
+                <span class="block mt-[80px] md:mt-[125px] w-[100px] sm:w-[210px] mx-auto relative z-10">
+                    <img src="../../assets/images/services/mainTerminalInstallation.svg" class="block w-full h-full object-contain"
                         alt="card">
                 </span>
             </div>

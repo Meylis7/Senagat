@@ -86,8 +86,8 @@
                     {{ transfer?.sub_title || '' }}
                 </p>
 
-                <span class="block mt-[125px] w-[210px] md:w-[300px] max-w-[390px] mx-auto relative z-10">
-                    <img :src="transfer?.image_url" class="block w-full h-full object-contain" alt="card">
+                <span class="block mt-[125px] w-[160px] sm:w-[210px] mx-auto relative z-10">
+                    <img :src="transfer?.image_url" class="block w-full h-full object-contain invert" alt="card">
                 </span>
             </div>
         </div>

@@ -5,6 +5,7 @@
   import { RouterLink } from 'vue-router';
   import { useI18n } from 'vue-i18n';
   import apiService from '@/services/apiService';
+  import CustomDropdown from '@/components/dashboard/CustomDropdown.vue';
   import { Swiper, SwiperSlide } from 'swiper/vue'
   import { Autoplay } from 'swiper/modules'
   import 'swiper/css'
@@ -19,57 +20,7 @@
   const tabOrder = ['Все', 'Вклад', 'Кредиты', 'Карты'];
   const activeIndex = computed(() => tabOrder.indexOf(activeTab.value));
 
-  // Calculator Section ========================================================================
-  const calcActiveTab = ref('Кредит');
-  const setCalcTab = (tab) => {
-    calcActiveTab.value = tab;
-  };
-  const calcTabOrder = ['Кредит', 'Вклад'];
-  const calcActiveIndex = computed(() => calcTabOrder.indexOf(calcActiveTab.value));
 
-  // Deposit Form State ========================================================================
-  const depositTypes = ['Накопительный', 'Срочный', 'До востребования'];
-  const depositType = ref(depositTypes[0]);
-  const isDepositTypeOpen = ref(false);
-  const setDepositType = (t) => {
-    depositType.value = t;
-    isDepositTypeOpen.value = false;
-  };
-
-  const depositMin = 5000;
-  const depositMax = 60000;
-  const depositAmount = ref(10000);
-  const creditMin = 5000;
-  const creditMax = 60000;
-  const creditAmount = ref(10000);
-  const creditTypes = ['Потребительский', 'Ипотечный', 'Автокредит'];
-  const creditType = ref('');
-  const isCreditTypeOpen = ref(false);
-  const setCreditType = (t) => {
-    creditType.value = t;
-    isCreditTypeOpen.value = false;
-  };
-
-  // Utility Functions =========================================================================
-  const formatMoney = (n) => n.toLocaleString('ru-RU');
-  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
-  const roundToStep = (v, step) => Math.round(v / step) * step;
-
-  // Input Handlers ============================================================================
-  const onDepositAmountInput = (e) => {
-    const raw = String(e.target.value).replace(/\D/g, '');
-    const num = clamp(roundToStep(Number(raw || 0), 500), depositMin, depositMax);
-    depositAmount.value = num;
-    // reflect formatted value back to the input element
-    e.target.value = formatMoney(num);
-  };
-
-  const onCreditAmountInput = (e) => {
-    const raw = String(e.target.value).replace(/\D/g, '');
-    const num = clamp(roundToStep(Number(raw || 0), 500), creditMin, creditMax);
-    creditAmount.value = num;
-    e.target.value = formatMoney(num);
-  };
 
   // Currency Section ==========================================================================
   const currencyTabs = ['Текущий курс', 'Обмен'];
@@ -230,6 +181,149 @@
       creditsLoading.value = false
     }
   }
+  // Calc
+  const selectedLoanId = ref(null)
+  const loanOptions = computed(() => {
+    const list = credits.value || []
+    const arr = Array.isArray(list) ? list : []
+    return arr.map(it => ({
+      id: it.id,
+      title: it.title,
+      description: it.description,
+      term: it.term,
+      term_text: it.term_text,
+      min_amount: it.min_amount,
+      max_amount: it.max_amount,
+      interest: it.interest,
+      image_url: it.image_url,
+      background_color: it.background_color,
+    }))
+  })
+  const filteredLoanOptions = computed(() => {
+    const arr = Array.isArray(loanOptions.value) ? loanOptions.value : []
+    return arr.filter((it) => it?.min_amount != null && it?.max_amount != null)
+  })
+  const defaultLoanTitle = computed(() => {
+    const arr = Array.isArray(filteredLoanOptions.value) ? filteredLoanOptions.value : []
+    if (!arr.length) return ''
+    const sel = selectedLoanId.value
+    if (sel) {
+      const found = arr.find(it => it.id === sel)
+      if (found && found.title) return found.title
+    }
+    return arr[0].title || ''
+  })
+  const credit = ref(null)
+  const creditMin = computed(() => {
+    const minAmount = Number(credit.value?.min_amount)
+    return Number.isFinite(minAmount) && minAmount > 0 ? minAmount : 0
+  })
+  const creditMax = computed(() => {
+    const maxAmount = Number(credit.value?.max_amount)
+    return Number.isFinite(maxAmount) && maxAmount > 0 ? maxAmount : 0
+  })
+  const creditAmount = ref(0)
+  const formatMoney = (amount) => amount.toLocaleString('ru-RU')
+  const toFixedDown = (value, digits = 2) => {
+    const p = 10 ** digits
+    return Math.trunc(Number(value) * p) / p
+  }
+  const formatMoneyFixed = (amount, digits = 2) => toFixedDown(amount, digits).toLocaleString('ru-RU', {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  })
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max)
+  const roundToStep = (value, step) => Math.round(value / step) * step
+  const creditSelectedTerm = ref('')
+  const creditSelectedTermMonths = ref(0)
+  const termOptions = computed(() => {
+    const termYears = Number(credit.value?.term)
+    const maxYears = Number.isFinite(termYears) && termYears > 0 ? termYears : NaN
+    const steps = Number.isFinite(maxYears) ? Array.from({ length: maxYears }, (_, index) => index + 1) : []
+    return steps.map((years) => ({
+      label: `${years} ${(() => {
+        if (locale.value === 'ru') {
+          const mod10 = years % 10
+          const mod100 = years % 100
+          if (mod10 === 1 && mod100 !== 11) return t('date.year')
+          if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return t('date.yearsFew')
+          return t('date.years')
+        }
+        return years === 1 ? t('date.year') : t('date.years')
+      })()}`,
+      months: years * 12,
+    }))
+  })
+  watch(termOptions, (opts) => {
+    const first = Array.isArray(opts) && opts.length ? opts[0] : null
+    if (first) {
+      creditSelectedTerm.value = first.label
+      creditSelectedTermMonths.value = first.months
+    }
+  }, { immediate: true })
+  watch(credits, (list) => {
+    const arr = Array.isArray(list) ? list : []
+    const first = arr.length ? arr[0] : null
+    if (first) {
+      selectedLoanId.value = first.id
+      credit.value = {
+        id: first.id,
+        title: first.title,
+        description: first.description,
+        term: first.term,
+        term_text: first.term_text,
+        min_amount: first.min_amount,
+        max_amount: first.max_amount,
+        interest: first.interest,
+        image_url: first.image_url,
+        background_color: first.background_color,
+      }
+      const minA = Number(first?.min_amount)
+      const maxA = Number(first?.max_amount)
+      if (Number.isFinite(minA) && Number.isFinite(maxA) && maxA > minA) {
+        creditAmount.value = roundToStep(minA, 100)
+      }
+    }
+  }, { immediate: true })
+  const handleOptionSelected = (option) => {
+    const id = typeof option === 'object' ? option.id : option
+    selectedLoanId.value = id
+    const found = Array.isArray(loanOptions.value) ? loanOptions.value.find(it => it.id === id) : null
+    if (found) {
+      credit.value = found
+      const minA = Number(found?.min_amount)
+      const maxA = Number(found?.max_amount)
+      if (Number.isFinite(minA) && Number.isFinite(maxA) && maxA > minA) {
+        creditAmount.value = roundToStep(minA, 100)
+      }
+    }
+  }
+  const progressPercent = computed(() => {
+    const min = creditMin.value
+    const max = creditMax.value
+    const denom = max - min
+    if (!Number.isFinite(min) || !Number.isFinite(max) || denom <= 0) return '0%'
+    const selectedAmount = clamp(creditAmount.value, min, max)
+    return ((selectedAmount - min) / denom) * 100 + '%'
+  })
+  watch([creditMin, creditMax], ([min, max]) => {
+    if (Number.isFinite(min) && Number.isFinite(max) && max > min) {
+      creditAmount.value = min
+    }
+  })
+  const monthlyRate = computed(() => {
+    const interestPercent = Number(credit.value?.interest)
+    return Number.isFinite(interestPercent) && interestPercent > 0 ? interestPercent / 100 : 0
+  })
+  const monthlyPayment = computed(() => {
+    if (!selectedLoanId.value || !credit.value) return 0
+    const principal = clamp(roundToStep(Number(creditAmount.value) || 0, 100), creditMin.value, creditMax.value)
+    const totalMonths = Number(creditSelectedTermMonths.value) || 0
+    const monthlyInterestRate = monthlyRate.value
+    if (!Number.isFinite(principal) || !Number.isFinite(totalMonths) || totalMonths <= 0) return 0
+    return (principal + principal * monthlyInterestRate) / totalMonths
+  })
+  // Calc end
 
   const cards = ref([])
   const cardsLoading = ref(false)
@@ -367,25 +461,173 @@
   <main>
     <Hero />
 
-    <!-- Foundation =============================================================================== -->
-    <section class="">
+    <!-- Calc ===================================================================================== -->
+    <section class="py-[50px]">
       <div class="auto_container">
         <div class="wrap">
-          <div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-[#F7F8F6] rounded-[20px] p-8">
-            <div class="block max-w-[460px]">
-              <h4 class=" text-[18px] md:text-[28px] text-center md:text-left font-bold mb-[10px] text-[#191B19]">
-                {{ t('slogan') }}
-              </h4>
-              <!-- <p class="text-[#6F736D] text-[17px] leading-6 mb-8 font-Gilroy">
-                Расчет предварительного платежа носит информационный характер и рассчитан при условии оформления
-                финансовой защиты кредита. Не является публичной офертой
-              </p> -->
+          <div class="flex items-center justify-between mb-8">
+            <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold leading-9"> {{ t('calc.calculateBenefit') }}</h2>
+          </div>
+
+          <!-- <div v-show="calcActiveTab === 'Кредит'" class="grid lg:grid-cols-2 gap-6">
+            <div class="bg-mainWhite rounded-[20px] p-6">
+              <div class="mb-6">
+                <div class="relative">
+                  <button type="button" @click="isCreditTypeOpen = !isCreditTypeOpen"
+                    class="h-[56px] bg-white rounded-[12px] w-full flex items-center justify-between px-4 text-[#6F736D]">
+                    <span>{{ creditType || t('calc.creditType') }}</span>
+                    <svg :class="isCreditTypeOpen ? 'rotate-180' : ''" class="transition-transform" width="18"
+                      height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M6 9l6 6 6-6" stroke="#6F736D" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+                  </button>
+                  <ul v-show="isCreditTypeOpen"
+                    class="absolute z-10 mt-2 w-full bg-white rounded-[12px] shadow p-2 space-y-1">
+                    <li v-for="t in creditTypes" :key="t">
+                      <button type="button" @click="setCreditType(t)"
+                        :class="t === creditType ? 'bg-[#2C702C] text-white' : 'hover:bg-mainWhite text-mainBlack'"
+                        class="w-full text-left px-3 py-2 rounded-[8px]">{{ t }}</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mb-6">
+                <label class="block text-mainBlack font-bold mb-3">{{ t('calc.loanAmount') }}</label>
+                <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
+                  <input type="text" :value="formatMoney(creditAmount)" @input="onCreditAmountInput"
+                    class="w-full outline-none bg-transparent text-mainBlack font-bold" />
+                </div>
+                <div class="mt-3">
+                  <input type="range" :min="creditMin" :max="creditMax" step="500" v-model="creditAmount"
+                    class="w-full accent-[#2C702C]" />
+                  <div class="flex justify-between text-[#6F736D] mt-2">
+                    <span>{{ formatMoney(creditMin) }}</span>
+                    <span>{{ formatMoney(creditMax) }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-mainBlack font-bold mb-3">{{ t('calc.term') }}</label>
+                <div class="flex flex-wrap gap-3">
+                  <button v-for="term in termOptions" :key="term" type="button" @click="creditSelectedTerm = term"
+                    :class="creditSelectedTerm === term ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
+                    class="h-[48px] px-5 rounded-[12px]">{{ term }}</button>
+                </div>
+              </div>
             </div>
 
-            <span class="h-[170px] md:h-[220px] flex items-end justify-end">
-              <img src="../../assets/images/yearslogan-2.png" class="block max-h-full object-contain" alt="year-logo">
-            </span>
+            <div class="bg-mainWhite rounded-[20px] p-6">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <p class="text-[#6F736D] mb-2">{{ t('calc.monthlyPayment') }}</p>
+                  <h3 class="text-[42px] font-bold">1000 манат</h3>
+                </div>
+                <div>
+                  <span
+                    class="inline-flex items-center justify-center h-[44px] w-[44px] rounded-[12px] bg-mainBlack text-white">1%</span>
+                  <p class="text-[#6F736D] mt-2 text-center">{{ t('calc.rate') }}</p>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-[12px] p-4 mb-6">
+                <p class="text-mainBlack font-bold mb-2">{{ t('calc.requiredDocs') }}:</p>
+                <ul class="text-[#6F736D] space-y-2">
+                  <li>{{ t('calc.passport') }}</li>
+                  <li>{{ t('calc.incomeStatement') }}</li>
+                </ul>
+              </div>
+
+              <p class="text-[#6F736D]">{{ t('calc.calculatorDisclaimer') }}</p>
+            </div>
           </div>
+
+    
+          </div> -->
+
+
+
+          <div class="grid lg:grid-cols-2 gap-6">
+            <div class="bg-mainWhite rounded-[20px] p-6">
+              <div class="mb-6">
+                <h6 class="text-[17px] font-bold mb-4">
+                  {{ t('dashboard.blockTitiles.selectCreditType') }}
+                </h6>
+                <CustomDropdown :options="filteredLoanOptions" :default-option="defaultLoanTitle"
+                  @option-selected="handleOptionSelected" />
+              </div>
+
+              <div class="mb-6">
+                <div class="bg-[#EEF2ED] rounded-[20px] p-5 relative">
+                  <label class="block text-[#6F736D] text-[17px] mb-1 leading-tight">
+                    {{ t('calc.loanAmount') }}
+                  </label>
+                  <h3 class="text-[17px] font-bold text-[#1D2417] leading-tight">{{ formatMoney(creditAmount) }}</h3>
+                  <input type="range" :min="creditMin" :max="creditMax" step="100" v-model="creditAmount"
+                    class="amount-range w-full absolute bottom-0 left-1/2 -translate-x-1/2 cursor-pointer max-w-[calc(100%-30px)]"
+                    :style="{ '--progress': progressPercent }" />
+                </div>
+                <div class="mt-3">
+                  <div class="flex justify-between text-[#6F736D] mt-2">
+                    <span>{{ credit && credit.min_amount ? formatMoney(credit.min_amount) : formatMoney(creditMin)
+                    }}</span>
+                    <span>{{ credit && credit.max_amount ? formatMoney(credit.max_amount) : formatMoney(creditMax)
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-mainBlack font-bold mb-3"> {{ t('calc.term') }}</label>
+                <div class="flex flex-wrap gap-3">
+                  <button v-for="opt in termOptions" :key="opt.label" type="button"
+                    @click="creditSelectedTerm = opt.label; creditSelectedTermMonths = opt.months"
+                    :class="creditSelectedTerm === opt.label ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
+                    class="h-[48px] px-5 rounded-[12px] leading-tight">{{ opt.label }}</button>
+                </div>
+              </div>
+
+              <p class="text-[#6F736D] text-[17px] mt-8 leading-6">
+                {{ t('calc.calculatorDisclaimer') }}
+              </p>
+            </div>
+
+            <div class="bg-mainWhite rounded-[20px] p-6">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <p class="text-[#6F736D] mb-2">{{ t('calc.monthlyPayment') }}</p>
+                  <h3 class="text-[28px] font-bold leading-tight">{{ formatMoneyFixed(monthlyPayment) }}
+                    {{ t('calc.currencyManat') }}</h3>
+                </div>
+
+                <div>
+                  <p class="text-[#6F736D] mt-2 text-center">{{ t('calc.rate') }}</p>
+
+                  <span
+                    class="inline-flex items-center justify-center py-3 px-5 min-h-[44px] min-w-[44px] rounded-[20px] bg-mainBlack text-white">
+                    {{ credit?.interest || 0 }}%
+                  </span>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-[12px] p-4 mb-6">
+                <p class="text-mainBlack font-bold mb-2">{{ t('calc.requiredDocs') }}</p>
+                <ul class="text-[#6F736D] space-y-2">
+                  <li>{{ t('calc.passport') }}</li>
+                  <li>{{ t('calc.incomeStatement') }}</li>
+                </ul>
+              </div>
+
+              <p class="text-[#6F736D]">{{ t('calc.calculatorDisclaimer') }}</p>
+            </div>
+
+
+
+
+          </div>
+
         </div>
       </div>
     </section>
@@ -609,24 +851,26 @@
 
           <div class="grid grid-cols-12 gap-4">
             <RouterLink to="/branches"
-              class="group text-center md:text-left glow w-full col-span-12 md:col-span-4 min-h-[260px] md:min-h-[407px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8 hover:bg-[#1D2417] transition duration-300">
+              class="group text-center md:text-left glow w-full col-span-12 md:col-span-4 min-h-[260px] md:min-h-[407px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8 hover:bg-[#1d5f1d] transition duration-300">
               <h6
                 class="text-[18px] md:text-[24px] text-mainBlack leading-tight font-bold mb-[10px] group-hover:text-white">
                 {{
                   t('exchange.branches') }}</h6>
               <p class="text-sm mdtext-[17px] text-[#6F736D] leading-tight mb-6 group-hover:text-white">{{
                 t('exchange.onCityMap') }}</p>
-              <span class="block w-[160px] md:w-[200px] absolute left-1/2 -translate-x-1/2 bottom-[25px] z-[1]">
+
+              <span class="block w-[90px] md:w-[180px] absolute left-1/2 -translate-x-1/2 bottom-[40px] sm:bottom-[25px] z-[1]">
                 <!-- <img src="../../assets/images/services/services (16).png" class="block w-full h-full object-contain"
                   alt="currency"> -->
 
-                <svg class="w-full h-full object-contain" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path class="group-hover:fill-[#fff]" d="M18.7002 37.3001L29.9002 32.5001L23.5002 26.1001L18.7002 37.3001Z" fill="#2C702C" />
+                <svg class="w-full h-full object-contain" width="56" height="56" viewBox="0 0 56 56" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path class="group-hover:fill-[#fff]"
+                    d="M18.7002 37.3001L29.9002 32.5001L23.5002 26.1001L18.7002 37.3001Z" fill="#2C702C" />
                   <path class="group-hover:fill-[#fff]"
                     d="M41.3 0H14.7C6.6 0 0 6.6 0 14.7V41.3C0 49.4 6.6 56 14.7 56H41.3C49.4 56 56 49.4 56 41.3V14.7C56 6.6 49.4 0 41.3 0ZM42.4 16L34.8 33.8C34.7 34.1 34.5 34.3 34.3 34.5C34.2 34.6 34 34.7 33.9 34.7L16 42.4C15.3 42.7 14.5 42.5 14 42C13.5 41.5 13.3 40.7 13.6 40L21.2 22.2C21.4 21.8 21.7 21.5 22.1 21.3L40 13.6C40.7 13.3 41.5 13.5 42 14C42.5 14.5 42.7 15.3 42.4 16Z"
                     fill="#cecece" />
                 </svg>
-
               </span>
             </RouterLink>
 
@@ -791,11 +1035,11 @@
       <div class="auto_container">
         <div class="wrap">
           <div class="block relative overflow-hidden">
-            <div class=" bg-mainBlack rounded-[20px] p-8 relative overflow-hidden ellipse">
-              <h4 class="text-[28px] max-w-[370px] text-mainWhite font-bold mb-[10px] leading-8 z-10">
+            <div class=" bg-mainWhite rounded-[20px] p-8 relative overflow-hidden ellipse">
+              <h4 class="text-[28px] max-w-[370px] text-mainBlack font-bold mb-[10px] leading-8 z-10">
                 {{ t('app.title') }}
               </h4>
-              <p class="text-mainWhite/60 text-[17px] leading-6 z-10 max-w-[330px]">
+              <p class="text-mainBlack/60 text-[17px] leading-6 z-10 max-w-[330px]">
                 {{ t('app.subTitle') }}
               </p>
               <div class="flex gap-4">
@@ -847,7 +1091,7 @@
                 </RouterLink>
               </div>
 
-              <div class="app-circle"></div>
+              <!-- <div class="app-circle"></div> -->
 
             </div>
             <span class="block w-[258px] absolute top-8 right-8 z-10">
@@ -858,7 +1102,6 @@
         </div>
       </div>
     </section>
-
 
   </main>
 </template>
@@ -995,10 +1238,51 @@
     height: 321px;
     background: #2C702C;
     border-radius: 50%;
-    filter: blur(274.3px);
+    filter: blur(160px);
     z-index: 1;
     right: -16px;
     bottom: -216px;
     transform: translateY(-50%);
   }
+
+  /* Calc */
+  .amount-range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 9999px;
+    background: linear-gradient(to right, #2C702C var(--progress, 0%), #E6EAE3 var(--progress, 0%));
+    outline: none;
+  }
+
+  .amount-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #2C702C 0 7px, #ffffff 8px);
+    border: 0;
+    box-shadow: 0 0 0 4px #ffffff;
+    cursor: pointer;
+    margin-top: 0px;
+  }
+
+  .amount-range::-moz-range-track {
+    height: 8px;
+    border-radius: 9999px;
+    background: linear-gradient(to right, #2C702C var(--progress, 0%), #E6EAE3 var(--progress, 0%));
+  }
+
+  .amount-range::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #2C702C 0 7px, #ffffff 8px);
+    border: 0;
+    box-shadow: 0 0 0 4px #ffffff;
+    cursor: pointer;
+  }
+
+  /* Calc end */
 </style>

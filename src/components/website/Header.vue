@@ -175,32 +175,32 @@
                         <div
                             :class="[isMenuOpen ? 'flex flex-col !items-start w-full rounded-[20px] p-8 absolute top-[100%] left-0 bg-mainWhite' : 'hidden', 'lg:flex items-center gap-[28px]']">
                             <h4 :class="[
-                                'nav-tab cursor-pointer select-none relative text-[17px] font-normal text-mainBlack',
+                                'nav-tab cursor-pointer select-none relative text-[17px] font-medium text-black',
                                 activeTab === 'one' ? 'after:contents' : ' !after:hidden'
                             ]" @click="setTab('one')">
                                 {{ t('header.privateClients') }}
                             </h4>
 
                             <h4 :class="[
-                                'nav-tab cursor-pointer select-none relative text-[17px] font-normal text-mainBlack',
+                                'nav-tab cursor-pointer select-none relative text-[17px] font-medium text-black',
                                 activeTab === 'two' ? 'after:contents' : ' !after:hidden'
                             ]" @click="setTab('two')">
                                 {{ t('header.businessAndIP') }}
                             </h4>
 
                             <RouterLink to="/services" :class="[
-                                'text-[17px] font-normal text-mainBlack'
+                                'text-[17px] font-medium text-black'
                             ]"> {{ t('nav.services.title') }}
                             </RouterLink>
 
                             <RouterLink to="/news" :class="[
-                                'text-[17px] font-normal text-mainBlack'
+                                'text-[17px] font-medium text-black'
                             ]"> {{ t('footer.links.news') }}
                             </RouterLink>
 
 
                             <RouterLink to="/about" :class="[
-                                'text-[17px] font-normal text-mainBlack'
+                                'text-[17px] font-medium text-black'
                             ]">{{ t('header.aboutBank') }}
                             </RouterLink>
 

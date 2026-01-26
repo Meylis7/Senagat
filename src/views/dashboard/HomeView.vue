@@ -150,7 +150,7 @@
                                             src="../../assets/images/payments/astu.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                        {{ t('dashboard.payments.internet') }}
+                                        ASTU {{ t('dashboard.payments.internet') }}
                                     </p>
                                 </RouterLink>
 
@@ -161,7 +161,7 @@
                                             src="../../assets/images/payments/telecom-logo.png" alt="payment-icon">
                                     </span>
                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                        {{ t('dashboard.payments.internet') }}
+                                        Telekom {{ t('dashboard.payments.internet') }}
                                     </p>
                                 </RouterLink>
 
@@ -201,7 +201,7 @@
                                             class="flex items-center gap-2">
                                             <!-- {{ t('dashboard.viewAll') }} -->
                                             <p class="text-sm sm:text-[15px] font-bold leading-tight text-[#2C702C]">
-                                                   {{ t('dashboard.payment.allHistory') }}
+                                                {{ t('dashboard.payment.allHistory') }}
                                             </p>
                                         </RouterLink>
                                     </div>
@@ -217,19 +217,19 @@
                                             <div
                                                 class="hidden sm:grid grid-cols-5 gap-2 bg-[#EEF2ED]/60 text-[#6F736D] px-3 py-3 font-bold text-center">
                                                 <div class="block">
-                                                      {{ t('dashboard.payment.status') }}
+                                                    {{ t('dashboard.payment.status') }}
                                                 </div>
                                                 <div class="block">
-                                                       {{ t('dashboard.payment.title') }}
+                                                    {{ t('dashboard.payment.title') }}
                                                 </div>
                                                 <div class="block">
-                                                       {{ t('dashboard.payment.amount') }}
+                                                    {{ t('dashboard.payment.amount') }}
                                                 </div>
                                                 <div class="block">
-                                                       {{ t('dashboard.payment.date') }}
+                                                    {{ t('dashboard.payment.date') }}
                                                 </div>
                                                 <div class="block">
-                                                       {{ t('dashboard.payment.description') }}
+                                                    {{ t('dashboard.payment.description') }}
                                                 </div>
                                             </div>
 
@@ -240,27 +240,31 @@
                                                     {{ statusLabel(payment.status) }}
                                                 </div>
 
-                                                <div class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
+                                                <div
+                                                    class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
                                                     <p
                                                         class="text-sm sm:text-[15px] font-bold leading-5 text-mainBlack capitalize font-Gilroy">
                                                         {{ payment.title }}
                                                     </p>
                                                 </div>
 
-                                                <div class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
+                                                <div
+                                                    class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
                                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
                                                         - {{ payment.amount }} TMT
                                                     </p>
                                                 </div>
 
-                                                <div class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
+                                                <div
+                                                    class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
                                                     <p
                                                         class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
                                                         {{ payment.date }}
                                                     </p>
                                                 </div>
 
-                                                <div class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
+                                                <div
+                                                    class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
                                                     <p
                                                         class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
                                                         {{ payment.description }}

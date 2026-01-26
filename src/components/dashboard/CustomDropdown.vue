@@ -103,7 +103,7 @@
         <!-- Position absolute version -->
         <div v-show="isDropdownOpen"
             class="py-3 px-3 rounded-[10px] bg-[#EEF2ED] flex flex-col gap-y-2 w-full z-10 
-            transform origin-top transition-all duration-300 ease-in-out max-h-[350px] overflow-auto shadow-md text-center"
+            transform origin-top transition-all duration-300 ease-in-out max-h-[350px] overflow-auto shadow-md"
             :class="[props.menuClass, { 'opacity-100 scale-y-100 absolute left-0 right-0 top-full mt-1': isDropdownOpen, 'opacity-0 scale-y-0': !isDropdownOpen }]">
             <h4 v-for="(option, index) in options" :key="option?.id ?? index" @click="selectOption(option)"
                 class="text-[15px] text-[#6F736D] py-2 px-2 rounded border-solid border-0 border-b border-[#fff] cursor-pointer transition-all duration-300 hover:border-[#2C702C] hover:bg-[#2C702C]/5 hover:text-[#2C702C] last:border-none">
