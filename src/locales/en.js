@@ -29,6 +29,17 @@ export default {
     usefulInformation: 'Useful Information',
     depositApplication: 'Application for opening a deposit',
   },
+  slider: {
+    slide_1: {
+      title: 'Digital World – New Opportunities.',
+      text: 'Enhance the new generation of digital financial systems with \"Senagat Bank\".',
+    },
+    slide_2: {
+      title: 'Senagat Töleg',
+      text: 'Enhance the new generation of digital financial systems with \"Senagat Bank\".',
+    },
+  },
+
   getCard: [
     {
       title: 'Choose a Branch',

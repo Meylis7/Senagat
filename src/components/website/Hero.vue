@@ -111,7 +111,7 @@
                             </div>
 
                             <div class="block w-[330px]">
-                                <img class="w-full h-full object-contain" src="../../assets/images/iphone.png"
+                                <img class="w-full h-full object-contain" src="../../assets/images/Iphone.png"
                                     alt="mobile-web">
                             </div>
                         </div>

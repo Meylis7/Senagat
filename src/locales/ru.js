@@ -29,6 +29,14 @@ export default {
     usefulInformation: 'Полезная информация',
     depositApplication: 'Заявка на открытие вклада',
   },
+
+  slider: {
+    slide_1: {
+      title: 'Цифровой мир – Новые возможности.',
+      text: 'Совершенствуйте новое поколение цифровых финансовых систем вместе с «Senagat Bank».',
+    },
+  },
+
   getCard: [
     {
       title: 'Выберите отделение',

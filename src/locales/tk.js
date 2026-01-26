@@ -29,6 +29,14 @@ export default {
     usefulInformation: 'Peýdaly maglumat',
     depositApplication: 'Goýum açmak üçin arza',
   },
+
+  slider: {
+    slide_1: {
+      title: 'Sanly dünýä – Täze mümkinçilikler.',
+      text: '\"Senagat banky\" bilen sanly maliýe ulgamynyň täze neslini kämilleşdiriň.',
+    },
+  },
+
   getCard: [
     {
       title: 'Bölümi saýlaň',
