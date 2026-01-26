@@ -1,7 +1,7 @@
 <script setup>
     import { RouterLink } from 'vue-router';
     import { useI18n } from 'vue-i18n';
-    const { t, locale } = useI18n();
+    const { t, tm, locale } = useI18n();
     import { Swiper, SwiperSlide } from 'swiper/vue'
     import { Navigation, EffectFade } from 'swiper/modules'
     import 'swiper/css'
@@ -34,10 +34,10 @@
                         <div class="flex items-center justify-between my-auto">
                             <div class="block max-w-[600px]">
                                 <h4 class="text-mainWhite text-[26px] font-medium mb-[10px] leading-tight">
-                                    Sanly dünýä – Täze mümkinçilikler.
+                                    {{ t('slider.slide_1.title') }}
                                 </h4>
                                 <p class="text-mainWhite text-[20px] leading-tight">
-                                    "Senagat banky" bilen sanly maliýe ulgamynyň täze neslini kämilleşdiriň.
+                                    {{ t('slider.slide_1.text') }}
                                 </p>
                             </div>
 
@@ -54,10 +54,10 @@
                         <div class="flex items-center justify-between my-auto">
                             <div class="block max-w-[600px]">
                                 <h4 class="text-mainWhite text-[26px] font-medium mb-[10px] leading-tight">
-                                    Senagat Töleg
+                                    {{ t('slider.slide_2.title') }}
                                 </h4>
                                 <p class="text-mainWhite text-[20px] leading-tight">
-                                    Ykjam mobil programmasy - raýatlarymyzyň nagt däl görnüşinde töleg etmek hyzmaty
+                                    {{ t('slider.slide_2.text') }}
                                 </p>
 
                                 <div class="flex gap-4">
@@ -123,39 +123,21 @@
                         <div class="flex items-center justify-between my-auto">
                             <div class="block max-w-[650px]">
                                 <h4 class="text-mainWhite text-[26px] font-medium mb-[20px] leading-tight">
-                                    Bankyň kassasyndan 60 000 manada çenli nagt görnüşinde ýa-da “Altyn Asyr” aýlyk
-                                    kartyna geçirtmek arkaly ýyllyk 12% bilen 150 000 manada çenli sarp ediş karzyny
-                                    alyp bilersiňiz:
+                                    {{ t('slider.slide_3.title') }}
                                 </h4>
 
 
                                 <ul class="flex flex-col gap-[10px]">
-                                    <li>
+                                    <li v-for="(item, idx) in tm('slider.slide_3.list')" :key="idx">
                                         <p class="text-mainWhite text-[20px] leading-tight">
-                                            - 30 000 manada çenli – 3 ýyl möhletli, 1 zamunçy bilen
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p class="text-mainWhite text-[20px] leading-tight">
-                                            - 30 001-den 50 000 manada çenli – 3 ýyl möhletli, 2 zamunçy bilen
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p class="text-mainWhite text-[20px] leading-tight">
-                                            - 100 000 manada çenli – 3 ýyl möhletli, girew goýmak şerti bilen
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p class="text-mainWhite text-[20px] leading-tight">
-                                            - 100 001-den 150 000 manada çenli – 5 ýyl möhletli, ýaşaýyş jaýyny girewine
-                                            goýmak şerti bilen
+                                            {{ item }}
                                         </p>
                                     </li>
                                 </ul>
 
                                 <RouterLink to="/"
                                     class="text-sm font-bold text-white bg-[#2C702C] block rounded-[10px] mt-8 px-5 py-[14px] w-[150px] text-center">
-                                    Giňişleýin
+                                    {{ t('btn.details') }}
                                 </RouterLink>
                             </div>
 
@@ -175,8 +157,7 @@
                                     Call center 24/7
                                 </h4>
                                 <p class="text-mainWhite text-[20px] leading-tight mb-4">
-                                    Turkmenistanyň Senagat paydarlar tajircilik bankynyň
-                                    sorag jogap gullugy
+                                    {{ t('slider.slide_4.text') }}
                                 </p>
 
                                 <ul class="flex flex-col gap-[10px]">
@@ -226,15 +207,15 @@
                         <div class="flex items-center justify-between my-auto">
                             <div class="block max-w-[650px]">
                                 <h4 class="text-mainWhite text-[26px] font-medium mb-[20px] leading-tight">
-                                    Hormatly raýatlar!
+                                    {{ t('slider.slide_5.title') }}
                                 </h4>
                                 <p class="text-mainWhite text-[20px] leading-tight mb-4">
-                                    Senagat PTB, bank kartlary bilen Size ähli hyzmatlaryny hödürleýär
+                                    {{ t('slider.slide_5.text') }}
                                 </p>
 
                                 <RouterLink to="/"
                                     class="text-sm font-bold text-white bg-[#2C702C] block rounded-[10px] mt-8 px-5 py-[14px] w-[150px] text-center">
-                                    Giňişleýin
+                                    {{ t('btn.details') }}
                                 </RouterLink>
                             </div>
 

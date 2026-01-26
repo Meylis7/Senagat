@@ -340,9 +340,6 @@
                     </div>
                 </form>
 
-
-
-
                 <div v-if="isVerifyModalOpen" class="fixed inset-0 z-[60]">
                     <div class="absolute inset-0 bg-[#000]/50" @click="closeVerifyModal"></div>
                     <div
@@ -376,6 +373,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </section>

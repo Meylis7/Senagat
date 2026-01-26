@@ -178,6 +178,11 @@ const router = createRouter({
           component: () => import('@/views/dashboard/ProfileView.vue'),
         },
         {
+          path: 'history',
+          name: 'dashboard.history',
+          component: () => import('@/views/dashboard/HistoryView.vue'),
+        },
+        {
           path: 'loan-application',
           name: 'dashboard.loan-application',
           component: () => import('@/views/dashboard/LoanApplicationView.vue'),

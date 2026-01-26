@@ -167,19 +167,19 @@
     <header v-if="!isSignPage" class="mb-10">
         <div class="auto_container">
             <div class="wrap bg-mainWhite rounded-[20px] py-3 sm:py-5 px-5 sm:px-8 relative">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between gap-2">
                     <div class="flex items-center gap-10">
                         <RouterLink to="/" class=" w-[46px] block">
                             <img :src="logo" class="w-full h-full object-contain" alt="logo">
                         </RouterLink>
 
                         <nav ref="menuRef" :class="[
-                            'absolute top-full left-0 bg-[#F7F8F6] w-full z-20 p-8 mm:p-0 rounded-[20px] mm:rounded-none mm:relative mm:top-0',
+                            'absolute top-full left-0 bg-[#F7F8F6] w-full z-20 p-8 ll:p-0 rounded-[20px] ll:rounded-none ll:relative ll:top-0',
                             'transition-all duration-300 ease-out overflow-hidden',
-                            isMenuOpen ? 'opacity-100 translate-y-0 max-h-[600px] pointer-events-auto' : 'opacity-0 -translate-y-2 max-h-0 pointer-events-none',
-                            'mm:opacity-100 mm:translate-y-0 mm:max-h-none mm:pointer-events-auto'
+                            isMenuOpen ? 'opacity-100 translate-y-0 max-h-[600px] pointer-events-auto shadow-md' : 'opacity-0 -translate-y-2 max-h-0 pointer-events-none',
+                            'll:opacity-100 ll:translate-y-0 ll:max-h-none ll:pointer-events-auto'
                         ]">
-                            <ul class="flex flex-col mm:flex-row items-center gap-8 whitespace-nowrap">
+                            <ul class="flex flex-col ll:flex-row items-center gap-8 whitespace-nowrap">
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.home' }"
                                         class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
@@ -187,13 +187,38 @@
                                         {{ t('dashboard.header.dashboard') }}
                                     </RouterLink>
                                 </li>
-                                <li class="w-full">
+                                <!-- <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.services' }"
                                         class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/services') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.services') }}
                                     </RouterLink>
+                                </li> -->
+                                
+                                <li class="w-full">
+                                    <RouterLink :to="{ name: 'dashboard.cards' }"
+                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        :class="[isActiveLink('/dashboard/cards') ? 'active border-b-0' : '']">
+                                        {{ t('dashboard.header.orderCard') }}
+                                    </RouterLink>
                                 </li>
+
+                                <li class="w-full">
+                                    <RouterLink :to="{ name: 'dashboard.loan-application' }"
+                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        :class="[isActiveLink('/dashboard/loan-application') ? 'active border-b-0' : '']">
+                                        {{ t('dashboard.header.creditApplication') }}
+                                    </RouterLink>
+                                </li>
+
+                                <li class="w-full">
+                                    <RouterLink :to="{ name: 'dashboard.certificate-application' }"
+                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        :class="[isActiveLink('/dashboard/certificate-application') ? 'active border-b-0' : '']">
+                                        {{ t('dashboard.header.getCertificate') }}
+                                    </RouterLink>
+                                </li>
+
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.payments' }"
                                         class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
@@ -346,7 +371,7 @@
                             </button>
                         </div>
 
-                        <button ref="menuBtnRef" class="block mm:hidden cursor-pointer w-[22px] h-[22px]"
+                        <button ref="menuBtnRef" class="block ll:hidden cursor-pointer w-[22px] h-[22px]"
                             @click="isMenuOpen = !isMenuOpen">
                             <svg class="w-full h-full object-contain pointer-events-none" width="17" height="13"
                                 viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -16,7 +16,7 @@ const apiClient = axios.create({
 // Add request interceptor to set locale header
 apiClient.interceptors.request.use(
   (config) => {
-    const locale = localStorage.getItem('locale') || 'en'
+    const locale = localStorage.getItem('locale') || 'tk'
     config.headers['Accept-Language'] = locale
     return config
   },
@@ -227,7 +227,7 @@ const apiService = {
   login(data) {
     return apiClient.post('/v1/users/auth/login', data)
   },
-  
+
   fetchPaymentHistoryAuth(token, params = {}) {
     return apiClient.get('/v1/payment-history', {
       params,

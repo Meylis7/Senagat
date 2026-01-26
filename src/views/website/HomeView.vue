@@ -466,91 +466,12 @@
       <div class="auto_container">
         <div class="wrap">
           <div class="flex items-center justify-between mb-8">
-            <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold leading-9"> {{ t('calc.calculateBenefit') }}</h2>
+            <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold leading-9"> {{ t('calc.calculateBenefit') }}
+            </h2>
           </div>
 
-          <!-- <div v-show="calcActiveTab === 'Кредит'" class="grid lg:grid-cols-2 gap-6">
-            <div class="bg-mainWhite rounded-[20px] p-6">
-              <div class="mb-6">
-                <div class="relative">
-                  <button type="button" @click="isCreditTypeOpen = !isCreditTypeOpen"
-                    class="h-[56px] bg-white rounded-[12px] w-full flex items-center justify-between px-4 text-[#6F736D]">
-                    <span>{{ creditType || t('calc.creditType') }}</span>
-                    <svg :class="isCreditTypeOpen ? 'rotate-180' : ''" class="transition-transform" width="18"
-                      height="18" viewBox="0 0 24 24" fill="none">
-                      <path d="M6 9l6 6 6-6" stroke="#6F736D" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    </svg>
-                  </button>
-                  <ul v-show="isCreditTypeOpen"
-                    class="absolute z-10 mt-2 w-full bg-white rounded-[12px] shadow p-2 space-y-1">
-                    <li v-for="t in creditTypes" :key="t">
-                      <button type="button" @click="setCreditType(t)"
-                        :class="t === creditType ? 'bg-[#2C702C] text-white' : 'hover:bg-mainWhite text-mainBlack'"
-                        class="w-full text-left px-3 py-2 rounded-[8px]">{{ t }}</button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="mb-6">
-                <label class="block text-mainBlack font-bold mb-3">{{ t('calc.loanAmount') }}</label>
-                <div class="h-[56px] bg-white rounded-[12px] flex items-center px-4">
-                  <input type="text" :value="formatMoney(creditAmount)" @input="onCreditAmountInput"
-                    class="w-full outline-none bg-transparent text-mainBlack font-bold" />
-                </div>
-                <div class="mt-3">
-                  <input type="range" :min="creditMin" :max="creditMax" step="500" v-model="creditAmount"
-                    class="w-full accent-[#2C702C]" />
-                  <div class="flex justify-between text-[#6F736D] mt-2">
-                    <span>{{ formatMoney(creditMin) }}</span>
-                    <span>{{ formatMoney(creditMax) }}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label class="block text-mainBlack font-bold mb-3">{{ t('calc.term') }}</label>
-                <div class="flex flex-wrap gap-3">
-                  <button v-for="term in termOptions" :key="term" type="button" @click="creditSelectedTerm = term"
-                    :class="creditSelectedTerm === term ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
-                    class="h-[48px] px-5 rounded-[12px]">{{ term }}</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-mainWhite rounded-[20px] p-6">
-              <div class="flex items-center justify-between mb-6">
-                <div>
-                  <p class="text-[#6F736D] mb-2">{{ t('calc.monthlyPayment') }}</p>
-                  <h3 class="text-[42px] font-bold">1000 манат</h3>
-                </div>
-                <div>
-                  <span
-                    class="inline-flex items-center justify-center h-[44px] w-[44px] rounded-[12px] bg-mainBlack text-white">1%</span>
-                  <p class="text-[#6F736D] mt-2 text-center">{{ t('calc.rate') }}</p>
-                </div>
-              </div>
-
-              <div class="bg-white rounded-[12px] p-4 mb-6">
-                <p class="text-mainBlack font-bold mb-2">{{ t('calc.requiredDocs') }}:</p>
-                <ul class="text-[#6F736D] space-y-2">
-                  <li>{{ t('calc.passport') }}</li>
-                  <li>{{ t('calc.incomeStatement') }}</li>
-                </ul>
-              </div>
-
-              <p class="text-[#6F736D]">{{ t('calc.calculatorDisclaimer') }}</p>
-            </div>
-          </div>
-
-    
-          </div> -->
-
-
-
-          <div class="grid lg:grid-cols-2 gap-6">
-            <div class="bg-mainWhite rounded-[20px] p-6">
+          <div class="grid lg:grid-cols-12 gap-6">
+            <div class="bg-mainWhite col-span-8 rounded-[20px] p-6">
               <div class="mb-6">
                 <h6 class="text-[17px] font-bold mb-4">
                   {{ t('dashboard.blockTitiles.selectCreditType') }}
@@ -589,51 +510,43 @@
                 </div>
               </div>
 
-              <p class="text-[#6F736D] text-[17px] mt-8 leading-6">
+              <!-- <p class="text-[#6F736D] text-[17px] mt-8 leading-6">
                 {{ t('calc.calculatorDisclaimer') }}
-              </p>
+              </p> -->
             </div>
 
-            <div class="bg-mainWhite rounded-[20px] p-6">
-              <div class="flex items-center justify-between mb-6">
+            <div class="bg-mainWhite col-span-4 rounded-[20px] p-6 flex flex-col items-center justify-center">
+              <div class="flex flex-col text-center items-center justify-between mb-6 gap-5">
                 <div>
-                  <p class="text-[#6F736D] mb-2">{{ t('calc.monthlyPayment') }}</p>
-                  <h3 class="text-[28px] font-bold leading-tight">{{ formatMoneyFixed(monthlyPayment) }}
-                    {{ t('calc.currencyManat') }}</h3>
+                  <p class="text-[#6F736D] mb-2 leading-tight"> {{ t('calc.rate') }}</p>
+                  <h3 class="text-3xl font-bold leading-tight">{{ credit?.interest
+                    || 0 }}%
+                  </h3>
+                </div>
+                <div>
+                  <p class="text-[#6F736D] mb-2 leading-tight"> {{ t('calc.monthlyPayment') }}</p>
+                  <h3 class="text-[28px] font-bold leading-tight">{{
+                    formatMoneyFixed(monthlyPayment) }}
+                    {{ t('calc.currencyManat') }}
+                  </h3>
                 </div>
 
-                <div>
-                  <p class="text-[#6F736D] mt-2 text-center">{{ t('calc.rate') }}</p>
-
-                  <span
-                    class="inline-flex items-center justify-center py-3 px-5 min-h-[44px] min-w-[44px] rounded-[20px] bg-mainBlack text-white">
-                    {{ credit?.interest || 0 }}%
-                  </span>
-                </div>
               </div>
 
-              <div class="bg-white rounded-[12px] p-4 mb-6">
-                <p class="text-mainBlack font-bold mb-2">{{ t('calc.requiredDocs') }}</p>
-                <ul class="text-[#6F736D] space-y-2">
-                  <li>{{ t('calc.passport') }}</li>
-                  <li>{{ t('calc.incomeStatement') }}</li>
-                </ul>
-              </div>
+              <button type="button" @click="proceedToStep2"
+                class="block w-fit min-w-[70%] px-8 text-center text-white text-[17px] font-normal bg-[#2C702C] rounded-[20px] py-3">
+                {{ t('dashboard.btn.submitApplication') }}
+              </button>
 
-              <p class="text-[#6F736D]">{{ t('calc.calculatorDisclaimer') }}</p>
+
             </div>
-
-
-
-
           </div>
-
         </div>
       </div>
     </section>
 
     <!-- Offers =================================================================================== -->
-    <section class="pt-[60px] md:pt-[100px] pb-[30px]">
+    <section class="md:pt-[100px] pb-[30px]">
       <div class="auto_container">
         <div class="wrap">
           <div class="flex items-center justify-between flex-col sm:flex-row gap-4 mb-5 md:mb-10">
@@ -854,12 +767,13 @@
               class="group text-center md:text-left glow w-full col-span-12 md:col-span-4 min-h-[260px] md:min-h-[407px] relative rounded-[20px] overflow-hidden bg-mainWhite p-8 hover:bg-[#1d5f1d] transition duration-300">
               <h6
                 class="text-[18px] md:text-[24px] text-mainBlack leading-tight font-bold mb-[10px] group-hover:text-white">
-                {{
-                  t('exchange.branches') }}</h6>
+                {{ t('exchange.branches') }}
+              </h6>
               <p class="text-sm mdtext-[17px] text-[#6F736D] leading-tight mb-6 group-hover:text-white">{{
                 t('exchange.onCityMap') }}</p>
 
-              <span class="block w-[90px] md:w-[180px] absolute left-1/2 -translate-x-1/2 bottom-[40px] sm:bottom-[25px] z-[1]">
+              <span
+                class="block w-[90px] md:w-[180px] absolute left-1/2 -translate-x-1/2 bottom-[40px] sm:bottom-[25px] z-[1]">
                 <!-- <img src="../../assets/images/services/services (16).png" class="block w-full h-full object-contain"
                   alt="currency"> -->
 

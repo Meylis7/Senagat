@@ -19,6 +19,7 @@ export default {
     form: 'Form',
     readMore: 'Read more',
     fillOutForm: 'Fill out the form',
+    details: 'Details',
   },
   pageTitle: {
     reportsList: 'List of Reports',
@@ -35,8 +36,26 @@ export default {
       text: 'Enhance the new generation of digital financial systems with \"Senagat Bank\".',
     },
     slide_2: {
-      title: 'Senagat Töleg',
-      text: 'Enhance the new generation of digital financial systems with \"Senagat Bank\".',
+      title: 'Senagat Toleg',
+      text: 'Mobile application - a service for our citizens to make non-cash payments.',
+    },
+    slide_3: {
+      title:
+        "Consumer loans of up to 150,000 manat at an annual rate of 12%, with the option to receive up to 60,000 manat in cash at the bank's cash desk or via transfer to an “Altyn Asyr” salary card:",
+      list: [
+        '- Up to 30 000 manat for 3 years with 1 guarantor',
+        '- From 30 001 to 50 000 manat for 3 years with 2 guarantors',
+        '- Up to 100 000 manat for 3 years with collateral',
+        '- From 100 001 to 150 000 manat for 5 years with real estate collateral',
+      ],
+    },
+    slide_4: {
+      title: 'Call Center 24/7',
+      text: 'Call Center of Joint Stock Commercial Bank of Turkmenistan "Senagat"',
+    },
+    slide_5: {
+      title: 'Dear citizens!',
+      text: 'JSCB Senagat offers You all its services with bank cards',
     },
   },
 
@@ -546,6 +565,10 @@ export default {
       searchPlaceholder: 'Find services here',
       verifyAccount: 'Verify your account',
       fullName: 'Full name',
+
+      creditApplication: 'Credit application',
+      getCertificate: 'Get a certificate',
+      orderCard: 'Order a card',
     },
     PageTitles: {
       home: 'Home',
@@ -554,6 +577,7 @@ export default {
       cards: 'Cards',
       profile: 'Profile',
       beletFilm: 'Belet Film',
+      history: 'Payment history',
     },
     status: {
       notConfirmed: 'Not confirmed',
@@ -660,6 +684,7 @@ export default {
       enterPhone: 'Enter phone number',
       paymentOptions: 'Payment options',
       insertPassword: 'Enter password',
+      insertCode: 'Enter code',
       codeSentTo: 'The code was sent to',
       createPassword: 'Create a password',
       createStrongPassword: 'Create a strong password',

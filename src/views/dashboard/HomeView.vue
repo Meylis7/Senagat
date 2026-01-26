@@ -197,8 +197,7 @@
                                             {{ t('dashboard.blockTitiles.paymentHistory') }}
                                         </h6>
 
-                                        <RouterLink :to="{ name: 'dashboard.payments' }"
-                                            class="flex items-center gap-2">
+                                        <RouterLink :to="{ name: 'dashboard.history' }" class="flex items-center gap-2">
                                             <!-- {{ t('dashboard.viewAll') }} -->
                                             <p class="text-sm sm:text-[15px] font-bold leading-tight text-[#2C702C]">
                                                 {{ t('dashboard.payment.allHistory') }}
@@ -214,11 +213,9 @@
 
                                     <div v-else>
                                         <div class="rounded-[12px] border border-[#EEF2ED] overflow-hidden">
-                                            <div
+                                            <!-- <div
                                                 class="hidden sm:grid grid-cols-5 gap-2 bg-[#EEF2ED]/60 text-[#6F736D] px-3 py-3 font-bold text-center">
-                                                <div class="block">
-                                                    {{ t('dashboard.payment.status') }}
-                                                </div>
+
                                                 <div class="block">
                                                     {{ t('dashboard.payment.title') }}
                                                 </div>
@@ -231,14 +228,14 @@
                                                 <div class="block">
                                                     {{ t('dashboard.payment.description') }}
                                                 </div>
-                                            </div>
+                                                <div class="block">
+                                                    {{ t('dashboard.payment.status') }}
+                                                </div>
+                                            </div> -->
 
                                             <div v-for="payment in paymentsLimited" :key="payment.id"
                                                 class="flex flex-wrap justify-center sm:grid grid-cols-5 gap-4 sm:gap-2 px-3 py-3 border-solid border-0 border-b border-[#EEF2ED] last:border-b-0 text-center">
-                                                <div
-                                                    :class="['px-2 py-2 sm:py-1 rounded-[8px] text-xs sm:text-[13px] font-bold w-full', statusTextClass(payment.status), statusBgClass(payment.status)]">
-                                                    {{ statusLabel(payment.status) }}
-                                                </div>
+
 
                                                 <div
                                                     class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
@@ -251,7 +248,7 @@
                                                 <div
                                                     class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
                                                     <p class="text-sm sm:text-[15px] font-bold leading-tight">
-                                                        - {{ payment.amount }} TMT
+                                                        {{ payment.amount }} TMT
                                                     </p>
                                                 </div>
 
@@ -269,6 +266,10 @@
                                                         class="text-sm sm:text-[15px] leading-5 text-[#6F736D] font-Gilroy">
                                                         {{ payment.description }}
                                                     </p>
+                                                </div>
+                                                <div
+                                                    :class="['px-2 py-2 sm:py-1 rounded-[8px] text-xs sm:text-[13px] font-bold w-full', statusTextClass(payment.status), statusBgClass(payment.status)]">
+                                                    {{ statusLabel(payment.status) }}
                                                 </div>
                                             </div>
                                         </div>

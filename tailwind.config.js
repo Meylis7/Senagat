@@ -14,6 +14,7 @@ export default {
       screens: {
         ss: '25rem', // 400px
         mm: '53rem', // 848px
+        ll: '75rem', // 1200px
       },
     },
   },

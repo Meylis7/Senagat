@@ -3,7 +3,7 @@ export default {
     privateClients: 'Fiziki taraplar',
     businessAndIP: 'Ýuridiki taraplar',
     aboutBank: 'Bank barada',
-    onlineReception: 'Onlaýn kanulhana',
+    onlineReception: 'Onlaýn kabulhana',
     internetBank: 'Internet bank',
   },
   slogan: 'Siziň gelejegiňiz biziň bilen!',
@@ -19,6 +19,7 @@ export default {
     form: 'Görnüş',
     readMore: 'Giňişleýin oka',
     fillOutForm: 'Anketany doldurmaly',
+    details: 'Giňişleýin',
   },
   pageTitle: {
     reportsList: 'Hasabatlaryň sanawy',
@@ -35,12 +36,33 @@ export default {
       title: 'Sanly dünýä – Täze mümkinçilikler.',
       text: '\"Senagat banky\" bilen sanly maliýe ulgamynyň täze neslini kämilleşdiriň.',
     },
+    slide_2: {
+      title: 'Senagat Töleg',
+      text: 'Ykjam mobil programmasy - raýatlarymyzyň nagt däl görnüşinde töleg etmek hyzmaty.',
+    },
+    slide_3: {
+      title:
+        'Bankyň kassasyndan 60 000 manada çenli nagt görnüşinde ýa-da “Altyn Asyr” aýlyk kartyna geçirtmek arkaly ýyllyk 12% bilen 150 000 manada çenli sarp ediş karzyny alyp bilersiňiz:',
+      list: [
+        '- 30 000 manada çenli – 3 ýyl möhletli, 1 zamunçy bilen',
+        '- 30 001-den 50 000 manada çenli – 3 ýyl möhletli, 2 zamunçy bilen',
+        '- 100 000 manada çenli – 3 ýyl möhletli, girew goýmak şerti bilen',
+        '- 100 001-den 150 000 manada çenli – 5 ýyl möhletli, ýaşaýyş jaýyny girewine goýmak şerti bilen',
+      ],
+    },
+    slide_4: {
+      text: 'Türkmenistanyň Senagat paýdarlar täjirçilik bankynyň sorag jogap gullugy',
+    },
+    slide_5: {
+      title: 'Hormatly raýatlar!',
+      text: 'Senagat PTB, bank kartlary bilen Size ähli hyzmatlaryny hödürleýä',
+    },
   },
 
   getCard: [
     {
       title: 'Bölümi saýlaň',
-      text: 'Size amatly ofise ýüz tutuň',
+      text: 'Size amatly şahamça ýüz tutuň',
     },
     {
       title: 'Arza tabşyryň',
@@ -409,7 +431,7 @@ export default {
   },
   about: {
     title: '«Senagat» PTB-y barada',
-    subtitle: 'Özüňize amatly ofise gelip bilersiňiz',
+    subtitle: 'Özüňize amatly şahamça gelip bilersiňiz',
     slider: [
       {
         title: 'Gurluşy',
@@ -547,6 +569,10 @@ export default {
       searchPlaceholder: 'Hyzmatlary şu ýerden tapyň',
       verifyAccount: 'Hasabyňyzy tassyklaň',
       fullName: 'Ady',
+
+      creditApplication: 'Karz almak',
+      getCertificate: 'Güwanama almak',
+      orderCard: 'Kart almak',
     },
     PageTitles: {
       home: 'Baş sahypa',
@@ -554,6 +580,7 @@ export default {
       services: 'Hyzmatlar',
       cards: 'Kartlar',
       profile: 'Profil',
+      history: 'Tölegleriň taryhy',
     },
     status: {
       notConfirmed: 'Tassyklanmady',
@@ -631,8 +658,7 @@ export default {
   form: {
     filesToUpload: 'Ýüklemek üçin faýllar',
     registration: 'Hasaba durmak',
-    signIn: 'Içerik girmek',
-    label: {},
+    signIn: 'Içeri girmek',
     input: {
       patentNumber: 'Patent belgisi',
       registrationNumber: 'Hasaba alyş belgisi',
@@ -659,11 +685,12 @@ export default {
       pdfOnlyWarning: 'Faýly diňe PDF formatynda ýüklemegiňizi haýyş edýäris.',
       enterPhone: 'Telefon belgiňizi giriziň',
       paymentOptions: 'Töleg görnüşleri',
-      insertPassword: 'Paroly giriziň',
+      insertPassword: 'Gizlin sözi giriziň',
+      insertCode: 'Kod giriziň',
       codeSentTo: 'Kod şu belgä iberildi',
-      createPassword: 'Parol dörediň',
-      createStrongPassword: 'Ynamly parol dörediň',
-      password: 'Parol',
+      createPassword: 'Gizlin sözi dörediň',
+      createStrongPassword: 'Ynamly gizlin sözi dörediň',
+      password: 'Gizlin söz',
     },
     select: {
       loanType: 'Karzyň görnüşi',

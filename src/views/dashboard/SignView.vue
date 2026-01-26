@@ -351,7 +351,7 @@
 
                 <div class="grid bg-[#F7F8F6] p-[22px] rounded-[20px] w-full relative">
                     <label for="phone" class="block text-[17px] font-bold text-[#191B19] mb-4">
-                        {{ t('form.input.insertPassword') }}
+                        {{ t('form.input.insertCode') }} 
                     </label>
                     <p class="text-[15px] text-[#6F736D] mb-4">
                         {{ t('form.input.codeSentTo') }} +993{{ sentPhone || userStore.phoneNumber || '' }}
