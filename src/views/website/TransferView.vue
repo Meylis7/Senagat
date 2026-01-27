@@ -55,12 +55,12 @@
         fetchTransferDetail()
     })
 
-    const diamondImages = [diamond1, diamond2]
+    // const diamondImages = [diamond1, diamond2]
 
-    const advColSpan = computed(() => {
-        const n = (transfer.value?.advantages || []).length
-        return n === 2 ? 'col-span-12 md:col-span-6' : 'col-span-12 md:col-span-6 lg:col-span-4'
-    })
+    // const advColSpan = computed(() => {
+    //     const n = (transfer.value?.advantages || []).length
+    //     return n === 2 ? 'col-span-12 md:col-span-6' : 'col-span-12 md:col-span-6 lg:col-span-4'
+    // })
 
 </script>
 
@@ -97,7 +97,7 @@
     </section>
 
     <!-- Info  ================================================ -->
-    <section class="pt-[60px] pb-[50px]">
+    <!-- <section class="pt-[60px] pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
                 <div class="grid grid-cols-12 gap-4">
@@ -117,7 +117,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Useful information ============================================== -->
     <section class="md:py-[50px]">

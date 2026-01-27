@@ -179,17 +179,17 @@
 
                         <div class="flex items-center justify-center gap-2 mt-4">
                             <button type="button" @click="prevPage"
-                                class="px-3 py-2 rounded-[8px] bg-[#EEF2ED] text-[#6F736D] hover:bg-[#2C702C]/20 transition"
+                                :class="['px-3 py-2 rounded-[8px] bg-[#EEF2ED] text-[#6F736D] transition min-w-[40px]', currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#2C702C]/20']"
                                 :disabled="currentPage === 1">
                                 ‹
                             </button>
                             <button v-for="p in totalPages" :key="p" type="button" @click="goToPage(p)"
-                                class="px-3 py-2 rounded-[8px] transition min-w-[20px] block"
+                                class="px-3 py-2 rounded-[8px] transition min-w-[40px] block"
                                 :class="p === currentPage ? 'bg-[#2C702C] text-white' : 'bg-[#EEF2ED] text-[#6F736D] hover:bg-[#2C702C]/20'">
                                 {{ p }}
                             </button>
                             <button type="button" @click="nextPage"
-                                class="px-3 py-2 rounded-[8px] bg-[#EEF2ED] text-[#6F736D] hover:bg-[#2C702C]/20 transition"
+                                :class="['px-3 py-2 rounded-[8px] bg-[#EEF2ED] text-[#6F736D] transition min-w-[40px]', currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#2C702C]/20']"
                                 :disabled="currentPage === totalPages">
                                 ›
                             </button>

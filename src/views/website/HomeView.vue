@@ -385,10 +385,45 @@
 
   const swiperModules = [Autoplay,]
 
-  const shuffle = (arr) => {
+  const OFFERS_SEED_KEY = 'home_offers_seed_v1'
+  const getOrCreateOffersSeed = () => {
+    if (typeof window === 'undefined') return 1
+    const raw = window.localStorage.getItem(OFFERS_SEED_KEY)
+    const parsed = raw == null ? NaN : Number(raw)
+    if (Number.isFinite(parsed)) return parsed >>> 0
+    const created = (Math.random() * 0xFFFFFFFF) >>> 0
+    window.localStorage.setItem(OFFERS_SEED_KEY, String(created))
+    return created
+  }
+
+  const baseOffersSeed = getOrCreateOffersSeed()
+  const offersLoading = computed(() => depositsLoading.value || creditsLoading.value || cardsLoading.value)
+
+  const hashString32 = (str) => {
+    let h = 2166136261
+    for (let i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i)
+      h = Math.imul(h, 16777619)
+    }
+    return h >>> 0
+  }
+
+  const mulberry32 = (seed) => {
+    let a = seed >>> 0
+    return () => {
+      a = (a + 0x6D2B79F5) >>> 0
+      let t = a
+      t = Math.imul(t ^ (t >>> 15), t | 1)
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+    }
+  }
+
+  const seededShuffle = (arr, seed) => {
     const a = arr.slice()
+    const rnd = mulberry32(seed)
     for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
+      const j = Math.floor(rnd() * (i + 1))
       const t = a[i]
       a[i] = a[j]
       a[j] = t
@@ -396,29 +431,46 @@
     return a
   }
 
+  const stableSortById = (list) => {
+    const a = (Array.isArray(list) ? list : []).slice()
+    a.sort((x, y) => {
+      const ax = x?.id
+      const ay = y?.id
+      const nx = Number(ax)
+      const ny = Number(ay)
+      if (Number.isFinite(nx) && Number.isFinite(ny)) return nx - ny
+      return String(ax ?? '').localeCompare(String(ay ?? ''), undefined, { numeric: true, sensitivity: 'base' })
+    })
+    return a
+  }
+
   const allOffers = computed(() => {
-    const dep = shuffle((deposits.value || []).map((d) => ({
+    const depSeed = (baseOffersSeed ^ hashString32('deposit')) >>> 0
+    const creSeed = (baseOffersSeed ^ hashString32('credit')) >>> 0
+    const carSeed = (baseOffersSeed ^ hashString32('card')) >>> 0
+
+    const dep = seededShuffle(stableSortById(deposits.value).map((d) => ({
       id: d.id,
       title: d.title,
       subtitle: d.sub_title || '',
       image_url: d.image_url,
       type: 'deposit',
       color: d.background_color
-    })))
-    const cre = shuffle((credits.value || []).map((c) => ({
+    })), depSeed)
+    const cre = seededShuffle(stableSortById(credits.value).map((c) => ({
       id: c.id,
       title: c.title,
       subtitle: c.interest + ' %' || '',
       image_url: c.image_url,
       type: 'credit',
-    })))
-    const car = shuffle((cards.value || []).map((c) => ({
+    })), creSeed)
+    const car = seededShuffle(stableSortById(cards.value).map((c) => ({
       id: c.id,
       title: c.title,
       subtitle: c.sub_title || '',
       image_url: c.image_url,
       type: 'card',
-    })))
+    })), carSeed)
 
     const order = ['card', 'credit', 'deposit', 'credit', 'card', 'deposit', 'card', 'credit', 'deposit', 'credit', 'deposit', 'credit']
     const sources = { card: car, credit: cre, deposit: dep }
@@ -493,9 +545,9 @@
                 <div class="mt-3">
                   <div class="flex justify-between text-[#6F736D] mt-2">
                     <span>{{ credit && credit.min_amount ? formatMoney(credit.min_amount) : formatMoney(creditMin)
-                    }}</span>
+                      }}</span>
                     <span>{{ credit && credit.max_amount ? formatMoney(credit.max_amount) : formatMoney(creditMax)
-                    }}</span>
+                      }}</span>
                   </div>
                 </div>
               </div>
@@ -590,8 +642,23 @@
             </div>
           </div>
 
-          <div v-show="activeTab === 'Все'" class="grid gap-4 grid-cols-12">
-            <RouterLink v-for="(item, i) in visibleAllOffers" :key="item.id || i" :to="getOfferLink(item)"
+          <div v-if="activeTab === 'Все' && offersLoading" class="grid gap-4 grid-cols-12">
+            <div v-for="i in 5" :key="i"
+              :class="['col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm grid grid-cols-6 gap-2 animate-pulse', i === 3 ? 'lg:row-span-2' : '']">
+              <div class="grid col-span-12 gap-5 h-fit">
+                <div class="h-6 bg-[#E1E5DE] rounded-[12px] col-span-4"></div>
+                <div class="h-4 bg-[#E1E5DE] rounded-[10px] col-span-6"></div>
+                <div class="h-4 bg-[#E1E5DE] rounded-[10px] col-span-5"></div>
+              </div>
+              <div class="mt-auto col-span-6 grid justify-end">
+                <div class="h-[80px] w-[100px] bg-[#E1E5DE] rounded-[16px] col-span-3"></div>
+              </div>
+            </div>
+          </div>
+
+          <div v-else-if="activeTab === 'Все'" class="grid gap-4 grid-cols-12">
+            <RouterLink v-for="(item, i) in visibleAllOffers"
+              :key="item && item.type && item.id != null ? (item.type + '-' + item.id) : i" :to="getOfferLink(item)"
               :class="(i === 2 || i === 11)
                 ? 'col-span-12 sm:col-span-6 lg:col-span-4 row-span-1 lg:row-span-2 rounded-[20px] text-mainBlack relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#F7F8F6]'
                 : (i === 5)
@@ -791,7 +858,7 @@
             <div class="w-full col-span-12 md:col-span-8 rounded-[20px] bg-mainWhite p-4 ms:p-8">
               <div class="flex items-center justify-between mb-8">
                 <h6 class="text-[18px] md:text-[24px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates')
-                  }}</h6>
+                }}</h6>
               </div>
 
               <div v-show="currencyActiveTab === 'Текущий курс'"
@@ -800,7 +867,7 @@
                   t('exchange.currency') }}
                 </div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] text-[#6F736D]">{{ t('exchange.buy')
-                  }}</div>
+                }}</div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] text-[#6F736D]">{{
                   t('exchange.sell') }}</div>
 
