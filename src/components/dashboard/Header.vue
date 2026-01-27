@@ -60,8 +60,8 @@
             }
             const res = await apiService.fetchUserInfo(token)
             const profile = res?.data?.profile ?? res?.profile ?? null
-            needsVerification.value = profile == null
             if (!profile) {
+                needsVerification.value = true
                 profileStatus.value = 'not-confirmed'
                 displayName.value = ''
             } else {
@@ -71,6 +71,7 @@
                 } else {
                     profileStatus.value = 'not-confirmed'
                 }
+                needsVerification.value = profileStatus.value !== 'approved'
                 const first = String(profile.first_name || '').trim()
                 const last = String(profile.last_name || '').trim()
                 const initial = first ? (first[0].toUpperCase() + '.') : ''
@@ -80,11 +81,10 @@
             }
             profileChecked.value = true
         } catch (e) {
-            needsVerification.value = false
+            needsVerification.value = true
             profileStatus.value = 'not-confirmed'
-            // Keep previous displayName or default
             if (!displayName.value) displayName.value = ''
-            profileChecked.value = false
+            profileChecked.value = true
         }
     }
 
@@ -161,6 +161,34 @@
         router.push('/sign')
     }
 
+    const isVerifyModalOpen = ref(false)
+    const selectedServiceTitle = ref('')
+    const pendingRouteName = ref('')
+
+    async function onServiceClick(routeName, title) {
+        selectedServiceTitle.value = title
+        pendingRouteName.value = routeName
+        if (!profileChecked.value) {
+            await checkProfileStatus()
+        }
+        if (needsVerification.value) {
+            isVerifyModalOpen.value = true
+            return
+        }
+        router.push({ name: routeName })
+    }
+
+    function proceedToVerify() {
+        isVerifyModalOpen.value = false
+        router.push({ name: 'dashboard.identify' })
+    }
+
+    function closeVerifyModal() {
+        isVerifyModalOpen.value = false
+    }
+    // Check profile status =================
+
+
 </script>
 
 <template>
@@ -194,30 +222,35 @@
                                         {{ t('dashboard.header.services') }}
                                     </RouterLink>
                                 </li> -->
-                                
+
                                 <li class="w-full">
-                                    <RouterLink :to="{ name: 'dashboard.cards' }"
+                                    <button type="button"
+                                        @click="onServiceClick('dashboard.cards', t('dashboard.services.cardIssuance'))"
                                         class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/cards') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.orderCard') }}
-                                    </RouterLink>
+                                    </button>
                                 </li>
 
                                 <li class="w-full">
-                                    <RouterLink :to="{ name: 'dashboard.loan-application' }"
+                                    <button type="button"
+                                        @click="onServiceClick('dashboard.loan-application', t('dashboard.services.loanApplication'))"
                                         class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/loan-application') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.creditApplication') }}
-                                    </RouterLink>
+                                    </button>
                                 </li>
 
                                 <li class="w-full">
-                                    <RouterLink :to="{ name: 'dashboard.certificate-application' }"
+                                    <button type="button"
+                                        @click="onServiceClick('dashboard.certificate-application', t('dashboard.services.getCertificate'))"
                                         class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/certificate-application') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.getCertificate') }}
-                                    </RouterLink>
+                                    </button>
                                 </li>
+
+
 
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.payments' }"
@@ -401,6 +434,39 @@
             </div>
         </div>
     </section>
+
+    <div v-if="isVerifyModalOpen" class="fixed inset-0 z-[60]">
+        <div class="absolute inset-0 bg-[#000]/50" @click="closeVerifyModal"></div>
+        <div
+            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-mainWhite rounded-[20px] p-6 w-[90%] max-w-[420px] shadow-lg">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-[20px] font-bold text-[#1D2417]">
+                    {{ t('dashboard.header.verifyAccount') }}
+                </h3>
+                <button type="button" class="w-6 h-6" @click="closeVerifyModal">
+                    <svg class="w-full h-full object-contain" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.4141 10.0001L16.7071 15.2931C16.8947 15.4806 17.0001 15.735 17.0001 16.0001C17.0001 16.2652 16.8947 16.5196 16.7071 16.7071C16.5196 16.8947 16.2652 17.0001 16.0001 17.0001C15.735 17.0001 15.4806 16.8947 15.2931 16.7071L10.0001 11.4141L4.70711 16.7071C4.51956 16.8947 4.26522 17.0001 4.00011 17.0001C3.735 17.0001 3.48066 16.8947 3.29311 16.7071C3.10556 16.5196 3.00012 16.2652 3.00012 16.0001C3.00012 15.735 3.10556 15.4806 3.29311 15.2931L8.58611 10.0001L3.29311 4.7071C3.10556 4.51955 3.00012 4.26521 3.00012 4.0001C3.00012 3.73499 3.10556 3.48065 3.29311 3.2931C3.48066 3.10555 3.735 3.00011 4.00011 3.00011C4.26522 3.00011 4.51956 3.10555 4.70711 3.2931L10.0001 8.58611L15.2931 3.2931C15.4806 3.10555 15.735 3.00011 16.0001 3.00011C16.2652 3.00011 16.5196 3.10555 16.7071 3.2931C16.8947 3.48065 17.0001 3.73499 17.0001 4.0001C17.0001 4.26521 16.8947 4.51955 16.7071 4.7071L11.4141 10.0001Z"
+                            fill="#191B19" />
+                    </svg>
+                </button>
+            </div>
+
+            <p class="text-[15px] text-[#6F736D] mb-5 text-center">
+                {{ t('dashboard.modal.requiredVerification', { service: selectedServiceTitle }) }}
+            </p>
+
+            <div class="flex items-center justify-center">
+                <button type="button"
+                    class="text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[10px] text-center"
+                    @click="proceedToVerify">
+                    {{ t('dashboard.btn.verify') }}
+                </button>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <style scoped>

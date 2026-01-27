@@ -227,7 +227,7 @@ export default {
   },
   tabs: {
     all: 'All',
-    deposit: 'Deposit',
+    deposit: 'Deposits',
     credits: 'Credits',
     cards: 'Cards',
     moneyTransfers: 'Money Transfers',

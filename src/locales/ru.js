@@ -226,7 +226,7 @@ export default {
   },
   tabs: {
     all: 'Все',
-    deposit: 'Вклад',
+    deposit: 'Вклады',
     credits: 'Кредиты',
     cards: 'Карты',
     moneyTransfers: 'Денежные переводы',

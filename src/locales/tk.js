@@ -225,7 +225,7 @@ export default {
   },
   tabs: {
     all: 'Ähli',
-    deposit: 'Goýum',
+    deposit: 'Goýumlar',
     credits: 'Karzlar',
     cards: 'Kartlar',
     moneyTransfers: 'Pul geçirimleri',
@@ -628,11 +628,11 @@ export default {
       trafficPolice: 'PÝGG',
     },
     services: {
-      loanApplication: 'Karz üçin arza',
+      loanApplication: 'Karz',
       online: 'Onlaýn',
-      getCertificate: 'Guwanama almak',
+      getCertificate: 'Guwanama',
       fastAndEasy: 'Çalt we amatly',
-      cardIssuance: 'Karty resmileşdirmek',
+      cardIssuance: 'Kart',
       inFewSteps: 'Sanlyja ädimde',
     },
     modal: {

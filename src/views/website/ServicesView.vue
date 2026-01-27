@@ -190,7 +190,7 @@
                                     ? 'col-span-12 sm:col-span-6 lg:lg:col-span-8 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'
                                     : 'col-span-12 sm:col-span-6 lg:lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition')
                                 : (it.data.special
-                                    ? 'col-span-12 sm:col-span-6 lg:lg:col-span-4 !row-span-1 lg:!row-span-2 rounded-[20px] text-mainBlack relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#F7F8F6]'
+                                    ? 'col-span-12 sm:col-span-6 lg:lg:col-span-4 !row-span-1 lg:!row-span-2 rounded-[20px] text-mainBlack relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] hover:shadow-md transition flex flex-col justify-start bg-[#F7F8F6]'
                                     : (idx === 5
                                         ? 'col-span-12 sm:col-span-6 lg:lg:col-span-8 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'
                                         : 'col-span-12 sm:col-span-6 lg:lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition'))">

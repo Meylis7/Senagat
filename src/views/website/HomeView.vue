@@ -660,11 +660,11 @@
             <RouterLink v-for="(item, i) in visibleAllOffers"
               :key="item && item.type && item.id != null ? (item.type + '-' + item.id) : i" :to="getOfferLink(item)"
               :class="(i === 2 || i === 11)
-                ? 'col-span-12 sm:col-span-6 lg:col-span-4 row-span-1 lg:row-span-2 rounded-[20px] text-mainBlack relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] flex flex-col justify-start bg-[#F7F8F6]'
+                ? 'col-span-12 sm:col-span-6 lg:col-span-4 row-span-1 lg:row-span-2 rounded-[20px] text-mainBlack relative overflow-hidden p-8 lg:p-10 lg:min-h-[520px] hover:shadow-md transition flex flex-col justify-start bg-[#F7F8F6]'
                 : (i === 5)
                   ? 'col-span-12 sm:col-span-6 lg:col-span-8 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'
                   : (i === 8)
-                    ? 'col-span-12 sm:col-span-6 lg:col-span-8 rounded-[20px] p-8 shadow-sm text-mainBlack hover:shadow-md transition flex flex-col flex-end  bg-[#F7F8F6]  relative overflow-hidden'
+                    ? 'col-span-12 sm:col-span-6 lg:col-span-8 rounded-[20px] p-8 shadow-sm text-mainBlack hover:shadow-md transition flex flex-col flex-end  bg-[#F7F8F6] relative overflow-hidden'
                     : 'col-span-12 sm:col-span-6 lg:col-span-4 rounded-[20px] bg-[#F7F8F6] p-8 shadow-sm hover:shadow-md transition flex flex-col flex-end'"
               :style="(i === 2 || i === 11 || i === 8) ? { '--promo-glow-bg': (item.color) } : null">
               <h6 class="text-lg leading-tight lg:text-[24px]"
