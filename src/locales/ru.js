@@ -18,7 +18,7 @@ export default {
     downloadAppButton: 'Скачать приложение',
     form: 'Форма',
     readMore: 'Читать еще',
-    fillOutForm: 'Заполнить анкету',
+    fillOutForm: 'Оставить заявку',
     details: 'Подробнее',
   },
   pageTitle: {
@@ -27,7 +27,7 @@ export default {
     docs: 'Документы',
     otherCards: 'Other Cards',
     howToGetCard: 'Как получить карту',
-    usefulInformation: 'Полезная информация',
+    usefulInformation: 'Информация',
     depositApplication: 'Заявка на открытие вклада',
   },
 
@@ -211,7 +211,7 @@ export default {
     amount: 'Сумма',
   },
   calc: {
-    calculateBenefit: 'Рассчитать выгоду',
+    calculateBenefit: 'Кредитный калькулятор',
     creditType: 'Выберите тип кредита',
     loanAmount: 'Сумма кредита',
     term: 'Срок',
@@ -413,12 +413,12 @@ export default {
     totalPayment: 'Общая сумма',
   },
   news: {
-    title: 'Новости, которыми хочется делиться',
+    title: 'Новости',
     news: 'Новость',
     subTitle: 'Только достоверная и актуальная информация от Сенагат',
     noNews: 'Новости пока отсутствуют',
     readUsSocial: 'Читайте нас в соц.сетях',
-    subscribeFirstNews: 'Подпишитесь и получайте новости первыми',
+    subscribeFirstNews: 'Актуальные новости и объявления',
     otherNews: 'Другие новости',
   },
   about: {
@@ -496,7 +496,7 @@ export default {
     office_text: 'Центральный офис АКБ «Сенагат»',
 
     app: {
-      title: 'Download the app',
+      title: 'Скачай приложение',
       text: 'Мобильное приложение <br> для <a class="text-mainWhite underline" href="https://play.google.com/store/apps/details?id=com.senagat.bank" target="_blank">Android</a> и <a class="text-mainWhite underline" href="https://apps.apple.com/tr/app/senagat-bank/id1664222324" target="_blank">iOS</a>',
     },
   },

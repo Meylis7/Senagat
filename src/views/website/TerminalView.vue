@@ -79,7 +79,7 @@
 
 <template>
     <!-- Hero  ================================================= -->
-    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] bg-[#173A16] relative overflow-hidden bg-cover bg-center"
+    <section class="hero pt-[110px] md:pt-[145px] pb-[60px] relative overflow-hidden bg-cover bg-center"
         :style="{ backgroundImage: `url(${greenBg})` }">
         <div class="auto_container">
             <div class="hero_wrap">

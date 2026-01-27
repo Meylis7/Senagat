@@ -101,7 +101,7 @@
     </section>
 
     <!-- Cards info ============================================== -->
-    <section class="py-[50px]">
+    <!-- <section class="py-[50px]">
         <div class="auto_container">
             <div class="wrap">
                 <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-5 md:mb-10 leading-9">
@@ -132,7 +132,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- News ==================================================== -->
     <NewsSection class="pb-[120px]" />

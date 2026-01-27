@@ -518,7 +518,8 @@
       <div class="auto_container">
         <div class="wrap">
           <div class="flex items-center justify-between mb-8">
-            <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold leading-9"> {{ t('calc.calculateBenefit') }}
+            <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold leading-9">
+              {{ t('calc.calculateBenefit') }}
             </h2>
           </div>
 
@@ -545,9 +546,9 @@
                 <div class="mt-3">
                   <div class="flex justify-between text-[#6F736D] mt-2">
                     <span>{{ credit && credit.min_amount ? formatMoney(credit.min_amount) : formatMoney(creditMin)
-                      }}</span>
+                    }}</span>
                     <span>{{ credit && credit.max_amount ? formatMoney(credit.max_amount) : formatMoney(creditMax)
-                      }}</span>
+                    }}</span>
                   </div>
                 </div>
               </div>
@@ -570,25 +571,25 @@
             <div class="bg-mainWhite col-span-4 rounded-[20px] p-6 flex flex-col items-center justify-center">
               <div class="flex flex-col text-center items-center justify-between mb-6 gap-5">
                 <div>
-                  <p class="text-[#6F736D] mb-2 leading-tight"> {{ t('calc.rate') }}</p>
-                  <h3 class="text-3xl font-bold leading-tight">{{ credit?.interest
-                    || 0 }}%
-                  </h3>
-                </div>
-                <div>
-                  <p class="text-[#6F736D] mb-2 leading-tight"> {{ t('calc.monthlyPayment') }}</p>
-                  <h3 class="text-[28px] font-bold leading-tight">{{
+                  <p class="text-[#6F736D] text-[17px] mb-2 leading-tight"> {{ t('calc.monthlyPayment') }}</p>
+                  <h3 class="text-[32px] font-bold leading-tight">{{
                     formatMoneyFixed(monthlyPayment) }}
                     {{ t('calc.currencyManat') }}
                   </h3>
                 </div>
 
+                <div>
+                  <p class="text-[#6F736D] text-[17px] mb-2 leading-tight"> {{ t('calc.rate') }}</p>
+                  <h3 class="text-[32px] font-bold leading-tight">
+                    {{ credit?.interest || 0 }}%
+                  </h3>
+                </div>
               </div>
 
-              <button type="button" @click="proceedToStep2"
+              <RouterLink :to="{ name: 'dashboard.loan-application' }" @click="proceedToStep2"
                 class="block w-fit min-w-[70%] px-8 text-center text-white text-[17px] font-normal bg-[#2C702C] rounded-[20px] py-3">
-                {{ t('dashboard.btn.submitApplication') }}
-              </button>
+                {{ t('btn.fillOutForm') }}
+              </RouterLink>
 
 
             </div>
@@ -858,7 +859,7 @@
             <div class="w-full col-span-12 md:col-span-8 rounded-[20px] bg-mainWhite p-4 ms:p-8">
               <div class="flex items-center justify-between mb-8">
                 <h6 class="text-[18px] md:text-[24px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates')
-                }}</h6>
+                  }}</h6>
               </div>
 
               <div v-show="currencyActiveTab === 'Текущий курс'"
@@ -867,7 +868,7 @@
                   t('exchange.currency') }}
                 </div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] text-[#6F736D]">{{ t('exchange.buy')
-                }}</div>
+                  }}</div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] text-[#6F736D]">{{
                   t('exchange.sell') }}</div>
 
@@ -1020,7 +1021,7 @@
               <h4 class="text-[28px] max-w-[370px] text-mainBlack font-bold mb-[10px] leading-8 z-10">
                 {{ t('app.title') }}
               </h4>
-              <p class="text-mainBlack/60 text-[17px] leading-6 z-10 max-w-[330px]">
+              <p class="text-mainBlack/60 text-[17px] leading-6 z-10 max-w-[430px]">
                 {{ t('app.subTitle') }}
               </p>
               <div class="flex gap-4">

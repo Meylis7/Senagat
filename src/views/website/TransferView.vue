@@ -57,10 +57,10 @@
 
     // const diamondImages = [diamond1, diamond2]
 
-    // const advColSpan = computed(() => {
-    //     const n = (transfer.value?.advantages || []).length
-    //     return n === 2 ? 'col-span-12 md:col-span-6' : 'col-span-12 md:col-span-6 lg:col-span-4'
-    // })
+    const advColSpan = computed(() => {
+        const n = (transfer.value?.advantages || []).length
+        return n === 2 ? 'col-span-12 md:col-span-6' : 'col-span-12 md:col-span-6 lg:col-span-4'
+    })
 
 </script>
 
@@ -97,27 +97,27 @@
     </section>
 
     <!-- Info  ================================================ -->
-    <!-- <section class="pt-[60px] pb-[50px]">
+    <section class="pt-[60px] pb-[50px]">
         <div class="auto_container">
             <div class="wrap">
                 <div class="grid grid-cols-12 gap-4">
                     <div v-for="(adv, idx) in (transfer?.advantages || [])" :key="idx"
-                        :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 pb-0 flex flex-col justify-center']">
-                        <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold mb-[10px] leading-tight">
+                        :class="[advColSpan, 'bg-mainWhite rounded-[20px] p-8 flex flex-col justify-center']">
+                        <h3 class="text-[20px] sm:text-[24px] md:text-[28px] font-bold leading-tight">
                             {{ adv?.title || adv?.name || '' }}
                         </h3>
-                        <p v-if="adv?.description" class="text-[15px] md:text-[17px] text-[#6F736D]">
+                        <p v-if="adv?.description" class="text-[15px] md:text-[17px] mt-[10px] text-[#6F736D]">
                             {{ adv?.description }}
                         </p>
-                        <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
+                        <!-- <span class="block w-[160px] md:w-[230px] mx-auto mt-auto relative ">
                             <img :src="diamondImages[Math.floor(Math.random() * diamondImages.length)]" alt="diamond"
                                 class="block w-full h-full object-contain mix-blend-hard-light opacity-80">
-                        </span>
+                        </span> -->
                     </div>
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
 
     <!-- Useful information ============================================== -->
     <section class="md:py-[50px]">

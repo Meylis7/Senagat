@@ -18,7 +18,7 @@ export default {
     downloadAppButton: 'Download the app',
     form: 'Form',
     readMore: 'Read more',
-    fillOutForm: 'Fill out the form',
+    fillOutForm: 'Submit application',
     details: 'Details',
   },
   pageTitle: {
@@ -27,7 +27,7 @@ export default {
     docs: 'Documents',
     otherCards: 'Other Cards',
     howToGetCard: 'How to get a card',
-    usefulInformation: 'Useful Information',
+    usefulInformation: 'Information',
     depositApplication: 'Application for opening a deposit',
   },
   slider: {
@@ -212,7 +212,7 @@ export default {
     amount: 'Amount',
   },
   calc: {
-    calculateBenefit: 'Calculate Benefit',
+    calculateBenefit: 'Credit calculator',
     creditType: 'Select Loan Type',
     loanAmount: 'Loan Amount',
     term: 'Term',
@@ -418,12 +418,12 @@ export default {
     totalPayment: 'Total payment',
   },
   news: {
-    title: 'News worth sharing',
+    title: 'News',
     news: 'News',
     subTitle: 'Only reliable and current information from Senagat',
     noNews: 'No news available yet',
     readUsSocial: 'Follow us on social networks',
-    subscribeFirstNews: 'Subscribe and get the news first',
+    subscribeFirstNews: 'Latest news and announcements',
     otherNews: 'Other news',
   },
   about: {

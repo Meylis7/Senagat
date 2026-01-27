@@ -174,7 +174,7 @@
             <h4 class="text-[28px] text-mainWhite font-bold mb-[10px] leading-8 z-10">
               {{ t('app.title') }}
             </h4>
-            <p class="text-mainWhite/60 text-[17px] leading-6 z-10 max-w-[330px]">
+            <p class="text-mainWhite/60 text-[17px] leading-6 z-10 max-w-[430px]">
               {{ t('app.subTitle') }}
             </p>
             <div class="flex gap-4">
@@ -229,7 +229,7 @@
             <div class="bg-circle"></div>
 
           </div>
-          <span class="block w-[220px] absolute top-1/2 -translate-y-1/2 right-[20%] z-10">
+          <span class="block w-[220px] absolute top-1/2 -translate-y-1/2 right-[5%] lg:right-[20%] z-10">
             <img class="block w-full h-full object-contain" src="../../assets/images/mobile-app.png" alt="app-image">
           </span>
         </div>

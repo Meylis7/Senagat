@@ -39,7 +39,7 @@
       <div class="wrap">
         <div class="flex sm:items-center justify-between flex-col sm:flex-row mb-5 md:mb-6 gap-[10px]">
           <h2 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold">
-            {{ t('news.title') }}
+            <!-- {{ t('news.title') }} -->
           </h2>
           <RouterLink to="/news" class="text-[#2C702C] hover:opacity-80 inline-flex items-center gap-2">
             {{ t('btn.showAll') }}
@@ -55,7 +55,8 @@
           <div
             class="col-span-12 mm:col-span-4 rounded-[20px] sm:min-h-[200px] overflow-hidden bg-[#104910] p-8 text-white relative news-promo-glow">
             <h6 class="text-[20px] md:text-[24px] leading-tight text-mainWhite font-bold mb-[10px] z-[1]">
-              {{ t('news.readUsSocial') }}
+              <!-- {{ t('news.readUsSocial') }} -->
+                        {{ t('news.title') }}
             </h6>
             <p class="text-mainWhite text-sm md:text-[17px] leading-tight opacity-60 z-[1]">
               {{ t('news.subscribeFirstNews') }}

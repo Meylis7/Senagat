@@ -18,7 +18,7 @@ export default {
     downloadAppButton: 'Programmany ýükläp al',
     form: 'Görnüş',
     readMore: 'Giňişleýin oka',
-    fillOutForm: 'Anketany doldurmaly',
+    fillOutForm: 'Anketa bilen ýüz tut',
     details: 'Giňişleýin',
   },
   pageTitle: {
@@ -27,7 +27,7 @@ export default {
     docs: 'Resminamalar',
     otherCards: 'Başga kartlar',
     howToGetCard: 'Karty almak ýollary',
-    usefulInformation: 'Peýdaly maglumat',
+    usefulInformation: 'Maglumat',
     depositApplication: 'Goýum açmak üçin arza',
   },
 
@@ -210,7 +210,7 @@ export default {
     amount: 'Möçber',
   },
   calc: {
-    calculateBenefit: 'Bähbidi hasapla',
+    calculateBenefit: 'Karzy hasapla',
     creditType: 'Karzyň görnüşini saýlaň',
     loanAmount: 'Karzyň möçberi',
     term: 'Möhlet',
@@ -426,7 +426,7 @@ export default {
     subTitle: 'Ygtybarly we möhüm maglumatlar',
     noNews: 'Häzirki wagtda täzelikler ýok',
     readUsSocial: 'Bizi sosial ulgamlarda okaň',
-    subscribeFirstNews: 'Ýazylyň we täzelikleri ilkinji bolup alyň',
+    subscribeFirstNews: 'Soňky täzelikler we bildirişler',
     otherNews: 'Beýleki täzelikler',
   },
   about: {
@@ -453,7 +453,7 @@ export default {
   app: {
     title: 'Programmany ýükläp alyň',
     subTitle:
-      'Pul geçirimleri, hasaplar we goýumlar açmak, maýa goýumlary we başga-da köp zatlar — siziň smartfonyňyzda.',
+      'Hyzmatlar üçin tölegler, kartlary we resminamalary almak, karzlary resmileşdirmek — hemmesi bir programmada',
   },
   breadcrumb: {
     home: 'Baş sahypa',
@@ -500,7 +500,7 @@ export default {
     office_text: '"Senagat" PTB Baş banky',
 
     app: {
-      title: 'Download the app',
+      title: 'Programmany ýükläp alyň',
       text: '<a class="text-mainWhite underline" href="https://play.google.com/store/apps/details?id=com.senagat.bank" target="_blank">Android</a> we <a class="text-mainWhite underline" href="https://apps.apple.com/tr/app/senagat-bank/id1664222324" target="_blank">iOS</a> üçin <br> mobil programma',
     },
   },
