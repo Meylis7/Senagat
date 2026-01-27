@@ -207,17 +207,17 @@
                             isMenuOpen ? 'opacity-100 translate-y-0 max-h-[600px] pointer-events-auto shadow-md' : 'opacity-0 -translate-y-2 max-h-0 pointer-events-none',
                             'll:opacity-100 ll:translate-y-0 ll:max-h-none ll:pointer-events-auto'
                         ]">
-                            <ul class="flex flex-col ll:flex-row items-center gap-8 whitespace-nowrap">
+                            <ul class="flex flex-col ll:flex-row ll:items-center gap-8 whitespace-nowrap text-center">
                                 <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.home' }"
-                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        class="text-[#1D2417] text-[17px] block w-full pb-1 ll:pb-0 font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.dashboard') }}
                                     </RouterLink>
                                 </li>
                                 <!-- <li class="w-full">
                                     <RouterLink :to="{ name: 'dashboard.services' }"
-                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        class="text-[#1D2417] text-[17px] block w-full pb-1 ll:pb-0 font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/services') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.services') }}
                                     </RouterLink>
@@ -226,7 +226,7 @@
                                 <li class="w-full">
                                     <button type="button"
                                         @click="onServiceClick('dashboard.cards', t('dashboard.services.cardIssuance'))"
-                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        class="text-[#1D2417] text-[17px] block w-full pb-1 ll:pb-0 font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/cards') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.orderCard') }}
                                     </button>
@@ -235,7 +235,7 @@
                                 <li class="w-full">
                                     <button type="button"
                                         @click="onServiceClick('dashboard.loan-application', t('dashboard.services.loanApplication'))"
-                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        class="text-[#1D2417] text-[17px] block w-full pb-1 ll:pb-0 font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/loan-application') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.creditApplication') }}
                                     </button>
@@ -244,7 +244,7 @@
                                 <li class="w-full">
                                     <button type="button"
                                         @click="onServiceClick('dashboard.certificate-application', t('dashboard.services.getCertificate'))"
-                                        class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
+                                        class="text-[#1D2417] text-[17px] block w-full pb-1 ll:pb-0 font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/certificate-application') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.getCertificate') }}
                                     </button>

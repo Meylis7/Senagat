@@ -325,12 +325,14 @@
         <div class="auto_container">
             <div class="warp">
                 <Loading :open="loadingOpen" :loading="loadingActive" />
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center mb-[22px]">
-                        <RouterLink :to="{ name: 'dashboard.payments' }" class="text-[#6F736D] text-[28px] font-bold">
+
+                <div class="flex flex-col sm:flex-row gap-3 items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <RouterLink :to="{ name: 'dashboard.payments' }"
+                            class="text-[#6F736D] text-[22px] sm:text-[28px] font-bold leading-9">
                             {{ t('dashboard.header.services') }}
                         </RouterLink>
-                        <p class="text-[28px] font-bold">
+                        <p class="text-[22px] sm:text-[28px] font-bold leading-9">
                             /{{ t('dashboard.services.loanApplication') }}
                         </p>
                     </div>
@@ -340,18 +342,16 @@
 
                 <form @submit.prevent="submitApplication">
                     <div v-if="activeStep === 1" class="grid grid-cols-12 gap-4">
-                        <div class="col-span-4">
-                            <div class="flex flex-col h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
-                                <h6 class="text-[17px] font-bold mb-4">
-                                    {{ t('dashboard.blockTitiles.selectCreditType') }}
-                                </h6>
+                        <div class="col-span-12 lg:col-span-4 flex flex-col h-fit p-[22px] rounded-[20px] bg-mainWhite">
+                            <h6 class="text-[17px] font-bold mb-4">
+                                {{ t('dashboard.blockTitiles.selectCreditType') }}
+                            </h6>
 
-                                <CustomDropdown :options="filteredLoanOptions" :placeholder="t('form.select.loanType')"
-                                    :titleClass="loanTitleClass" @option-selected="handleOptionSelected" />
-                            </div>
+                            <CustomDropdown :options="filteredLoanOptions" :placeholder="t('form.select.loanType')"
+                                :titleClass="loanTitleClass" @option-selected="handleOptionSelected" />
                         </div>
 
-                        <div v-if="selectedLoanId" class="col-span-5">
+                        <div v-if="selectedLoanId" class="col-span-12 md:col-span-7 lg:col-span-5">
                             <div class="bg-mainWhite rounded-[20px] p-6">
                                 <div class="mb-6">
                                     <div class="bg-[#EEF2ED] rounded-[20px] p-5 relative">
@@ -398,7 +398,7 @@
                             </div>
                         </div>
 
-                        <div v-if="selectedLoanId" class="col-span-3">
+                        <div v-if="selectedLoanId" class="col-span-12 md:col-span-5 lg:col-span-3">
                             <div class="bg-mainWhite rounded-[20px] p-6 flex flex-col justify-center">
                                 <div class="flex flex-col text-center items-center justify-between mb-6 gap-5">
                                     <div>
@@ -435,7 +435,7 @@
                     </div>
 
                     <div v-if="activeStep === 2" class="grid grid-cols-12 gap-4 mt-10">
-                        <div class="col-span-4">
+                        <div class="col-span-12 md:col-span-6 lg:col-span-4">
                             <div
                                 class="flex flex-col p-[22px] rounded-[20px] h-[calc(100%-16px)] gap-4 mb-4 bg-mainWhite">
                                 <div class="block mb-4">
@@ -479,7 +479,7 @@
                             </div>
                         </div>
 
-                        <div class="col-span-4">
+                        <div class="col-span-12 md:col-span-6 lg:col-span-4">
                             <div
                                 class="flex flex-col p-[22px] rounded-[20px] h-[calc(100%-16px)] gap-4 mb-4 bg-mainWhite">
 

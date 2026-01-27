@@ -167,13 +167,13 @@
         <Loading :open="overlayOpen" :loading="overlayLoading" />
         <div class="auto_container">
             <div class="warp">
-                <div class="flex items-center justify-between mb-6">
+                <div class="flex flex-col sm:flex-row gap-3 items-center justify-between mb-6">
                     <div class="flex items-center">
                         <RouterLink :to="{ name: 'dashboard.services' }"
-                            class="text-[#6F736D] text-[28px] font-bold leading-tight">
+                            class="text-[#6F736D] text-[22px] sm:text-[28px] font-bold leading-9">
                             {{ t('dashboard.header.services') }}
                         </RouterLink>
-                        <p class="text-[28px] font-bold leading-tight">
+                        <p class="text-[22px] sm:text-[28px] font-bold leading-9">
                             /{{ t('dashboard.services.getCertificate') }}
                         </p>
                     </div>
@@ -182,8 +182,8 @@
                 </div>
 
                 <form class="grid grid-cols-12 gap-4" @submit.prevent="submitOrder">
-                    <div class="col-span-4">
-                        <div class="flex flex-col h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
+                    <div class="col-span-12 md:col-span-6 lg:col-span-4">
+                        <div class="flex flex-col h-fit p-[22px] rounded-[20px] bg-mainWhite">
                             <h6 class="text-[15px] font-bold mb-[10px] block">
                                 {{ t('form.select.selectCertificateType') }}
                             </h6>
@@ -194,9 +194,8 @@
                         </div>
                     </div>
 
-
-                    <div class="col-span-4">
-                        <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
+                    <div class="col-span-12 md:col-span-6 lg:col-span-4">
+                        <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] bg-mainWhite">
                             <div class="block">
                                 <h6 class="text-[15px] font-bold mb-[10px] block">
                                     {{ t('form.select.selectBankBranch') }}
@@ -207,8 +206,8 @@
                         </div>
                     </div>
 
-                    <div class="col-span-4">
-                        <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
+                    <div class="col-span-12 md:col-span-6 lg:col-span-4">
+                        <div class="flex flex-col gap-4 h-fit p-[22px] rounded-[20px] bg-mainWhite">
                             <div class="block">
                                 <label for="issued_date" class="text-[15px] font-bold mb-[10px] block">
                                     {{ t('form.input.homeAddress') }}
