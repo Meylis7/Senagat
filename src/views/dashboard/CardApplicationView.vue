@@ -163,13 +163,13 @@
         <div class="auto_container">
             <div class="warp">
                 <Loading :open="overlayOpen" :loading="overlayLoading" />
-                <div class="flex items-center justify-between mb-6">
+                <div class="flex flex-col sm:flex-row gap-3 items-center justify-between mb-6">
                     <div class="flex items-center">
                         <RouterLink :to="{ name: 'dashboard.cards' }"
-                            class="text-[#6F736D] text-[28px] font-bold leading-tight">
+                            class="text-[#6F736D] text-[22px] sm:text-[28px] font-bold leading-9">
                             {{ t('dashboard.cards') }}
                         </RouterLink>
-                        <p class="text-[28px] font-bold leading-tight">
+                        <p class="text-[22px] sm:text-[28px] font-bold leading-9">
                             / {{ cardTitle }}
                         </p>
                     </div>
@@ -178,8 +178,8 @@
                 </div>
 
                 <form class="grid grid-cols-12 gap-4" @submit.prevent="submitCardOrder">
-                    <div class="col-span-4">
-                        <div class="flex flex-col h-fit p-[22px] rounded-[20px] mb-4 bg-mainWhite">
+                    <div class="col-span-12 lg:col-span-4">
+                        <div class="flex flex-col h-fit p-[22px] rounded-[20px] bg-mainWhite">
                             <h6 class="text-[15px] font-bold mb-[10px] block">
                                 {{ t('form.select.selectBankBranch') }}
                             </h6>
@@ -189,8 +189,8 @@
                         </div>
                     </div>
 
-                    <div class="col-span-4">
-                        <div class="flex flex-col h-fit gap-4 p-[22px] rounded-[20px] mb-4 bg-mainWhite">
+                    <div class="col-span-12 lg:col-span-4">
+                        <div class="flex flex-col h-fit gap-4 p-[22px] rounded-[20px] bg-mainWhite">
                             <div class="block">
                                 <label for="work_position" class="text-[15px] font-bold mb-[10px] block">
                                     {{ t('form.input.position') }}
@@ -234,8 +234,8 @@
                         </div>
                     </div>
 
-                    <div class="col-span-4">
-                        <div class="flex flex-col h-fit gap-4 p-[22px] rounded-[20px] mb-4 bg-mainWhite">
+                    <div class="col-span-12 lg:col-span-4">
+                        <div class="flex flex-col h-fit gap-4 p-[22px] rounded-[20px] bg-mainWhite">
 
                             <div class="block mb-4">
                                 <label class="text-[15px] font-bold mb-[10px] block">

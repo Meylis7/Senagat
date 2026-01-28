@@ -95,20 +95,31 @@
         </h2>
 
         <div class="grid grid-cols-12 gap-4">
-          <RouterLink :to="{ name: 'awards-detail', query: { id: item.id } }" v-for="item in awards" :key="item.id"
-            class="award_glow relative overflow-hidden group col-span-12 sm:col-span-6 md:col-span-4 md:last:col-span-12 block bg-mainWhite rounded-[20px] p-8 hover:bg-[#1D2417] transition-all duration-300">
-            <h4
-              class="text-[18px] lg:text-[20px] leading-tight font-bold text-mainBlack mb-2 group-hover:text-white transition-all duration-300">
-              {{ item.title || '' }}
-            </h4>
-            <p class="text-sm text-[#6F736D] mb-6 group-hover:text-white transition-all duration-300">
-              {{ item.sub_title || '' }}
-            </p>
-            <span class="h-[180px] flex justify-end relative z-[1]">
-              <img :src="item.image_url || '../../assets/images/fact.png'" class="block h-full object-contain"
-                alt="card">
-            </span>
-          </RouterLink>
+          <template v-if="awardsLoading">
+            <div v-for="n in 4" :key="n"
+              class="award_glow relative overflow-hidden col-span-12 sm:col-span-6 md:col-span-4 md:last:col-span-12 block bg-mainWhite rounded-[20px] p-8 animate-pulse">
+              <div class="h-5 bg-gray-200 rounded w-2/3 mb-2"></div>
+              <div class="h-4 bg-gray-200 rounded w-full mb-4"></div>
+              <div class="h-[180px] bg-gray-200 rounded"></div>
+            </div>
+          </template>
+
+          <template v-else>
+            <RouterLink :to="{ name: 'awards-detail', query: { id: item.id } }" v-for="item in awards" :key="item.id"
+              class="award_glow relative overflow-hidden group col-span-12 sm:col-span-6 md:col-span-4 md:last:col-span-12 block bg-mainWhite rounded-[20px] p-8 hover:bg-[#1D2417] transition-all duration-300">
+              <h4
+                class="text-[18px] lg:text-[20px] leading-tight font-bold text-mainBlack mb-2 group-hover:text-white transition-all duration-300">
+                {{ item.title || '' }}
+              </h4>
+              <p class="text-sm text-[#6F736D] mb-6 group-hover:text-white transition-all duration-300">
+                {{ item.sub_title || '' }}
+              </p>
+              <span class="h-[180px] flex justify-end relative z-[1]">
+                <img :src="item.image_url || '../../assets/images/fact.png'" class="block h-full object-contain"
+                  alt="card">
+              </span>
+            </RouterLink>
+          </template>
         </div>
       </div>
     </div>
@@ -159,6 +170,54 @@
             <img src="../../assets/images/logo/logo.png" class="w-[calc(100%-40px)] block object-contain z-[1]"
               alt="emblem">
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact us ============================================ -->
+  <section class="md:py-[60px] pb-[80px]">
+    <div class="auto_container">
+      <div class="wrap">
+        <div class="relative overflow-hidden rounded-[32px] bg-[#F7F8F6] mt-4 py-8 px-6 text-white form-glow">
+          <form class="max-w-[390px] mx-auto block">
+            <h1 class="text-center text-[38px] text-mainBlack/70 leading-tight font-bold mb-10">Contact us</h1>
+
+            <div class="mb-4">
+              <input type="text" placeholder="Фамилия, имя и отчество"
+                class=" text-[17px] w-full rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 p-5 outline-none font-Gilroy" />
+
+              <!-- <span class="block text-mainBlack mt-[10px] font-Gilroy">Уточните точно как в паспорте</span> -->
+            </div>
+
+            <div class="mb-4">
+              <div class="flex items-center">
+                <input type="text" value="+993" readonly
+                  class=" text-[17px] w-[85px] rounded-[10px] bg-white text-mainBlack/80 mr-[6px] p-5 outline-none select-none font-Gilroy" />
+                <input type="tel" placeholder="Номер телефона"
+                  class=" text-[17px] flex-1 rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 p-5 outline-none font-Gilroy" />
+              </div>
+
+              <!-- <span class="block text-mainBlack text-[15px] mt-[10px] font-Gilroy">
+                На него поступит смс оповещение
+              </span> -->
+            </div>
+
+            <div class="mb-4">
+              <input type="text" placeholder="Email"
+                class=" text-[17px] w-full rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 p-5 outline-none font-Gilroy" />
+            </div>
+
+            <div class="mb-8">
+              <textarea type="text" placeholder="Сообщение"
+                class=" text-[17px] w-full min-h-[120px] rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 p-5 outline-none font-Gilroy" />
+            </div>
+
+            <button type="submit"
+              class="block mx-auto text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-full">
+              Send
+            </button>
+          </form>
         </div>
       </div>
     </div>
