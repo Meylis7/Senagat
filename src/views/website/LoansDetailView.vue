@@ -302,26 +302,27 @@
                     </div>
 
                     <div class="lg:col-span-4 bg-mainWhite rounded-[20px] p-6 flex flex-col justify-center">
-                    <div class="flex flex-col text-center items-center justify-between mb-6 gap-5">
-                <div>
-                  <p class="text-[#6F736D] text-[17px] mb-2 leading-tight"> {{ t('calc.monthlyPayment') }}</p>
-                  <h3 class="text-[32px] font-bold leading-tight">{{
-                    formatMoneyFixed(monthlyPayment) }}
-                    {{ t('calc.currencyManat') }}
-                  </h3>
-                </div>
+                        <div class="flex flex-col text-center items-center justify-between mb-6 gap-5">
+                            <div>
+                                <p class="text-[#6F736D] text-[17px] mb-2 leading-tight"> {{ t('calc.monthlyPayment') }}
+                                </p>
+                                <h3 class="text-[32px] font-bold leading-tight">{{
+                                    formatMoneyFixed(monthlyPayment) }}
+                                    {{ t('calc.currencyManat') }}
+                                </h3>
+                            </div>
 
-                <div>
-                  <p class="text-[#6F736D] text-[17px] mb-2 leading-tight"> {{ t('calc.rate') }}</p>
-                  <h3 class="text-[32px] font-bold leading-tight">
-                    {{ credit?.interest || 0 }}%
-                  </h3>
-                </div>
-              </div>
+                            <div>
+                                <p class="text-[#6F736D] text-[17px] mb-2 leading-tight"> {{ t('calc.rate') }}</p>
+                                <h3 class="text-[32px] font-bold leading-tight">
+                                    {{ credit?.interest || 0 }}%
+                                </h3>
+                            </div>
+                        </div>
 
                         <RouterLink :to="{ name: 'dashboard.loan-application' }"
                             class="block mt-5 text-center text-white text-[17px] font-normal bg-[#2C702C] rounded-[20px] py-3">
-                            {{ t('btn.fillOutForm') }} 
+                            {{ t('btn.fillOutForm') }}
                         </RouterLink>
                     </div>
                 </div>

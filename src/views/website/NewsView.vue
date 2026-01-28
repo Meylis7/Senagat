@@ -1,6 +1,6 @@
 <script setup>
     import Breadcrumb from '@/components/website/Breadcrumb.vue'
-    import { ref, computed, onMounted } from 'vue'
+    import { ref, computed, onMounted, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
     import { RouterLink } from 'vue-router'
     import apiService from '@/services/apiService'
@@ -15,6 +15,20 @@
     const news = ref([])
     const newsLoading = ref(false)
     const newsError = ref(null)
+
+    const pageSize = 20
+    const currentPage = ref(1)
+
+    const totalPages = computed(() => {
+        if (!news.value || !news.value.length) return 1
+        return Math.ceil(news.value.length / pageSize)
+    })
+
+    const paginatedNews = computed(() => {
+        const start = (currentPage.value - 1) * pageSize
+        const end = start + pageSize
+        return news.value.slice(start, end)
+    })
 
     const fetchNews = async () => {
         newsLoading.value = true
@@ -37,6 +51,18 @@
             newsLoading.value = false
         }
     }
+
+    const goToPage = (page) => {
+        if (page < 1 || page > totalPages.value) return
+        currentPage.value = page
+        if (typeof window !== 'undefined') {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+    }
+
+    watch(news, () => {
+        currentPage.value = 1
+    })
 
     onMounted(() => {
         fetchNews()
@@ -71,7 +97,7 @@
     </div> -->
 
     <!-- News ===================================================================================== -->
-    <section class="md:pt-[50px] pb-[80px] md:pb-[120px]">
+    <section class="md:pt-[20px] pb-[80px] md:pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
                 <!-- <div class="flex items-center mb-10 gap-1">
@@ -124,7 +150,7 @@
 
                     <!-- News articles -->
                     <template v-else class="col-span-8 grid sm:grid-cols-2 gap-4">
-                        <article v-for="item in news" :key="item.id"
+                        <article v-for="item in paginatedNews" :key="item.id"
                             class="bg-white rounded-[20px] overflow-hidden p-8">
                             <p class="text-[17px] text-[#6F736D] leading-4 font-Gilroy">
                                 {{ item.published_at }}
@@ -136,7 +162,7 @@
                         </article>
 
                         <!-- Fallback if no news -->
-                        <template v-if="news.length === 0">
+                        <template v-if="paginatedNews.length === 0">
                             <div class="col-span-2 grid place-items-center bg-white rounded-[20px] p-8 text-center">
                                 <p class="text-[#6F736D] font-bold leading-5 text-[17px]">
                                     {{ t('news.noNews') }}
@@ -144,6 +170,26 @@
                             </div>
                         </template>
                     </template>
+                </div>
+
+                <div v-if="!newsLoading && !newsError && news.length > pageSize"
+                    class="mt-8 flex items-center justify-center gap-2">
+                    <button type="button" @click="goToPage(currentPage - 1)" :disabled="currentPage === 1"
+                        class="px-3 py-1 text-sm rounded border border-[#EEF2ED] disabled:opacity-50 disabled:cursor-default hover:bg-[#2C702C] hover:text-white transition-colors">
+                        ‹
+                    </button>
+
+                    <button v-for="page in totalPages" :key="page" type="button" @click="goToPage(page)" :class="[
+                        'px-3 py-1 text-sm rounded border border-[#EEF2ED] transition-colors',
+                        page === currentPage ? 'bg-[#2C702C] text-white' : 'bg-white hover:bg-[#F7F8F6]'
+                    ]">
+                        {{ page }}
+                    </button>
+
+                    <button type="button" @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages"
+                        class="px-3 py-1 text-sm rounded border border-[#EEF2ED] disabled:opacity-50 disabled:cursor-default hover:bg-[#2C702C] hover:text-white transition-colors">
+                        ›
+                    </button>
                 </div>
 
             </div>
