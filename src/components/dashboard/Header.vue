@@ -250,14 +250,13 @@
                                     </button>
                                 </li>
 
-
-
                                 <li class="w-full">
-                                    <RouterLink :to="{ name: 'dashboard.payments' }"
+                                    <button type="button"
+                                        @click="onServiceClick('dashboard.payments', t('dashboard.header.internationalPayments'))"
                                         class="text-[#1D2417] text-[17px] block w-full font-bold mm:font-normal border-solid border-0 border-b-[1px] mm:border-b-0 border-[#EEF2ED] relative"
                                         :class="[isActiveLink('/dashboard/payments') ? 'active border-b-0' : '']">
                                         {{ t('dashboard.header.internationalPayments') }}
-                                    </RouterLink>
+                                    </button>
                                 </li>
                             </ul>
                         </nav>

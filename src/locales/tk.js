@@ -20,6 +20,7 @@ export default {
     readMore: 'Giňişleýin oka',
     fillOutForm: 'Anketa bilen ýüz tut',
     details: 'Giňişleýin',
+    send: 'Ugrat',
   },
   pageTitle: {
     reportsList: 'Hasabatlaryň sanawy',
@@ -29,6 +30,7 @@ export default {
     howToGetCard: 'Karty almak ýollary',
     usefulInformation: 'Maglumat',
     depositApplication: 'Goýum açmak üçin arza',
+    contactUs: 'Biz bilen habarlaşyň',
   },
 
   slider: {
@@ -669,7 +671,7 @@ export default {
       homeAddress: 'Öý salgysy',
       workPhone: 'Iş telefony',
       secretCode: 'Gizlin kod',
-      email: 'Email',
+      email: 'Elektron poçta',
       firstName: 'Ady',
       lastName: 'Familiýasy',
       middleName: 'Atasynyň ady',
@@ -691,6 +693,9 @@ export default {
       createPassword: 'Gizlin sözi dörediň',
       createStrongPassword: 'Ynamly gizlin sözi dörediň',
       password: 'Gizlin söz',
+      uploadFile: 'Faýly ýüklemek',
+      phoneNumber: 'Telefon belgisi',
+      message: 'Hatyňyz',
     },
     select: {
       loanType: 'Karzyň görnüşi',

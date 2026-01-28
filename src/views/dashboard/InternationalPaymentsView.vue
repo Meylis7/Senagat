@@ -2,12 +2,14 @@
     import CustomDropdown from '@/components/dashboard/CustomDropdown.vue';
     import { useI18n } from 'vue-i18n';
     import { ref, computed, onMounted, watch } from 'vue';
+    import { useRouter } from 'vue-router';
     import apiService from '@/services/apiService';
     import { toast } from 'vue3-toastify';
     import { useUserStore } from '@/stores/userStore';
     import Loading from '@/components/dashboard/Loading.vue';
     const { t, locale } = useI18n();
     const userStore = useUserStore();
+    const router = useRouter();
 
     const branchOptions = ref([]);
     const selectedBranch = ref(null);
@@ -64,9 +66,24 @@
         if (!opt) return '';
         return opt.title ?? opt.name ?? opt.label ?? String(opt.id ?? '');
     });
+    const allowedMimeTypes = ['application/pdf', 'image/png', 'image/jpeg'];
+    const allowedExtensions = ['.pdf', '.png', '.jpg', '.jpeg'];
+    const isValidFileType = (file) => {
+        if (!file) return false;
+        const type = String(file.type || '').toLowerCase();
+        const name = String(file.name || '').toLowerCase();
+        const mimeOk = !type || allowedMimeTypes.includes(type);
+        const extOk = allowedExtensions.some((ext) => name.endsWith(ext));
+        return mimeOk && extOk;
+    };
     const fileUploads = ref([]);
     const onSingleFileChange = (event, idx) => {
         const file = Array.from(event?.target?.files || [])[0] || null;
+        if (file && !isValidFileType(file)) {
+            toast.error('Неверный тип файла. Разрешены PDF, PNG, JPG, JPEG');
+            if (event?.target) event.target.value = '';
+            return;
+        }
         fileUploads.value[idx] = file;
         if (event?.target) event.target.value = '';
     };
@@ -93,15 +110,18 @@
     const validateForm = () => {
         errors.value.paymentType = !selectedPaymentTypeId.value;
         errors.value.branch = !selectedBranch.value;
-        errors.value.files =
+        const missingFiles =
             requiredFiles.value.length > 0 &&
             (fileUploads.value.length !== requiredFiles.value.length ||
                 fileUploads.value.some((f) => !f));
+        const invalidFiles = fileUploads.value.some((f) => f && !isValidFileType(f));
+        errors.value.files = missingFiles || invalidFiles;
         const anyError = Object.values(errors.value).some(Boolean);
         if (anyError) {
             if (errors.value.paymentType) toast.error('Выберите тип платежа');
             if (errors.value.branch) toast.error('Выберите филиал банка');
-            if (errors.value.files) toast.error('Загрузите документы');
+            if (missingFiles) toast.error('Загрузите документы');
+            if (invalidFiles) toast.error('Неверный тип файла. Разрешены PDF, PNG, JPG, JPEG');
         }
         return !anyError;
     };
@@ -139,9 +159,10 @@
                 })),
             });
             await apiService.submitInternationalPaymentOrder(fd, token);
-            toast.success('Заявка отправлена');
             overlayLoading.value = false;
             overlayOpen.value = false;
+            await router.push({ name: 'dashboard.home' });
+            toast.success('Заявка отправлена');
         } catch (e) {
             const msg = String(e?.message || 'Ошибка отправки заявки');
             toast.error(msg);
@@ -220,10 +241,10 @@
                                 <label :for="'scan-' + idx"
                                     class="block w-full text-[15px] leading-tight border-solid border-1 border-[#EEF2ED] rounded-[10px] py-3 px-5 pr-[45px] placeholder:text-[#6F736D] text-[#191B19] cursor-pointer"
                                     :class="{ 'border-solid border-[1px] border-red-500': errors.files && !fileUploads[idx] }">
-                                    {{ fileUploads[idx]?.name || 'Загрузить файл' }}
+                                    {{ fileUploads[idx]?.name || t('form.input.uploadFile') }}
                                 </label>
 
-                                <input class="hidden" type="file" :id="'scan-' + idx"
+                                <input class="hidden" type="file" :id="'scan-' + idx" accept=".pdf,.png,.jpg,.jpeg"
                                     @change="onSingleFileChange($event, idx)">
 
                                 <span class="absolute bottom-[14px] right-4 w-5 h-5">

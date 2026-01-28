@@ -92,6 +92,10 @@ const apiService = {
     return apiClient.get(`/v1/awards/${id}`)
   },
 
+  submitContactMessage(data) {
+    return apiClient.post('/v1/contact-message', data)
+  },
+
   fetchClients(params = {}) {
     return apiClient.get('/v1/clients', { params })
   },

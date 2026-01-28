@@ -20,6 +20,7 @@ export default {
     readMore: 'Читать еще',
     fillOutForm: 'Оставить заявку',
     details: 'Подробнее',
+    send: 'Отправить',
   },
   pageTitle: {
     reportsList: 'Список отчетов',
@@ -29,6 +30,7 @@ export default {
     howToGetCard: 'Как получить карту',
     usefulInformation: 'Информация',
     depositApplication: 'Заявка на открытие вклада',
+    contactUs: 'Связаться с нами',
   },
 
   slider: {
@@ -661,7 +663,7 @@ export default {
       homeAddress: 'Домашний адрес',
       workPhone: 'Рабочий телефон',
       secretCode: 'Секретный код',
-      email: 'Email',
+      email: 'Электронная почта',
       firstName: 'Имя',
       lastName: 'Фамилия',
       middleName: 'Отчество',
@@ -683,6 +685,9 @@ export default {
       createPassword: 'Придумайте пароль',
       createStrongPassword: 'Придумайте надежный пароль',
       password: 'Пароль',
+      uploadFile: 'Загрузить файл',
+      phoneNumber: 'Номер телефона',
+      message: 'Сообщение',
     },
     select: {
       loanType: 'Тип кредита',

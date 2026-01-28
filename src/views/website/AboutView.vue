@@ -5,6 +5,7 @@
   import Breadcrumb from '@/components/website/Breadcrumb.vue'
   import { Swiper, SwiperSlide } from 'swiper/vue'
   import { Autoplay, Navigation } from 'swiper/modules'
+  import { toast } from 'vue3-toastify'
   import 'swiper/css'
 
   const { t, tm } = useI18n()
@@ -22,8 +23,6 @@
   const aboutSwiper = ref(null)
   const onAboutSwiper = (s) => { aboutSwiper.value = s }
 
-
-  // Awards Section ============================================================================
   const awards = ref([])
   const awardsLoading = ref(false)
   const awardsError = ref(null)
@@ -50,7 +49,92 @@
     }
   }
 
-  // Fetch news on component mount
+  const contactName = ref('')
+  const contactPhone = ref('')
+  const contactEmail = ref('')
+  const contactMessage = ref('')
+  const contactErrors = ref({
+    name: false,
+    phone: false,
+    email: false,
+    message: false,
+  })
+  const submittingContact = ref(false)
+
+  const onPhoneInput = (event) => {
+    const raw = String(event?.target?.value || '')
+    const digits = raw.replace(/\D/g, '').slice(0, 8)
+    contactPhone.value = digits
+    if (event?.target) event.target.value = digits
+    if (digits.length > 0) {
+      contactErrors.value.phone = false
+    }
+  }
+
+  const validateContactForm = () => {
+    const nameEmpty = !contactName.value.trim()
+    const emailTrimmed = contactEmail.value.trim()
+    const emailEmpty = !emailTrimmed
+    const emailInvalid = emailTrimmed && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrimmed)
+    const messageEmpty = !contactMessage.value.trim()
+    const phoneDigits = contactPhone.value.replace(/\D/g, '')
+    const phoneEmpty = phoneDigits.length === 0
+    const phoneInvalidLength = phoneDigits.length > 0 && phoneDigits.length !== 8
+
+    contactErrors.value.name = nameEmpty
+    contactErrors.value.email = emailEmpty || emailInvalid
+    contactErrors.value.message = messageEmpty
+    contactErrors.value.phone = phoneEmpty || phoneInvalidLength
+
+    if (nameEmpty || emailEmpty || messageEmpty || phoneEmpty) {
+      toast.error('Заполните все поля формы')
+    }
+    if (!phoneEmpty && phoneInvalidLength) {
+      toast.error('Введите номер телефона из 8 цифр')
+    }
+    if (!emailEmpty && emailInvalid) {
+      toast.error('Введите корректный email')
+    }
+
+    return !(
+      contactErrors.value.name ||
+      contactErrors.value.email ||
+      contactErrors.value.message ||
+      contactErrors.value.phone
+    )
+  }
+
+  const submitContact = async () => {
+    if (submittingContact.value) return
+    if (!validateContactForm()) return
+    submittingContact.value = true
+    try {
+      const phoneDigits = contactPhone.value.replace(/\D/g, '')
+      const payload = {
+        name: contactName.value.trim(),
+        email: contactEmail.value.trim(),
+        phone_number: `+993${phoneDigits}`,
+        message: contactMessage.value.trim(),
+      }
+      await apiService.submitContactMessage(payload)
+      toast.success('Сообщение отправлено')
+      contactName.value = ''
+      contactPhone.value = ''
+      contactEmail.value = ''
+      contactMessage.value = ''
+      contactErrors.value = {
+        name: false,
+        phone: false,
+        email: false,
+        message: false,
+      }
+    } catch (e) {
+      toast.error(e.message || 'Ошибка отправки сообщения')
+    } finally {
+      submittingContact.value = false
+    }
+  }
+
   onMounted(() => {
     fetchAwards();
   });
@@ -180,22 +264,37 @@
     <div class="auto_container">
       <div class="wrap">
         <div class="relative overflow-hidden rounded-[32px] bg-[#F7F8F6] mt-4 py-8 px-6 text-white form-glow">
-          <form class="max-w-[390px] mx-auto block">
-            <h1 class="text-center text-[38px] text-mainBlack/70 leading-tight font-bold mb-10">Contact us</h1>
+          <form class="grid grid-cols-12 gap-4 md:max-w-[80%] mx-auto" @submit.prevent="submitContact">
+            <h1
+              class="col-span-12 text-center text-[22px] md:text-[28px] lg:text-[38px] text-mainBlack/70 leading-tight font-bold mb-5 md:mb-10">
+              {{ t('pageTitle.contactUs') }}
+            </h1>
 
-            <div class="mb-4">
-              <input type="text" placeholder="Фамилия, имя и отчество"
-                class=" text-[17px] w-full rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 p-5 outline-none font-Gilroy" />
+            <div class="mb-4 col-span-12 lg:col-span-4">
+              <label id="name" class="text-mainBlack text-sm leading-tight block mb-2">
+                {{ t('form.input.firstName') }} {{ t('form.input.lastName') }}
+              </label>
+              <input type="text" id="name" v-model="contactName"
+                :placeholder="t('form.input.firstName') + ' ' + t('form.input.lastName')" :class="['text-[16px] w-full rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 px-5 py-4 md:p-5 outline-none font-Gilroy',
+                  contactErrors.name ? 'border-[1px] border-solid border-red-500' : ''
+                ]" @input="contactErrors.name = false" />
 
               <!-- <span class="block text-mainBlack mt-[10px] font-Gilroy">Уточните точно как в паспорте</span> -->
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4 col-span-12 lg:col-span-4">
+              <label id="phoneNumber" class="text-mainBlack text-sm leading-tight block mb-2">
+                {{ t('form.input.phoneNumber') }}
+              </label>
               <div class="flex items-center">
                 <input type="text" value="+993" readonly
-                  class=" text-[17px] w-[85px] rounded-[10px] bg-white text-mainBlack/80 mr-[6px] p-5 outline-none select-none font-Gilroy" />
-                <input type="tel" placeholder="Номер телефона"
-                  class=" text-[17px] flex-1 rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 p-5 outline-none font-Gilroy" />
+                  class="text-[16px] w-[85px] rounded-[10px] bg-white text-mainBlack/80 mr-[6px] px-5 py-4 md:p-5 outline-none select-none font-Gilroy"
+                  :class="[contactErrors.phone ? 'border-[1px] border-solid border-red-500' : ''
+                  ]" />
+                <input type="tel" id="phoneNumber" v-model="contactPhone" :placeholder="t('form.input.phoneNumber')"
+                  :class="['text-[16px] w-full rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 px-5 py-4 md:p-5 outline-none font-Gilroy',
+                    contactErrors.phone ? 'border-[1px] border-solid border-red-500' : ''
+                  ]" @input="onPhoneInput" />
               </div>
 
               <!-- <span class="block text-mainBlack text-[15px] mt-[10px] font-Gilroy">
@@ -203,20 +302,52 @@
               </span> -->
             </div>
 
-            <div class="mb-4">
-              <input type="text" placeholder="Email"
-                class=" text-[17px] w-full rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 p-5 outline-none font-Gilroy" />
+            <div class="mb-4 col-span-12 lg:col-span-4">
+              <label id="email" class="text-mainBlack text-sm leading-tight block mb-2">
+                {{ t('form.input.email') }}
+              </label>
+              <input id="email" type="text" v-model="contactEmail" :placeholder="t('form.input.email')" :class="[
+                'text-[16px] w-full rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 px-5 py-4 md:p-5 outline-none font-Gilroy',
+                contactErrors.email ? 'border-[1px] border-solid border-red-500' : ''
+              ]" @input="contactErrors.email = false" />
             </div>
 
-            <div class="mb-8">
-              <textarea type="text" placeholder="Сообщение"
-                class=" text-[17px] w-full min-h-[120px] rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 p-5 outline-none font-Gilroy" />
+            <div class="mb-4 col-span-12">
+              <label id="message" class="text-mainBlack text-sm leading-tight block mb-2">
+                {{ t('form.input.message') }}
+              </label>
+              <textarea type="text" id="message" v-model="contactMessage" :placeholder="t('form.input.message')" :class="['text-[16px] w-full min-h-[160px] rounded-[10px] bg-white text-mainBlack placeholder-mainBlack/60 px-5 py-4 md:p-5 outline-none font-Gilroy',
+                contactErrors.message ? 'border-[1px] border-solid border-red-500' : ''
+              ]" @input="contactErrors.message = false" />
             </div>
 
-            <button type="submit"
-              class="block mx-auto text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] w-full">
-              Send
-            </button>
+            <div class="col-span-12">
+              <button type="submit" :disabled="submittingContact"
+                class="ml-auto text-sm font-bold text-white bg-[#2C702C] rounded-[10px] px-5 py-[14px] min-w-full md:min-w-[200px] flex items-center justify-center gap-2">
+                {{ t('btn.send') }}
+
+                <span class="block w-[12px]">
+                  <svg class="w-full h-full object-contain" v-show="!submittingContact" width="7" height="9"
+                    viewBox="0 0 7 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0.164822 0.960766C0.11256 0.908503 0.071104 0.846459 0.04282 0.778176C0.014536 0.709892 -2.23984e-05 0.636706 -2.23919e-05 0.562796C-2.23855e-05 0.488887 0.014536 0.415701 0.04282 0.347417C0.071104 0.279134 0.11256 0.217089 0.164822 0.164827C0.217084 0.112565 0.279128 0.0711096 0.347412 0.0428256C0.415695 0.0145416 0.488881 -1.67599e-05 0.562791 -1.67534e-05C0.636701 -1.6747e-05 0.709887 0.0145417 0.77817 0.0428257C0.846454 0.0711096 0.908498 0.112566 0.96076 0.164828L6.58576 5.78983C6.63806 5.84207 6.67955 5.90411 6.70786 5.97239C6.73616 6.04068 6.75073 6.11388 6.75073 6.1878C6.75073 6.26172 6.73616 6.33492 6.70786 6.4032C6.67955 6.47149 6.63806 6.53353 6.58576 6.58577L0.960759 12.2108C0.855211 12.3163 0.712057 12.3756 0.56279 12.3756C0.413523 12.3756 0.270369 12.3163 0.164821 12.2108C0.059273 12.1052 -2.33855e-05 11.9621 -2.33754e-05 11.8128C-2.33653e-05 11.6635 0.0592731 11.5204 0.164821 11.4148L5.39256 6.1878L0.164822 0.960766Z"
+                      fill="#EEF2ED" />
+                  </svg>
+
+                  <svg class="w-full h-full object-contain" v-show="submittingContact"
+                    :class="submittingContact ? 'animate-spin' : ''" width="18" height="18" viewBox="0 0 18 18"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <mask id="path-1-inside-1_442_1166" fill="white">
+                      <path
+                        d="M9 0C10.78 2.12267e-08 12.5201 0.527841 14.0001 1.51677C15.4802 2.50571 16.6337 3.91131 17.3149 5.55585C17.9961 7.20038 18.1743 9.00998 17.8271 10.7558C17.4798 12.5016 16.6226 14.1053 15.364 15.364C14.1053 16.6226 12.5016 17.4798 10.7558 17.8271C9.00998 18.1743 7.20038 17.9961 5.55585 17.3149C3.91131 16.6337 2.50571 15.4802 1.51677 14.0001C0.527841 12.5201 -4.24533e-08 10.78 0 9H2.9914C2.9914 10.1884 3.3438 11.3501 4.00403 12.3382C4.66427 13.3263 5.60268 14.0964 6.70061 14.5512C7.79854 15.006 9.00667 15.125 10.1722 14.8931C11.3378 14.6613 12.4084 14.089 13.2487 13.2487C14.089 12.4084 14.6613 11.3378 14.8931 10.1722C15.125 9.00667 15.006 7.79854 14.5512 6.70061C14.0964 5.60268 13.3263 4.66427 12.3382 4.00403C11.3501 3.3438 10.1884 2.9914 9 2.9914V0Z" />
+                    </mask>
+                    <path
+                      d="M9 0C10.78 2.12267e-08 12.5201 0.527841 14.0001 1.51677C15.4802 2.50571 16.6337 3.91131 17.3149 5.55585C17.9961 7.20038 18.1743 9.00998 17.8271 10.7558C17.4798 12.5016 16.6226 14.1053 15.364 15.364C14.1053 16.6226 12.5016 17.4798 10.7558 17.8271C9.00998 18.1743 7.20038 17.9961 5.55585 17.3149C3.91131 16.6337 2.50571 15.4802 1.51677 14.0001C0.527841 12.5201 -4.24533e-08 10.78 0 9H2.9914C2.9914 10.1884 3.3438 11.3501 4.00403 12.3382C4.66427 13.3263 5.60268 14.0964 6.70061 14.5512C7.79854 15.006 9.00667 15.125 10.1722 14.8931C11.3378 14.6613 12.4084 14.089 13.2487 13.2487C14.089 12.4084 14.6613 11.3378 14.8931 10.1722C15.125 9.00667 15.006 7.79854 14.5512 6.70061C14.0964 5.60268 13.3263 4.66427 12.3382 4.00403C11.3501 3.3438 10.1884 2.9914 9 2.9914V0Z"
+                      stroke="#EEF2ED" stroke-width="8" mask="url(#path-1-inside-1_442_1166)" />
+                  </svg>
+                </span>
+              </button>
+            </div>
           </form>
         </div>
       </div>

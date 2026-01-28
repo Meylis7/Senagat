@@ -20,6 +20,7 @@ export default {
     readMore: 'Read more',
     fillOutForm: 'Submit application',
     details: 'Details',
+    send: 'Send',
   },
   pageTitle: {
     reportsList: 'List of Reports',
@@ -29,6 +30,7 @@ export default {
     howToGetCard: 'How to get a card',
     usefulInformation: 'Information',
     depositApplication: 'Application for opening a deposit',
+    contactUs: 'Contact us',
   },
   slider: {
     slide_1: {
@@ -689,6 +691,9 @@ export default {
       createPassword: 'Create a password',
       createStrongPassword: 'Create a strong password',
       password: 'Password',
+      uploadFile: 'Upload file',
+      phoneNumber: 'Phone number',
+      message: 'Message',
     },
     select: {
       loanType: 'Loan type',
