@@ -494,9 +494,9 @@ export default {
       mobileBankingSystem: '“Senagat mobil bank” system',
       paymentSystem: '“Senagat töleg” bank system',
     },
-    text: '© 1994-2025, Senagat Bank. License of the Bank of Turkmenistan No. 2707 dated 14.09.2015. Senagat Bank is a personal data processing operator.',
+    text: `© 1994-${new Date().getFullYear()}, Senagat Bank of Turkmenistan. License of the Bank of Turkmenistan No. 2707 dated 14.09.2015. Senagat Bank is a personal data processing operator.`,
 
-    office_text: 'Main bank JSCB "Senagat"',
+    office_text: 'Main bank JSCB "Senagat" of Turkmenistan',
 
     app: {
       title: 'Download the app',

@@ -57,7 +57,7 @@ export default {
     },
     slide_5: {
       title: 'Hormatly raýatlar!',
-      text: 'Senagat PTB, bank kartlary bilen Size ähli hyzmatlaryny hödürleýä',
+      text: 'Türkmenistanyň Senagat PTB, bank kartlary bilen Size ähli hyzmatlaryny hödürleýä',
     },
   },
 
@@ -87,7 +87,7 @@ export default {
   },
   docs: {
     title: 'Hasap açmak üçin resminamalaryň sanawy',
-    supTitle: 'Müşderi bilen Bankyň arasyndaky islendik gatnaşyk hasap açmakdan başlanýar.',
+    supTitle: 'Müşderi bilen Bankynyň  arasyndaky islendik gatnaşyk hasap açmakdan başlanýar.',
     subTitle:
       'Müşderi bilen Bankyň arasyndaky islendik gatnaşyk hasap açmakdan başlanýar. Hasaplaşyk hasaplaryny açmak Türkmenistanyň hereket edýän kanunçylygy bilen düzgünleşdirilýär.',
     description:
@@ -497,7 +497,7 @@ export default {
       mobileBankingSystem: '“Senagat mobil bank” ulgamy',
       paymentSystem: '“Senagat töleg” bank ulgamy',
     },
-    text: '© 1994-2025, Türkmenistanyň «Senagat» banky. Türkmenistanyň Merkezi Bankynyň 14.09.2015-nji ýyldaky 2707-nji belgili ygtyýarnamasy. Türkmenistanyň «Senagat» banky şahsy maglumatlary gaýtadan işleýän operatordyr.',
+    text: `© 1994-${new Date().getFullYear()}, Türkmenistanyň «Senagat» banky. Türkmenistanyň Merkezi Bankynyň 14.09.2015-nji ýyldaky 2707-nji belgili ygtyýarnamasy. Türkmenistanyň «Senagat» banky şahsy maglumatlary gaýtadan işleýän operatordyr.`,
 
     office_text: 'Türkmenistanyň "Senagat" PTB Baş banky',
 

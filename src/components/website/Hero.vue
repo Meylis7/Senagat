@@ -135,7 +135,7 @@
                                     </li>
                                 </ul>
 
-                                <RouterLink to="/"
+                                <RouterLink to="loans-detail?id=2"
                                     class="text-sm font-bold text-white bg-[#2C702C] block rounded-[10px] mt-8 px-5 py-[14px] w-[150px] text-center">
                                     {{ t('btn.details') }}
                                 </RouterLink>
@@ -171,9 +171,9 @@
                                             </svg>
                                         </div>
 
-                                        <p class="text-mainWhite text-[20px] leading-tight">
+                                        <a href="tel:444444" class="text-mainWhite text-[20px] leading-tight">
                                             44-44-44
-                                        </p>
+                                        </a>
                                     </li>
 
                                     <li class="flex items-center gap-[10px]">
@@ -187,9 +187,9 @@
 
                                         </div>
 
-                                        <p class="text-mainWhite text-[20px] leading-tight">
+                                        <a href="mailto:info@senagatbank.com.tm" class="text-mainWhite text-[20px] leading-tight">
                                             info@senagatbank.com.tm
-                                        </p>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -213,7 +213,7 @@
                                     {{ t('slider.slide_5.text') }}
                                 </p>
 
-                                <RouterLink to="/"
+                                <RouterLink to="/cards"
                                     class="text-sm font-bold text-white bg-[#2C702C] block rounded-[10px] mt-8 px-5 py-[14px] w-[150px] text-center">
                                     {{ t('btn.details') }}
                                 </RouterLink>
