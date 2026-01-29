@@ -429,7 +429,7 @@ export default {
     otherNews: 'Other news',
   },
   about: {
-    title: 'Senagat makes life better',
+    title: 'About bank',
     subtitle: 'Visit the office most convenient for you',
     slider: [
       {

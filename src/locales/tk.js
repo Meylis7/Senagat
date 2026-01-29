@@ -150,7 +150,7 @@ export default {
   bankService: {
     title: 'Bank hyzmatlary',
     subTitle: 'Hormatly raýatlar!',
-    text: '«Senagat» PTB-y size aşakdaky hyzmatlary we amallary hödürleýär',
+    text: 'Türkmenistanyň «Senagat» PTB-y size aşakdaky hyzmatlary we amallary hödürleýär',
     list: [
       {
         title: 'Karz',
@@ -432,7 +432,7 @@ export default {
     otherNews: 'Beýleki täzelikler',
   },
   about: {
-    title: '«Senagat» PTB-y barada',
+    title: 'Bank barada',
     subtitle: 'Özüňize amatly şahamça gelip bilersiňiz',
     slider: [
       {
@@ -497,9 +497,9 @@ export default {
       mobileBankingSystem: '“Senagat mobil bank” ulgamy',
       paymentSystem: '“Senagat töleg” bank ulgamy',
     },
-    text: '© 1994-2025, «Senagat» banky. Türkmenistanyň Merkezi Bankynyň 14.09.2015-nji ýyldaky 2707-nji belgili ygtyýarnamasy. «Senagat» banky şahsy maglumatlary gaýtadan işleýän operatordyr.',
+    text: '© 1994-2025, Türkmenistanyň «Senagat» banky. Türkmenistanyň Merkezi Bankynyň 14.09.2015-nji ýyldaky 2707-nji belgili ygtyýarnamasy. Türkmenistanyň «Senagat» banky şahsy maglumatlary gaýtadan işleýän operatordyr.',
 
-    office_text: '"Senagat" PTB Baş banky',
+    office_text: 'Türkmenistanyň "Senagat" PTB Baş banky',
 
     app: {
       title: 'Programmany ýükläp alyň',

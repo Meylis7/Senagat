@@ -108,12 +108,12 @@
     <section class="pt-[60px] pb-[80px] md:pb-[120px]">
         <div class="auto_container">
             <div class="wrap">
-                <div class="grid grid-cols-12 gap-10 lg:gap-4">
-                    <div class="block col-span-12 lg:col-span-7">
+                <div class="grid grid-cols-12 gap-10 lg:gap-6">
+                    <div class="block col-span-12 lg:col-span-8">
                         <div v-if="loading" class="flex items-center justify-center py-10">
                             <Vue3Lottie :animationData="LoadAnimationJSON" class="!w-full md:!w-[100px] !h-[100px]" />
                         </div>
-                        <div v-else>
+                        <div>
                             <h1 class="text-[22px] md:text-[28px] lg:text-[38px] font-bold mb-2 leading-tight">
                                 {{ newsItem?.title }}
                             </h1>
@@ -126,7 +126,7 @@
                                 :alt="newsItem?.title || 'news-image'">
                             </span> -->
 
-                            <p v-if="!error" class="text-sm md:text-[17px] leading-7"
+                            <p v-if="!error" class="text-sm md:text-[17px] leading-8 tracking-[0.04em] text-justify"
                                 v-html="newsItem?.description || ''"></p>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                         </h1>
 
                         <template v-if="newsLoading">
-                            <article v-for="n in (news.length || 3)" :key="n"
+                            <article v-for="n in (news.length || 4)" :key="n"
                                 class="bg-white rounded-[20px] overflow-hidden p-8 mb-4 animate-pulse">
                                 <div class="h-4 bg-gray-200 rounded w-32 mb-4"></div>
                                 <div class="h-6 bg-gray-200 rounded w-full mb-8"></div>
@@ -148,7 +148,7 @@
                             </article>
                         </template>
 
-                        <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div v-else class="grid grid-cols-1 gap-4">
                             <article v-for="item in news" :key="item.id"
                                 class="bg-white rounded-[20px] overflow-hidden p-5 md:p-8">
                                 <p class="text-[17px] text-[#6F736D] leading-tight font-Gilroy">
