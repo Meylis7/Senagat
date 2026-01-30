@@ -36,8 +36,8 @@
 
   const rates = computed(() => {
     return (exchangeRates.value || []).map((item) => {
-      const buy = Number(item.purchase)
-      const sell = Number(item.sale)
+      const buy = item.purchase
+      const sell = item.sale
       return {
         code: item.currency,
         buy,
@@ -856,7 +856,7 @@
               </span>
             </RouterLink>
 
-            <div class="w-full col-span-12 md:col-span-8 rounded-[20px] bg-mainWhite p-4 ms:p-8">
+            <div class="w-full col-span-12 md:col-span-8 rounded-[20px] bg-mainWhite p-6 md:p-8">
               <div class="flex items-center justify-between mb-8">
                 <h6 class="text-[18px] md:text-[24px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates')
                   }}</h6>
@@ -876,10 +876,10 @@
                   <div class="col-span-4 leading-7 flex items-center  text-[18px] md:text-[28px] font-bold">{{ r.code }}
                   </div>
                   <div class="col-span-4 leading-7 flex items-center gap-2 text-[18px] md:text-[28px] font-bold">
-                    {{ r.buy.toFixed(2) }}
+                    {{ r.buy}}
                   </div>
                   <div class="col-span-4 leading-7 flex items-center gap-2 text-[18px] md:text-[28px] font-bold">
-                    {{ r.sell.toFixed(2) }}
+                    {{ r.sell}}
                   </div>
                 </template>
 
