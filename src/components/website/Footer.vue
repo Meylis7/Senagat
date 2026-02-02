@@ -268,9 +268,9 @@
                         </div>
 
                         <div class="col-span-4 contact flex flex-col">
-                            <a href="tel:+993 12 34 11 28"
+                            <a href="tel:+99312444444"
                                 class="font-bold tracking-[0.2px] text-mainWhite text-[20px] lg:text-[26px] leading-7">
-                                +993 (12) 44-43-00
+                                +993 (12) 44-44-44
                             </a>
                             <p class="text-[17px] text-mainWhite leading-5 mt-1">
                                 {{ t('footer.office_text') }}
