@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, nextTick } from 'vue'
+    import { ref, nextTick, watch } from 'vue'
     import { useI18n } from 'vue-i18n'
     import { useUserStore } from '@/stores/userStore'
     import { toast } from 'vue3-toastify'
@@ -10,6 +10,9 @@
 
     const router = useRouter()
     const formRef = ref(null)
+    const signInPhoneRef = ref(null)
+    const signUpPhoneRef = ref(null)
+    const signUpPasswordRef = ref(null)
     const code = ref(['', '', '', '', ''])
     const inputRefs = ref([])
     const activeTab = ref('signup')
@@ -20,6 +23,29 @@
     const loading = ref(false)
     const sentPhone = ref('')
     const userStore = useUserStore()
+
+    // Auto Focus on inputs by step/tab
+    watch(
+        [activeTab, currentStep],
+        async ([tab, step]) => {
+            await nextTick()
+            if (step === 'phone') {
+                if (tab === 'signin' && signInPhoneRef.value) {
+                    signInPhoneRef.value.focus()
+                }
+                if (tab === 'signup' && signUpPhoneRef.value) {
+                    signUpPhoneRef.value.focus()
+                }
+            }
+            if (step === 'otp' && inputRefs.value[0]) {
+                inputRefs.value[0].focus()
+            }
+            if (step === 'password' && tab === 'signup' && signUpPasswordRef.value) {
+                signUpPasswordRef.value.focus()
+            }
+        },
+        { immediate: true }
+    )
 
     const onPhoneInput = (e) => {
         let val = String(e.target.value || '').replace(/\D/g, '')
@@ -254,8 +280,8 @@
                             <input type="number" value="+993" placeholder="+993" readonly
                                 class="py-3 text-center rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] mr-1 w-[72px] block">
 
-                            <input type="number" id="phone_l" :placeholder="t('form.input.enterPhone')" v-model="phone"
-                                @input="onPhoneInput"
+                            <input ref="signInPhoneRef" type="number" id="phone_l"
+                                :placeholder="t('form.input.enterPhone')" v-model="phone" @input="onPhoneInput"
                                 :class="['py-3 px-5 rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] w-[calc(100%-72px)]', { 'border-solid border border-red-500': isPhoneError }]">
                         </div>
                     </div>
@@ -305,8 +331,8 @@
                             <input type="number" value="+993" placeholder="+993" readonly
                                 class="py-3 text-center rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] mr-1 w-[72px] block">
 
-                            <input type="number" id="phone_s" :placeholder="t('form.input.enterPhone')" v-model="phone"
-                                @input="onPhoneInput"
+                            <input ref="signUpPhoneRef" type="number" id="phone_s"
+                                :placeholder="t('form.input.enterPhone')" v-model="phone" @input="onPhoneInput"
                                 :class="['py-3 px-5 rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] mr-[10px] w-[calc(100%-144px)]', { 'border-solid borde-1 border-red-500': isPhoneError }]">
 
                             <button class="w-[58px] flex items-center justify-center rounded-[10px] bg-[#2C702C]">
@@ -351,7 +377,7 @@
 
                 <div class="grid bg-[#F7F8F6] p-[22px] rounded-[20px] w-full relative">
                     <label for="phone" class="block text-[17px] font-bold text-[#191B19] mb-4">
-                        {{ t('form.input.insertCode') }} 
+                        {{ t('form.input.insertCode') }}
                     </label>
                     <p class="text-[15px] text-[#6F736D] mb-4">
                         {{ t('form.input.codeSentTo') }} +993{{ sentPhone || userStore.phoneNumber || '' }}
@@ -404,7 +430,8 @@
                     <p class="text-[15px] text-[#6F736D] mb-4">
                         {{ t('form.input.createStrongPassword') }}
                     </p>
-                    <input type="password" id="password_s" :placeholder="t('form.input.password')" v-model="password"
+                    <input ref="signUpPasswordRef" type="password" id="password_s"
+                        :placeholder="t('form.input.password')" v-model="password"
                         class="py-3 px-5 rounded-[10px] bg-[#EEF2ED] text-[15px] text-[#191B19] placeholder:text-[#6F736D] w-[calc(100%-0px)]">
 
                     <button class="w-full flex items-center justify-center gap-2 py-2 mt-4 rounded-[10px] bg-[#2C702C]">
