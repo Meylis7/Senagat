@@ -514,7 +514,7 @@
     <Hero />
 
     <!-- Calc ===================================================================================== -->
-    <section class="py-[50px]">
+    <section class="pb-[50px]">
       <div class="auto_container">
         <div class="wrap">
           <div class="flex items-center justify-between mb-8">

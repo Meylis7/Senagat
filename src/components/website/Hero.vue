@@ -1,4 +1,5 @@
 <script setup>
+    import { ref, nextTick } from 'vue'
     import { RouterLink } from 'vue-router';
     import { useI18n } from 'vue-i18n';
     const { t, tm, locale } = useI18n();
@@ -15,6 +16,31 @@
     import bg4 from '@/assets/images/slider/bg-4.png'
     import bg5 from '@/assets/images/slider/bg-5.png'
 
+    const heroSwiper = ref(null)
+
+    const updateHeroHeight = async (swiper) => {
+        if (!swiper) return
+        await nextTick()
+        const activeSlide = swiper.slides[swiper.activeIndex]
+        if (!activeSlide) return
+        const height = activeSlide.offsetHeight
+        if (swiper.wrapperEl) {
+            swiper.wrapperEl.style.height = `${height}px`
+        }
+        if (swiper.el) {
+            swiper.el.style.height = `${height}px`
+        }
+    }
+
+    const onHeroSwiper = (swiper) => {
+        heroSwiper.value = swiper
+        updateHeroHeight(swiper)
+    }
+
+    const onHeroSlideChange = (swiper) => {
+        updateHeroHeight(swiper)
+    }
+
 </script>
 
 <template>
@@ -22,26 +48,28 @@
         <div class="auto_container">
             <div class="wrap relative">
                 <Swiper :modules="[Navigation, EffectFade]" :loop="true" :slides-per-view="1" :space-between="0"
-                    effect="fade" :fade-effect="{ crossFade: true }"
-                    :navigation="{ nextEl: '.hero-next', prevEl: '.hero-prev' }">
+                    effect="fade" :fade-effect="{ crossFade: true }" :autoHeight="true" @swiper="onHeroSwiper"
+                    @slideChange="onHeroSlideChange" :navigation="{ nextEl: '.hero-next', prevEl: '.hero-prev' }">
                     <SwiperSlide
-                        class="p-[50px] !flex flex-col relative overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat min-h-[380px] md:min-h-[500px] lg:min-h-[650px]"
+                        class="p-[30px] pb-[70px] md:p-[50px] !flex flex-col relative overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat min-h-[380px] md:min-h-[500px] lg:min-h-[650px] gap-4"
                         :style="{ backgroundImage: `url(${bg1})` }">
-                        <div class="block w-[160px]">
+                        <div class="block w-[160px] mx-auto md:mx-0">
                             <img :src="logo" class="block w-full h-auto object-contain" alt="logo">
                         </div>
 
-                        <div class="flex items-center justify-between my-auto">
+                        <div
+                            class="flex flex-col md:flex-row items-center justify-between my-auto gap-6 md:gap-4 text-center md:text-left">
                             <div class="block max-w-[600px]">
-                                <h4 class="text-mainWhite text-[26px] font-medium mb-[10px] leading-tight">
+                                <h4
+                                    class="text-mainWhite text-[20px] lg:text-[26px] font-medium mb-[10px] leading-tight">
                                     {{ t('slider.slide_1.title') }}
                                 </h4>
-                                <p class="text-mainWhite text-[20px] leading-tight">
+                                <p class="text-mainWhite text-[16px] lg:text-[20px] leading-tight">
                                     {{ t('slider.slide_1.text') }}
                                 </p>
                             </div>
 
-                            <div class="block w-[250px]">
+                            <div class="block w-[140px] md:w-[180px] lg:w-[250px]">
                                 <img class="w-full h-full object-contain" src="../../assets/images/year-logo.png"
                                     alt="year-logo">
                             </div>
@@ -49,20 +77,22 @@
                     </SwiperSlide>
 
                     <SwiperSlide
-                        class="p-[50px] !flex flex-col justify-center relative overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat min-h-[380px] md:min-h-[500px] lg:min-h-[650px]"
+                        class="p-[30px] pb-[70px] md:p-[50px] !flex flex-col justify-center relative overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat min-h-[380px] md:min-h-[500px] lg:min-h-[650px]"
                         :style="{ backgroundImage: `url(${bg2})` }">
-                        <div class="flex items-center justify-between my-auto">
-                            <div class="block max-w-[600px]">
-                                <h4 class="text-mainWhite text-[26px] font-medium mb-[10px] leading-tight">
+                        <div class="flex flex-col md:flex-row items-center justify-between my-auto gap-8 md:gap-4">
+                            <div class="block max-w-[600px] text-center md:text-left">
+                                <h4
+                                    class="text-mainWhite text-[20px] lg:text-[26px] font-medium mb-[10px] leading-tight">
                                     {{ t('slider.slide_2.title') }}
                                 </h4>
-                                <p class="text-mainWhite text-[20px] leading-tight">
+                                <p class="text-mainWhite text-[16px] lg:text-[20px] leading-tight">
                                     {{ t('slider.slide_2.text') }}
                                 </p>
 
-                                <div class="flex gap-4">
+                                <div
+                                    class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mt-8">
                                     <RouterLink to="/"
-                                        class="w-fit text-sm font-bold text-white bg-[#124D6A] rounded-[10px] mt-8 px-5 py-[14px] flex items-center gap-3 min-w-[150px]">
+                                        class="w-[180px] sm:w-fit text-sm font-bold text-white bg-[#124D6A] rounded-[10px] px-5 py-[14px] flex justify-center items-center gap-3 min-w-[150px]">
                                         <span class="w-6 block">
                                             <svg class="w-full h-full object-contain" width="30" height="30"
                                                 viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +117,7 @@
                                         Google store
                                     </RouterLink>
                                     <RouterLink to="/"
-                                        class="w-fit text-sm font-bold text-white bg-[#124D6A] rounded-[10px] mt-8 px-5 py-[14px] flex items-center gap-3 min-w-[150px]">
+                                        class="w-[180px] sm:w-fit text-sm font-bold text-white bg-[#124D6A] rounded-[10px] px-5 py-[14px] flex justify-center items-center gap-3 min-w-[150px]">
                                         <span class="w-6 block">
                                             <svg class="w-full h-full object-contain" width="30" height="30"
                                                 viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,57 +140,60 @@
                                 </div>
                             </div>
 
-                            <div class="block w-[330px]">
-                                <img class="w-full h-full object-contain" src="../../assets/images/Iphone.png"
-                                    alt="mobile-web">
+                            <div class="block w-[260px] sm:w-[280px] md:w-[330px] ">
+                                <img class="w-full h-full object-contain object-[50px] overflow-visible"
+                                    src="../../assets/images/Iphone.png" alt="mobile-web">
                             </div>
                         </div>
                     </SwiperSlide>
 
                     <SwiperSlide
-                        class="p-[50px] !flex flex-col relative overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat min-h-[380px] md:min-h-[500px] lg:min-h-[650px]"
+                        class="p-[30px] pb-[70px] md:p-[50px] !flex flex-col relative overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat min-h-[380px] md:min-h-[500px] lg:min-h-[650px]"
                         :style="{ backgroundImage: `url(${bg3})` }">
-                        <div class="flex items-center justify-between my-auto">
-                            <div class="block max-w-[650px]">
-                                <h4 class="text-mainWhite text-[26px] font-medium mb-[20px] leading-tight">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between my-auto gap-4">
+                            <div class="block lg:max-w-[650px]">
+                                <h4
+                                    class="text-mainWhite tracking-[.5px] text-[20px] md:text-[24px] font-medium mb-[20px] leading-tight">
                                     {{ t('slider.slide_3.title') }}
                                 </h4>
 
 
                                 <ul class="flex flex-col gap-[10px]">
                                     <li v-for="(item, idx) in tm('slider.slide_3.list')" :key="idx">
-                                        <p class="text-mainWhite text-[20px] leading-tight">
+                                        <p class="text-mainWhite tracking-[.5px] text-sm md:text-[18px] leading-tight">
                                             {{ item }}
                                         </p>
                                     </li>
                                 </ul>
 
                                 <RouterLink to="loans-detail?id=2"
-                                    class="text-sm font-bold text-white bg-[#2C702C] block rounded-[10px] mt-8 px-5 py-[14px] w-[150px] text-center">
+                                    class="text-sm font-bold mx-auto sm:mx-0 text-white bg-[#2C702C] block rounded-[10px] mt-4 sm:mt-8 px-3 md:px-5 py-[12px] md:py-[14px] w-[130px] md:w-[150px] text-center">
                                     {{ t('btn.details') }}
                                 </RouterLink>
                             </div>
 
-                            <div class="block w-[350px]">
-                                <img class="w-full h-full object-contain" src="../../assets/images/laptop.png"
-                                    alt="laptop-web">
+                            <div
+                                class="block max-w-[260px] sm:max-w-auto sm:w-[330px] lg:w-[450px] lg:min-w-[350px] mx-auto lg:mx-0">
+                                <img class="w-full h-full sm:object-contain object-[20px] lg:object-[50px] overflow-visible"
+                                    src="../../assets/images/laptop.png" alt="laptop-web">
                             </div>
                         </div>
                     </SwiperSlide>
 
                     <SwiperSlide
-                        class="p-[50px] !flex flex-col relative overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat min-h-[380px] md:min-h-[500px] lg:min-h-[650px]"
+                        class="p-[30px] pb-[70px] md:p-[50px] !flex flex-col relative overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat min-h-[380px] md:min-h-[500px] lg:min-h-[650px]"
                         :style="{ backgroundImage: `url(${bg4})` }">
-                        <div class="flex items-center justify-between my-auto">
-                            <div class="block max-w-[650px]">
-                                <h4 class="text-mainWhite text-[26px] font-medium mb-[20px] leading-tight">
+                        <div class="flex flex-col md:flex-row items-center justify-between my-auto gap-6 md:gap-4">
+                            <div class="block max-w-[650px] text-center md:text-left">
+                                <h4
+                                    class="text-mainWhite text-[20px] lg:text-[26px] font-medium mb-[20px] leading-tight">
                                     Call center 24/7
                                 </h4>
-                                <p class="text-mainWhite text-[20px] leading-tight mb-4">
+                                <p class="text-mainWhite text-[16px] lg:text-[20px] leading-tight mb-4">
                                     {{ t('slider.slide_4.text') }}
                                 </p>
 
-                                <ul class="flex flex-col gap-[10px]">
+                                <ul class="flex flex-col items-center md:items-start gap-[10px]">
                                     <li class="flex items-center gap-[10px]">
                                         <div class="w-[20px]">
                                             <svg class="w-full h-full object-contain" width="40" height="40"
@@ -171,7 +204,8 @@
                                             </svg>
                                         </div>
 
-                                        <a href="tel:444444" class="text-mainWhite text-[20px] leading-tight">
+                                        <a href="tel:444444"
+                                            class="text-mainWhite text-[16px] lg:text-[20px] leading-tight">
                                             44-44-44
                                         </a>
                                     </li>
@@ -187,14 +221,15 @@
 
                                         </div>
 
-                                        <a href="mailto:info@senagatbank.com.tm" class="text-mainWhite text-[20px] leading-tight">
+                                        <a href="mailto:info@senagatbank.com.tm"
+                                            class="text-mainWhite text-[16px] lg:text-[20px] leading-tight">
                                             info@senagatbank.com.tm
                                         </a>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div class="block w-[230px]">
+                            <div class="block w-[140px] sm:w-[180px] md:w-[230px] mx-auto md:mx-0">
                                 <img class="w-full h-full object-contain" src="../../assets/images/callCenter.png"
                                     alt="laptop-web">
                             </div>
@@ -202,24 +237,25 @@
                     </SwiperSlide>
 
                     <SwiperSlide
-                        class="p-[50px] !flex flex-col relative overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat min-h-[380px] md:min-h-[500px] lg:min-h-[650px]"
+                        class="p-[30px] pb-[70px] md:p-[50px] !flex flex-col relative overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat min-h-[380px] md:min-h-[500px] lg:min-h-[650px]"
                         :style="{ backgroundImage: `url(${bg5})` }">
-                        <div class="flex items-center justify-between my-auto">
-                            <div class="block max-w-[650px]">
-                                <h4 class="text-mainWhite text-[26px] font-medium mb-[20px] leading-tight">
+                        <div class="flex flex-col md:flex-row items-center justify-between my-auto gap-8 md:gap-4">
+                            <div class="block max-w-[650px] text-center md:text-left">
+                                <h4
+                                    class="text-mainWhite text-[20px] lg:text-[26px] font-medium mb-[20px] leading-tight">
                                     {{ t('slider.slide_5.title') }}
                                 </h4>
-                                <p class="text-mainWhite text-[20px] leading-tight mb-4">
+                                <p class="text-mainWhite text-[16px] lg:text-[20px] leading-tight mb-4">
                                     {{ t('slider.slide_5.text') }}
                                 </p>
 
                                 <RouterLink to="/cards"
-                                    class="text-sm font-bold text-white bg-[#2C702C] block rounded-[10px] mt-8 px-5 py-[14px] w-[150px] text-center">
+                                    class="text-sm font-bold mx-auto md:mx-0 text-white bg-[#2C702C] block rounded-[10px] mt-8 px-3 md:px-5 py-[12px] md:py-[14px] w-[130px] md:w-[150px] text-center">
                                     {{ t('btn.details') }}
                                 </RouterLink>
                             </div>
 
-                            <div class="block w-[300px]">
+                            <div class="block w-[200px] md:w-[300px]">
                                 <img class="w-full h-full object-contain" src="../../assets/images/slider-cards.png"
                                     alt="laptop-web">
                             </div>
