@@ -65,7 +65,7 @@
         if (['notconfirmed'].includes(v)) return 'bg-[#6F736D]/10';
         return 'bg-[#6F736D]/10';
     };
-    const deliveryLabel = (val) => (val ? 'Bar' : 'Yok');
+    const deliveryLabel = (val) => (val ? t('dashboard.orders.yes') : t('dashboard.orders.no'));
 
     const parseItems = (val) => {
         if (!val) return [];
@@ -176,13 +176,14 @@
         const v = String(s || '').toLowerCase();
         switch (v) {
             case 'pending':
-                return { text: 'Pending', cls: 'bg-[#ebb618]' };
+                return { text: t('dashboard.status.pending'), cls: 'bg-[#ebb618]' };
             case 'approved':
-                return { text: 'Confirmed', cls: 'bg-[#2C702C]' };
+            case 'approved':
+                return { text: t('dashboard.status.approved'), cls: 'bg-[#2C702C]' };
             case 'rejected':
-                return { text: 'Rejected', cls: 'bg-[#F44336]' };
+                return { text: t('dashboard.status.rejected'), cls: 'bg-[#F44336]' };
             default:
-                return { text: 'Pending', cls: 'bg-[#ebb618]' };
+                return { text: t('dashboard.status.pending'), cls: 'bg-[#ebb618]' };
         }
     };
 </script>
@@ -340,10 +341,11 @@
                             <template v-else>
                                 <div class="flex items-center justify-between gap-2 mb-5">
                                     <h6 class="text-[15px] sm:text-[17px] font-bold">
-                                        Kartlar
+                                        {{ t('dashboard.orders.cards') }}
                                     </h6>
 
-                                    <RouterLink :to="{ name: 'dashboard.application-history' }" class="flex items-center gap-2">
+                                    <RouterLink :to="{ name: 'dashboard.application-history' }"
+                                        class="flex items-center gap-2">
                                         <p class="text-sm sm:text-[15px] font-bold leading-tight text-[#2C702C]">
                                             {{ t('btn.showAll') }}
                                         </p>
@@ -364,7 +366,7 @@
 
                                         <div class="block p-2">
                                             <p class="text-sm text-[#6F736D]/70">
-                                                Toleg mukdary
+                                                {{ t('dashboard.orders.paymentAmount') }}
                                             </p>
                                             <p class="text-[15px] font-bold">
                                                 {{ firstCard.card_price }} TMT
@@ -375,7 +377,7 @@
                                     <div class="grid grid-cols-2 gap-4 text-center">
                                         <div class="block p-2 border-solid border-0 border-r-[1px] border-[#E5E5E5]">
                                             <p class="text-sm text-[#6F736D]/70">
-                                                Bank Sahamcasy
+                                                {{ t('dashboard.orders.bankBranch') }}
                                             </p>
                                             <p class="text-[15px] font-bold">
                                                 {{ firstCard.bank_branch }}
@@ -384,7 +386,7 @@
 
                                         <div class="block p-2">
                                             <p class="text-sm text-[#6F736D]/70">
-                                                Eltip bermek hyzmaty
+                                                {{ t('dashboard.orders.deliveryService') }}
                                             </p>
                                             <p class="text-[15px] font-bold">
                                                 {{ deliveryLabel(firstCard.delivery) }}
@@ -436,10 +438,11 @@
                             <template v-else>
                                 <div class="flex items-center justify-between gap-2 mb-5">
                                     <h6 class="text-[15px] sm:text-[17px] font-bold">
-                                        Karzlar
+                                        {{ t('dashboard.orders.loans') }}
                                     </h6>
 
-                                    <RouterLink :to="{ name: 'dashboard.application-history' }" class="flex items-center gap-2">
+                                    <RouterLink :to="{ name: 'dashboard.application-history' }"
+                                        class="flex items-center gap-2">
                                         <p class="text-sm sm:text-[15px] font-bold leading-tight text-[#2C702C]">
                                             {{ t('btn.showAll') }}
                                         </p>
@@ -469,7 +472,7 @@
                                     <div class="grid grid-cols-2 gap-4 text-center">
                                         <div class="block p-2 border-solid border-0 border-r-[1px] border-[#E5E5E5]">
                                             <p class="text-sm text-[#6F736D]/70">
-                                                Pul mocberi
+                                                {{ t('dashboard.orders.amount') }}
                                             </p>
                                             <p class="text-[15px] font-bold">
                                                 {{ firstLoan.amount }} TMT
@@ -478,7 +481,7 @@
 
                                         <div class="block p-2">
                                             <p class="text-sm text-[#6F736D]/70">
-                                                Aylyk toleg
+                                                {{ t('dashboard.orders.monthlyPayment') }}
                                             </p>
                                             <p class="text-[15px] font-bold">
                                                 {{ firstLoan.monthly_payment }} TMT
@@ -530,10 +533,11 @@
                             <template v-else>
                                 <div class="flex items-center justify-between gap-2 mb-5">
                                     <h6 class="text-[15px] sm:text-[17px] font-bold">
-                                        Guwanamalar
+                                        {{ t('dashboard.orders.certificates') }}
                                     </h6>
 
-                                    <RouterLink :to="{ name: 'dashboard.application-history' }" class="flex items-center gap-2">
+                                    <RouterLink :to="{ name: 'dashboard.application-history' }"
+                                        class="flex items-center gap-2">
                                         <p class="text-sm sm:text-[15px] font-bold leading-tight text-[#2C702C]">
                                             {{ t('btn.showAll') }}
                                         </p>
@@ -563,7 +567,7 @@
                                     <div class="grid grid-cols-2 gap-4 text-center">
                                         <div class="block p-2 border-solid border-0 border-r-[1px] border-[#E5E5E5]">
                                             <p class="text-sm text-[#6F736D]/70">
-                                                Toleg mukdary
+                                                {{ t('dashboard.orders.paymentAmount') }}
                                             </p>
                                             <p class="text-[15px] font-bold">
                                                 {{ firstCertificate.certificate_price }} TMT
@@ -572,7 +576,7 @@
 
                                         <div class="block">
                                             <p class="text-sm text-[#6F736D]/70">
-                                                Bank sahamcasy
+                                                {{ t('dashboard.orders.bankBranch') }}
                                             </p>
                                             <p class="text-[15px] font-bold">
                                                 {{ firstCertificate.bank_branch }}

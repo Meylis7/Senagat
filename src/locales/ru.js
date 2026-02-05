@@ -470,6 +470,7 @@ export default {
     sell: 'Продажа',
     rateDisclaimer:
       'Курс действует на текущее время. Точный курс будет определён на момент совершения операции',
+    inform: 'Курс валюты Центрального банка Туркменистана',
   },
   404: {
     title: 'Страница не найдена',
@@ -579,6 +580,7 @@ export default {
     status: {
       notConfirmed: 'Не подтвержден',
       confirmed: 'Подтвержден',
+      approved: 'Одобрено',
       success: 'Успешно',
       rejected: 'Отклонен',
       pending: 'В ожидании',
@@ -639,6 +641,21 @@ export default {
       date: 'Дата',
       description: 'Описание',
       allHistory: 'Вся история',
+    },
+
+    orders: {
+      cards: 'Карты',
+      loans: 'Кредиты',
+      certificates: 'Справки',
+
+      cardType: 'Тип карты',
+      paymentAmount: 'Сумма платежа',
+      bankBranch: 'Филиал банка',
+      deliveryService: 'Служба доставки',
+      yes: 'Есть',
+      no: 'Нет',
+      amount: 'Сумма',
+      monthlyPayment: 'Ежемесячный платеж',
     },
 
     totalBalance: 'Общий баланс',

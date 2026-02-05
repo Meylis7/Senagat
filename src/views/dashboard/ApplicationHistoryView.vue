@@ -42,17 +42,18 @@
         const v = String(s || '').toLowerCase();
         switch (v) {
             case 'pending':
-                return { text: 'Pending', cls: 'bg-[#ebb618]' };
+                return { text: t('dashboard.status.pending'), cls: 'bg-[#ebb618]' };
             case 'approved':
-                return { text: 'Confirmed', cls: 'bg-[#2C702C]' };
+            case 'approved':
+                return { text: t('dashboard.status.approved'), cls: 'bg-[#2C702C]' };
             case 'rejected':
-                return { text: 'Rejected', cls: 'bg-[#F44336]' };
+                return { text: t('dashboard.status.rejected'), cls: 'bg-[#F44336]' };
             default:
-                return { text: 'Pending', cls: 'bg-[#ebb618]' };
+                return { text: t('dashboard.status.pending'), cls: 'bg-[#ebb618]' };
         }
     };
 
-    const deliveryLabel = (val) => (val ? 'Bar' : 'Yok');
+    const deliveryLabel = (val) => (val ? t('dashboard.orders.yes') : t('dashboard.orders.no'));
 
     const loadApplications = async () => {
         loading.value = true;
@@ -144,26 +145,32 @@
                 <div class="block">
                     <div class="flex items-center justify-between gap-2 mb-4">
                         <h6 class="text-[15px] sm:text-[17px] font-bold">
-                            <h4 class="text-md font-bold" v-if="activeTab === 'cards'">Kartlar</h4>
-                            <h4 class="text-md font-bold" v-else-if="activeTab === 'loans'">Karzlar</h4>
-                            <h4 class="text-md font-bold" v-else>Guwanamalar</h4>
+                            <h4 class="text-md font-bold" v-if="activeTab === 'cards'">
+                                {{ t('dashboard.orders.cards') }}
+                            </h4>
+                            <h4 class="text-md font-bold" v-else-if="activeTab === 'loans'">
+                                {{ t('dashboard.orders.loans') }}
+                            </h4>
+                            <h4 class="text-md font-bold" v-else>
+                                {{ t('dashboard.orders.certificates') }}
+                            </h4>
                         </h6>
 
                         <div class="inline-flex rounded-[20px] p-1 gap-1 text-sm font-medium bg-mainWhite">
                             <button type="button" class="px-4 py-2 rounded-[14px] transition-colors"
                                 :class="activeTab === 'cards' ? 'bg-[#2C702C] text-mainWhite' : 'text-[#6F736D]'"
                                 @click="activeTab = 'cards'">
-                                Kartlar
+                                {{ t('dashboard.orders.cards') }}
                             </button>
                             <button type="button" class="px-4 py-2 rounded-[14px] transition-colors"
                                 :class="activeTab === 'loans' ? 'bg-[#2C702C] text-mainWhite' : 'text-[#6F736D]'"
                                 @click="activeTab = 'loans'">
-                                Karzlar
+                                {{ t('dashboard.orders.loans') }}
                             </button>
                             <button type="button" class="px-4 py-2 rounded-[14px] transition-colors"
                                 :class="activeTab === 'certificates' ? 'bg-[#2C702C] text-mainWhite' : 'text-[#6F736D]'"
                                 @click="activeTab = 'certificates'">
-                                Guwanamalar
+                                {{ t('dashboard.orders.certificates') }}
                             </button>
                         </div>
                     </div>
@@ -235,7 +242,7 @@
                                             <div
                                                 class="block p-2 border-solid border-0 border-r-[1px] border-[#E5E5E5]">
                                                 <p class="text-[15px] leading-5 text-[#6F736D] font-Gilroy">
-                                                    Kart gornusi
+                                                    {{ t('dashboard.orders.cardType') }}
                                                 </p>
                                                 <p class="text-[15px] font-bold">
                                                     {{ card.card_title }}
@@ -244,7 +251,7 @@
 
                                             <div class="block p-2">
                                                 <p class="text-sm text-[#6F736D]/70">
-                                                    Toleg mukdary
+                                                    {{ t('dashboard.orders.paymentAmount') }}
                                                 </p>
                                                 <p class="text-[15px] font-bold">
                                                     {{ card.card_price }} TMT
@@ -256,7 +263,7 @@
                                             <div
                                                 class="block p-2 border-solid border-0 border-r-[1px] border-[#E5E5E5]">
                                                 <p class="text-sm text-[#6F736D]/70">
-                                                    Bank Sahamcasy
+                                                    {{ t('dashboard.orders.bankBranch') }}
                                                 </p>
                                                 <p class="text-[15px] font-bold">
                                                     {{ card.bank_branch }}
@@ -265,7 +272,7 @@
 
                                             <div class="block p-2">
                                                 <p class="text-sm text-[#6F736D]/70">
-                                                    Eltip bermek hyzmaty
+                                                    {{ t('dashboard.orders.deliveryService') }}
                                                 </p>
                                                 <p class="text-[15px] font-bold">
                                                     {{ deliveryLabel(card.delivery) }}
@@ -304,7 +311,7 @@
                                             <div
                                                 class="block p-2 border-solid border-0 border-r-[1px] border-[#E5E5E5]">
                                                 <p class="text-sm text-[#6F736D]/70">
-                                                    Pul mocberi
+                                                    {{ t('dashboard.orders.amount') }}
                                                 </p>
                                                 <p class="text-[15px] font-bold">
                                                     {{ loan.amount }} TMT
@@ -313,7 +320,7 @@
 
                                             <div class="block p-2">
                                                 <p class="text-sm text-[#6F736D]/70">
-                                                    Aylyk toleg
+                                                    {{ t('dashboard.orders.monthlyPayment') }}
                                                 </p>
                                                 <p class="text-[15px] font-bold">
                                                     {{ loan.monthly_payment }} TMT
@@ -352,7 +359,7 @@
                                             <div
                                                 class="block p-2 border-solid border-0 border-r-[1px] border-[#E5E5E5]">
                                                 <p class="text-sm text-[#6F736D]/70">
-                                                    Toleg mukdary
+                                                    {{ t('dashboard.orders.paymentAmount') }}
                                                 </p>
                                                 <p class="text-[15px] font-bold">
                                                     {{ certificate.certificate_price }} TMT
@@ -361,7 +368,7 @@
 
                                             <div class="block">
                                                 <p class="text-sm text-[#6F736D]/70">
-                                                    Bank sahamcasy
+                                                    {{ t('dashboard.orders.bankBranch') }}
                                                 </p>
                                                 <p class="text-[15px] font-bold">
                                                     {{ certificate.bank_branch }}

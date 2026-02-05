@@ -478,6 +478,7 @@ export default {
     sell: 'Satmak',
     rateDisclaimer:
       'Kurs häzirki wagta degişlidir. Takyk kurs amalyň ýerine ýetirilýän pursatynda kesgitlener',
+    inform: 'Türkmenistanyň Merkezi bankyň walýuta kursy',
   },
   footer: {
     languages: {
@@ -588,6 +589,7 @@ export default {
     status: {
       notConfirmed: 'Tassyklanmady',
       confirmed: 'Tassyklandy',
+      approved: 'Tassyklandy',
       success: 'Şowly',
       rejected: 'Ret edildi',
       pending: 'Garaşylýar',
@@ -648,6 +650,20 @@ export default {
       date: 'Sene',
       description: 'Düşündiriş',
       allHistory: 'Ähli taryhy',
+    },
+    orders: {
+      cards: 'Kartlar',
+      loans: 'Karzlar',
+      certificates: 'Güwanamalar',
+
+      cardType: 'Kart görnüşi',
+      paymentAmount: 'Töleg mukdary',
+      bankBranch: 'Bank şahamçasy',
+      deliveryService: 'Eltip bermek hyzmaty',
+      yes: 'Bar',
+      no: 'Ýok',
+      amount: 'Pul möçberi',
+      monthlyPayment: 'Aýlyk töleg',
     },
 
     totalBalance: 'Jemi balans',

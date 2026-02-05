@@ -523,8 +523,8 @@
             </h2>
           </div>
 
-          <div class="grid lg:grid-cols-12 gap-6">
-            <div class="bg-mainWhite col-span-8 rounded-[20px] p-6">
+          <div class="grid grid-cols-12 gap-6">
+            <div class="bg-mainWhite col-span-12 lg:col-span-8 rounded-[20px] p-6">
               <div class="mb-6">
                 <h6 class="text-[17px] font-bold mb-4">
                   {{ t('dashboard.blockTitiles.selectCreditType') }}
@@ -568,7 +568,7 @@
               </p> -->
             </div>
 
-            <div class="bg-mainWhite col-span-4 rounded-[20px] p-6 flex flex-col items-center justify-center">
+            <div class="bg-mainWhite col-span-12 lg:col-span-4 rounded-[20px] p-6 flex flex-col items-center justify-center">
               <div class="flex flex-col text-center items-center justify-between mb-6 gap-5">
                 <div>
                   <p class="text-[#6F736D] text-[17px] mb-2 leading-tight"> {{ t('calc.monthlyPayment') }}</p>
@@ -889,7 +889,7 @@
                   </h6>
                   <a href="https://www.cbt.tm/kurs/kurs_today.html" target="_blank"
                     class="block text-[#2C702C] font-bold text-sm md:text-[17px] mt-4">
-                    Türkmenistanyň Merkezi bankyň walýuta kursy
+                    {{ t('exchange.inform') }}
                   </a>
                 </div>
               </div>
@@ -899,7 +899,7 @@
       </div>
     </section>
 
-    <!-- Facts ==================================================================================== -->
+    <!-- Award ==================================================================================== -->
     <section class="md:pt-[50px] pb-[30px] md:pb-[60px]">
       <div class="auto_container">
         <div class="wrap">

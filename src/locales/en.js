@@ -475,6 +475,7 @@ export default {
     sell: 'Sell',
     rateDisclaimer:
       'The rate is valid for the current time. The exact rate will be determined at the moment of the transaction.',
+    inform: 'Exchange rate of the CB of Turkmenistan',
   },
   footer: {
     languages: {
@@ -585,6 +586,7 @@ export default {
     status: {
       notConfirmed: 'Not confirmed',
       confirmed: 'Confirmed',
+      approved: 'Approved',
       success: 'Success',
       rejected: 'Rejected',
       pending: 'Pending',
@@ -645,6 +647,20 @@ export default {
       date: 'Date',
       description: 'Description',
       allHistory: 'All history',
+    },
+    orders: {
+      cards: 'Cards',
+      loans: 'Loans',
+      certificates: 'Certificates',
+
+      cardType: 'Card type',
+      paymentAmount: 'Payment amount',
+      bankBranch: 'Bank branch',
+      deliveryService: 'Delivery service',
+      yes: 'Yes',
+      no: 'No',
+      amount: 'Amount',
+      monthlyPayment: 'Monthly payment',
     },
 
     totalBalance: 'Total Balance',
