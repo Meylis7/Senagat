@@ -545,10 +545,12 @@
                 </div>
                 <div class="mt-3">
                   <div class="flex justify-between text-[#6F736D] mt-2">
-                    <span>{{ credit && credit.min_amount ? formatMoney(credit.min_amount) : formatMoney(creditMin)
-                    }}</span>
-                    <span>{{ credit && credit.max_amount ? formatMoney(credit.max_amount) : formatMoney(creditMax)
-                    }}</span>
+                    <span>
+                      {{ credit && credit.min_amount ? formatMoney(credit.min_amount) : formatMoney(creditMin) }}
+                    </span>
+                    <span>
+                      {{ credit && credit.max_amount ? formatMoney(credit.max_amount) : formatMoney(creditMax) }}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -559,7 +561,9 @@
                   <button v-for="opt in termOptions" :key="opt.label" type="button"
                     @click="creditSelectedTerm = opt.label; creditSelectedTermMonths = opt.months"
                     :class="creditSelectedTerm === opt.label ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
-                    class="h-[48px] px-5 rounded-[12px] leading-tight">{{ opt.label }}</button>
+                    class="h-[48px] px-5 rounded-[12px] leading-tight">
+                    {{ opt.label }}
+                  </button>
                 </div>
               </div>
 
@@ -568,7 +572,8 @@
               </p> -->
             </div>
 
-            <div class="bg-mainWhite col-span-12 lg:col-span-4 rounded-[20px] p-6 flex flex-col items-center justify-center">
+            <div
+              class="bg-mainWhite col-span-12 lg:col-span-4 rounded-[20px] p-6 flex flex-col items-center justify-center">
               <div class="flex flex-col text-center items-center justify-between mb-6 gap-5">
                 <div>
                   <p class="text-[#6F736D] text-[17px] mb-2 leading-tight"> {{ t('calc.monthlyPayment') }}</p>
@@ -859,7 +864,7 @@
             <div class="w-full col-span-12 md:col-span-8 rounded-[20px] bg-mainWhite p-6 md:p-8">
               <div class="flex items-center justify-between mb-8">
                 <h6 class="text-[18px] md:text-[24px] text-mainBlack leading-7 font-bold">{{ t('exchange.exchangeRates')
-                  }}</h6>
+                }}</h6>
               </div>
 
               <div v-show="currencyActiveTab === 'Текущий курс'"
@@ -868,7 +873,7 @@
                   t('exchange.currency') }}
                 </div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] text-[#6F736D]">{{ t('exchange.buy')
-                  }}</div>
+                }}</div>
                 <div class="col-span-4 leading-7 text-sm ms:text-[17px] text-[#6F736D]">{{
                   t('exchange.sell') }}</div>
 
@@ -876,10 +881,10 @@
                   <div class="col-span-4 leading-7 flex items-center  text-[18px] md:text-[28px] font-bold">{{ r.code }}
                   </div>
                   <div class="col-span-4 leading-7 flex items-center gap-2 text-[18px] md:text-[28px] font-bold">
-                    {{ r.buy}}
+                    {{ r.buy }}
                   </div>
                   <div class="col-span-4 leading-7 flex items-center gap-2 text-[18px] md:text-[28px] font-bold">
-                    {{ r.sell}}
+                    {{ r.sell }}
                   </div>
                 </template>
 

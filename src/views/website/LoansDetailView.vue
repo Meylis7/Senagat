@@ -37,9 +37,10 @@
     const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
     const roundToStep = (value, step) => Math.round(value / step) * step;
 
-    // Term Options ==============================================================================
-    const creditSelectedTerm = ref('2 года');
-    const creditSelectedTermMonths = ref(24);
+    const { t, locale } = useI18n()
+
+    const creditSelectedTerm = ref('');
+    const creditSelectedTermMonths = ref(0);
     const termOptions = computed(() => {
         const termYears = Number(credit.value?.term);
         const maxYears = Number.isFinite(termYears) && termYears > 0 ? termYears : NaN;
@@ -47,12 +48,19 @@
             ? Array.from({ length: maxYears }, (_, index) => index + 1)
             : [1, 2, 3, 4, 5];
         return steps.map((years) => ({
-            label: years === 1 ? '1 year' : `${years} years`,
+            label: `${years} ${(() => {
+                if (locale.value === 'ru') {
+                    const mod10 = years % 10;
+                    const mod100 = years % 100;
+                    if (mod10 === 1 && mod100 !== 11) return t('date.year');
+                    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return t('date.yearsFew');
+                    return t('date.years');
+                }
+                return years === 1 ? t('date.year') : t('date.years');
+            })()}`,
             months: years * 12,
         }));
     })
-
-    const { t } = useI18n()
     const route = useRoute()
     const creditId = computed(() => route.params?.id || route.query?.id)
 
@@ -292,7 +300,9 @@
                                 <button v-for="opt in termOptions" :key="opt.label" type="button"
                                     @click="creditSelectedTerm = opt.label; creditSelectedTermMonths = opt.months"
                                     :class="creditSelectedTerm === opt.label ? 'bg-mainBlack text-white' : 'bg-white text-[#6F736D]'"
-                                    class="h-[48px] px-5 rounded-[12px] leading-tight">{{ opt.label }}</button>
+                                    class="h-[48px] px-5 rounded-[12px] leading-tight">
+                                    {{ opt.label }}
+                                </button>
                             </div>
                         </div>
 
