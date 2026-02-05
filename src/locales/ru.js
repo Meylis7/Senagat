@@ -574,6 +574,7 @@ export default {
       cards: 'Карты',
       profile: 'Профиль',
       history: 'История платежей',
+      applicationsHistory: 'История заявок',
     },
     status: {
       notConfirmed: 'Не подтвержден',

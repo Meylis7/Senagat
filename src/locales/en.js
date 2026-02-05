@@ -580,6 +580,7 @@ export default {
       profile: 'Profile',
       beletFilm: 'Belet Film',
       history: 'Payment history',
+      applicationsHistory: 'Applications history',
     },
     status: {
       notConfirmed: 'Not confirmed',

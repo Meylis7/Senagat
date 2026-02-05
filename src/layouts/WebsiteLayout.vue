@@ -28,11 +28,6 @@
         </a>
     </div>
 
-
-
-
-
-
     <Footer />
 
 </template>

@@ -583,6 +583,7 @@ export default {
       cards: 'Kartlar',
       profile: 'Profil',
       history: 'Tölegleriň taryhy',
+      applicationsHistory: 'Arzalaryň taryhy',
     },
     status: {
       notConfirmed: 'Tassyklanmady',
