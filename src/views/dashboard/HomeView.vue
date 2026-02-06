@@ -65,6 +65,14 @@
         if (['notconfirmed'].includes(v)) return 'bg-[#6F736D]/10';
         return 'bg-[#6F736D]/10';
     };
+    const paymentTitleLabel = (title) => {
+        const raw = String(title || '').trim();
+        const lower = raw.toLowerCase();
+        if (lower === 'charity') {
+            return t('dashboard.payment.charity');
+        }
+        return raw;
+    };
     const deliveryLabel = (val) => (val ? t('dashboard.orders.yes') : t('dashboard.orders.no'));
 
     const parseItems = (val) => {
@@ -633,13 +641,13 @@
                                             </div> -->
 
                                         <div v-for="payment in paymentsLimited" :key="payment.id"
-                                            class="flex flex-wrap justify-center sm:grid grid-cols-5 gap-4 sm:gap-2 px-3 py-3 border-solid border-0 border-b border-[#EEF2ED] last:border-b-0 text-center">
+                                            class="flex items-center flex-wrap justify-center sm:grid grid-cols-5 gap-4 sm:gap-2 px-3 py-3 border-solid border-0 border-b border-[#EEF2ED] last:border-b-0 text-center">
 
 
                                             <div class="flex justify-center text-center w-[calc(50%-20px)] sm:w-full">
                                                 <p
                                                     class="text-sm sm:text-[15px] font-bold leading-5 text-mainBlack capitalize font-Gilroy">
-                                                    {{ payment.title }}
+                                                    {{ paymentTitleLabel(payment.title) }}
                                                 </p>
                                             </div>
 
@@ -661,7 +669,7 @@
                                                 </p>
                                             </div>
                                             <div
-                                                :class="['px-2 py-2 sm:py-1 rounded-[8px] text-xs sm:text-[13px] font-bold w-full', statusTextClass(payment.status), statusBgClass(payment.status)]">
+                                                :class="['px-2 py-2 sm:py-2 rounded-[6px] text-xs sm:text-[13px] font-bold w-full block', statusTextClass(payment.status), statusBgClass(payment.status)]">
                                                 {{ statusLabel(payment.status) }}
                                             </div>
                                         </div>
