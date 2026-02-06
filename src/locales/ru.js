@@ -641,6 +641,7 @@ export default {
       date: 'Дата',
       description: 'Описание',
       allHistory: 'Вся история',
+      charity: 'Благотворительный фонд',
     },
 
     orders: {

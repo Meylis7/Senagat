@@ -647,6 +647,7 @@ export default {
       date: 'Date',
       description: 'Description',
       allHistory: 'All history',
+      charity: 'Charity Fund',
     },
     orders: {
       cards: 'Cards',

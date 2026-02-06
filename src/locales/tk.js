@@ -650,6 +650,7 @@ export default {
       date: 'Sene',
       description: 'Düşündiriş',
       allHistory: 'Ähli taryhy',
+      charity: 'Haýyr-sahawat gaznasy',
     },
     orders: {
       cards: 'Kartlar',
